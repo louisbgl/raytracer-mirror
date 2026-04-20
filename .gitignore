@@ -1,2 +1,8 @@
 build/
 raytracer
+
+# criterion binary
+run_tests
+
+# test results
+tests/results/
