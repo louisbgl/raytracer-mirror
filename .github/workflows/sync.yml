@@ -9,8 +9,7 @@ on:
 jobs:
   sync:
     name: mirror/main → Epitech
-    # TODO: Update this condition once the Epitech repo is created
-    # if: github.repository != 'EpitechPromo2027/B-OOP-400-MPL-4-1-raytracer-louis.baglin'
+    if: github.repository != 'EpitechPGE2-2025/G-OOP-400-MPL-4-1-raytracer-1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,13 +23,9 @@ jobs:
 
       - name: Add Epitech remote
         run: |
-          # TODO: Replace with actual Epitech repository URL once created
-          # git remote add epitech git@github.com:EpitechPromo2027/B-OOP-400-MPL-4-1-raytracer-louis.baglin.git
-          echo "Epitech repository not yet created - skipping sync"
-          exit 0
+          git remote add epitech git@github.com:EpitechPGE2-2025/G-OOP-400-MPL-4-1-raytracer-1.git
 
       - name: Push to Epitech (without .github/)
-        if: false  # Disabled until Epitech repo is created
         run: |
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
