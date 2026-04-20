@@ -24,6 +24,7 @@ private:
     double _t_max = 1000.0;
     Vec3 _baseAmbient = Vec3(0.1, 0.1, 0.15); // Slight blue
     Vec3 _backgroundColor = Vec3(0, 0, 0); // Black
+    std::string _outputFile = "output.ppm";
 
     Vec3 trace(const Ray& ray, const Scene& scene, int depth);
 };

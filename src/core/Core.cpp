@@ -26,7 +26,7 @@ bool Core::simulate() {
             image.setPixel(x, y, color);
         }
     }
-    image.writePPM("output.ppm");
+    image.writePPM(_outputFile);
     return true;
 }
 
