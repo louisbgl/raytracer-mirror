@@ -31,12 +31,12 @@ Scene SceneParser::parse(const std::string& filename) {
     parseShapes(config, materialMap, world);
 
     std::vector<std::shared_ptr<ILight>> lights;
-    parseLights(config, lights);
+    double ambientMultiplier = 0.4;
+    double diffuseMultiplier = 0.6;
+    parseLights(config, lights, ambientMultiplier, diffuseMultiplier);
 
-    // Construct final scene with all components
-    scene = Scene(world, scene.camera(), lights);
+    scene = Scene(world, scene.camera(), lights, ambientMultiplier, diffuseMultiplier);
 
-    std::cout << "Scene file parsed successfully." << std::endl;
     return scene;
 }
 
@@ -63,7 +63,6 @@ void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
             fov
         );
         scene.set_camera(camera);
-        std::cout << "Camera configured: " << width << "x" << height << ", FOV: " << fov << std::endl;
     } catch (const libconfig::SettingNotFoundException& nfex) {
         std::cerr << "Camera configuration incomplete: " << nfex.getPath() << std::endl;
     } catch (const libconfig::SettingTypeException& tex) {
@@ -87,7 +86,6 @@ void SceneParser::parseMaterials(libconfig::Config& config, std::unordered_map<s
 
                     if (material) {
                         materialMap[name] = material;
-                        std::cout << "Created material: " << name << " (type: " << matTypeName << ")" << std::endl;
                     } else {
                         std::cerr << "Failed to create material of type: " << matTypeName << std::endl;
                     }
@@ -130,7 +128,6 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
 
                     if (obj) {
                         world.add_object(obj);
-                        std::cout << "Created " << factoryType << " with material " << matName << std::endl;
                     } else {
                         std::cerr << "Failed to create shape of type: " << factoryType << std::endl;
                     }
@@ -144,9 +141,18 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
     }
 }
 
-void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights) {
+void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights,
+                              double& ambientMultiplier, double& diffuseMultiplier) {
     try {
         const libconfig::Setting& lightSettings = config.lookup("lights");
+
+        // Parse ambient and diffuse multipliers if they exist
+        if (lightSettings.exists("ambient")) {
+            ambientMultiplier = lightSettings["ambient"];
+        }
+        if (lightSettings.exists("diffuse")) {
+            diffuseMultiplier = lightSettings["diffuse"];
+        }
 
         for (int i = 0; i < lightSettings.getLength(); ++i) {
             const libconfig::Setting& lightType = lightSettings[i];
@@ -161,7 +167,6 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
 
                     if (lightObj) {
                         lights.push_back(lightObj);
-                        std::cout << "Created " << typeName << " light" << std::endl;
                     } else {
                         std::cerr << "Failed to create light of type: " << typeName << std::endl;
                     }
