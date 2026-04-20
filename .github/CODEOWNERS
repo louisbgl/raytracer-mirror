@@ -1,0 +1,8 @@
+# Code owners for raytracer project
+# These owners will be automatically requested for review when someone opens a pull request
+
+# Global owners for all files
+* @louisbgl
+
+# Add additional team members as needed:
+# * @louisbgl @teammate1 @teammate2
