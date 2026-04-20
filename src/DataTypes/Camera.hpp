@@ -5,10 +5,10 @@
 
 class Camera {
 public:
-    Camera() : _position(0, 0, 0), _look_at(0, 0, -1), _up(0, 1, 0), _fov(90), _aspect_ratio(16.0f / 9.0f) {}
-    Camera(Vec3 position, Vec3 look_at, Vec3 up, float fov, float aspect_ratio)
-        : _position(position), _look_at(look_at), _up(up),
-          _fov(fov), _aspect_ratio(aspect_ratio) {}
+    Camera() : _height(720), _width(1280), _position(0, 0, 0), _look_at(0, 0, -1), _up(0, 1, 0), _fov(90) {}
+    Camera(int height, int width, Vec3 position, Vec3 look_at, Vec3 up, float fov)
+        : _height(height), _width(width), _position(position),
+          _look_at(look_at), _up(up), _fov(fov) {}
 
     /**
      * @brief Generates a ray from the camera through the viewport at normalized coordinates (u, v).
@@ -23,7 +23,7 @@ public:
 
         float theta = _fov * M_PI / 180.0f;
         float half_height = tan(theta / 2);
-        float half_width = _aspect_ratio * half_height;
+        float half_width = (_width / _height) * half_height;
 
         Vec3 lower_left_corner = _position + forward - half_width * right - half_height * up;
         Vec3 horizontal = 2 * half_width * right;
@@ -34,9 +34,10 @@ public:
     }
 
 private:
+    int _height;
+    int _width;
     Vec3 _position;
     Vec3 _look_at;
     Vec3 _up;
     float _fov;
-    float _aspect_ratio;
 };
