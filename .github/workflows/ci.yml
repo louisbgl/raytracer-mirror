@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake g++ libcriterion-dev
+          sudo apt-get install -y cmake g++ libcriterion-dev libconfig++-dev
 
       - name: Cache CMake build
         uses: actions/cache@v4
@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake g++ libcriterion-dev
+          sudo apt-get install -y cmake g++ libcriterion-dev libconfig++-dev
 
       - name: Cache CMake build
         uses: actions/cache@v4

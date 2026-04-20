@@ -85,7 +85,7 @@ target_link_libraries(raytracer PRIVATE
 if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
     file(GLOB TEST_SOURCES tests/*.cpp)
     if(TEST_SOURCES)
-        add_executable(run_tests ${TEST_SOURCES})
+        add_executable(run_tests EXCLUDE_FROM_ALL ${TEST_SOURCES})
 
         target_include_directories(run_tests PRIVATE
             ${PROJECT_SOURCE_DIR}

@@ -1,5 +1,6 @@
 build/
 raytracer
+output.ppm
 
 # criterion binary
 run_tests
