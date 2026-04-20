@@ -66,4 +66,4 @@ FOR EACH PIXEL (x, y):
                 PixelColor += Attenuation * Trace(ScatteredRay, depth - 1)
 
     4.  ELSE (No Hit):
-        PixelColor = World.SkyColor (or Background Image)+
+        PixelColor = World.SkyColor (or Background Image)
