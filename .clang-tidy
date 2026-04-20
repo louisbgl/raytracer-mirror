@@ -5,7 +5,9 @@ Checks: >
   readability-*,
   -modernize-use-trailing-return-type,
   -readability-magic-numbers,
-  -readability-named-parameter
+  -readability-named-parameter,
+  -readability-identifier-length,
+  -bugprone-easily-swappable-parameters
 
 WarningsAsErrors: ""
 
@@ -17,7 +19,7 @@ CheckOptions:
   - key: readability-identifier-naming.ClassCase
     value: CamelCase
   - key: readability-identifier-naming.FunctionCase
-    value: camelCase
+    value: camelBack
   - key: readability-identifier-naming.VariableCase
     value: lower_case
   - key: readability-identifier-naming.MemberCase
