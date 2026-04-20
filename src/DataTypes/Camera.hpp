@@ -33,6 +33,9 @@ public:
         return Ray(_position, ray_direction);
     }
 
+    double getHeight() const { return _height; }
+    double getWidth()  const { return _width; }
+
 private:
     int _height;
     int _width;
