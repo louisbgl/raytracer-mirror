@@ -1,8 +1,3 @@
-# Code owners for raytracer project
-# These owners will be automatically requested for review when someone opens a pull request
-
-# Global owners for all files
-* @louisbgl @lucaspujol
-
-# Add additional team members as needed:
-# * @louisbgl @teammate1 @teammate2
+# Any PR targeting main requires approval from at least one of these
+# GitHub enforces: you cannot approve your own PR
+* @lucaspujol @louisbgl
