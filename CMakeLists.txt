@@ -72,7 +72,8 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
         )
 
         add_custom_target(tests_run
-            COMMAND $<TARGET_FILE:run_tests> --xml=test-results.xml || true
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/tests/results
+            COMMAND $<TARGET_FILE:run_tests> --xml=tests/results/test-results.xml || true
             DEPENDS run_tests
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
             COMMENT "Running Criterion tests..."
