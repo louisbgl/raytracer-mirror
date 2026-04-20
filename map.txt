@@ -1,0 +1,69 @@
+Vec3.hpp defines 3D vector math, its a utils class.
+
+Ray.hpp defines the Ray class, which represents a ray in 3D space with an origin and direction.
+
+HitRecord.hpp defines the HitRecord class, which stores information about a ray-object intersection.
+
+IShape.hpp defines the interface for shapes in the ray tracer, including a hit function to check for ray intersections.
+
+IMaterial.hpp defines the interface for materials, which will determine how rays interact with surfaces (reflection, refraction, etc).
+
+ILight.hpp defines the interface for light sources, which will provide information about how they illuminate the scene.
+
+World.hpp defines the World class, which essentially wraps a list of IShape objects.
+
+Camera.hpp defines the Camera class, which will generate rays based on pixel coordinates.
+
+Scene.hpp defines the Scene class, which will wrap a World, a Camera and a list of ILight sources.
+
+/!\ Core not defined yet, but it will be the main engine that runs the render loop and ties everything together.
+
+
+THE RENDER LOOP:
+1. Ray Generation (The Camera)
+    For every pixel (x,y), the ICamera plugin generates a Ray.
+    To get high-quality results (Anti-Aliasing), we'll eventually want to send multiple rays per pixel with slight offsets and average the colors.
+
+2. Intersection Search (The World)
+    The Core passes the ray to the World.
+    The World iterates through all IShape objects and finds the closest intersection where t>threshold (usually 0.001 to avoid self-intersection).
+    All the hit data (normal, point, material) is stored in a HitRecord.
+
+3. Direct Lighting & Shadows (The Lights)
+    If a hit occurs, the Core loops through all ILight sources.
+    For each light:
+        It casts a "Shadow Ray" from the hit point toward the light source.
+        If the shadow ray hits another IShape before reaching the light, that light is ignored for this pixel (it's in shadow).
+        If not, the IMaterial calculates the color contribution based on the light's intensity and the angle of the normal.
+
+4. Indirect Lighting (The Recursion)
+    If the IMaterial is reflective (mirror) or refractive (glass), it generates a new scattered Ray.
+    The Core repeats the process (Step 2) using this new ray.
+    This continues until:
+        The ray hits the sky (background).
+        The max_depth (for example 50 bounces) is reached.
+
+5. Final Pixel Integration
+    The Core combines the direct light colors, the recursive bounce colors, and the material's color (attenuation).
+    This final Vec3 is converted to a 0–255 integer range and written to your image buffer.
+
+------ THIS IS THE SAME AS: --------
+
+FOR EACH PIXEL (x, y):
+    1.  GENERATE: Ray = Camera.get_ray(x, y)
+    2.  TRACE: HitRecord = World.get_closest_hit(Ray)
+
+    3.  IF HIT:
+        a.  DIRECT LIGHT (shade):
+            Initialize PixelColor = {0, 0, 0}
+            FOR EACH Light in World:
+                IF NOT InShadow(HitPoint, Light):
+                    PixelColor += Material.shade(HitRecord, LightDir, LightColor)
+
+        b.  INDIRECT LIGHT (scatter):
+            IF Material.scatter(Ray, HitRecord, Attenuation, ScatteredRay):
+                // RECURSION START
+                PixelColor += Attenuation * Trace(ScatteredRay, depth - 1)
+
+    4.  ELSE (No Hit):
+        PixelColor = World.SkyColor (or Background Image)+

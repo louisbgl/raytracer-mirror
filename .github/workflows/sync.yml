@@ -1,0 +1,40 @@
+name: Sync to Epitech
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: mirror/main → Epitech
+    # TODO: Update this condition once the Epitech repo is created
+    # if: github.repository != 'EpitechPromo2027/B-OOP-400-MPL-4-1-raytracer-louis.baglin'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure SSH for Epitech
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EPITECH_SSH_KEY }}
+
+      - name: Add Epitech remote
+        run: |
+          # TODO: Replace with actual Epitech repository URL once created
+          # git remote add epitech git@github.com:EpitechPromo2027/B-OOP-400-MPL-4-1-raytracer-louis.baglin.git
+          echo "Epitech repository not yet created - skipping sync"
+          exit 0
+
+      - name: Push to Epitech (without .github/)
+        if: false  # Disabled until Epitech repo is created
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "github-actions"
+          git checkout -b epitech-sync
+          git rm -r --cached .github/
+          git commit -m "chore: remove mirror-only files for Epitech delivery"
+          git push epitech epitech-sync:main --force
