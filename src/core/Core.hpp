@@ -20,6 +20,10 @@ public:
 private:
     std::string _inputFile;
     Scene _scene;
+    double _t_min = 0.001;
+    double _t_max = 1000.0;
+    Vec3 _baseAmbient = Vec3(0.1, 0.1, 0.15); // Slight blue
+    Vec3 _backgroundColor = Vec3(0, 0, 0); // Black
 
     Vec3 trace(const Ray& ray, const Scene& scene, int depth);
 };
