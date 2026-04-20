@@ -17,7 +17,7 @@ public:
      * @param ray The ray to check.
      * @param t_min The minimum t-value.
      * @param t_max The maximum t-value.
-     * @param record The hit record to fill if a hit is found.
+     * @param record [OUT] The hit record to fill if a hit is found.
      * @return True if a hit is found, false otherwise.
      */
     virtual bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const = 0;
