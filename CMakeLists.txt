@@ -20,6 +20,27 @@ include(FetchContent)
 # FetchContent-built libraries land in lib/deps/
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
+# ── libconfig++ ────────────────────────────────────────────────────────────────
+# Try system package first, fallback to manual find
+find_package(PkgConfig)
+if(PkgConfig_FOUND)
+    pkg_check_modules(LIBCONFIG++ libconfig++)
+endif()
+
+if(NOT LIBCONFIG++_FOUND)
+    # Try to find it manually
+    find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
+    find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+
+    if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
+        set(LIBCONFIG++_FOUND TRUE)
+        set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
+        set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
+    else()
+        message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+    endif()
+endif()
+
 # ── Criterion ──────────────────────────────────────────────────────────────────
 # Try system package first, fallback to FetchContent
 find_library(CRITERION_LIB NAMES criterion)
@@ -41,6 +62,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 add_executable(raytracer
     src/main.cpp
     src/core/Image.cpp
+    src/core/Core.cpp
+    src/parsers/SceneParser.cpp
     src/plugins/Shapes/Sphere.cpp           # TODO: REMOVE
     src/plugins/Materials/Lambertian.cpp    # TODO: REMOVE
     src/plugins/Lights/PointLight.cpp       # TODO: REMOVE
@@ -48,10 +71,13 @@ add_executable(raytracer
 
 target_include_directories(raytracer PRIVATE
     ${PROJECT_SOURCE_DIR}/src
+    ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
+    ${LIBCONFIG++_LIBRARIES}
+    dl  # For plugin loading (libdl)
 )
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
