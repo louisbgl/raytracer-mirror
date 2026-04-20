@@ -32,4 +32,4 @@ jobs:
           git checkout -b epitech-sync
           git rm -r --cached .github/
           git commit -m "chore: remove mirror-only files for Epitech delivery"
-          git push epitech epitech-sync:main --force
+          git push epitech epitech-sync:main --force || git push epitech epitech-sync:main
