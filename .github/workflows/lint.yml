@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake g++ clang-tidy libcriterion-dev
+          sudo apt-get install -y cmake g++ clang-tidy libcriterion-dev libconfig++-dev
 
       - name: Generate compile_commands.json
         run: cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
