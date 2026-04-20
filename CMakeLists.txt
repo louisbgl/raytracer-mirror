@@ -63,6 +63,7 @@ add_executable(raytracer
     src/main.cpp
     src/core/Image.cpp
     src/core/Core.cpp
+    src/parsers/SceneParser.cpp
     src/plugins/Shapes/Sphere.cpp           # TODO: REMOVE
     src/plugins/Materials/Lambertian.cpp    # TODO: REMOVE
     src/plugins/Lights/PointLight.cpp       # TODO: REMOVE
