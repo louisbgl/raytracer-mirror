@@ -41,6 +41,6 @@ std::shared_ptr<ILight> LightFactory::_createPointLight(const libconfig::Setting
 
     double intensity = config["intensity"];
 
-    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double)>(_createFunctions["point"]);
-    return std::shared_ptr<ILight>(createFunc(px, py, pz, cr * intensity, cg * intensity, cb * intensity));
+    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(_createFunctions["point"]);
+    return std::shared_ptr<ILight>(createFunc(px, py, pz, cr, cg, cb, intensity));
 }
