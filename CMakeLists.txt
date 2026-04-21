@@ -29,15 +29,28 @@ endif()
 
 if(NOT LIBCONFIG++_FOUND)
     # Try to find it manually
-    find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
-    find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+    if(APPLE)
+        # Homebrew paths on macOS
+        find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++
+            PATHS /opt/homebrew/opt/libconfig/include /usr/local/include /usr/include)
+        find_library(LIBCONFIG++_LIBRARY NAMES config++
+            PATHS /opt/homebrew/opt/libconfig/lib /usr/local/lib /usr/lib)
+    else()
+        # Linux paths
+        find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
+        find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+    endif()
 
     if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
         set(LIBCONFIG++_FOUND TRUE)
         set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
         set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
     else()
-        message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+        if(APPLE)
+            message(FATAL_ERROR "libconfig++ not found. Please install it with: brew install libconfig")
+        else()
+            message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+        endif()
     endif()
 endif()
 
@@ -75,11 +88,27 @@ target_include_directories(raytracer PRIVATE
     ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
+# On macOS, explicitly add Homebrew lib directory to linker search path
+if(APPLE)
+    target_link_directories(raytracer PRIVATE /opt/homebrew/lib /opt/homebrew/opt/libconfig/lib)
+endif()
+
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
     ${LIBCONFIG++_LIBRARIES}
-    dl  # For plugin loading (libdl)
 )
+
+# Link libdl on Linux (not needed on macOS)
+if(NOT APPLE)
+    target_link_libraries(raytracer PRIVATE dl)
+endif()
+
+# Set platform-specific plugin extension
+if(APPLE)
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".dylib")
+else()
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".so")
+endif()
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 # Placeholder test executable (update with actual test files when available)
@@ -121,10 +150,17 @@ function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
         raytracer_flags
     )
 
+    # Set platform-specific extension
+    if(APPLE)
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".dylib")
+    else()
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".so")
+    endif()
+
     # Set output directory based on plugin type
     set_target_properties(${PLUGIN_NAME} PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/${PLUGIN_TYPE}
-        PREFIX ""  # Remove 'lib' prefix from .so files
+        PREFIX ""  # Remove 'lib' prefix from .so/.dylib files
     )
 endfunction()
 
