@@ -141,3 +141,24 @@ add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/materials)
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
+
+# Convenience targets for building groups of plugins
+add_custom_target(shapes
+    DEPENDS sphere
+    COMMENT "Building all shape plugins..."
+)
+
+add_custom_target(materials
+    DEPENDS lambertian
+    COMMENT "Building all material plugins..."
+)
+
+add_custom_target(lights
+    DEPENDS pointlight
+    COMMENT "Building all light plugins..."
+)
+
+add_custom_target(plugins
+    DEPENDS shapes materials lights
+    COMMENT "Building all plugins..."
+)
