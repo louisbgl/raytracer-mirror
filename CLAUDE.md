@@ -13,6 +13,7 @@ This document provides comprehensive documentation for the raytracer project, in
 - [Scene Configuration](#scene-configuration)
 - [Design Patterns](#design-patterns)
 - [Memory Management](#memory-management)
+- [CLI Interface](#cli-interface)
 - [Future Improvements](#future-improvements)
 
 ---
@@ -665,6 +666,33 @@ Prevents C++ name mangling, ensuring the symbol "create" can be found via `dlsym
 - No external image library needed
 - Easy to convert to PNG/JPG with external tools
 - Specified in project requirements
+
+---
+
+## CLI Interface
+
+### Help Function
+
+**Location:** `src/main.cpp` (main.cpp:4-15)
+
+**Purpose:** Display available shapes, materials, and lights to help users understand what features are currently implemented in the raytracer.
+
+**Invocation:**
+```bash
+./raytracer --help
+# or
+./raytracer
+```
+
+**Current Implementation:**
+The `help()` function lists:
+- **Shapes:** Sphere, Cylinder (with their parameters)
+- **Materials:** Lambertian, Transparent (with their parameters)
+- **Lights:** PointLight (with its parameters)
+
+**Design Decision:** Whenever new plugins are added (shapes, materials, lights), the help function should be updated to reflect the new capabilities. This provides users with a quick reference without needing to read documentation or source code.
+
+**Maintenance:** Remember to update the help function when adding new plugins to keep it in sync with actual capabilities.
 
 ---
 
