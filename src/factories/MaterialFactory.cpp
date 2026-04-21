@@ -6,7 +6,7 @@ std::unordered_map<std::string, void*> MaterialFactory::_createFunctions;
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
         {"lambertian", _createLambertian},
-        {"Lambertian", _createLambertian},  // Support both cases
+        {"transparent", _createTransparent}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -44,4 +44,15 @@ std::shared_ptr<IMaterial> MaterialFactory::_createLambertian(const libconfig::S
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["lambertian"]);
     return std::shared_ptr<IMaterial>(createFunc(r / 255.0, g / 255.0, b / 255.0));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::Setting& config) {
+    double opacity = config["opacity"];
+    double refractiveIndex = config["refractiveIndex"];
+    int r = config["color"]["r"];
+    int g = config["color"]["g"];
+    int b = config["color"]["b"];
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, Vec3)>(_createFunctions["transparent"]);
+    return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, Vec3(r / 255.0, g / 255.0, b / 255.0)));
 }
