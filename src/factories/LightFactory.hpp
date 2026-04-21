@@ -1,10 +1,11 @@
 #pragma once
 
 #include "../Interfaces/ILight.hpp"
-#include "../plugins/Lights/PointLight.hpp"
+#include "../core/PluginLoader.hpp"
 #include <libconfig.h++>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 class LightFactory {
 public:
@@ -17,23 +18,20 @@ public:
     static std::shared_ptr<ILight> create(
         const std::string& type,
         const libconfig::Setting& config
-    ) {
-        if (type == "point") {
-            double px = config["position"]["x"];
-            double py = config["position"]["y"];
-            double pz = config["position"]["z"];
+    );
 
-            int cr = config["color"]["r"];
-            int cg = config["color"]["g"];
-            int cb = config["color"]["b"];
+private:
+    using LightCreator = std::shared_ptr<ILight>(*)(const libconfig::Setting&);
 
-            double intensity = config["intensity"];
+    static PluginLoader _pluginLoader;
+    static std::unordered_map<std::string, void*> _createFunctions;
 
-            return std::make_shared<PointLight>(
-                Vec3(px, py, pz),
-                Vec3(cr, cg, cb) * intensity
-            );
-        }
-        return nullptr;
-    }
+    /**
+     * @brief Tries to ensure the plugin for the specified type is loaded.
+     * @param type The type of plugin to ensure (e.g., "point").
+     * @return True if the plugin is loaded successfully, false otherwise.
+     */
+    static bool _ensureLoaded(const std::string& type);
+
+    static std::shared_ptr<ILight> _createPointLight(const libconfig::Setting& config);
 };
