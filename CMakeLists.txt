@@ -133,6 +133,7 @@ add_raytracer_plugin(sphere shapes src/plugins/Shapes/Sphere.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
