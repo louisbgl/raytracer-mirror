@@ -1,5 +1,5 @@
 build/
-plugins/
+*.so
 raytracer
 output.ppm
 
