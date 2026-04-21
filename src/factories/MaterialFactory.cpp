@@ -43,7 +43,7 @@ std::shared_ptr<IMaterial> MaterialFactory::_createLambertian(const libconfig::S
     int b = config["color"]["b"];
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["lambertian"]);
-    return std::shared_ptr<IMaterial>(createFunc(r / 255.0, g / 255.0, b / 255.0));
+    return std::shared_ptr<IMaterial>(createFunc(r, g, b));
 }
 
 std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::Setting& config) {
@@ -53,6 +53,6 @@ std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::
     int g = config["color"]["g"];
     int b = config["color"]["b"];
 
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, Vec3)>(_createFunctions["transparent"]);
-    return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, Vec3(r / 255.0, g / 255.0, b / 255.0)));
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(_createFunctions["transparent"]);
+    return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, r, g, b));
 }
