@@ -31,7 +31,7 @@ bool Core::simulate() {
 }
 
 Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
-    if (depth <= 0) return Vec3(0, 0, 0);
+    if (depth <= 0) return _backgroundColor;
 
     HitRecord record;
     if (scene.world().get_closest_hit(ray, _t_min, _t_max, record)) {
