@@ -1,0 +1,39 @@
+# Simple scene showcasing spheres and cylinders together
+camera:
+{
+    resolution = { width = 800; height = 600; };
+    position = { x = 0.0; y = 1.0; z = -4.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        { position = { x = -0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "green"; },
+        { position = { x = 0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "green"; },
+        { position = { x = 0.0; y = 1.5; z = 0.0; }; radius = 0.3; material = "green"; }
+    );
+
+    cylinders = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "green"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.3;
+    diffuse = 0.7;
+
+    point = (
+        { position = { x = 0.0; y = 2.0; z = -4.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; }
+    );
+};
