@@ -33,3 +33,7 @@ bool Sphere::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
 
     return true;
 }
+
+extern "C" IShape* create(double x, double y, double z, double radius, std::shared_ptr<IMaterial>* material) {
+    return new Sphere(Vec3(x, y, z), radius, *material);
+}

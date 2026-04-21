@@ -8,3 +8,7 @@ double PointLight::get_light_data(const Vec3& hit_point, Vec3& direction, Vec3& 
     color = _color / (distance * distance);
     return distance;
 }
+
+extern "C" ILight* create(double x, double y, double z, double r, double g, double b) {
+    return new PointLight(Vec3(x, y, z), Vec3(r, g, b));
+}
