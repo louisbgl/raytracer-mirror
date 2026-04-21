@@ -1,5 +1,7 @@
 build/
+*.so
 raytracer
+*.ppm
 
 # criterion binary
 run_tests

@@ -20,6 +20,27 @@ include(FetchContent)
 # FetchContent-built libraries land in lib/deps/
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
+# ── libconfig++ ────────────────────────────────────────────────────────────────
+# Try system package first, fallback to manual find
+find_package(PkgConfig)
+if(PkgConfig_FOUND)
+    pkg_check_modules(LIBCONFIG++ libconfig++)
+endif()
+
+if(NOT LIBCONFIG++_FOUND)
+    # Try to find it manually
+    find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
+    find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+
+    if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
+        set(LIBCONFIG++_FOUND TRUE)
+        set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
+        set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
+    else()
+        message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+    endif()
+endif()
+
 # ── Criterion ──────────────────────────────────────────────────────────────────
 # Try system package first, fallback to FetchContent
 find_library(CRITERION_LIB NAMES criterion)
@@ -41,17 +62,23 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 add_executable(raytracer
     src/main.cpp
     src/core/Image.cpp
-    src/plugins/Shapes/Sphere.cpp           # TODO: REMOVE
-    src/plugins/Materials/Lambertian.cpp    # TODO: REMOVE
-    src/plugins/Lights/PointLight.cpp       # TODO: REMOVE
+    src/core/Core.cpp
+    src/core/PluginLoader.cpp
+    src/parsers/SceneParser.cpp
+    src/factories/ShapeFactory.cpp
+    src/factories/MaterialFactory.cpp
+    src/factories/LightFactory.cpp
 )
 
 target_include_directories(raytracer PRIVATE
     ${PROJECT_SOURCE_DIR}/src
+    ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
+    ${LIBCONFIG++_LIBRARIES}
+    dl  # For plugin loading (libdl)
 )
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
@@ -59,7 +86,7 @@ target_link_libraries(raytracer PRIVATE
 if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
     file(GLOB TEST_SOURCES tests/*.cpp)
     if(TEST_SOURCES)
-        add_executable(run_tests ${TEST_SOURCES})
+        add_executable(run_tests EXCLUDE_FROM_ALL ${TEST_SOURCES})
 
         target_include_directories(run_tests PRIVATE
             ${PROJECT_SOURCE_DIR}
@@ -80,3 +107,58 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
         )
     endif()
 endif()
+
+# ── Plugins ────────────────────────────────────────────────────────────────────
+# Helper function to create plugin targets
+function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
+    add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE})
+
+    target_include_directories(${PLUGIN_NAME} PRIVATE
+        ${PROJECT_SOURCE_DIR}/src
+    )
+
+    target_link_libraries(${PLUGIN_NAME} PRIVATE
+        raytracer_flags
+    )
+
+    # Set output directory based on plugin type
+    set_target_properties(${PLUGIN_NAME} PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/${PLUGIN_TYPE}
+        PREFIX ""  # Remove 'lib' prefix from .so files
+    )
+endfunction()
+
+# Shape plugins
+add_raytracer_plugin(sphere shapes src/plugins/Shapes/Sphere.cpp)
+
+# Material plugins
+add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+
+# Light plugins
+add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
+
+# Create plugin directories
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/materials)
+file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
+
+# Convenience targets for building groups of plugins
+add_custom_target(shapes
+    DEPENDS sphere
+    COMMENT "Building all shape plugins..."
+)
+
+add_custom_target(materials
+    DEPENDS lambertian
+    COMMENT "Building all material plugins..."
+)
+
+add_custom_target(lights
+    DEPENDS pointlight
+    COMMENT "Building all light plugins..."
+)
+
+add_custom_target(plugins
+    DEPENDS shapes materials lights
+    COMMENT "Building all plugins..."
+)

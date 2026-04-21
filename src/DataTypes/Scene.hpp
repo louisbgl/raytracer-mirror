@@ -6,9 +6,11 @@
 
 class Scene {
 public:
-    Scene() = default;
-    Scene(World world, Camera camera, std::vector<std::shared_ptr<ILight>> lights)
-        : _world(std::move(world)), _camera(std::move(camera)), _lights(std::move(lights)) {}
+    Scene() : _ambientMultiplier(0.4), _diffuseMultiplier(0.6) {}
+    Scene(World world, Camera camera, std::vector<std::shared_ptr<ILight>> lights,
+          double ambientMultiplier = 0.4, double diffuseMultiplier = 0.6)
+        : _world(std::move(world)), _camera(std::move(camera)), _lights(std::move(lights)),
+          _ambientMultiplier(ambientMultiplier), _diffuseMultiplier(diffuseMultiplier) {}
 
     /**
      * @brief Gets the world of the scene.
@@ -39,6 +41,18 @@ public:
      * @return A reference to the vector of lights.
      */
     const std::vector<std::shared_ptr<ILight>>& lights() const { return _lights; }
+
+    /**
+     * @brief Gets the ambient light multiplier.
+     * @return The ambient multiplier value.
+     */
+    double ambientMultiplier() const { return _ambientMultiplier; }
+
+    /**
+     * @brief Gets the diffuse light multiplier.
+     * @return The diffuse multiplier value.
+     */
+    double diffuseMultiplier() const { return _diffuseMultiplier; }
 
     /**
      * @brief Sets the world of the scene.
@@ -93,4 +107,6 @@ private:
     World _world;
     Camera _camera;
     std::vector<std::shared_ptr<ILight>> _lights;
+    double _ambientMultiplier;
+    double _diffuseMultiplier;
 };
