@@ -2,6 +2,10 @@
 
 #include "../../Interfaces/IShape.hpp"
 
+/**
+ * @brief Represents a finite cylinder shape in the ray tracer.
+ * @note pos represents the center of the cylinder's base, and the cylinder extends upwards along the y-axis.
+ */
 class Cylinder : public IShape {
 public:
     Cylinder(Vec3 pos, double radius, double height, std::shared_ptr<IMaterial> material);
