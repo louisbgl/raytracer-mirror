@@ -21,35 +21,36 @@ include(FetchContent)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
 # ── libconfig++ ────────────────────────────────────────────────────────────────
-# Try system package first, fallback to manual find
-find_package(PkgConfig)
+# Try system package first (fast path), fallback to FetchContent
+find_package(PkgConfig QUIET)
 if(PkgConfig_FOUND)
-    pkg_check_modules(LIBCONFIG++ libconfig++)
+    pkg_check_modules(LIBCONFIG++ QUIET libconfig++)
 endif()
 
 if(NOT LIBCONFIG++_FOUND)
-    # Try to find it manually
-    if(APPLE)
-        # Homebrew paths on macOS
-        find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++
-            PATHS /opt/homebrew/opt/libconfig/include /usr/local/include /usr/include)
-        find_library(LIBCONFIG++_LIBRARY NAMES config++
-            PATHS /opt/homebrew/opt/libconfig/lib /usr/local/lib /usr/lib)
-    else()
-        # Linux paths
-        find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
-        find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
-    endif()
+    message(STATUS "libconfig++ not found in system, downloading with FetchContent...")
+    FetchContent_Declare(libconfig
+        GIT_REPOSITORY https://github.com/hyperrealm/libconfig.git
+        GIT_TAG v1.8.2)
 
-    if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
-        set(LIBCONFIG++_FOUND TRUE)
-        set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
-        set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
-    else()
+    # Disable examples and tests to avoid build issues
+    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+
+    FetchContent_MakeAvailable(libconfig)
+
+    set(LIBCONFIG++_FOUND TRUE)
+    set(LIBCONFIG++_INCLUDE_DIRS ${libconfig_SOURCE_DIR}/lib ${libconfig_BINARY_DIR}/lib)
+    set(LIBCONFIG++_LIBRARIES config++)
+    set(LIBCONFIG++_LIBRARY_DIRS "")
+else()
+    message(STATUS "Found system libconfig++ (${LIBCONFIG++_LIBRARIES})")
+    # Ensure library directories are included for system package
+    if(NOT LIBCONFIG++_LIBRARY_DIRS)
         if(APPLE)
-            message(FATAL_ERROR "libconfig++ not found. Please install it with: brew install libconfig")
+            set(LIBCONFIG++_LIBRARY_DIRS /opt/homebrew/lib /opt/homebrew/opt/libconfig/lib /usr/local/lib)
         else()
-            message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+            set(LIBCONFIG++_LIBRARY_DIRS /usr/lib /usr/local/lib)
         endif()
     endif()
 endif()
@@ -88,10 +89,7 @@ target_include_directories(raytracer PRIVATE
     ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
-# On macOS, explicitly add Homebrew lib directory to linker search path
-if(APPLE)
-    target_link_directories(raytracer PRIVATE /opt/homebrew/lib /opt/homebrew/opt/libconfig/lib)
-endif()
+target_link_directories(raytracer PRIVATE ${LIBCONFIG++_LIBRARY_DIRS})
 
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
