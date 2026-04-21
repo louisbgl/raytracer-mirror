@@ -2,7 +2,7 @@
 camera:
 {
     resolution = { width = 800; height = 600; };
-    position = { x = 0.0; y = 2.0; z = 3.0; };
+    position = { x = 0.0; y = 0.5; z = 3.0; };
     look_at = { x = 0.0; y = 0.0; z = -1.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 90.0;
@@ -31,10 +31,10 @@ shapes:
     # List of spheres
     spheres = (
         # Large ground sphere (fake floor)
-        { position = { x = 0.0; y = -100.5; z = 0.0; }; radius = 100.0; material = "glass"; },
+        { position = { x = 0.0; y = -100.5; z = 0.0; }; radius = 100.0; material = "ground"; },
 
         # Center sphere
-        { position = { x = 0.0; y = 0.0; z = -1.0; }; radius = 0.8; material = "blue"; },
+        { position = { x = 0.0; y = 0.0; z = -1.0; }; radius = 0.8; material = "glass"; },
 
         # Left sphere
         { position = { x = -2.0; y = 0.0; z = -2.0; }; radius = 0.7; material = "red"; },
