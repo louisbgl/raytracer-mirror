@@ -20,7 +20,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
 bool ShapeFactory::_ensureLoaded(const std::string& type) {
     if (_createFunctions.find(type) != _createFunctions.end()) return true;
 
-    std::string pluginPath = "./plugins/shapes/" + type + ".so";
+    std::string pluginPath = "./plugins/shapes/" + type + PLUGIN_EXTENSION;
     if (!_pluginLoader.load(pluginPath)) return false;
 
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
