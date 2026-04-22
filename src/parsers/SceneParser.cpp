@@ -108,7 +108,9 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             std::string typeName = shapeType.getName();
 
             std::string factoryType = typeName;
-            if (factoryType.back() == 's') {
+            if (typeName == "boxes") {
+                factoryType = "box";
+            } else if (factoryType.back() == 's') {
                 factoryType.pop_back();  // "spheres" -> "sphere"
             }
 
