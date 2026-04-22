@@ -23,7 +23,7 @@ public:
 
         float theta = _fov * M_PI / 180.0f;
         float half_height = tan(theta / 2);
-        float half_width = (_width / _height) * half_height;
+        float half_width = (static_cast<float>(_width) / static_cast<float>(_height)) * half_height;
 
         Vec3 lower_left_corner = _position + forward - half_width * right - half_height * up;
         Vec3 horizontal = 2 * half_width * right;
