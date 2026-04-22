@@ -183,8 +183,7 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
-    DEPENDS sphere cylinder rectangle
-    DEPENDS sphere cylinder limited_cylinder plane
+    DEPENDS sphere cylinder rectangle limited_cylinder plane
     COMMENT "Building all shape plugins..."
 )
 
