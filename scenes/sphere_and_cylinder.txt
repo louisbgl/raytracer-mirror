@@ -1,9 +1,9 @@
 # Simple scene showcasing spheres and cylinders together
 camera:
 {
-    resolution = { width = 800; height = 600; };
-    position = { x = 3.0; y = 2.0; z = 4.0; };
-    look_at = { x = 0.0; y = 0.5; z = 0.0; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 3.0; y = 1.0; z = 4.0; };
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
 };
@@ -30,8 +30,12 @@ shapes:
 
     cylinders = (
         { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "glass"; },
-        { position = { x = -2.5; y = 0.0; z = -1.5; }; radius = 0.2; height = 1.0; material = "orange"; },
+        { position = { x = -2.5; y = 0.0; z = -1.5; }; radius = 1.2; height = 2.0; material = "orange"; },
         { position = { x = 1.5; y = 0.0; z = -1.5; }; radius = 0.2; height = 0.8; material = "purple"; }
+    );
+
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
     );
 };
 
