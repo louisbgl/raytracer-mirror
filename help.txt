@@ -8,6 +8,7 @@ Shapes:
 	Box (position (x, y, z), width, height, depth, orientation, material)
 	LimitedCylinder (position (x, y, z), radius, height, material)
 	Plane (position (x, y, z), normal (nx, ny, nz), material)
+	Tanglecube (position (x, y, z), scale, material)
 Materials:
 	Lambertian (name, color (r, g, b))
 	Transparent (name, opacity, refractiveIndex, color (r, g, b))
