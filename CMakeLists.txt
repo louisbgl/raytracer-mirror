@@ -141,7 +141,9 @@ endif()
 # ── Plugins ────────────────────────────────────────────────────────────────────
 # Helper function to create plugin targets
 function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
-    add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE})
+    # Accept additional sources after the main source file
+    set(ADDITIONAL_SOURCES ${ARGN})
+    add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ADDITIONAL_SOURCES})
 
     target_include_directories(${PLUGIN_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/src
@@ -171,6 +173,7 @@ add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
 add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp)
 add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
+add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
 
 # Material plugins
 add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
@@ -186,7 +189,7 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
-    DEPENDS sphere cylinder rectangle limited_cylinder plane
+    DEPENDS sphere cylinder rectangle limited_cylinder plane torus
     COMMENT "Building all shape plugins..."
 )
 
