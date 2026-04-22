@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Raytracer CXX)
+project(Raytracer C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -113,7 +113,10 @@ endif()
 if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
     file(GLOB TEST_SOURCES tests/*.cpp)
     if(TEST_SOURCES)
-        add_executable(run_tests EXCLUDE_FROM_ALL ${TEST_SOURCES})
+        add_executable(run_tests EXCLUDE_FROM_ALL
+            ${TEST_SOURCES}
+            src/Math/Roots3And4.c
+        )
 
         target_include_directories(run_tests PRIVATE
             ${PROJECT_SOURCE_DIR}
