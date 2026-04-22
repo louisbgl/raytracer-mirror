@@ -143,9 +143,6 @@ endif()
 # Helper function to create plugin targets (accepts multiple source files via ARGN)
 function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
     add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ARGN})
-    # Accept additional sources after the main source file
-    set(ADDITIONAL_SOURCES ${ARGN})
-    add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ADDITIONAL_SOURCES})
 
     target_include_directories(${PLUGIN_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/src

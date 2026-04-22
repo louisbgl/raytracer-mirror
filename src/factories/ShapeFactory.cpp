@@ -10,10 +10,8 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"limited_cylinder", _createLimitedCylinder},
         {"rectangle", _createRectangle},
         {"box", _createBox},
-        {"limited_cylinder", _createLimitedCylinder},
         {"plane", _createPlane},
-        {"tanglecube", _createTanglecube}
-        {"plane", _createPlane},
+        {"tanglecube", _createTanglecube},
         {"torus", _createTorus}
     };
 
@@ -110,6 +108,8 @@ std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting
     double scale = config["scale"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["tanglecube"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, scale, &material));
+}
+
 std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
