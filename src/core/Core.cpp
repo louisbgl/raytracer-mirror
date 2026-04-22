@@ -1,7 +1,9 @@
 #include "Core.hpp"
+
+#include <iostream>
+
 #include "../parsers/SceneParser.hpp"
 #include "Image.hpp"
-#include <iostream>
 
 bool Core::simulate() {
     try {
@@ -44,8 +46,10 @@ Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
             Ray shadowRay(record.point, lightDir);
             HitRecord shadowRecord;
 
+            Vec3 viewDir = -ray.direction();
             if (!scene.world().get_closest_hit(shadowRay, _t_min, lightDistance, shadowRecord)) {
-                color += record.material->shade(record, lightDir, lightColor) * scene.diffuseMultiplier();
+                color += record.material->shade(record, lightDir, lightColor, viewDir) *
+                         scene.diffuseMultiplier();
             }
         }
 
