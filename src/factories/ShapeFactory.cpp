@@ -50,3 +50,13 @@ std::shared_ptr<IShape> ShapeFactory::_createCylinder(const libconfig::Setting& 
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cylinder"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, radius, height, &material));
 }
+
+std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double width = config["width"];
+    double height = config["height"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["rectangle"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, &material));
+}
