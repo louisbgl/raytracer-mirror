@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classIMaterial.html" title="Interface for materials that define how rays interact with surfaces." alt="" coords="5,55,85,80"/>
+<area shape="rect" id="Node000001" href="$classColoredDiffuse.html" title=" " alt="" coords="133,5,252,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="96,48,153,28,155,33,98,53"/>
+<area shape="rect" id="Node000002" href="$classLambertian.html" title=" " alt="" coords="145,55,241,80"/>
+<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="99,65,144,65,144,70,99,70"/>
+<area shape="rect" id="Node000003" href="$classTransparent.html" title=" " alt="" coords="143,104,242,129"/>
+<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="98,82,155,101,153,106,96,87"/>
+</map>

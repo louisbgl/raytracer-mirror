@@ -1,0 +1,7 @@
+<map id="ILight" name="ILight">
+<area shape="rect" id="Node000001" title="Interface for light sources in the scene." alt="" coords="104,5,163,31"/>
+<area shape="rect" id="Node000002" href="$classDirectionalLight.html" title=" " alt="" coords="5,79,131,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,43,81,80,77,77,111,39"/>
+<area shape="rect" id="Node000003" href="$classPointLight.html" title=" " alt="" coords="155,79,242,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,39,190,77,186,80,151,43"/>
+</map>

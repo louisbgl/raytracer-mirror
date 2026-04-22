@@ -1,0 +1,19 @@
+<map id="IShape" name="IShape">
+<area shape="rect" id="Node000001" title="Interface for shapes that can be hit by rays." alt="" coords="370,5,437,31"/>
+<area shape="rect" id="Node000002" href="$classBox.html" title=" " alt="" coords="5,79,52,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="357,28,224,48,64,81,53,84,51,79,63,76,223,43,356,23"/>
+<area shape="rect" id="Node000003" href="$classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer." alt="" coords="76,79,152,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="357,33,153,83,151,78,356,28"/>
+<area shape="rect" id="Node000004" href="$classLimitedCylinder.html" title="Represents a finite cylinder shape in the ray tracer." alt="" coords="177,79,302,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="365,39,267,81,265,76,363,34"/>
+<area shape="rect" id="Node000005" href="$classPlane.html" title=" " alt="" coords="326,79,385,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="390,44,365,80,361,77,386,41"/>
+<area shape="rect" id="Node000006" href="$classRectangle.html" title=" " alt="" coords="409,79,496,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="421,41,447,77,442,80,417,44"/>
+<area shape="rect" id="Node000007" href="$classSphere.html" title=" " alt="" coords="521,79,587,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="441,34,530,76,528,81,439,39"/>
+<area shape="rect" id="Node000008" href="$classTanglecube.html" title=" " alt="" coords="612,79,707,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="451,30,619,76,618,81,450,35"/>
+<area shape="rect" id="Node000009" href="$classTorus.html" title=" " alt="" coords="731,79,787,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="451,24,573,46,720,76,732,79,730,84,719,81,572,51,450,29"/>
+</map>

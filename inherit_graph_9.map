@@ -1,0 +1,19 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="5,179,72,204"/>
+<area shape="rect" id="Node000001" href="$classBox.html" title=" " alt="" coords="159,5,206,31"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="45,165,71,103,92,69,118,40,138,28,158,20,160,25,140,32,122,44,96,73,76,106,50,167"/>
+<area shape="rect" id="Node000002" href="$classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer." alt="" coords="145,55,221,80"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="52,165,80,127,118,89,143,76,145,81,122,93,84,130,57,168"/>
+<area shape="rect" id="Node000003" href="$classLimitedCylinder.html" title="Represents a finite cylinder shape in the ray tracer." alt="" coords="120,104,245,129"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="68,169,119,138,144,127,146,132,121,143,71,173"/>
+<area shape="rect" id="Node000004" href="$classPlane.html" title=" " alt="" coords="153,153,212,179"/>
+<area shape="poly" id="edge9_Node000000_Node000004" title=" " alt="" coords="85,181,153,168,154,174,86,186"/>
+<area shape="rect" id="Node000005" href="$classRectangle.html" title=" " alt="" coords="139,203,226,228"/>
+<area shape="poly" id="edge10_Node000000_Node000005" title=" " alt="" coords="86,196,140,206,139,211,85,202"/>
+<area shape="rect" id="Node000006" href="$classSphere.html" title=" " alt="" coords="149,252,216,277"/>
+<area shape="poly" id="edge11_Node000000_Node000006" title=" " alt="" coords="72,209,121,237,150,250,148,255,119,242,69,214"/>
+<area shape="rect" id="Node000007" href="$classTanglecube.html" title=" " alt="" coords="135,301,230,327"/>
+<area shape="poly" id="edge12_Node000000_Node000007" title=" " alt="" coords="57,214,85,251,122,287,143,299,141,304,118,291,81,255,53,218"/>
+<area shape="rect" id="Node000008" href="$classTorus.html" title=" " alt="" coords="155,351,211,376"/>
+<area shape="poly" id="edge13_Node000000_Node000008" title=" " alt="" coords="51,216,77,276,97,308,122,336,138,347,155,354,153,359,135,351,118,340,93,311,72,278,46,218"/>
+</map>

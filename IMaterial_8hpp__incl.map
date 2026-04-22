@@ -1,0 +1,14 @@
+<map id="src/Interfaces/IMaterial.hpp" name="src/Interfaces/IMaterial.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="33,5,233,31"/>
+<area shape="rect" id="Node000002" href="$Vec3_8hpp.html" title=" " alt="" coords="50,152,215,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,32,114,54,103,79,102,95,105,110,118,139,113,141,100,112,97,95,98,78,109,51,122,29"/>
+<area shape="rect" id="Node000006" href="$Ray_8hpp.html" title=" " alt="" coords="113,79,270,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="144,29,175,67,171,70,140,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,68,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,180,65,219,62,215,116,175"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="93,225,173,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="135,178,135,212,130,212,130,178"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="197,225,284,251"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="151,175,213,215,210,220,149,180"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="184,106,153,143,149,140,180,103"/>
+</map>

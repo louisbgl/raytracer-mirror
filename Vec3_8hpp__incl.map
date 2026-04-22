@@ -1,0 +1,9 @@
+<map id="src/DataTypes/Vec3.hpp" name="src/DataTypes/Vec3.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,5,221,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,68,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,33,65,72,62,68,116,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,79,173,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,31,135,65,130,65,130,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="197,79,284,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,28,213,69,210,73,149,33"/>
+</map>
