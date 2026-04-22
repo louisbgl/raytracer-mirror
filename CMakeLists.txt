@@ -181,7 +181,6 @@ add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredD
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
-add_raytracer_plugin(directionallight lights src/plugins/Lights/DirectionalLight.cpp)
 
 # Create plugin directories
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
@@ -200,7 +199,7 @@ add_custom_target(materials
 )
 
 add_custom_target(lights
-    DEPENDS pointlight directionallight
+    DEPENDS pointlight
     COMMENT "Building all light plugins..."
 )
 
