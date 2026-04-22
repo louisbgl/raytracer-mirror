@@ -36,4 +36,5 @@ private:
     static bool _ensureLoaded(const std::string& type);
 
     static std::shared_ptr<IShape> _createSphere(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 };
