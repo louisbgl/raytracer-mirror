@@ -1,0 +1,45 @@
+// Light color showcase — pure white surfaces, low ambient, each light spatially separated
+camera:
+{
+    resolution = { width = 800; height = 600; };
+    position = { x = 0.0; y = 8.0; z = 16.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 75.0;
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "white"; color = { r = 240; g = 240; b = 240; }; }
+    );
+};
+
+shapes:
+{
+    // Four white spheres in a row — each will be hit by a different colored light
+    spheres = (
+        { position = { x = -6.0; y = 1.0; z = 0.0; }; radius = 1.2; material = "white"; },
+        { position = { x = -2.0; y = 1.0; z = 0.0; }; radius = 1.2; material = "white"; },
+        { position = { x =  2.0; y = 1.0; z = 0.0; }; radius = 1.2; material = "white"; },
+        { position = { x =  6.0; y = 1.0; z = 0.0; }; radius = 1.2; material = "white"; }
+    );
+    planes = (
+        { position = { x = 0.0; y = -0.3; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "white"; }
+    );
+};
+
+lights:
+{
+    // Very low ambient — unlit areas stay dark so light colors stand out clearly
+    ambient = 0.05;
+    diffuse = 0.95;
+
+    // Each point light sits directly above its sphere with a strong pure color
+    point = (
+        { position = { x = -6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 0;   b = 0;   }; intensity = 60.0; },
+        { position = { x = -2.0; y = 6.0; z = 2.0; }; color = { r = 0;   g = 255; b = 0;   }; intensity = 60.0; },
+        { position = { x =  2.0; y = 6.0; z = 2.0; }; color = { r = 0;   g = 0;   b = 255; }; intensity = 60.0; },
+        { position = { x =  6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 255; b = 0;   }; intensity = 60.0; }
+    );
+};

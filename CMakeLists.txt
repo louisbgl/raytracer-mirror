@@ -175,8 +175,9 @@ add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 
 # Material plugins
-add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
@@ -194,7 +195,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent
+    DEPENDS lambertian transparent coloreddiffuse
     COMMENT "Building all material plugins..."
 )
 
