@@ -1,4 +1,5 @@
 #include "Sphere.hpp"
+#include "../../Math/QuadraticSolver.hpp"
 
 Sphere::Sphere(Vec3 pos, double radius, std::shared_ptr<IMaterial> material) : _position(pos), _radius(radius), _material(material) {}
 
@@ -7,17 +8,15 @@ bool Sphere::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     double a = dot(ray.direction(), ray.direction());
     double b = 2.0 * dot(oc, ray.direction());
     double c = dot(oc, oc) - _radius * _radius;
-    double discriminant = b * b - 4 * a * c;
 
-    if (discriminant < 0) {
+    auto roots = QuadraticSolver::solve(a, b, c);
+    if (!roots.hasRoots()) {
         return false;
     }
 
-    double sqrt_discriminant = std::sqrt(discriminant);
-    double t = (-b - sqrt_discriminant) / (2.0 * a);
-
+    double t = roots.t1;
     if (t < t_min || t > t_max) {
-        t = (-b + sqrt_discriminant) / (2.0 * a);
+        t = roots.t2;
         if (t < t_min || t > t_max) {
             return false;
         }
