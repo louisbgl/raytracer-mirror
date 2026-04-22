@@ -23,19 +23,22 @@ materials:
 
 shapes:
 {
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+    );
+
     spheres = (
         { position = { x = -1.0; y = 0.5; z = 0.0; }; radius = 0.5; material = "orange"; },
         { position = { x = 1.0; y = 0.5; z = 0.0; }; radius = 0.5; material = "purple"; }
     );
 
     cylinders = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "water"; },
-        { position = { x = -2.5; y = 0.0; z = -1.5; }; radius = 1.2; height = 2.0; material = "orange"; },
-        { position = { x = 1.5; y = 0.0; z = -1.5; }; radius = 0.2; height = 0.8; material = "purple"; }
+        { position = { x = 1.5; y = 0.0; z = -1.5; }; radius = 0.2; material = "purple"; }
     );
 
-    planes = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+    limited_cylinders = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "water"; },
+        { position = { x = -2.5; y = 0.0; z = -1.5; }; radius = 1.2; height = 2.0; material = "orange"; }
     );
 };
 
