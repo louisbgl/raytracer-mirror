@@ -1,4 +1,5 @@
 #include "Cylinder.hpp"
+#include "../../Math/QuadraticSolver.hpp"
 
 Cylinder::Cylinder(Vec3 pos, double radius, double height, std::shared_ptr<IMaterial> material)
     : _position(pos), _height(height), _radius(radius), _material(material) {}
@@ -20,18 +21,12 @@ bool Cylinder::checkBodyIntersection(const Ray& ray, double t_min, double& close
     double a = ray.direction().x() * ray.direction().x() + ray.direction().z() * ray.direction().z();
     double b = 2.0 * (oc.x() * ray.direction().x() + oc.z() * ray.direction().z());
     double c = oc.x() * oc.x() + oc.z() * oc.z() - _radius * _radius;
-    double discriminant = b * b - 4 * a * c;
 
-    if (discriminant < 0 || a <= 1e-8) {
-        return false;
-    }
-
-    double sqrt_disc = std::sqrt(discriminant);
-    double t1 = (-b - sqrt_disc) / (2.0 * a);
-    double t2 = (-b + sqrt_disc) / (2.0 * a);
+    QuadraticRoots roots = QuadraticSolver::solve(a, b, c);
+    if (!roots.hasRoots()) return false;
 
     bool found_hit = false;
-    for (double t : {t1, t2}) {
+    for (double t : {roots.t1, roots.t2}) {
         if (t > t_min && t < closest_t) {
             Vec3 hit_point = ray.at(t);
             double y = hit_point.y() - _position.y();
