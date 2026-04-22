@@ -11,7 +11,7 @@ public:
     bool scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation, Ray& scattered) const override;
 
 private:
-    double _opacity;
+    [[maybe_unused]] double _opacity;
     double _refractiveIndex;
     Vec3 _color;
 
