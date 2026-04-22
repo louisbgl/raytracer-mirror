@@ -165,6 +165,7 @@ endfunction()
 # Shape plugins
 add_raytracer_plugin(sphere shapes src/plugins/Shapes/Sphere.cpp)
 add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
+add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
@@ -180,7 +181,7 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
-    DEPENDS sphere cylinder
+    DEPENDS sphere cylinder rectangle
     COMMENT "Building all shape plugins..."
 )
 
