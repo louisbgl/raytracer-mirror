@@ -34,4 +34,5 @@ private:
     static bool _ensureLoaded(const std::string& type);
 
     static std::shared_ptr<ILight> _createPointLight(const libconfig::Setting& config);
+    static std::shared_ptr<ILight> _createDirectionalLight(const libconfig::Setting& config);
 };

@@ -1,0 +1,42 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 10.0; z = 20.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "red"; color = { r = 200; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; },
+        { name = "green"; color = { r = 50; g = 200; b = 50; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = -5.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+    );
+
+    spheres = (
+        { position = { x = -3.0; y = 0.0; z = -5.0; }; radius = 5.0; material = "red"; }
+    );
+
+    toruses = (
+        { position = { x = 3.0; y = -3.0; z = 0.0; }; major_radius = 5.0; minor_radius = 2.0; material = "blue"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = 20.0; y = 30.0; z = 50.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+    );
+};

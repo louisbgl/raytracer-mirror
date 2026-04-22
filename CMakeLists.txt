@@ -143,6 +143,9 @@ endif()
 # Helper function to create plugin targets (accepts multiple source files via ARGN)
 function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
     add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ARGN})
+    # Accept additional sources after the main source file
+    set(ADDITIONAL_SOURCES ${ARGN})
+    add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ADDITIONAL_SOURCES})
 
     target_include_directories(${PLUGIN_NAME} PRIVATE
         ${PROJECT_SOURCE_DIR}/src
@@ -179,13 +182,16 @@ add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp)
 add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/Math/Roots3And4.c) # Tanglecube uses the Graphics Gems polynomial solver
+add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
 
 # Material plugins
-add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 
 # Light plugins
-add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(directionallight lights src/plugins/Lights/DirectionalLight.cpp)
 
 # Create plugin directories
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
@@ -195,16 +201,17 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
+    DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
     COMMENT "Building all shape plugins..."
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent
+    DEPENDS lambertian transparent coloreddiffuse
     COMMENT "Building all material plugins..."
 )
 
 add_custom_target(lights
-    DEPENDS pointlight
+    DEPENDS pointlight directionallight
     COMMENT "Building all light plugins..."
 )
 
