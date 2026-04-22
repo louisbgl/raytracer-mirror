@@ -6,7 +6,8 @@ std::unordered_map<std::string, void*> ShapeFactory::_createFunctions;
 std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     static std::unordered_map<std::string, ShapeCreator> creators = {
         {"sphere", _createSphere},
-        {"cylinder", _createCylinder}
+        {"cylinder", _createCylinder},
+        {"rectangle", _createRectangle}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
