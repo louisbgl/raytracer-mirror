@@ -20,22 +20,10 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get install -y doxygen graphviz
 
-      - name: Check for Doxyfile
-        id: check_doxyfile
-        run: |
-          if [ -f "Doxyfile" ]; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-            echo "Warning: Doxyfile not found - skipping documentation generation"
-          fi
-
       - name: Generate docs
-        if: steps.check_doxyfile.outputs.exists == 'true'
         run: doxygen Doxyfile
 
       - name: Deploy to GitHub Pages
-        if: steps.check_doxyfile.outputs.exists == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
