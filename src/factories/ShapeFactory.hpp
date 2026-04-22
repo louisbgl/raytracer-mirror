@@ -37,4 +37,5 @@ private:
 
     static std::shared_ptr<IShape> _createSphere  (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createPlane   (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 };
