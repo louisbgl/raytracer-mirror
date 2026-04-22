@@ -10,7 +10,8 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"rectangle", _createRectangle},
         {"box", _createBox},
         {"limited_cylinder", _createLimitedCylinder},
-        {"plane", _createPlane}
+        {"plane", _createPlane},
+        {"tanglecube", _createTanglecube}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -97,4 +98,13 @@ std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& con
     double nz = config["normal"]["z"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["plane"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, nx, ny, nz, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double scale = config["scale"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["tanglecube"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, scale, &material));
 }
