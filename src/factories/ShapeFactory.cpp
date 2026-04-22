@@ -9,6 +9,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"cylinder", _createCylinder},
         {"limited_cylinder", _createLimitedCylinder},
         {"rectangle", _createRectangle},
+        {"box", _createBox},
         {"plane", _createPlane},
         {"torus", _createTorus}
     };
@@ -71,6 +72,21 @@ std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting&
     double height = config["height"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["rectangle"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double width = config["width"];
+    double height = config["height"];
+    double depth = config["depth"];
+    std::string orientation = "z";
+    if (config.exists("orientation")) {
+        orientation = static_cast<const char*>(config["orientation"]);
+    }
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, const char*, std::shared_ptr<IMaterial>*)>(_createFunctions["box"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, depth, orientation.c_str(), &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {

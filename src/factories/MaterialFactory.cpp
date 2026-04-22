@@ -5,8 +5,9 @@ std::unordered_map<std::string, void*> MaterialFactory::_createFunctions;
 
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
-        {"lambertian", _createLambertian},
-        {"transparent", _createTransparent}
+        {"lambertian",  _createLambertian},
+        {"transparent", _createTransparent},
+        {"coloreddiffuse",     _createColoredDiffuse},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -43,6 +44,15 @@ std::shared_ptr<IMaterial> MaterialFactory::_createLambertian(const libconfig::S
     int b = config["color"]["b"];
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["lambertian"]);
+    return std::shared_ptr<IMaterial>(createFunc(r, g, b));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createColoredDiffuse(const libconfig::Setting& config) {
+    int r = config["color"]["r"];
+    int g = config["color"]["g"];
+    int b = config["color"]["b"];
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["coloreddiffuse"]);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b));
 }
 

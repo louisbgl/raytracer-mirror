@@ -1,0 +1,83 @@
+# Scene showcasing boxes with different orientations (based on sphere_and_cylinder setup)
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 3.0; y = 1.0; z = 4.0; };
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
+        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
+        { name = "red"; color = { r = 255; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
+    );
+
+    transparent = (
+        { name = "water"; opacity = 0.9; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+    );
+
+    boxes = (
+        # Box with orientation "z" (depth in Z)
+        {
+            position = { x = -1.0; y = 0.0; z = 0.0; };
+            width = 0.5;
+            height = 1.0;
+            depth = 0.5;
+            orientation = "z";
+            material = "orange";
+        },
+
+        # Box with orientation "y" (depth in Y)
+        {
+            position = { x = 1.0; y = 0.0; z = 0.0; };
+            width = 0.5;
+            height = 0.5;
+            depth = 0.5;
+            orientation = "y";
+            material = "purple";
+        },
+
+        # Box with orientation "x" (depth in X)
+        {
+            position = { x = 1.5; y = 0.0; z = -1.5; };
+            width = 0.4;
+            height = 0.4;
+            depth = 0.2;
+            orientation = "x";
+            material = "purple";
+        },
+
+        # Larger rectangular box
+        {
+            position = { x = -2.5; y = 0.0; z = -1.5; };
+            width = 2.4;
+            height = 2.0;
+            depth = 1.2;
+            orientation = "z";
+            material = "orange";
+        },
+    );
+};
+
+lights:
+{
+    ambient = 0.3;
+    diffuse = 0.7;
+
+    point = (
+        { position = { x = 5.0; y = 5.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; }
+    );
+};

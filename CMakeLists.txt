@@ -82,6 +82,7 @@ add_executable(raytracer
     src/factories/ShapeFactory.cpp
     src/factories/MaterialFactory.cpp
     src/factories/LightFactory.cpp
+    src/utils/HelpDisplay.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -171,16 +172,19 @@ endfunction()
 add_raytracer_plugin(sphere   shapes src/plugins/Shapes/Sphere.cpp)
 add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
 add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp)
+add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp)
 add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
 
 # Material plugins
-add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 
 # Light plugins
-add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(directionallight lights src/plugins/Lights/DirectionalLight.cpp)
 
 # Create plugin directories
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
@@ -189,17 +193,17 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
-    DEPENDS sphere cylinder rectangle limited_cylinder plane torus
+    DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
     COMMENT "Building all shape plugins..."
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent
+    DEPENDS lambertian transparent coloreddiffuse
     COMMENT "Building all material plugins..."
 )
 
 add_custom_target(lights
-    DEPENDS pointlight
+    DEPENDS pointlight directionallight
     COMMENT "Building all light plugins..."
 )
 

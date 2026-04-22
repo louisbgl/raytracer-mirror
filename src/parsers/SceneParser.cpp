@@ -109,6 +109,7 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
 
             static const std::unordered_map<std::string, std::string> irregularPlurals = {
                 {"toruses", "torus"},
+                {"boxes", "box"};
             };
 
             std::string factoryType = typeName;

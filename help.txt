@@ -1,0 +1,15 @@
+Usage: raytracer <input_file>
+
+Currently supported:
+Shapes:
+	Sphere (position (x, y, z), radius, material)
+	Cylinder (position (x, y, z), radius, material)
+	Rectangle (position (x, y, z), width, height, material)
+	Box (position (x, y, z), width, height, depth, orientation, material)
+	LimitedCylinder (position (x, y, z), radius, height, material)
+	Plane (position (x, y, z), normal (nx, ny, nz), material)
+Materials:
+	Lambertian (name, color (r, g, b))
+	Transparent (name, opacity, refractiveIndex, color (r, g, b))
+Lights:
+	PointLight (position (x, y, z), color (r, g, b), intensity)

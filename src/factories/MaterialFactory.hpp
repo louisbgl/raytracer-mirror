@@ -35,4 +35,5 @@ private:
 
     static std::shared_ptr<IMaterial> _createLambertian (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createTransparent(const libconfig::Setting& config);
+    static std::shared_ptr<IMaterial> _createColoredDiffuse    (const libconfig::Setting& config);
 };
