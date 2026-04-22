@@ -7,7 +7,7 @@ public:
     Transparent(double opacity, double refractiveIndex, Vec3 color);
 
     Vec3 shade([[maybe_unused]] const HitRecord& record, [[maybe_unused]] const Vec3& lightDir,
-               [[maybe_unused]] const Vec3& lightColor) const override;
+               [[maybe_unused]] const Vec3& lightColor,  [[maybe_unused]] const Vec3& viewDir) const override;
     bool scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation, Ray& scattered) const override;
 
 private:

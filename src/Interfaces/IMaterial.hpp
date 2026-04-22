@@ -21,7 +21,7 @@ public:
      * @param lightColor The color and intensity of the light source.
      * @return The Vec3 color contribution (how much this light brightens the pixel).
      */
-    virtual Vec3 shade(const HitRecord& record, const Vec3& lightDir, const Vec3& lightColor) const = 0;
+    virtual Vec3 shade(const HitRecord& record, const Vec3& lightDir, const Vec3& lightColor, const Vec3& viewDir) const = 0;
 
     /**
      * @brief [Indirect Lighting] Determines if and how light bounces off the surface.
