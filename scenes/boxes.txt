@@ -37,7 +37,7 @@ shapes:
             height = 1.0;
             depth = 0.5;
             orientation = "z";
-            material = "orange";
+            material = "purple";
         },
 
         # Box with orientation "y" (depth in Y)
@@ -47,7 +47,7 @@ shapes:
             height = 0.5;
             depth = 0.5;
             orientation = "y";
-            material = "purple";
+            material = "orange";
         },
 
         # Box with orientation "x" (depth in X)
@@ -68,7 +68,7 @@ shapes:
             depth = 1.2;
             orientation = "z";
             material = "orange";
-        },
+        }
     );
 };
 

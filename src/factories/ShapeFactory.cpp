@@ -7,10 +7,11 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
     static std::unordered_map<std::string, ShapeCreator> creators = {
         {"sphere", _createSphere},
         {"cylinder", _createCylinder},
+        {"limited_cylinder", _createLimitedCylinder},
         {"rectangle", _createRectangle},
         {"box", _createBox},
-        {"limited_cylinder", _createLimitedCylinder},
-        {"plane", _createPlane}
+        {"plane", _createPlane},
+        {"torus", _createTorus}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -97,4 +98,14 @@ std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& con
     double nz = config["normal"]["z"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["plane"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, nx, ny, nz, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double majorRadius = config["major_radius"];
+    double minorRadius = config["minor_radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, majorRadius, minorRadius, &material));
 }
