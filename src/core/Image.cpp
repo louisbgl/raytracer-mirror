@@ -11,9 +11,9 @@ void Image::writePPM(const std::string& filename) const {
     std::ofstream ofs(filename);
     ofs << "P3\n" << _width << " " << _height << "\n255\n";
     for (const auto& pixel : _pixels) {
-        int r = static_cast<int>(std::clamp(pixel.x() * 255.0, 0.0, 255.0));
-        int g = static_cast<int>(std::clamp(pixel.y() * 255.0, 0.0, 255.0));
-        int b = static_cast<int>(std::clamp(pixel.z() * 255.0, 0.0, 255.0));
+        int r = static_cast<int>(std::clamp(pixel.x(), 0.0, 255.0));
+        int g = static_cast<int>(std::clamp(pixel.y(), 0.0, 255.0));
+        int b = static_cast<int>(std::clamp(pixel.z(), 0.0, 255.0));
         ofs << r << " " << g << " " << b << "\n";
     }
     ofs.close();

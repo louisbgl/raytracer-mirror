@@ -5,8 +5,9 @@ std::unordered_map<std::string, void*> MaterialFactory::_createFunctions;
 
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
-        {"lambertian", _createLambertian},
-        {"Lambertian", _createLambertian},  // Support both cases
+        {"lambertian",  _createLambertian},
+        {"transparent", _createTransparent},
+        {"coloreddiffuse",     _createColoredDiffuse},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -27,7 +28,7 @@ bool MaterialFactory::_ensureLoaded(const std::string& type) {
 
     if (_createFunctions.find(normalizedType) != _createFunctions.end()) return true;
 
-    std::string pluginPath = "./plugins/materials/" + normalizedType + ".so";
+    std::string pluginPath = "./plugins/materials/" + normalizedType + PLUGIN_EXTENSION;
     if (!_pluginLoader.load(pluginPath)) return false;
 
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
@@ -43,5 +44,25 @@ std::shared_ptr<IMaterial> MaterialFactory::_createLambertian(const libconfig::S
     int b = config["color"]["b"];
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["lambertian"]);
-    return std::shared_ptr<IMaterial>(createFunc(r / 255.0, g / 255.0, b / 255.0));
+    return std::shared_ptr<IMaterial>(createFunc(r, g, b));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createColoredDiffuse(const libconfig::Setting& config) {
+    int r = config["color"]["r"];
+    int g = config["color"]["g"];
+    int b = config["color"]["b"];
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["coloreddiffuse"]);
+    return std::shared_ptr<IMaterial>(createFunc(r, g, b));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::Setting& config) {
+    double opacity = config["opacity"];
+    double refractiveIndex = config["refractiveIndex"];
+    int r = config["color"]["r"];
+    int g = config["color"]["g"];
+    int b = config["color"]["b"];
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(_createFunctions["transparent"]);
+    return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, r, g, b));
 }

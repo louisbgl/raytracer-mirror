@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Raytracer CXX)
+project(Raytracer C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,23 +21,37 @@ include(FetchContent)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
 # ── libconfig++ ────────────────────────────────────────────────────────────────
-# Try system package first, fallback to manual find
-find_package(PkgConfig)
+# Try system package first (fast path), fallback to FetchContent
+find_package(PkgConfig QUIET)
 if(PkgConfig_FOUND)
-    pkg_check_modules(LIBCONFIG++ libconfig++)
+    pkg_check_modules(LIBCONFIG++ QUIET libconfig++)
 endif()
 
 if(NOT LIBCONFIG++_FOUND)
-    # Try to find it manually
-    find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
-    find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+    message(STATUS "libconfig++ not found in system, downloading with FetchContent...")
+    FetchContent_Declare(libconfig
+        GIT_REPOSITORY https://github.com/hyperrealm/libconfig.git
+        GIT_TAG v1.8.2)
 
-    if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
-        set(LIBCONFIG++_FOUND TRUE)
-        set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
-        set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
-    else()
-        message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+    # Disable examples and tests to avoid build issues
+    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+
+    FetchContent_MakeAvailable(libconfig)
+
+    set(LIBCONFIG++_FOUND TRUE)
+    set(LIBCONFIG++_INCLUDE_DIRS ${libconfig_SOURCE_DIR}/lib ${libconfig_BINARY_DIR}/lib)
+    set(LIBCONFIG++_LIBRARIES config++)
+    set(LIBCONFIG++_LIBRARY_DIRS "")
+else()
+    message(STATUS "Found system libconfig++ (${LIBCONFIG++_LIBRARIES})")
+    # Ensure library directories are included for system package
+    if(NOT LIBCONFIG++_LIBRARY_DIRS)
+        if(APPLE)
+            set(LIBCONFIG++_LIBRARY_DIRS /opt/homebrew/lib /opt/homebrew/opt/libconfig/lib /usr/local/lib)
+        else()
+            set(LIBCONFIG++_LIBRARY_DIRS /usr/lib /usr/local/lib)
+        endif()
     endif()
 endif()
 
@@ -68,6 +82,7 @@ add_executable(raytracer
     src/factories/ShapeFactory.cpp
     src/factories/MaterialFactory.cpp
     src/factories/LightFactory.cpp
+    src/utils/HelpDisplay.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -75,18 +90,34 @@ target_include_directories(raytracer PRIVATE
     ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
+target_link_directories(raytracer PRIVATE ${LIBCONFIG++_LIBRARY_DIRS})
+
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
     ${LIBCONFIG++_LIBRARIES}
-    dl  # For plugin loading (libdl)
 )
+
+# Link libdl on Linux (not needed on macOS)
+if(NOT APPLE)
+    target_link_libraries(raytracer PRIVATE dl)
+endif()
+
+# Set platform-specific plugin extension
+if(APPLE)
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".dylib")
+else()
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".so")
+endif()
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 # Placeholder test executable (update with actual test files when available)
 if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
     file(GLOB TEST_SOURCES tests/*.cpp)
     if(TEST_SOURCES)
-        add_executable(run_tests EXCLUDE_FROM_ALL ${TEST_SOURCES})
+        add_executable(run_tests EXCLUDE_FROM_ALL
+            ${TEST_SOURCES}
+            src/Math/Roots3And4.c
+        )
 
         target_include_directories(run_tests PRIVATE
             ${PROJECT_SOURCE_DIR}
@@ -121,21 +152,36 @@ function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
         raytracer_flags
     )
 
+    # Set platform-specific extension
+    if(APPLE)
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".dylib")
+    else()
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".so")
+    endif()
+
     # Set output directory based on plugin type
     set_target_properties(${PLUGIN_NAME} PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/${PLUGIN_TYPE}
-        PREFIX ""  # Remove 'lib' prefix from .so files
+        PREFIX ""  # Remove 'lib' prefix from .so/.dylib files
     )
 endfunction()
 
 # Shape plugins
-add_raytracer_plugin(sphere shapes src/plugins/Shapes/Sphere.cpp)
+add_raytracer_plugin(sphere   shapes src/plugins/Shapes/Sphere.cpp)
+add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
+add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp)
+add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp)
+add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp)
+add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 
 # Material plugins
-add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 
 # Light plugins
-add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(directionallight lights src/plugins/Lights/DirectionalLight.cpp)
 
 # Create plugin directories
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
@@ -144,17 +190,17 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 
 # Convenience targets for building groups of plugins
 add_custom_target(shapes
-    DEPENDS sphere
+    DEPENDS sphere cylinder rectangle box limited_cylinder plane
     COMMENT "Building all shape plugins..."
 )
 
 add_custom_target(materials
-    DEPENDS lambertian
+    DEPENDS lambertian transparent coloreddiffuse
     COMMENT "Building all material plugins..."
 )
 
 add_custom_target(lights
-    DEPENDS pointlight
+    DEPENDS pointlight directionallight
     COMMENT "Building all light plugins..."
 )
 

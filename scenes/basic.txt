@@ -1,60 +1,35 @@
-# Configuration of the camera
+# Basic scene with two lambertian spheres
 camera:
 {
     resolution = { width = 800; height = 600; };
-    position = { x = 0.0; y = 2.0; z = 3.0; };
-    look_at = { x = 0.0; y = 0.0; z = -1.0; };
+    position = { x = 0.0; y = 0.0; z = 2.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 90.0;
 };
 
-# Material definitions
 materials:
 {
-    # List of materials
-    Lambertian = (
+    lambertian = (
         { name = "red"; color = { r = 200; g = 50; b = 50; }; },
-        { name = "green"; color = { r = 50; g = 200; b = 80; }; },
-        { name = "blue"; color = { r = 50; g = 100; b = 255; }; },
-        { name = "yellow"; color = { r = 255; g = 220; b = 50; }; },
-        { name = "ground"; color = { r = 180; g = 180; b = 180; }; }
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
     );
 };
 
-# Shapes in the scene
 shapes:
 {
-    # List of spheres
     spheres = (
-        # Large ground sphere (fake floor)
-        { position = { x = 0.0; y = -100.5; z = 0.0; }; radius = 100.0; material = "ground"; },
-
-        # Center sphere
-        { position = { x = 0.0; y = 0.0; z = -1.0; }; radius = 0.8; material = "blue"; },
-
-        # Left sphere
-        { position = { x = -2.0; y = 0.0; z = -2.0; }; radius = 0.7; material = "red"; },
-
-        # Right sphere
-        { position = { x = 2.0; y = 0.0; z = -1.5; }; radius = 0.6; material = "green"; },
-
-        # Small top sphere
-        { position = { x = 0.5; y = 1.2; z = -1.0; }; radius = 0.3; material = "yellow"; }
+        { position = { x = -0.3; y = 0.0; z = -0.5; }; radius = 0.5; material = "red"; },
+        { position = { x = 0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "blue"; }
     );
 };
 
-# Light configuration
 lights:
 {
     ambient = 0.2;
     diffuse = 0.8;
 
-    # List of point lights
     point = (
-        # Main light from top-left
-        { position = { x = -5.0; y = 8.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; },
-
-        # Fill light from right
-        { position = { x = 5.0; y = 3.0; z = 3.0; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.5; }
+        { position = { x = 2.0; y = 3.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
     );
 };
