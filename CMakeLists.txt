@@ -172,7 +172,8 @@ add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
 
 # Light plugins
-add_raytracer_plugin(pointlight lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
+add_raytracer_plugin(directionallight lights src/plugins/Lights/DirectionalLight.cpp)
 
 # Create plugin directories
 file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/shapes)
@@ -191,7 +192,7 @@ add_custom_target(materials
 )
 
 add_custom_target(lights
-    DEPENDS pointlight
+    DEPENDS pointlight directionallight
     COMMENT "Building all light plugins..."
 )
 
