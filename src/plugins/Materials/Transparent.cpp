@@ -1,17 +1,22 @@
 #include "Transparent.hpp"
-#include "../../DataTypes/HitRecord.hpp"
+
 #include <cmath>
+
+#include "../../DataTypes/HitRecord.hpp"
 
 Transparent::Transparent(double opacity, double refractiveIndex, Vec3 color)
     : _opacity(opacity), _refractiveIndex(refractiveIndex), _color(color) {}
 
-Vec3 Transparent::shade([[maybe_unused]] const HitRecord& record, [[maybe_unused]] const Vec3& lightDir,
-                        [[maybe_unused]] const Vec3& lightColor) const {
+Vec3 Transparent::shade([[maybe_unused]] const HitRecord& record,
+                        [[maybe_unused]] const Vec3& lightDir,
+                        [[maybe_unused]] const Vec3& lightColor,
+                        [[maybe_unused]] const Vec3& viewDir) const {
     // Transparent materials don't contribute much to direct lighting
     return Vec3(0, 0, 0);
 }
 
-bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation, Ray& scattered) const {
+bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation,
+                          Ray& scattered) const {
     attenuation = _color / 255.0;
 
     double refractionRatio = record.front_face ? (1.0 / _refractiveIndex) : _refractiveIndex;
@@ -39,9 +44,7 @@ bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& atte
 }
 
 // Helper function: reflection
-Vec3 Transparent::reflect(const Vec3& v, const Vec3& n) const {
-    return v - 2.0 * dot(v, n) * n;
-}
+Vec3 Transparent::reflect(const Vec3& v, const Vec3& n) const { return v - 2.0 * dot(v, n) * n; }
 
 // Helper function: refraction (Snell's Law in vector form)
 Vec3 Transparent::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) const {
