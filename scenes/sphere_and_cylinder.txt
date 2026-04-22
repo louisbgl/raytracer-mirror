@@ -17,7 +17,7 @@ materials:
     );
 
     transparent = (
-        { name = "glass"; opacity = 0.9; refractiveIndex = 1.5; color = { r = 255; g = 255; b = 255; }; }
+        { name = "water"; opacity = 0.9; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
     );
 };
 
@@ -29,7 +29,7 @@ shapes:
     );
 
     cylinders = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "glass"; },
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "water"; },
         { position = { x = -2.5; y = 0.0; z = -1.5; }; radius = 1.2; height = 2.0; material = "orange"; },
         { position = { x = 1.5; y = 0.0; z = -1.5; }; radius = 0.2; height = 0.8; material = "purple"; }
     );
