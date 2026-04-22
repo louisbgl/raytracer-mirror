@@ -27,7 +27,7 @@ bool MaterialFactory::_ensureLoaded(const std::string& type) {
 
     if (_createFunctions.find(normalizedType) != _createFunctions.end()) return true;
 
-    std::string pluginPath = "./plugins/materials/" + normalizedType + ".so";
+    std::string pluginPath = "./plugins/materials/" + normalizedType + PLUGIN_EXTENSION;
     if (!_pluginLoader.load(pluginPath)) return false;
 
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");

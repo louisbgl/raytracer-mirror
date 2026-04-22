@@ -21,23 +21,37 @@ include(FetchContent)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
 # ── libconfig++ ────────────────────────────────────────────────────────────────
-# Try system package first, fallback to manual find
-find_package(PkgConfig)
+# Try system package first (fast path), fallback to FetchContent
+find_package(PkgConfig QUIET)
 if(PkgConfig_FOUND)
-    pkg_check_modules(LIBCONFIG++ libconfig++)
+    pkg_check_modules(LIBCONFIG++ QUIET libconfig++)
 endif()
 
 if(NOT LIBCONFIG++_FOUND)
-    # Try to find it manually
-    find_path(LIBCONFIG++_INCLUDE_DIR libconfig.h++ PATHS /usr/include /usr/local/include)
-    find_library(LIBCONFIG++_LIBRARY NAMES config++ PATHS /usr/lib /usr/local/lib)
+    message(STATUS "libconfig++ not found in system, downloading with FetchContent...")
+    FetchContent_Declare(libconfig
+        GIT_REPOSITORY https://github.com/hyperrealm/libconfig.git
+        GIT_TAG v1.8.2)
 
-    if(LIBCONFIG++_INCLUDE_DIR AND LIBCONFIG++_LIBRARY)
-        set(LIBCONFIG++_FOUND TRUE)
-        set(LIBCONFIG++_INCLUDE_DIRS ${LIBCONFIG++_INCLUDE_DIR})
-        set(LIBCONFIG++_LIBRARIES ${LIBCONFIG++_LIBRARY})
-    else()
-        message(FATAL_ERROR "libconfig++ not found. Please install it (e.g., sudo apt install libconfig++-dev)")
+    # Disable examples and tests to avoid build issues
+    set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+
+    FetchContent_MakeAvailable(libconfig)
+
+    set(LIBCONFIG++_FOUND TRUE)
+    set(LIBCONFIG++_INCLUDE_DIRS ${libconfig_SOURCE_DIR}/lib ${libconfig_BINARY_DIR}/lib)
+    set(LIBCONFIG++_LIBRARIES config++)
+    set(LIBCONFIG++_LIBRARY_DIRS "")
+else()
+    message(STATUS "Found system libconfig++ (${LIBCONFIG++_LIBRARIES})")
+    # Ensure library directories are included for system package
+    if(NOT LIBCONFIG++_LIBRARY_DIRS)
+        if(APPLE)
+            set(LIBCONFIG++_LIBRARY_DIRS /opt/homebrew/lib /opt/homebrew/opt/libconfig/lib /usr/local/lib)
+        else()
+            set(LIBCONFIG++_LIBRARY_DIRS /usr/lib /usr/local/lib)
+        endif()
     endif()
 endif()
 
@@ -75,11 +89,24 @@ target_include_directories(raytracer PRIVATE
     ${LIBCONFIG++_INCLUDE_DIRS}
 )
 
+target_link_directories(raytracer PRIVATE ${LIBCONFIG++_LIBRARY_DIRS})
+
 target_link_libraries(raytracer PRIVATE
     raytracer_flags
     ${LIBCONFIG++_LIBRARIES}
-    dl  # For plugin loading (libdl)
 )
+
+# Link libdl on Linux (not needed on macOS)
+if(NOT APPLE)
+    target_link_libraries(raytracer PRIVATE dl)
+endif()
+
+# Set platform-specific plugin extension
+if(APPLE)
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".dylib")
+else()
+    target_compile_definitions(raytracer PRIVATE PLUGIN_EXTENSION=".so")
+endif()
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 # Placeholder test executable (update with actual test files when available)
@@ -121,10 +148,17 @@ function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
         raytracer_flags
     )
 
+    # Set platform-specific extension
+    if(APPLE)
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".dylib")
+    else()
+        target_compile_definitions(${PLUGIN_NAME} PRIVATE PLUGIN_EXTENSION=".so")
+    endif()
+
     # Set output directory based on plugin type
     set_target_properties(${PLUGIN_NAME} PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/${PLUGIN_TYPE}
-        PREFIX ""  # Remove 'lib' prefix from .so files
+        PREFIX ""  # Remove 'lib' prefix from .so/.dylib files
     )
 endfunction()
 

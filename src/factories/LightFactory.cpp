@@ -20,7 +20,7 @@ std::shared_ptr<ILight> LightFactory::create(const std::string& type, const libc
 bool LightFactory::_ensureLoaded(const std::string& type) {
     if (_createFunctions.find(type) != _createFunctions.end()) return true;
 
-    std::string pluginPath = "./plugins/lights/" + type + "light.so";
+    std::string pluginPath = "./plugins/lights/" + type + "light" + PLUGIN_EXTENSION;
     if (!_pluginLoader.load(pluginPath)) return false;
 
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
