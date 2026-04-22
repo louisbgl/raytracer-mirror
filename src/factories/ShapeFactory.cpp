@@ -7,6 +7,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
     static std::unordered_map<std::string, ShapeCreator> creators = {
         {"sphere", _createSphere},
         {"cylinder", _createCylinder},
+        {"rectangle", _createRectangle}
         {"limited_cylinder", _createLimitedCylinder},
         {"plane", _createPlane}
     };
@@ -61,6 +62,14 @@ std::shared_ptr<IShape> ShapeFactory::_createLimitedCylinder(const libconfig::Se
     return std::shared_ptr<IShape>(createFunc(x, y, z, radius, height, &material));
 }
 
+std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double width = config["width"];
+    double height = config["height"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["rectangle"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, &material));
 std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
