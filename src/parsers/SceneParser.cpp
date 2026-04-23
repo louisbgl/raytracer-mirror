@@ -7,6 +7,19 @@
 #include <string>
 #include <unordered_map>
 
+const std::unordered_map<std::string, std::string> SceneParser::SHAPE_NAMES = {
+        {"spheres", "sphere"},
+        {"cones", "cone"},
+        {"limitedCones", "limited_cone"},
+        {"hourglasses", "hourglass"},
+        {"planes", "plane"},
+        {"boxes", "box"},
+        {"toruses", "torus"},
+        {"limitedHourglasses", "limited_houglass"},
+        {"cylinders", "cylinder"},
+        {"limited_cylinders", "limited_cylinder"},
+};
+
 Scene SceneParser::parse(const std::string& filename) {
     libconfig::Config config;
 

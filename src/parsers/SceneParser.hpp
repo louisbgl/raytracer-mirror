@@ -31,14 +31,5 @@ private:
     void parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights,
                      double& ambientMultiplier, double& diffuseMultiplier);
     
-    std::unordered_map<std::string, std::string> SHAPE_NAMES = {
-        {"spheres", "sphere"},
-        {"cones", "cone"},
-        {"limitedCones", "limited_cone"},
-        {"hourglasses", "hourglass"},
-        {"planes", "plane"},
-        {"boxes", "box"},
-        {"toruses", "torus"},
-        {"limitedHourglasses", "limited_houglass"},
-    };
+    static const std::unordered_map<std::string, std::string> SHAPE_NAMES; 
 };
