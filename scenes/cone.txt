@@ -11,11 +11,12 @@ camera:
 # Material definitions
 materials:
 {
-    Lambertian = (
-        { name = "orange"; color = { r = 255; g = 120; b = 30; }; },
-        { name = "cyan";   color = { r = 30; g = 200; b = 255; }; },
-        { name = "purple"; color = { r = 150; g = 50; b = 250; }; },
-        { name = "ground"; color = { r = 80; g = 80; b = 80; }; }
+    lambertian = (
+        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
+        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
+        { name = "red"; color = { r = 255; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
     );
 };
 
@@ -24,7 +25,7 @@ shapes:
 {
     spheres = (
         # Large ground sphere
-        { position = { x = 0.0; y = -100.0; z = 0.0; }; radius = 100.0; material = "ground"; }
+        { position = { x = 0.0; y = -100.0; z = 0.0; }; radius = 100.0; material = "green"; }
     );
 
     cones = (
@@ -38,19 +39,19 @@ shapes:
         { 
             position = { x = -3.0; y = 4.0; z = -1.0; }; 
             radius = 0.15; 
-            material = "cyan"; 
+            material = "blue"; 
         },
         # Right Cone: Very wide/flat
         { 
             position = { x = 3.5; y = 1.5; z = 1.0; }; 
             radius = 1.2; 
-            material = "purple"; 
+            material = "red"; 
         },
         # Distant small cone
         { 
             position = { x = -1.5; y = 6.0; z = -5.0; }; 
             radius = 0.05; 
-            material = "orange"; 
+            material = "purple"; 
         }
     );
 };

@@ -1,8 +1,9 @@
+
 # Configuration of the camera
 camera:
 {
     resolution = { width = 1920; height = 1080; };
-    position = { x = 0.0; y = 2.0; z = 8.0; }; # Backed up to see the scale
+    position = { x = 0.0; y = 20.0; z = 8.0; }; # Backed up to see the scale
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
@@ -23,15 +24,14 @@ shapes:
 {
     spheres = (
         # Floor
-        { position = { x = 0.0; y = -102.0; z = 0.0; }; radius = 100.0; material = "gray"; },
-        { position = { x = -2.5; y = -1.5; z = 1.0; }; radius = 0.5; material = "brown"; },
-        { position = { x = 2.5; y = -1.5; z = 1.0; }; radius = 0.5; material = "brown"; }
+        { position = { x = 0.0; y = -102.0; z = 0.0; }; radius = 100.0; material = "gray"; }
     );
 
     hourglasses = (
         { 
             position = { x = 0.0; y = 0.0; z = 0.0; }; 
-            radius = 0.7; # The 'k' slope
+            radius = 0.3; # The 'k' slope
+            height = 5.0;
             material = "glass_titn"; 
         }
     );
