@@ -7,18 +7,20 @@ std::unordered_map<std::string, void*> ShapeFactory::_createFunctions;
 
 std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     static std::unordered_map<std::string, ShapeCreator> creators = {
+        // Bounded shapes
         {"sphere", _createSphere},
-        {"cylinder", _createCylinder},
         {"limited_cylinder", _createLimitedCylinder},
-        {"rectangle", _createRectangle},
-        {"box", _createBox},
-        {"plane", _createPlane},
-        {"tanglecube", _createTanglecube},
-        {"torus", _createTorus},
-        {"cone", _createCone},
-        {"hourglass", _createHourglass},
         {"limited_cone", _createLimitedCone},
         {"limited_hourglass", _createLimitedHourglass},
+        {"rectangle", _createRectangle},
+        {"box", _createBox},
+        {"torus", _createTorus},
+        {"tanglecube", _createTanglecube},
+        // Infinite shapes
+        {"plane", _createPlane},
+        {"cylinder", _createCylinder},
+        {"cone", _createCone},
+        {"hourglass", _createHourglass},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -60,18 +62,17 @@ std::shared_ptr<IShape> ShapeFactory::_createSphere(const libconfig::Setting& co
     return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, radius, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
-{
+std::shared_ptr<IShape> ShapeFactory::_createLimitedCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cone"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+    double height = config["height"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_cylinder"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, height, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
-{
+std::shared_ptr<IShape> ShapeFactory::_createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
@@ -81,34 +82,14 @@ std::shared_ptr<IShape> ShapeFactory::_createLimitedCone(const libconfig::Settin
     return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
-{
+std::shared_ptr<IShape> ShapeFactory::_createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
+    double h = config["height"];
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["hourglass"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
-}
-
-
-std::shared_ptr<IShape> ShapeFactory::_createCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
-    double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cylinder"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
-}
-
-std::shared_ptr<IShape> ShapeFactory::_createLimitedCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
-    double radius = config["radius"];
-    double height = config["height"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_cylinder"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, height, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_hourglass"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
@@ -132,15 +113,14 @@ std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& confi
     return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, depth, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
-    double nx = config["normal"]["x"];
-    double ny = config["normal"]["y"];
-    double nz = config["normal"]["z"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["plane"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, nx, ny, nz, &material));
+    double majorRadius = config["major_radius"];
+    double minorRadius = config["minor_radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, majorRadius, minorRadius, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
@@ -152,23 +132,40 @@ std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting
     return std::shared_ptr<IShape>(createFunc(x, y, z, scale, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+std::shared_ptr<IShape> ShapeFactory::_createPlane(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
-    double majorRadius = config["major_radius"];
-    double minorRadius = config["minor_radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, majorRadius, minorRadius, &material));
+    double nx = config["normal"]["x"];
+    double ny = config["normal"]["y"];
+    double nz = config["normal"]["z"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["plane"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, nx, ny, nz, &material));
 }
 
-std::shared_ptr<IShape> ShapeFactory::_createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
-{
+std::shared_ptr<IShape> ShapeFactory::_createCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
-    double h = config["height"];
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_hourglass"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cylinder"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double radius = config["radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cone"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double radius = config["radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["hourglass"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
 }
