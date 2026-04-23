@@ -14,7 +14,10 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"box", _createBox},
         {"plane", _createPlane},
         {"tanglecube", _createTanglecube},
-        {"torus", _createTorus}
+        {"torus", _createTorus},
+        {"cone", _createCone},
+        {"hourglass", _createHourglass},
+        {"limited_cone", _createLimitedCone},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
