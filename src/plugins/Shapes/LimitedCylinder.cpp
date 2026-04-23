@@ -1,22 +1,29 @@
 #include "LimitedCylinder.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include <limits>
 
-LimitedCylinder::LimitedCylinder(Vec3 pos, double radius, double height, std::shared_ptr<IMaterial> material)
-    : _position(pos), _radius(radius), _height(height), _material(material) {}
+LimitedCylinder::LimitedCylinder(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation), _radius(radius), _height(height), _material(material) {}
 
-bool LimitedCylinder::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    double closest_t = t_max;
+bool LimitedCylinder::hitLocal(const Ray& ray, HitRecord& record) const {
+    double closest_t = std::numeric_limits<double>::infinity();
     bool hit_anything = false;
 
-    hit_anything |= checkBodyIntersection(ray, t_min, closest_t, record);
-    hit_anything |= checkCapIntersection(ray, _position.y(), Vec3(0, -1, 0), t_min, closest_t, record);
-    hit_anything |= checkCapIntersection(ray, _position.y() + _height, Vec3(0, 1, 0), t_min, closest_t, record);
+    hit_anything |= checkBodyIntersection(ray, 0.0, closest_t, record);
+    hit_anything |= checkCapIntersection(ray, 0.0, Vec3(0, -1, 0), 0.0, closest_t, record);
+    hit_anything |= checkCapIntersection(ray, _height, Vec3(0, 1, 0), 0.0, closest_t, record);
 
     return hit_anything;
 }
 
+AABB LimitedCylinder::computeLocalAABB() const {
+    Vec3 min(-_radius, 0, -_radius);
+    Vec3 max(_radius, _height, _radius);
+    return AABB(min, max);
+}
+
 bool LimitedCylinder::checkBodyIntersection(const Ray& ray, double t_min, double& closest_t, HitRecord& record) const {
-    Vec3 oc = ray.origin() - _position;
+    Vec3 oc = ray.origin();
 
     double a = ray.direction().x() * ray.direction().x() + ray.direction().z() * ray.direction().z();
     double b = 2.0 * (oc.x() * ray.direction().x() + oc.z() * ray.direction().z());
@@ -29,7 +36,7 @@ bool LimitedCylinder::checkBodyIntersection(const Ray& ray, double t_min, double
     for (double t : {roots.t1, roots.t2}) {
         if (t > t_min && t < closest_t) {
             Vec3 hit_point = ray.at(t);
-            double y = hit_point.y() - _position.y();
+            double y = hit_point.y();
 
             if (isWithinHeight(y)) {
                 record.t = t;
@@ -78,15 +85,15 @@ bool LimitedCylinder::isWithinHeight(double y_coord) const {
 }
 
 bool LimitedCylinder::isWithinCapRadius(const Vec3& hit_point) const {
-    double dx = hit_point.x() - _position.x();
-    double dz = hit_point.z() - _position.z();
+    double dx = hit_point.x();
+    double dz = hit_point.z();
     return dx * dx + dz * dz <= _radius * _radius;
 }
 
 Vec3 LimitedCylinder::computeBodyNormal(const Vec3& hit_point) const {
-    return normalize(Vec3(hit_point.x() - _position.x(), 0, hit_point.z() - _position.z()));
+    return normalize(Vec3(hit_point.x(), 0, hit_point.z()));
 }
 
-extern "C" IShape* create(double x, double y, double z, double radius, double height, std::shared_ptr<IMaterial>* material) {
-    return new LimitedCylinder(Vec3(x, y, z), radius, height, *material);
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr<IMaterial>* material) {
+    return new LimitedCylinder(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, height, *material);
 }
