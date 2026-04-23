@@ -2,13 +2,13 @@
 #include "../../Math/QuarticSolver.hpp"
 #include <cmath>
 
-Tanglecube::Tanglecube(Vec3 position, double scale, std::shared_ptr<IMaterial> material)
-    : _position(position), _scale(scale), _material(material) {}
+Tanglecube::Tanglecube(Vec3 rotation, Vec3 translation, double scale, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation), _scale(scale), _material(material) {}
 
 double Tanglecube::evaluate(double x, double y, double z) const {
-    double x_scaled = (x - _position.x()) / _scale;
-    double y_scaled = (y - _position.y()) / _scale;
-    double z_scaled = (z - _position.z()) / _scale;
+    double x_scaled = x / _scale;
+    double y_scaled = y / _scale;
+    double z_scaled = z / _scale;
 
     double x2 = x_scaled * x_scaled;
     double y2 = y_scaled * y_scaled;
@@ -22,9 +22,9 @@ double Tanglecube::evaluate(double x, double y, double z) const {
 }
 
 Vec3 Tanglecube::gradient(double x, double y, double z) const {
-    double x_scaled = (x - _position.x()) / _scale;
-    double y_scaled = (y - _position.y()) / _scale;
-    double z_scaled = (z - _position.z()) / _scale;
+    double x_scaled = x / _scale;
+    double y_scaled = y / _scale;
+    double z_scaled = z / _scale;
 
     double inv_scale = 1.0 / _scale;
 
@@ -35,8 +35,8 @@ Vec3 Tanglecube::gradient(double x, double y, double z) const {
     return Vec3(gx, gy, gz);
 }
 
-bool Tanglecube::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    Vec3 O = ray.origin() - _position;
+bool Tanglecube::hitLocal(const Ray& ray, HitRecord& record) const {
+    Vec3 O = ray.origin();
     Vec3 D = ray.direction();
 
     double ox = O.x(), oy = O.y(), oz = O.z();
@@ -72,12 +72,13 @@ bool Tanglecube::hit(const Ray& ray, double t_min, double t_max, HitRecord& reco
 
     QuarticRoots roots = QuarticSolver::solve(coeff_0, coeff_1, coeff_2, coeff_3, coeff_4);
 
-    double closest_t = t_max;
+    double closest_t = std::numeric_limits<double>::infinity();
     bool found_hit = false;
+    const double epsilon = 1e-6;
 
     for (int i = 0; i < roots.count; ++i) {
         double t = roots.roots[i];
-        if (t > t_min && t < closest_t) {
+        if (t > epsilon && t < closest_t) {
             closest_t = t;
             found_hit = true;
         }
@@ -88,15 +89,23 @@ bool Tanglecube::hit(const Ray& ray, double t_min, double t_max, HitRecord& reco
         record.point = ray.at(closest_t);
         record.material = _material;
 
-        Vec3 normal = gradient(record.point.x(), record.point.y(), record.point.z());
-        normal = normalize(normal);
-        record.set_face_normal(ray, normal);
+        Vec3 outward_normal = gradient(record.point.x(), record.point.y(), record.point.z());
+        outward_normal = normalize(outward_normal);
+        record.normal = outward_normal;
+        record.front_face = true;
 
         return true;
     }
     return false;
 }
 
-extern "C" IShape* create(double x, double y, double z, double scale, std::shared_ptr<IMaterial>* material) {
-    return new Tanglecube(Vec3(x, y, z), scale, *material);
+AABB Tanglecube::computeLocalAABB() const {
+    double bound = _scale * 2.5;
+    Vec3 min(-bound, -bound, -bound);
+    Vec3 max(bound, bound, bound);
+    return AABB(min, max);
+}
+
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double scale, std::shared_ptr<IMaterial>* material) {
+    return new Tanglecube(Vec3(rx, ry, rz), Vec3(tx, ty, tz), scale, *material);
 }

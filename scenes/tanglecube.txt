@@ -1,64 +1,48 @@
-# Scene showcasing Tanglecube implicit surface (based on boxes setup)
 camera:
 {
     resolution = { width = 1000; height = 1000; };
-    position = { x = 3.0; y = 1.0; z = 4.0; };
-    look_at = { x = 0.0; y = 1.0; z = 0.0; };
+    position = { x = 5.0; y = 4.0; z = 6.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
 };
 
 materials:
 {
-    lambertian = (
-        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
-        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
-        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
-        { name = "cyan"; color = { r = 50; g = 200; b = 255; }; },
-        { name = "yellow"; color = { r = 255; g = 255; b = 50; }; }
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; }
     );
 
-    transparent = (
-        { name = "water"; opacity = 0.9; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
     );
 };
 
 shapes:
 {
     planes = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
     tanglecubes = (
-        # Main tanglecube
-        {
-            position = { x = -1.0; y = 1.2; z = 0.0; };
-            scale = 0.4;
-            material = "cyan";
-        },
-
-        # Tanglecube
-        {
-            position = { x = 1.0; y = 1.0; z = 0.0; };
-            scale = 0.35;
-            material = "purple";
-        },
-
-        # Tanglecube
-        {
-            position = { x = 1.5; y = 0.9; z = -1.5; };
-            scale = 0.3;
-            material = "orange";
-        }
+        { position = { x = -2.0; y = 1.5; z = 0.0; }; scale = 0.5; material = "red"; },
+        { position = { x = 0.5; y = 1.5; z = 0.0; }; scale = 0.45; material = "green"; rotation = { x = 0.0; y = 30.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 1.5; z = 0.0; }; scale = 0.4; material = "blue"; rotation = { x = 15.0; y = -45.0; z = 20.0; }; }
     );
 };
 
 lights:
 {
-    ambient = 0.3;
-    diffuse = 0.7;
+    ambient = 0.2;
+    diffuse = 0.8;
 
     point = (
-        { position = { x = 5.0; y = 5.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; }
+        { position = { x = 4.0; y = 6.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 35.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.3; }
     );
 };
