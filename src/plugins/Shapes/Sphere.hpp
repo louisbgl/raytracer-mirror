@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../../Interfaces/IShape.hpp"
+#include "../../core/AShape.hpp"
 
-class Sphere : public IShape {
+class Sphere : public AShape {
 public:
-    Sphere(Vec3 pos, double radius, std::shared_ptr<IMaterial> material);
+    Sphere(Vec3 rotation, Vec3 translation, double radius, std::shared_ptr<IMaterial> material);
     ~Sphere() override = default;
 
-    bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const override;
+    bool hitLocal(const Ray& ray, HitRecord& record) const override;
+    AABB computeLocalAABB() const override;
 
 private:
-    Vec3 _position;
     double _radius;
     std::shared_ptr<IMaterial> _material;
 };

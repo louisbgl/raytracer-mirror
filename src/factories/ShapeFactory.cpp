@@ -43,13 +43,21 @@ bool ShapeFactory::_ensureLoaded(const std::string& type) {
     return true;
 }
 
+Vec3 ShapeFactory::_getRotation(const libconfig::Setting& config) {
+    if (config.exists("rotation")) {
+        return Vec3(config["rotation"]["x"], config["rotation"]["y"], config["rotation"]["z"]);
+    }
+    return Vec3(0, 0, 0);
+}
+
 std::shared_ptr<IShape> ShapeFactory::_createSphere(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
+    Vec3 rotation = _getRotation(config);
+    double tx = config["position"]["x"];
+    double ty = config["position"]["y"];
+    double tz = config["position"]["z"];
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["sphere"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["sphere"]);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, radius, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)

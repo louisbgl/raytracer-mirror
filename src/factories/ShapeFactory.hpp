@@ -34,6 +34,7 @@ private:
      * @return True if the plugin is loaded successfully, false otherwise.
      */
     static bool _ensureLoaded(const std::string& type);
+    static Vec3 _getRotation(const libconfig::Setting& config);
 
     static std::shared_ptr<IShape> _createSphere         (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createCylinder       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
