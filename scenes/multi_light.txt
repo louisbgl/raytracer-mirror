@@ -1,0 +1,50 @@
+// Scene with two point lights and two directional lights
+camera:
+{
+    resolution = { width = 800; height = 600; };
+    position = { x = 0.0; y = 4.0; z = 12.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 75.0;
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "white"; color = { r = 230; g = 230; b = 230; }; },
+        { name = "orange"; color = { r = 230; g = 120; b = 30; }; },
+        { name = "teal";   color = { r = 40;  g = 180; b = 170; }; },
+        { name = "floor";  color = { r = 180; g = 180; b = 180; }; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        { position = { x = -2.0; y = 0.5; z = 0.0; }; radius = 1.0; material = "orange"; },
+        { position = { x =  2.0; y = 0.5; z = 0.0; }; radius = 1.0; material = "teal"; },
+        { position = { x =  0.0; y = 0.5; z = -3.0; }; radius = 1.0; material = "white"; }
+    );
+    planes = (
+        { position = { x = 0.0; y = -0.5; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.15;
+    diffuse = 0.85;
+
+    // Warm red-orange point light on the left, close to the scene
+    // Cool blue point light on the right
+    point = (
+        { position = { x = -5.0; y = 5.0; z = 6.0; }; color = { r = 255; g = 120; b = 60; }; intensity = 100.0; },
+        { position = { x =  5.0; y = 5.0; z = 6.0; }; color = { r = 60; g = 120; b = 255; }; intensity = 100.0; }
+    );
+
+    // Soft warm sun from above-right, faint cool backlight from below-left
+    directional = (
+        { direction = { x = -1.0; y = -2.0; z = -1.0; }; color = { r = 255; g = 240; b = 180; }; intensity = 0.6; },
+        { direction = { x =  1.0; y =  0.5; z =  1.0; }; color = { r = 100; g = 140; b = 255; }; intensity = 0.25; }
+    );
+};

@@ -6,6 +6,7 @@ std::unordered_map<std::string, void*> LightFactory::_createFunctions;
 std::shared_ptr<ILight> LightFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, LightCreator> creators = {
         {"point", _createPointLight},
+        {"directional", _createDirectionalLight},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -20,7 +21,7 @@ std::shared_ptr<ILight> LightFactory::create(const std::string& type, const libc
 bool LightFactory::_ensureLoaded(const std::string& type) {
     if (_createFunctions.find(type) != _createFunctions.end()) return true;
 
-    std::string pluginPath = "./plugins/lights/" + type + "light.so";
+    std::string pluginPath = "./plugins/lights/" + type + "light" + PLUGIN_EXTENSION;
     if (!_pluginLoader.load(pluginPath)) return false;
 
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
@@ -41,6 +42,21 @@ std::shared_ptr<ILight> LightFactory::_createPointLight(const libconfig::Setting
 
     double intensity = config["intensity"];
 
-    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double)>(_createFunctions["point"]);
-    return std::shared_ptr<ILight>(createFunc(px, py, pz, cr * intensity, cg * intensity, cb * intensity));
+    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(_createFunctions["point"]);
+    return std::shared_ptr<ILight>(createFunc(px, py, pz, cr, cg, cb, intensity));
+}
+
+std::shared_ptr<ILight> LightFactory::_createDirectionalLight(const libconfig::Setting& config) {
+    double nx = config["direction"]["x"];
+    double ny = config["direction"]["y"];
+    double nz = config["direction"]["z"];
+
+    int cr = config["color"]["r"];
+    int cg = config["color"]["g"];
+    int cb = config["color"]["b"];
+
+    double intensity = config["intensity"];
+
+    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(_createFunctions["directional"]);
+    return std::shared_ptr<ILight>(createFunc(nx, ny, nz, cr, cg, cb, intensity));
 }

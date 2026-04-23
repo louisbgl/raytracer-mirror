@@ -1,0 +1,64 @@
+# Scene showcasing Tanglecube implicit surface (based on boxes setup)
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 3.0; y = 1.0; z = 4.0; };
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
+        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
+        { name = "cyan"; color = { r = 50; g = 200; b = 255; }; },
+        { name = "yellow"; color = { r = 255; g = 255; b = 50; }; }
+    );
+
+    transparent = (
+        { name = "water"; opacity = 0.9; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+    );
+
+    tanglecubes = (
+        # Main tanglecube
+        {
+            position = { x = -1.0; y = 1.2; z = 0.0; };
+            scale = 0.4;
+            material = "cyan";
+        },
+
+        # Tanglecube
+        {
+            position = { x = 1.0; y = 1.0; z = 0.0; };
+            scale = 0.35;
+            material = "purple";
+        },
+
+        # Tanglecube
+        {
+            position = { x = 1.5; y = 0.9; z = -1.5; };
+            scale = 0.3;
+            material = "orange";
+        }
+    );
+};
+
+lights:
+{
+    ambient = 0.3;
+    diffuse = 0.7;
+
+    point = (
+        { position = { x = 5.0; y = 5.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; }
+    );
+};

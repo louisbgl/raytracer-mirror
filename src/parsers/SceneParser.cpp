@@ -108,6 +108,11 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             const libconfig::Setting& shapeType = shapes[i];
             std::string typeName = shapeType.getName();
 
+            static const std::unordered_map<std::string, std::string> irregularPlurals = {
+                {"toruses", "torus"},
+                {"boxes", "box"},
+            };
+
             auto it = SHAPE_NAMES.find(typeName);
             std::string factoryType = (it != SHAPE_NAMES.end()) ? it->second : typeName;
 

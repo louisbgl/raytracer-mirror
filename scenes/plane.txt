@@ -1,0 +1,37 @@
+camera:
+{
+    resolution = { width = 800; height = 600; };
+    position = { x = 0.0; y = 3.0; z = 20.0; };
+    look_at = { x = 5.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 90.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "red"; color = { r = 200; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; },
+        { name = "green"; color = { r = 50; g = 200; b = 80; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0;  z = 0.0; }; material = "red"; },
+        { position = { x = 0.0; y = 6.0; z = 0.0; }; normal = { x = 0.0; y = -1.0; z = 0.0; }; material = "red"; },
+        { position = { x = -5.0; y = 0.0; z = 0.0; }; normal = { x = 1.0;  y = 0.0; z = 0.0; }; material = "green"; },
+        { position = { x = 5.0;  y = 0.0; z = 0.0; }; normal = { x = -1.0; y = 0.0; z = 0.0; }; material = "green"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = 2.0; y = 3.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+    );
+};
