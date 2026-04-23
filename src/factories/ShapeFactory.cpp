@@ -47,7 +47,10 @@ bool ShapeFactory::_ensureLoaded(const std::string& type) {
 
 Vec3 ShapeFactory::_getRotation(const libconfig::Setting& config) {
     if (config.exists("rotation")) {
-        return Vec3(config["rotation"]["x"], config["rotation"]["y"], config["rotation"]["z"]);
+        double x = config["rotation"]["x"];
+        double y = config["rotation"]["y"];
+        double z = config["rotation"]["z"];
+        return Vec3(x, y, z);
     }
     return Vec3(0, 0, 0);
 }
@@ -96,24 +99,26 @@ std::shared_ptr<IShape> ShapeFactory::_createLimitedHourglass(const libconfig::S
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
+    Vec3 rotation = _getRotation(config);
+    double tx = config["position"]["x"];
+    double ty = config["position"]["y"];
+    double tz = config["position"]["z"];
     double width = config["width"];
     double height = config["height"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["rectangle"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["rectangle"]);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, width, height, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
+    Vec3 rotation = _getRotation(config);
+    double tx = config["position"]["x"];
+    double ty = config["position"]["y"];
+    double tz = config["position"]["z"];
     double width = config["width"];
     double height = config["height"];
     double depth = config["depth"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["box"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, width, height, depth, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["box"]);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, width, height, depth, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {

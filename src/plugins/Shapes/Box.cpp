@@ -1,111 +1,81 @@
 #include "Box.hpp"
 #include <cmath>
 
-Box::Box(Vec3 position, double width, double height, double depth, std::shared_ptr<IMaterial> material)
-    : _position(position), _width(width), _height(height), _depth(depth), _material(material) {}
+Box::Box(Vec3 rotation, Vec3 translation, double width, double height, double depth, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation), _width(width), _height(height), _depth(depth), _material(material) {}
 
-bool Box::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    double closest_t = t_max;
-    Vec3 normal;
-    bool found_hit = false;
+bool Box::hitLocal(const Ray& ray, HitRecord& record) const {
+    Vec3 min_corner(-_width / 2.0, -_height / 2.0, -_depth / 2.0);
+    Vec3 max_corner(_width / 2.0, _height / 2.0, _depth / 2.0);
 
-    Vec3 min_corner = _position;
-    Vec3 max_corner = _position + Vec3(_width, _height, _depth);
+    double t_min = 0.0;
+    double t_max = std::numeric_limits<double>::infinity();
+    int hit_axis = -1;
+    bool hit_max_face = false;
 
-    // Test X = min_x plane
-    if (std::abs(ray.direction().x()) > 1e-6) {
-        double t = (min_corner.x() - ray.origin().x()) / ray.direction().x();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.y() >= min_corner.y() && hit_point.y() <= max_corner.y() &&
-                hit_point.z() >= min_corner.z() && hit_point.z() <= max_corner.z()) {
-                closest_t = t;
-                normal = Vec3(-1, 0, 0);
-                found_hit = true;
+    // Slab method: intersect ray with each pair of parallel planes
+    for (int axis = 0; axis < 3; axis++) {
+        if (std::abs(ray.direction()[axis]) < 1e-8) {
+            // Ray parallel to slab - check if origin is inside
+            if (ray.origin()[axis] < min_corner[axis] || ray.origin()[axis] > max_corner[axis]) {
+                return false;
             }
+            continue;
+        }
+
+        double invD = 1.0 / ray.direction()[axis];
+        double t0 = (min_corner[axis] - ray.origin()[axis]) * invD;
+        double t1 = (max_corner[axis] - ray.origin()[axis]) * invD;
+
+        bool swapped = false;
+        if (invD < 0.0) {
+            std::swap(t0, t1);
+            swapped = true;
+        }
+
+        if (t0 > t_min) {
+            t_min = t0;
+            hit_axis = axis;
+            hit_max_face = swapped;
+        }
+        if (t1 < t_max) {
+            t_max = t1;
+        }
+
+        if (t_max <= t_min) {
+            return false;
         }
     }
 
-    // Test X = max_x plane
-    if (std::abs(ray.direction().x()) > 1e-6) {
-        double t = (max_corner.x() - ray.origin().x()) / ray.direction().x();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.y() >= min_corner.y() && hit_point.y() <= max_corner.y() &&
-                hit_point.z() >= min_corner.z() && hit_point.z() <= max_corner.z()) {
-                closest_t = t;
-                normal = Vec3(1, 0, 0);
-                found_hit = true;
-            }
-        }
+    // Check if intersection is behind ray origin
+    if (t_min < 0) {
+        return false;
     }
 
-    // Test Y = min_y plane
-    if (std::abs(ray.direction().y()) > 1e-6) {
-        double t = (min_corner.y() - ray.origin().y()) / ray.direction().y();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.x() >= min_corner.x() && hit_point.x() <= max_corner.x() &&
-                hit_point.z() >= min_corner.z() && hit_point.z() <= max_corner.z()) {
-                closest_t = t;
-                normal = Vec3(0, -1, 0);
-                found_hit = true;
-            }
-        }
+    // Compute normal based on which face was hit
+    Vec3 normal(0, 0, 0);
+    if (hit_axis == 0) {
+        normal = hit_max_face ? Vec3(1, 0, 0) : Vec3(-1, 0, 0);
+    } else if (hit_axis == 1) {
+        normal = hit_max_face ? Vec3(0, 1, 0) : Vec3(0, -1, 0);
+    } else {
+        normal = hit_max_face ? Vec3(0, 0, 1) : Vec3(0, 0, -1);
     }
 
-    // Test Y = max_y plane
-    if (std::abs(ray.direction().y()) > 1e-6) {
-        double t = (max_corner.y() - ray.origin().y()) / ray.direction().y();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.x() >= min_corner.x() && hit_point.x() <= max_corner.x() &&
-                hit_point.z() >= min_corner.z() && hit_point.z() <= max_corner.z()) {
-                closest_t = t;
-                normal = Vec3(0, 1, 0);
-                found_hit = true;
-            }
-        }
-    }
+    record.t = t_min;
+    record.point = ray.at(t_min);
+    record.material = _material;
+    record.set_face_normal(ray, normal);
 
-    // Test Z = min_z plane
-    if (std::abs(ray.direction().z()) > 1e-6) {
-        double t = (min_corner.z() - ray.origin().z()) / ray.direction().z();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.x() >= min_corner.x() && hit_point.x() <= max_corner.x() &&
-                hit_point.y() >= min_corner.y() && hit_point.y() <= max_corner.y()) {
-                closest_t = t;
-                normal = Vec3(0, 0, -1);
-                found_hit = true;
-            }
-        }
-    }
-
-    // Test Z = max_z plane
-    if (std::abs(ray.direction().z()) > 1e-6) {
-        double t = (max_corner.z() - ray.origin().z()) / ray.direction().z();
-        if (t > t_min && t < closest_t) {
-            Vec3 hit_point = ray.at(t);
-            if (hit_point.x() >= min_corner.x() && hit_point.x() <= max_corner.x() &&
-                hit_point.y() >= min_corner.y() && hit_point.y() <= max_corner.y()) {
-                closest_t = t;
-                normal = Vec3(0, 0, 1);
-                found_hit = true;
-            }
-        }
-    }
-
-    if (found_hit) {
-        record.t = closest_t;
-        record.point = ray.at(closest_t);
-        record.material = _material;
-        record.set_face_normal(ray, normal);
-        return true;
-    }
-    return false;
+    return true;
 }
 
-extern "C" IShape* create(double x, double y, double z, double width, double height, double depth, std::shared_ptr<IMaterial>* material) {
-    return new Box(Vec3(x, y, z), width, height, depth, *material);
+AABB Box::computeLocalAABB() const {
+    Vec3 min(-_width / 2.0, -_height / 2.0, -_depth / 2.0);
+    Vec3 max(_width / 2.0, _height / 2.0, _depth / 2.0);
+    return AABB(min, max);
+}
+
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double width, double height, double depth, std::shared_ptr<IMaterial>* material) {
+    return new Box(Vec3(rx, ry, rz), Vec3(tx, ty, tz), width, height, depth, *material);
 }

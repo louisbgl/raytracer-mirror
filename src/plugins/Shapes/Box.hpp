@@ -1,18 +1,16 @@
 #pragma once
 
-#include "../../Interfaces/IShape.hpp"
+#include "../../core/AShape.hpp"
 
-// Axis-aligned box shape. Full rotation support will be added
-// when the general shape transformation system is implemented.
-class Box : public IShape {
+class Box : public AShape {
 public:
-    Box(Vec3 position, double width, double height, double depth, std::shared_ptr<IMaterial> material);
+    Box(Vec3 rotation, Vec3 translation, double width, double height, double depth, std::shared_ptr<IMaterial> material);
     ~Box() override = default;
 
-    bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const override;
+    bool hitLocal(const Ray& ray, HitRecord& record) const override;
+    AABB computeLocalAABB() const override;
 
 private:
-    Vec3 _position;
     double _width;
     double _height;
     double _depth;
