@@ -103,6 +103,7 @@ target_link_libraries(raytracer PRIVATE
 # Link libdl on Linux (not needed on macOS)
 if(NOT APPLE)
     target_link_libraries(raytracer PRIVATE dl)
+    target_link_options(raytracer PRIVATE -rdynamic)
 endif()
 
 # Set platform-specific plugin extension
