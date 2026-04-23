@@ -78,6 +78,7 @@ add_executable(raytracer
     src/core/Image.cpp
     src/core/Core.cpp
     src/core/PluginLoader.cpp
+    src/core/ProgressBar.cpp
     src/parsers/SceneParser.cpp
     src/factories/ShapeFactory.cpp
     src/factories/MaterialFactory.cpp
