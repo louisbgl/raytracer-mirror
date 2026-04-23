@@ -15,7 +15,7 @@ const std::unordered_map<std::string, std::string> SceneParser::SHAPE_NAMES = {
         {"hourglasses", "hourglass"},
         {"limited_cones", "limited_cone"},
         {"limited_cylinders", "limited_cylinder"},
-        {"limited_hourglasses", "limited_houglass"},
+        {"limited_hourglasses", "limited_hourglass"},
         {"rectangles", "rectangle"},
         {"boxes", "box"},
         {"toruses", "torus"},

@@ -1,51 +1,43 @@
-
-# Configuration of the camera
 camera:
 {
-    resolution = { width = 1920; height = 1080; };
-    position = { x = 0.0; y = 20.0; z = 8.0; }; # Backed up to see the scale
-    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 3.5; y = 2.0; z = 4.5; };
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
-    fieldOfView = 60.0;
+    fieldOfView = 65.0;
 };
 
-# Material definitions
 materials:
 {
-    lambertian = (
-        { name = "glass_titn"; color = { r = 100; g = 200; b = 255; }; },
-        { name = "brown"; color = { r = 139; g = 69; b = 19; }; },
-        { name = "gray"; color = { r = 100; g = 100; b = 100; }; }
+    phong = (
+        { name = "purple"; color = { r = 180; g = 80; b = 220; }; shininess = 32.0; },
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; shininess = 32.0; },
+        { name = "floor"; color = { r = 200; g = 200; b = 200; }; shininess = 8.0; }
     );
 };
 
-# Shapes in the scene
 shapes:
 {
-    spheres = (
-        # Floor
-        { position = { x = 0.0; y = -102.0; z = 0.0; }; radius = 100.0; material = "gray"; }
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
-    hourglasses = (
-        { 
-            position = { x = 0.0; y = 0.0; z = 0.0; }; 
-            radius = 0.3; # The 'k' slope
-            height = 5.0;
-            material = "glass_titn"; 
-        }
+    limited_hourglasses = (
+        { position = { x = -1.0; y = 1.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "purple"; },
+        { position = { x = 1.0; y = 1.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "green"; rotation = { x = 0.0; y = 0.0; z = 45.0; }; }
     );
 };
 
-# Light configuration
 lights:
 {
     ambient = 0.2;
     diffuse = 0.8;
 
     point = (
-        { position = { x = 5.0; y = 10.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; },
-        { position = { x = -5.0; y = 2.0; z = 2.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 0.6; }
+        { position = { x = 3.0; y = 4.0; z = 3.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 30.0; }
+    );
+
+    directional = (
+        { direction = { x = 0.5; y = -1.0; z = 0.3; }; color = { r = 255; g = 240; b = 200; }; intensity = 0.4; }
     );
 };
-
