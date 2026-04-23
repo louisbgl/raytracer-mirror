@@ -4,6 +4,7 @@
 #include "../factories/LightFactory.hpp"
 #include <libconfig.h++>
 #include <iostream>
+#include <string>
 #include <unordered_map>
 
 Scene SceneParser::parse(const std::string& filename) {
@@ -107,10 +108,8 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             const libconfig::Setting& shapeType = shapes[i];
             std::string typeName = shapeType.getName();
 
-            std::string factoryType = typeName;
-            if (factoryType.back() == 's') {
-                factoryType.pop_back();  // "spheres" -> "sphere"
-            }
+            auto it = SHAPE_NAMES.find(typeName);
+            std::string factoryType = (it != SHAPE_NAMES.end()) ? it->second : typeName;
 
             for (int j = 0; j < shapeType.getLength(); ++j) {
                 try {
