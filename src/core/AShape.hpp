@@ -15,6 +15,10 @@
  * What you implement:
  *   - hitLocal(): Ray intersection assuming shape is at origin (0,0,0) and axis-aligned
  *   - computeLocalAABB(): Bounding box for shape at origin
+ * 
+ * What you can assume:
+ *  - The concrete shape's positon will be 0, 0, 0
+ *  - The concrete shape will be axis-aligned
  */
 class AShape : public IShape {
 public:
