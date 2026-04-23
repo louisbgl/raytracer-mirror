@@ -66,6 +66,32 @@ shapes:
             material = "orange";
         }
     );
+    cones = (
+        # Center Cone: Moderate slope
+        { 
+            position = { x = 0.0; y = 2.0; z = 0.0; }; 
+            radius = 0.5; 
+            material = "orange"; 
+        },
+        # Left Cone: Very sharp/skinny
+        { 
+            position = { x = -3.0; y = 4.0; z = -1.0; }; 
+            radius = 0.15; 
+            material = "blue"; 
+        },
+        # Right Cone: Very wide/flat
+        { 
+            position = { x = 3.5; y = 1.5; z = 1.0; }; 
+            radius = 1.2; 
+            material = "red"; 
+        },
+        # Distant small cone
+        { 
+            position = { x = -1.5; y = 6.0; z = -5.0; }; 
+            radius = 0.05; 
+            material = "green"; 
+        }
+    );
 };
 
 lights:

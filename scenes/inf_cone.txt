@@ -1,0 +1,56 @@
+# Camera positioned to see the cones stretching into the horizon
+camera:
+{
+    resolution = { width = 1280; height = 720; };
+    position = { x = 0.0; y = 2.0; z = 15.0; }; 
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 50.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "ground_grey"; color = { r = 100; g = 100; b = 100; }; },
+        { name = "neon_orange"; color = { r = 255; g = 100; b = 0; }; },
+        { name = "ice_blue"; color = { r = 0; g = 180; b = 255; }; },
+        { name = "forest_green"; color = { r = 34; g = 139; b = 34; }; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        # Flat ground to see the intersection
+        { position = { x = 0.0; y = -100.5; z = 0.0; }; radius = 100.0; material = "ground_grey"; }
+    );
+
+    cones = (
+        # 1. The "Piercer": Should go through the ground and keep going
+        { 
+            position = { x = 0.0; y = 5.0; z = 0.0; }; 
+            radius = 0.3; # Slope factor
+            material = "neon_orange"; 
+        },
+        # 2. Skinny Needle: Testing the limits of your EPSILON
+        { 
+            position = { x = -4.0; y = 8.0; z = -2.0; }; 
+            radius = 0.1; 
+            material = "ice_blue"; 
+        },
+        # 3. Wide Umbrella: Testing large k2 values
+        { 
+            position = { x = 4.0; y = 3.0; z = -1.0; }; 
+            radius = 1.5; 
+            material = "forest_green"; 
+        }
+    );
+};
+
+lights:
+{
+    ambient = 0.3;
+    point = (
+        { position = { x = 10.0; y = 10.0; z = 10.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+    );
+};
