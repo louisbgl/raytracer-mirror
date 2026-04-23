@@ -1,16 +1,16 @@
 #pragma once
 
-#include "../../Interfaces/IShape.hpp"
+#include "../../core/AShape.hpp"
 
-class Torus : public IShape {
+class Torus : public AShape {
 public:
-    Torus(Vec3 position, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material);
+    Torus(Vec3 rotation, Vec3 translation, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material);
     ~Torus() override = default;
 
-    bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const override;
+    bool hitLocal(const Ray& ray, HitRecord& record) const override;
+    AABB computeLocalAABB() const override;
 
 private:
-    Vec3 _position;
     double _majorRadius;
     double _minorRadius;
     std::shared_ptr<IMaterial> _material;

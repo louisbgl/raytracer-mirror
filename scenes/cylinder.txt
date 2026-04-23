@@ -26,10 +26,10 @@ shapes:
         { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
-    tanglecubes = (
-        { position = { x = -2.0; y = 1.5; z = 0.0; }; scale = 0.5; material = "red"; },
-        { position = { x = 0.5; y = 1.5; z = 0.0; }; scale = 0.45; material = "green"; rotation = { x = 0.0; y = 30.0; z = 0.0; }; },
-        { position = { x = 2.5; y = 1.5; z = 0.0; }; scale = 0.4; material = "blue"; rotation = { x = 15.0; y = -45.0; z = 20.0; }; }
+    cylinders = (
+        { position = { x = -2.0; y = 1.5; z = 0.0; }; radius = 0.4; material = "red"; },
+        { position = { x = 0.5; y = 1.5; z = 0.0; }; radius = 0.5; material = "green"; axis = { x = 0.3; y = 1.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 1.5; z = 0.0; }; radius = 0.35; material = "blue"; axis = { x = -0.5; y = 1.0; z = 0.3; }; }
     );
 };
 

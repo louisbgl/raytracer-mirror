@@ -1,8 +1,8 @@
 #include "Cylinder.hpp"
 #include "../../Math/QuadraticSolver.hpp"
 
-Cylinder::Cylinder(Vec3 pos, double radius, std::shared_ptr<IMaterial> material)
-    : _position(pos), _radius(radius), _material(material) {}
+Cylinder::Cylinder(Vec3 pos, Vec3 axis, double radius, std::shared_ptr<IMaterial> material)
+    : _position(pos), _axis(normalize(axis)), _radius(radius), _material(material) {}
 
 bool Cylinder::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
     double closest_t = t_max;
@@ -13,9 +13,12 @@ bool Cylinder::hit(const Ray& ray, double t_min, double t_max, HitRecord& record
 bool Cylinder::checkBodyIntersection(const Ray& ray, double t_min, double& closest_t, HitRecord& record) const {
     Vec3 oc = ray.origin() - _position;
 
-    double a = ray.direction().x() * ray.direction().x() + ray.direction().z() * ray.direction().z();
-    double b = 2.0 * (oc.x() * ray.direction().x() + oc.z() * ray.direction().z());
-    double c = oc.x() * oc.x() + oc.z() * oc.z() - _radius * _radius;
+    Vec3 d_perp = ray.direction() - _axis * dot(ray.direction(), _axis);
+    Vec3 oc_perp = oc - _axis * dot(oc, _axis);
+
+    double a = dot(d_perp, d_perp);
+    double b = 2.0 * dot(oc_perp, d_perp);
+    double c = dot(oc_perp, oc_perp) - _radius * _radius;
 
     QuadraticRoots roots = QuadraticSolver::solve(a, b, c);
     if (!roots.hasRoots()) return false;
@@ -39,9 +42,11 @@ bool Cylinder::checkBodyIntersection(const Ray& ray, double t_min, double& close
 }
 
 Vec3 Cylinder::computeBodyNormal(const Vec3& hit_point) const {
-    return normalize(Vec3(hit_point.x() - _position.x(), 0, hit_point.z() - _position.z()));
+    Vec3 p = hit_point - _position;
+    Vec3 p_perp = p - _axis * dot(p, _axis);
+    return normalize(p_perp);
 }
 
-extern "C" IShape* create(double x, double y, double z, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Cylinder(Vec3(x, y, z), radius, *material);
+extern "C" IShape* create(double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr<IMaterial>* material) {
+    return new Cylinder(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
 }

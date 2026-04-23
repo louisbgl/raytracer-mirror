@@ -1,8 +1,7 @@
-# Scene showcasing boxes (based on sphere_and_cylinder setup)
 camera:
 {
     resolution = { width = 1000; height = 1000; };
-    position = { x = 3.0; y = 1.0; z = 4.0; };
+    position = { x = 5.0; y = 4.0; z = 6.0; };
     look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
@@ -10,96 +9,40 @@ camera:
 
 materials:
 {
-    lambertian = (
-        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
-        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
-        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
-        { name = "red"; color = { r = 255; g = 50; b = 50; }; },
-        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; }
     );
 
-    transparent = (
-        { name = "water"; opacity = 0.9; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
     );
 };
 
 shapes:
 {
     planes = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
     boxes = (
-        # Box 1
-        {
-            position = { x = -1.0; y = 0.0; z = 0.0; };
-            width = 0.5;
-            height = 1.0;
-            depth = 0.5;
-            material = "purple";
-        },
-
-        # Box 2
-        {
-            position = { x = 1.0; y = 0.0; z = 0.0; };
-            width = 0.5;
-            height = 0.5;
-            depth = 0.5;
-            material = "orange";
-        },
-
-        # Box 3
-        {
-            position = { x = 1.5; y = 0.0; z = -1.5; };
-            width = 0.4;
-            height = 0.4;
-            depth = 0.2;
-            material = "purple";
-        },
-
-        # Box 4
-        {
-            position = { x = -2.5; y = 0.0; z = -1.5; };
-            width = 2.4;
-            height = 2.0;
-            depth = 1.2;
-            material = "orange";
-        }
-    );
-    cones = (
-        # Center Cone: Moderate slope
-        { 
-            position = { x = 0.0; y = 2.0; z = 0.0; }; 
-            radius = 0.5; 
-            material = "orange"; 
-        },
-        # Left Cone: Very sharp/skinny
-        { 
-            position = { x = -3.0; y = 4.0; z = -1.0; }; 
-            radius = 0.15; 
-            material = "blue"; 
-        },
-        # Right Cone: Very wide/flat
-        { 
-            position = { x = 3.5; y = 1.5; z = 1.0; }; 
-            radius = 1.2; 
-            material = "red"; 
-        },
-        # Distant small cone
-        { 
-            position = { x = -1.5; y = 6.0; z = -5.0; }; 
-            radius = 0.05; 
-            material = "green"; 
-        }
+        { position = { x = -2.0; y = 1.0; z = 0.0; }; width = 1.5; height = 2.0; depth = 1.0; material = "red"; },
+        { position = { x = 0.5; y = 1.25; z = 0.0; }; width = 1.8; height = 1.5; depth = 1.2; material = "green"; rotation = { x = 0.0; y = 30.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 0.75; z = 0.0; }; width = 1.2; height = 1.5; depth = 1.2; material = "blue"; rotation = { x = 45.0; y = 0.0; z = 45.0; }; }
     );
 };
 
 lights:
 {
-    ambient = 0.3;
-    diffuse = 0.7;
+    ambient = 0.2;
+    diffuse = 0.8;
 
     point = (
-        { position = { x = 5.0; y = 5.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; }
+        { position = { x = 5.0; y = 4.0; z = 6.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 70.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.3; }
     );
 };

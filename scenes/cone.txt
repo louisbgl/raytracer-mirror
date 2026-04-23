@@ -1,69 +1,48 @@
-# Configuration of the camera
 camera:
 {
-    resolution = { width = 1920; height = 1080; };
-    position = { x = 0.0; y = 5.0; z = 12.0; }; # Moved higher and further back
-    look_at = { x = 0.0; y = 1.0; z = 0.0; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 5.0; y = 4.0; z = 6.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
 };
 
-# Material definitions
 materials:
 {
-    lambertian = (
-        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
-        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
-        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
-        { name = "red"; color = { r = 255; g = 50; b = 50; }; },
-        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
     );
 };
 
-# Shapes in the scene
 shapes:
 {
-    spheres = (
-        # Large ground sphere
-        { position = { x = 0.0; y = -100.0; z = 0.0; }; radius = 100.0; material = "green"; }
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
     cones = (
-        # Center Cone: Moderate slope
-        { 
-            position = { x = 0.0; y = 2.0; z = 0.0; }; 
-            radius = 0.5; 
-            material = "orange"; 
-        },
-        # Left Cone: Very sharp/skinny
-        { 
-            position = { x = -3.0; y = 4.0; z = -1.0; }; 
-            radius = 0.15; 
-            material = "blue"; 
-        },
-        # Right Cone: Very wide/flat
-        { 
-            position = { x = 3.5; y = 1.5; z = 1.0; }; 
-            radius = 1.2; 
-            material = "red"; 
-        },
-        # Distant small cone
-        { 
-            position = { x = -1.5; y = 6.0; z = -5.0; }; 
-            radius = 0.05; 
-            material = "purple"; 
-        }
+        { position = { x = -2.0; y = 2.0; z = 0.0; }; radius = 0.5; material = "red"; },
+        { position = { x = 0.5; y = 2.0; z = 0.0; }; radius = 0.6; material = "green"; axis = { x = 0.3; y = 1.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 2.0; z = 0.0; }; radius = 0.4; material = "blue"; axis = { x = -0.5; y = 1.0; z = 0.3; }; }
     );
 };
 
-# Light configuration
 lights:
 {
     ambient = 0.2;
     diffuse = 0.8;
 
     point = (
-        { position = { x = -10.0; y = 10.0; z = 10.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; },
-        { position = { x = 10.0; y = 5.0; z = 2.0; }; color = { r = 200; g = 200; b = 255; }; intensity = 0.5; }
+        { position = { x = 4.0; y = 6.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 35.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.3; }
     );
 };

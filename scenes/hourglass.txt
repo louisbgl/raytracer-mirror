@@ -1,51 +1,48 @@
-# Configuration of the camera
 camera:
 {
-    resolution = { width = 1920; height = 1080; };
-    position = { x = 0.0; y = 2.0; z = 8.0; }; # Backed up to see the scale
-    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 5.0; y = 4.0; z = 6.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 60.0;
 };
 
-# Material definitions
 materials:
 {
-    lambertian = (
-        { name = "glass_titn"; color = { r = 100; g = 200; b = 255; }; },
-        { name = "brown"; color = { r = 139; g = 69; b = 19; }; },
-        { name = "gray"; color = { r = 100; g = 100; b = 100; }; }
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
     );
 };
 
-# Shapes in the scene
 shapes:
 {
-    spheres = (
-        # Floor
-        { position = { x = 0.0; y = -102.0; z = 0.0; }; radius = 100.0; material = "gray"; },
-        { position = { x = -2.5; y = -1.5; z = 1.0; }; radius = 0.5; material = "brown"; },
-        { position = { x = 2.5; y = -1.5; z = 1.0; }; radius = 0.5; material = "brown"; }
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
     hourglasses = (
-        { 
-            position = { x = 0.0; y = 0.0; z = 0.0; }; 
-            radius = 0.7; # The 'k' slope
-            material = "glass_titn"; 
-        }
+        { position = { x = -2.0; y = 2.0; z = 0.0; }; radius = 0.5; material = "red"; },
+        { position = { x = 0.5; y = 2.0; z = 0.0; }; radius = 0.6; material = "green"; axis = { x = 0.3; y = 1.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 2.0; z = 0.0; }; radius = 0.4; material = "blue"; axis = { x = -0.5; y = 1.0; z = 0.3; }; }
     );
 };
 
-# Light configuration
 lights:
 {
     ambient = 0.2;
     diffuse = 0.8;
 
     point = (
-        { position = { x = 5.0; y = 10.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.2; },
-        { position = { x = -5.0; y = 2.0; z = 2.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 0.6; }
+        { position = { x = 4.0; y = 6.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 35.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.3; }
     );
 };
-
