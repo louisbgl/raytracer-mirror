@@ -9,6 +9,8 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
     static std::unordered_map<std::string, ShapeCreator> creators = {
         {"sphere", _createSphere},
         {"cone", _createCone},
+        {"limited_cone", _createLimitedCone},
+        {"hourglass", _createHourglass},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -24,8 +26,12 @@ bool ShapeFactory::_ensureLoaded(const std::string& type) {
     if (_createFunctions.find(type) != _createFunctions.end()) return true;
 
     std::string pluginPath = "./plugins/shapes/" + type + ".so";
-    if (!_pluginLoader.load(pluginPath)) return false;
+    std::cout << "DEBUG: Trying to load: " << pluginPath << std::endl; // ADD THIS
+    if (!_pluginLoader.load(pluginPath)) {
 
+        std::cout << "DEBUG: Trying to load: " << pluginPath << std::endl; // ADD THIS
+        return false;
+    }
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
     if (!createFunc) return false;
 
@@ -49,5 +55,26 @@ std::shared_ptr<IShape> ShapeFactory::_createCone(const libconfig::Setting& conf
     double z = config["position"]["z"];
     double radius = config["radius"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cone"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
+{
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double h = config["height"];
+    double radius = config["radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_cone"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
+{
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double radius = config["radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["hourglass"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
 }
