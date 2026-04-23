@@ -36,6 +36,8 @@ private:
         {"cones", "cone"},
         {"limitedCones", "limited_cone"},
         {"hourglasses", "hourglass"},
-        {"planes", "plane"}
+        {"planes", "plane"},
+        {"boxes", "box"},
+        {"toruses", "torus"},
     };
 };
