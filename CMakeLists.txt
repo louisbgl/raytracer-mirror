@@ -180,6 +180,9 @@ add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/Math/Roots3And4.c) # Tanglecube uses the Graphics Gems polynomial solver
 add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
+add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp )
+add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp )
+add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp )
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
@@ -199,6 +202,7 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
     DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
+    DEPENDS cone limited_cone hourglass 
     COMMENT "Building all shape plugins..."
 )
 
