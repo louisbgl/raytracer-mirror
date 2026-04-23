@@ -1,4 +1,4 @@
-# Scene showcasing boxes with different orientations (based on sphere_and_cylinder setup)
+# Scene showcasing boxes (based on sphere_and_cylinder setup)
 camera:
 {
     resolution = { width = 1000; height = 1000; };
@@ -30,43 +30,39 @@ shapes:
     );
 
     boxes = (
-        # Box with orientation "z" (depth in Z)
+        # Box 1
         {
             position = { x = -1.0; y = 0.0; z = 0.0; };
             width = 0.5;
             height = 1.0;
             depth = 0.5;
-            orientation = "z";
             material = "purple";
         },
 
-        # Box with orientation "y" (depth in Y)
+        # Box 2
         {
             position = { x = 1.0; y = 0.0; z = 0.0; };
             width = 0.5;
             height = 0.5;
             depth = 0.5;
-            orientation = "y";
             material = "orange";
         },
 
-        # Box with orientation "x" (depth in X)
+        # Box 3
         {
             position = { x = 1.5; y = 0.0; z = -1.5; };
             width = 0.4;
             height = 0.4;
             depth = 0.2;
-            orientation = "x";
             material = "purple";
         },
 
-        # Larger rectangular box
+        # Box 4
         {
             position = { x = -2.5; y = 0.0; z = -1.5; };
             width = 2.4;
             height = 2.0;
             depth = 1.2;
-            orientation = "z";
             material = "orange";
         }
     );
