@@ -13,6 +13,5 @@ public:
 private:
     Vec3 _position;
     double _radius;
-    // double _height;
     std::shared_ptr<IMaterial> _material;
 };
