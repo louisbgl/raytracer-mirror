@@ -1,37 +1,56 @@
 # Configuration of the camera
 camera:
 {
-    resolution = { width = 800; height = 600; };
-    position = { x = 0.0; y = 2.0; z = 5.0; }; # Moved back slightly to see the whole cone
-    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    resolution = { width = 1920; height = 1080; };
+    position = { x = 0.0; y = 5.0; z = 12.0; }; # Moved higher and further back
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
-    fieldOfView = 70.0;
+    fieldOfView = 60.0;
 };
 
 # Material definitions
 materials:
 {
     Lambertian = (
-        { name = "cone_material"; color = { r = 255; g = 100; b = 50; }; }, # Orange-ish
-        { name = "ground"; color = { r = 100; g = 100; b = 100; }; }
+        { name = "orange"; color = { r = 255; g = 120; b = 30; }; },
+        { name = "cyan";   color = { r = 30; g = 200; b = 255; }; },
+        { name = "purple"; color = { r = 150; g = 50; b = 250; }; },
+        { name = "ground"; color = { r = 80; g = 80; b = 80; }; }
     );
 };
 
 # Shapes in the scene
 shapes:
 {
-    # Your friend's spheres for context
     spheres = (
         # Large ground sphere
-        { position = { x = 0.0; y = -100.5; z = 0.0; }; radius = 100.0; material = "ground"; }
+        { position = { x = 0.0; y = -100.0; z = 0.0; }; radius = 100.0; material = "ground"; }
     );
 
-    # Your new Cone primitive
     cones = (
+        # Center Cone: Moderate slope
         { 
-            position = { x = 0.0; y = 1.0; z = 0.0; }; # The peak (vertex) of the cone
-            radius = 0.5;                             # The 'k' factor (slope)
-            material = "cone_material"; 
+            position = { x = 0.0; y = 2.0; z = 0.0; }; 
+            radius = 0.5; 
+            material = "orange"; 
+        },
+        # Left Cone: Very sharp/skinny
+        { 
+            position = { x = -3.0; y = 4.0; z = -1.0; }; 
+            radius = 0.15; 
+            material = "cyan"; 
+        },
+        # Right Cone: Very wide/flat
+        { 
+            position = { x = 3.5; y = 1.5; z = 1.0; }; 
+            radius = 1.2; 
+            material = "purple"; 
+        },
+        # Distant small cone
+        { 
+            position = { x = -1.5; y = 6.0; z = -5.0; }; 
+            radius = 0.05; 
+            material = "orange"; 
         }
     );
 };
@@ -39,10 +58,11 @@ shapes:
 # Light configuration
 lights:
 {
-    ambient = 0.3;
-    diffuse = 0.7;
+    ambient = 0.2;
+    diffuse = 0.8;
 
     point = (
-        { position = { x = -5.0; y = 8.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+        { position = { x = -10.0; y = 10.0; z = 10.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; },
+        { position = { x = 10.0; y = 5.0; z = 2.0; }; color = { r = 200; g = 200; b = 255; }; intensity = 0.5; }
     );
 };
