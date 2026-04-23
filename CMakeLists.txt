@@ -183,6 +183,7 @@ add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots
 add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp )
 add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp )
 add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp )
+add_raytracer_plugin(limited_hourglass shapes src/plugins/Shapes/LimitedHourglass.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
@@ -202,7 +203,7 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
     DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
-    DEPENDS cone limited_cone hourglass 
+    DEPENDS cone limited_cone hourglass limited_hourglass 
     COMMENT "Building all shape plugins..."
 )
 
