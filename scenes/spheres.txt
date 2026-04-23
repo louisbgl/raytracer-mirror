@@ -1,4 +1,3 @@
-# Basic scene with two lambertian spheres
 camera:
 {
     resolution = { width = 800; height = 600; };
