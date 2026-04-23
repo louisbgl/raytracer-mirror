@@ -14,15 +14,15 @@ Shapes (Bounded - support rotation):
 
 	NOTE: rotation is optional Euler angles in degrees (rx, ry, rz). Defaults to (0, 0, 0).
 
-Shapes (Infinite - use shape-specific orientation):
+Shapes (Infinite - use axis vector for orientation):
 	Plane (position (x, y, z), normal (nx, ny, nz), material)
 	    → Oriented via normal vector
-	Cylinder (position (x, y, z), radius, material)
-	    → Infinite along Y-axis
-	Cone (position (x, y, z), radius, material)
-	    → Infinite along Y-axis
-	Hourglass (position (x, y, z), radius, material)
-	    → Infinite along Y-axis
+	Cylinder (position (x, y, z), radius, material, [axis (ax, ay, az)])
+	    → axis defines cylinder direction (defaults to Y-axis: 0, 1, 0)
+	Cone (position (x, y, z), radius, material, [axis (ax, ay, az)])
+	    → axis defines cone direction (defaults to Y-axis: 0, 1, 0)
+	Hourglass (position (x, y, z), radius, material, [axis (ax, ay, az)])
+	    → axis defines hourglass direction (defaults to Y-axis: 0, 1, 0)
 
 Materials:
 	Lambertian (name, color (r, g, b))

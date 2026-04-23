@@ -169,16 +169,22 @@ std::shared_ptr<IShape> ShapeFactory::_createCone(const libconfig::Setting& conf
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
+    double ax = config.exists("axis") ? (double)config["axis"]["x"] : 0.0;
+    double ay = config.exists("axis") ? (double)config["axis"]["y"] : 1.0;
+    double az = config.exists("axis") ? (double)config["axis"]["z"] : 0.0;
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cone"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["cone"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, ax, ay, az, radius, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     double x = config["position"]["x"];
     double y = config["position"]["y"];
     double z = config["position"]["z"];
+    double ax = config.exists("axis") ? (double)config["axis"]["x"] : 0.0;
+    double ay = config.exists("axis") ? (double)config["axis"]["y"] : 1.0;
+    double az = config.exists("axis") ? (double)config["axis"]["z"] : 0.0;
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["hourglass"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["hourglass"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, ax, ay, az, radius, &material));
 }

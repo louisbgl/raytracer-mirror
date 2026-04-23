@@ -1,34 +1,29 @@
-
 #include "./Hourglass.hpp"
 #include "DataTypes/Vec3.hpp"
 #include "../../Math/QuadraticSolver.hpp"
-
 #include <cmath>
 
-
-
-
-Hourglass::Hourglass(Vec3 pos, double radius, std::shared_ptr<IMaterial>material)
-{
-    _position = pos;
-    _radius = radius;
-    _material = material;
-}
+Hourglass::Hourglass(Vec3 pos, Vec3 axis, double radius, std::shared_ptr<IMaterial> material)
+    : _position(pos), _axis(normalize(axis)), _radius(radius), _material(material) {}
 
 bool Hourglass::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const
 {
     Vec3 oc = ray.origin() - _position;
-    
-    double k = _radius; //k = slope.
-    double k_sqrd = k * k;
+    double k_sqrd = _radius * _radius;
 
-    double a = (ray.direction().x() * ray.direction().x()) + (ray.direction().z() * ray.direction().z()) - (k_sqrd * ray.direction().y() * ray.direction().y());
-    if (std::abs(a) < -1e-9) {
+    double dot_d_axis = dot(ray.direction(), _axis);
+    double dot_oc_axis = dot(oc, _axis);
+
+    Vec3 d_perp = ray.direction() - _axis * dot_d_axis;
+    Vec3 oc_perp = oc - _axis * dot_oc_axis;
+
+    double a = dot(d_perp, d_perp) - k_sqrd * dot_d_axis * dot_d_axis;
+    if (std::abs(a) < 1e-9) {
         return false;
     }
 
-    double b = 2.0 * (oc.x() * ray.direction().x() + oc.z() * ray.direction().z() - k_sqrd * oc.y() * ray.direction().y());
-    double c = (oc.x() * oc.x()) + (oc.z() * oc.z()) - (k_sqrd * oc.y() * oc.y());
+    double b = 2.0 * (dot(oc_perp, d_perp) - k_sqrd * dot_oc_axis * dot_d_axis);
+    double c = dot(oc_perp, oc_perp) - k_sqrd * dot_oc_axis * dot_oc_axis;
 
     QuadraticRoots roots = QuadraticSolver::solve(a, b, c);
     if (!roots.hasRoots()) {
@@ -42,24 +37,23 @@ bool Hourglass::hit(const Ray& ray, double t_min, double t_max, HitRecord& recor
         }
 
         Vec3 hitpoint = ray.at(t);
+        Vec3 p = hitpoint - _position;
+        double along_axis = dot(p, _axis);
 
-        double rel_x = hitpoint.x() - _position.x();
-        double rel_z = hitpoint.z() - _position.z();
-        double rel_y = hitpoint.y() - _position.y();
-        double norm_y = -k_sqrd * rel_y;
-        Vec3 outward_norm = normalize(Vec3(rel_x, norm_y, rel_z));
+        Vec3 p_perp = p - _axis * along_axis;
+        Vec3 outward_norm = normalize(p_perp - _axis * k_sqrd * along_axis);
 
         record.t = t;
         record.point = hitpoint;
         record.material = _material;
         record.set_face_normal(ray, outward_norm);
-        
+
         return true;
     }
 
     return false;
 }
 
-extern "C" IShape* create(double x, double y, double z, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Hourglass(Vec3(x, y, z), radius, *material);
+extern "C" IShape* create(double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr<IMaterial>* material) {
+    return new Hourglass(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
 }
