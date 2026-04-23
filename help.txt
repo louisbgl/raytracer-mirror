@@ -1,21 +1,28 @@
 Usage: raytracer <input_file>
 
 Currently supported:
-Shapes:
-	Plane (position (x, y, z), normal (nx, ny, nz), material)
-	Sphere (position (x, y, z), radius, material)
-	Cylinder (position (x, y, z), radius, material)
-	LimitedCylinder (position (x, y, z), radius, height, material)
-	Rectangle (position (x, y, z), width, height, material)
-	Box (position (x, y, z), width, height, depth, orientation, material)
-	Torus (position (x, y, z), majorRadius, minorRadius, material)
-	Tanglecube (position (x, y, z), scale, material)
-    Cone (position (x, y, z), radius, material)
-    LimitedCone (position (x, y, z), radius, height, material)
-    Hourglass (position (x, y, z), radius, material)
-    Limited Hourglass (position (x, y, z), radius, height, material)
 
-	INFO: All shapes can optionally include a rotation (x, y, z) in degrees for orientation. If not specified, it defaults to (0, 0, 0).
+Shapes (Bounded - support rotation):
+	Sphere (position (x, y, z), radius, material, [rotation (x, y, z)])
+	LimitedCylinder (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	LimitedCone (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	Limited Hourglass (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	Rectangle (position (x, y, z), width, height, material, [rotation (x, y, z)])
+	Box (position (x, y, z), width, height, depth, material, [rotation (x, y, z)])
+	Torus (position (x, y, z), majorRadius, minorRadius, material, [rotation (x, y, z)])
+	Tanglecube (position (x, y, z), scale, material, [rotation (x, y, z)])
+
+	NOTE: rotation is optional Euler angles in degrees (rx, ry, rz). Defaults to (0, 0, 0).
+
+Shapes (Infinite - use shape-specific orientation):
+	Plane (position (x, y, z), normal (nx, ny, nz), material)
+	    → Oriented via normal vector
+	Cylinder (position (x, y, z), radius, material)
+	    → Infinite along Y-axis
+	Cone (position (x, y, z), radius, material)
+	    → Infinite along Y-axis
+	Hourglass (position (x, y, z), radius, material)
+	    → Infinite along Y-axis
 
 Materials:
 	Lambertian (name, color (r, g, b))
