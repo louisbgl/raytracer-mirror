@@ -10,3 +10,5 @@ run_tests
 
 # test results
 tests/results/
+
+.vscode/
