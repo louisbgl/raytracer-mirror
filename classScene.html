@@ -127,6 +127,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ada63d7d7c8cef80d8afd5b86ed132b8e" id="r_ada63d7d7c8cef80d8afd5b86ed132b8e"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#ada63d7d7c8cef80d8afd5b86ed132b8e">diffuseMultiplier</a> () const</td></tr>
 <tr class="memdesc:ada63d7d7c8cef80d8afd5b86ed132b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the diffuse light multiplier.  <br /></td></tr>
 <tr class="separator:ada63d7d7c8cef80d8afd5b86ed132b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf5e912d5716ee0571d245e7a5af29a" id="r_a7bf5e912d5716ee0571d245e7a5af29a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a7bf5e912d5716ee0571d245e7a5af29a">materialCount</a> () const</td></tr>
+<tr class="memdesc:a7bf5e912d5716ee0571d245e7a5af29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of materials in the scene.  <br /></td></tr>
+<tr class="separator:a7bf5e912d5716ee0571d245e7a5af29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f437a08fb95e98b9651206bc91b95d6" id="r_a7f437a08fb95e98b9651206bc91b95d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#a7f437a08fb95e98b9651206bc91b95d6">setMaterialCount</a> (int n)</td></tr>
+<tr class="memdesc:a7f437a08fb95e98b9651206bc91b95d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of materials in the scene.  <br /></td></tr>
+<tr class="separator:a7f437a08fb95e98b9651206bc91b95d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac587ad647a90e9d0b2f6da1a246a353e" id="r_ac587ad647a90e9d0b2f6da1a246a353e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classScene.html#ac587ad647a90e9d0b2f6da1a246a353e">set_world</a> (const <a class="el" href="classWorld.html">World</a> &amp;<a class="el" href="classScene.html#a6f63649b97d2de845d8ed3ca46fa3ff8">world</a>)</td></tr>
 <tr class="memdesc:ac587ad647a90e9d0b2f6da1a246a353e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the world of the scene.  <br /></td></tr>
 <tr class="separator:ac587ad647a90e9d0b2f6da1a246a353e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -433,6 +439,34 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7bf5e912d5716ee0571d245e7a5af29a" name="a7bf5e912d5716ee0571d245e7a5af29a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf5e912d5716ee0571d245e7a5af29a">&#9670;&#160;</a></span>materialCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scene::materialCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the number of materials in the scene. </p>
+<dl class="section return"><dt>Returns</dt><dd>The material count. </dd></dl>
+
+</div>
+</div>
 <a id="a58f3fafd83a1c1cab8cd6b7a84c539b9" name="a58f3fafd83a1c1cab8cd6b7a84c539b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a58f3fafd83a1c1cab8cd6b7a84c539b9">&#9670;&#160;</a></span>remove_light()</h2>
 
@@ -530,6 +564,40 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">world</td><td>The world to set. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7f437a08fb95e98b9651206bc91b95d6" name="a7f437a08fb95e98b9651206bc91b95d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f437a08fb95e98b9651206bc91b95d6">&#9670;&#160;</a></span>setMaterialCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scene::setMaterialCount </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the number of materials in the scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>The material count. </td></tr>
   </table>
   </dd>
 </dl>

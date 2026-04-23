@@ -1,9 +1,11 @@
 <map id="IMaterial" name="IMaterial">
-<area shape="rect" id="Node000001" title="Interface for materials that define how rays interact with surfaces." alt="" coords="157,5,237,31"/>
+<area shape="rect" id="Node000001" title="Interface for materials that define how rays interact with surfaces." alt="" coords="209,5,289,31"/>
 <area shape="rect" id="Node000002" href="$classColoredDiffuse.html" title=" " alt="" coords="5,79,124,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,39,88,81,85,76,162,35"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,38,96,81,94,76,205,33"/>
 <area shape="rect" id="Node000003" href="$classLambertian.html" title=" " alt="" coords="149,79,245,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,44,199,79,194,79,194,44"/>
-<area shape="rect" id="Node000004" href="$classTransparent.html" title=" " alt="" coords="269,79,367,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,35,299,76,297,81,227,40"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,43,207,80,203,77,230,40"/>
+<area shape="rect" id="Node000004" href="$classPhong.html" title=" " alt="" coords="269,79,332,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,40,294,77,290,80,263,43"/>
+<area shape="rect" id="Node000005" href="$classTransparent.html" title=" " alt="" coords="357,79,455,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="288,34,381,76,379,81,285,39"/>
 </map>

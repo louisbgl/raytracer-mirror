@@ -1,6 +1,6 @@
 var classCore =
 [
-    [ "Core", "classCore.html#ac495e1f6602469466a3c8a88a9b283ba", null ],
-    [ "~Core", "classCore.html#a5057b209797afa0e0df08fd2be864164", null ],
+    [ "Core", "classCore.html#a0982ecf166664b2968032586c827525c", null ],
+    [ "~Core", "classCore.html#a776f8c46504b14183883c6273f93eaed", null ],
     [ "simulate", "classCore.html#a8a3573a4c87c2e5cb7530df125385eca", null ]
 ];

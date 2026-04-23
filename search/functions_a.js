@@ -1,14 +1,4 @@
 var searchData=
 [
-  ['objects_0',['objects',['../classWorld.html#a75303dbf54f4a6f258322fac635b602b',1,'World']]],
-  ['operator_2a_1',['operator*',['../Vec3_8hpp.html#a352dc3bfab3bdc799f2bca7f196bd366',1,'operator*(double scalar, const Vec3 &amp;vec):&#160;Vec3.hpp'],['../Vec3_8hpp.html#ad08796f2a1b6b517c65420dd775b10a4',1,'operator*(const Vec3 &amp;vec, double scalar):&#160;Vec3.hpp'],['../Vec3_8hpp.html#a7878e3c2cc855e063abcd0dd12fb5fce',1,'operator*(const Vec3 &amp;left, const Vec3 &amp;right):&#160;Vec3.hpp']]],
-  ['operator_2a_3d_2',['operator*=',['../classVec3.html#aab8e5007b835d1f1d16e2d7d20bd70c9',1,'Vec3']]],
-  ['operator_2b_3',['operator+',['../Vec3_8hpp.html#ae1d59910732e5882d1daace0bf3e82b3',1,'Vec3.hpp']]],
-  ['operator_2b_3d_4',['operator+=',['../classVec3.html#aa89f6953b776aa07c481c44f4b83451c',1,'Vec3']]],
-  ['operator_2d_5',['operator-',['../classVec3.html#a092138208afc7d3bed819944faa9273a',1,'Vec3::operator-()'],['../Vec3_8hpp.html#af4828e0880f07d6aff9c08cb6269ba46',1,'operator-(const Vec3 &amp;left, const Vec3 &amp;right):&#160;Vec3.hpp']]],
-  ['operator_2f_6',['operator/',['../Vec3_8hpp.html#a3fd5ba8573083b42d0a54c61eee30ffe',1,'Vec3.hpp']]],
-  ['operator_2f_3d_7',['operator/=',['../classVec3.html#abed251db9c18521a3983ce133820b20b',1,'Vec3']]],
-  ['operator_3c_3c_8',['operator&lt;&lt;',['../Vec3_8hpp.html#aeb78f7bad8647a7a8f2572efccb590f3',1,'Vec3.hpp']]],
-  ['operator_5b_5d_9',['operator[]',['../classVec3.html#ae2ab5498269242673e4c096539c87b03',1,'Vec3::operator[]()'],['../structQuadraticRoots.html#a79e47ae3ca44a834cf2240c0146cc94f',1,'QuadraticRoots::operator[]()']]],
-  ['origin_10',['origin',['../classRay.html#acfaa7ab6baeebdabb863000c2385e169',1,'Ray']]]
+  ['normalize_0',['normalize',['../Vec3_8hpp.html#a5c20925dcf656acc65bf6d7f16a71126',1,'Vec3.hpp']]]
 ];

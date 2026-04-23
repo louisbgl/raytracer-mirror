@@ -95,30 +95,34 @@ $(document).ready(function(){initNavTree('ShapeFactory_8cpp.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ShapeFactory_8hpp_source.html">ShapeFactory.hpp</a>&quot;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &quot;<a class="el" href="IShape_8hpp_source.html">Interfaces/IShape.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for ShapeFactory.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="ShapeFactory_8cpp__incl.png" border="0" usemap="#asrc_2factories_2ShapeFactory_8cpp" alt=""/></div>
 <map name="asrc_2factories_2ShapeFactory_8cpp" id="asrc_2factories_2ShapeFactory_8cpp">
-<area shape="rect" title=" " alt="" coords="361,5,580,31"/>
-<area shape="rect" href="ShapeFactory_8hpp.html" title=" " alt="" coords="403,79,538,104"/>
-<area shape="poly" title=" " alt="" coords="473,31,473,65,468,65,468,31"/>
-<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="121,152,295,177"/>
-<area shape="poly" title=" " alt="" coords="429,107,265,151,263,146,428,101"/>
+<area shape="rect" title=" " alt="" coords="324,5,543,31"/>
+<area shape="rect" href="ShapeFactory_8hpp.html" title=" " alt="" coords="366,79,501,104"/>
+<area shape="poly" title=" " alt="" coords="436,31,436,65,431,65,431,31"/>
+<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="102,152,277,177"/>
+<area shape="poly" title=" " alt="" coords="415,33,222,147,219,143,412,29"/>
 <area shape="rect" title=" " alt="" coords="327,299,404,324"/>
-<area shape="poly" title=" " alt="" coords="462,106,423,156,401,190,384,226,375,256,370,285,365,284,370,255,379,224,397,187,419,153,458,102"/>
-<area shape="rect" href="PluginLoader_8hpp.html" title=" " alt="" coords="446,152,623,177"/>
-<area shape="poly" title=" " alt="" coords="483,103,517,140,513,144,479,106"/>
-<area shape="rect" title=" " alt="" coords="393,225,517,251"/>
-<area shape="poly" title=" " alt="" coords="463,106,449,127,437,153,436,183,445,212,440,214,431,184,432,151,444,124,459,103"/>
-<area shape="rect" title=" " alt="" coords="632,225,691,251"/>
-<area shape="poly" title=" " alt="" coords="539,100,591,118,616,132,638,150,655,180,662,211,657,212,650,182,634,154,613,136,589,122,537,105"/>
-<area shape="rect" title=" " alt="" coords="699,152,810,177"/>
-<area shape="poly" title=" " alt="" coords="517,101,696,146,695,151,516,107"/>
+<area shape="poly" title=" " alt="" coords="543,24,641,39,689,52,732,67,767,87,790,112,797,127,799,143,796,160,788,179,764,210,738,228,669,253,603,275,535,291,418,308,418,303,534,285,602,270,667,248,736,223,761,206,783,176,791,159,793,143,791,128,786,115,764,91,730,72,687,57,640,45,542,30"/>
+<area shape="poly" title=" " alt="" coords="395,107,243,151,241,146,393,101"/>
+<area shape="poly" title=" " alt="" coords="424,106,384,155,364,189,349,226,348,256,356,285,351,287,343,257,344,225,359,187,380,152,420,102"/>
+<area shape="rect" href="PluginLoader_8hpp.html" title=" " alt="" coords="409,152,586,177"/>
+<area shape="poly" title=" " alt="" coords="446,103,480,140,476,144,442,106"/>
+<area shape="rect" title=" " alt="" coords="358,225,482,251"/>
+<area shape="poly" title=" " alt="" coords="426,106,412,127,400,153,398,168,400,183,409,212,404,214,394,184,393,168,395,151,407,124,422,103"/>
+<area shape="rect" title=" " alt="" coords="597,225,656,251"/>
+<area shape="poly" title=" " alt="" coords="502,100,554,118,579,132,601,150,619,180,627,211,622,213,614,182,597,154,576,136,551,123,500,105"/>
+<area shape="rect" title=" " alt="" coords="662,152,773,177"/>
+<area shape="poly" title=" " alt="" coords="480,101,659,146,658,151,478,107"/>
 <area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="5,372,163,397"/>
-<area shape="poly" title=" " alt="" coords="168,180,130,198,113,211,98,227,83,259,77,294,78,329,81,358,76,359,72,329,72,294,78,257,94,224,109,207,127,193,166,175"/>
-<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="109,225,307,251"/>
-<area shape="poly" title=" " alt="" coords="211,178,211,212,205,212,205,178"/>
+<area shape="poly" title=" " alt="" coords="142,180,104,198,87,211,74,227,62,260,62,295,68,330,77,358,71,360,62,331,56,296,57,259,70,224,84,207,101,193,140,175"/>
+<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="85,225,283,251"/>
+<area shape="poly" title=" " alt="" coords="191,178,189,212,183,212,186,177"/>
 <area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="101,445,182,471"/>
 <area shape="poly" title=" " alt="" coords="96,396,125,433,121,436,91,399"/>
 <area shape="rect" title=" " alt="" coords="14,519,77,544"/>
@@ -127,16 +131,16 @@ Include dependency graph for ShapeFactory.cpp:</div>
 <area shape="poly" title=" " alt="" coords="144,471,144,505,139,505,139,471"/>
 <area shape="rect" title=" " alt="" coords="206,519,293,544"/>
 <area shape="poly" title=" " alt="" coords="160,468,222,509,219,513,157,473"/>
-<area shape="poly" title=" " alt="" coords="173,253,135,272,118,285,104,300,91,329,86,359,81,358,86,327,99,297,114,281,133,267,170,248"/>
-<area shape="poly" title=" " alt="" coords="234,248,328,291,326,295,232,253"/>
+<area shape="poly" title=" " alt="" coords="161,253,130,272,104,300,92,329,87,358,82,358,86,328,99,297,127,268,158,249"/>
+<area shape="poly" title=" " alt="" coords="214,248,324,291,322,296,212,253"/>
 <area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="113,299,303,324"/>
-<area shape="poly" title=" " alt="" coords="211,251,211,285,205,285,205,251"/>
+<area shape="poly" title=" " alt="" coords="190,250,202,285,197,286,185,252"/>
 <area shape="poly" title=" " alt="" coords="189,326,117,367,115,363,187,322"/>
 <area shape="poly" title=" " alt="" coords="206,325,177,398,158,435,153,432,172,396,201,323"/>
-<area shape="poly" title=" " alt="" coords="524,179,480,218,476,214,520,175"/>
-<area shape="rect" title=" " alt="" coords="541,225,608,251"/>
-<area shape="poly" title=" " alt="" coords="544,176,564,212,559,215,539,179"/>
-<area shape="poly" title=" " alt="" coords="556,175,630,216,627,221,554,180"/>
+<area shape="poly" title=" " alt="" coords="487,179,445,218,441,214,483,175"/>
+<area shape="rect" title=" " alt="" coords="507,225,573,251"/>
+<area shape="poly" title=" " alt="" coords="507,176,528,212,524,215,502,179"/>
+<area shape="poly" title=" " alt="" coords="519,175,594,216,592,221,517,180"/>
 </map>
 </div>
 </div></div><!-- contents -->

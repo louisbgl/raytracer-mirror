@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['lambertian_2ecpp_0',['Lambertian.cpp',['../Lambertian_8cpp.html',1,'']]],
-  ['lambertian_2ehpp_1',['Lambertian.hpp',['../Lambertian_8hpp.html',1,'']]],
-  ['lightfactory_2ecpp_2',['LightFactory.cpp',['../LightFactory_8cpp.html',1,'']]],
-  ['lightfactory_2ehpp_3',['LightFactory.hpp',['../LightFactory_8hpp.html',1,'']]],
-  ['limitedcylinder_2ecpp_4',['LimitedCylinder.cpp',['../LimitedCylinder_8cpp.html',1,'']]],
-  ['limitedcylinder_2ehpp_5',['LimitedCylinder.hpp',['../LimitedCylinder_8hpp.html',1,'']]]
+  ['ilight_2ehpp_0',['ILight.hpp',['../ILight_8hpp.html',1,'']]],
+  ['image_2ecpp_1',['Image.cpp',['../Image_8cpp.html',1,'']]],
+  ['image_2ehpp_2',['Image.hpp',['../Image_8hpp.html',1,'']]],
+  ['imaterial_2ehpp_3',['IMaterial.hpp',['../IMaterial_8hpp.html',1,'']]],
+  ['ishape_2ehpp_4',['IShape.hpp',['../IShape_8hpp.html',1,'']]]
 ];

@@ -103,27 +103,30 @@ $(document).ready(function(){initNavTree('Rectangle_8hpp_source.html',''); initR
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../../Interfaces/IShape.hpp&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="classRectangle.html">    5</a></span><span class="keyword">class </span><a class="code hl_class" href="classRectangle.html">Rectangle</a> : <span class="keyword">public</span> <a class="code hl_class" href="classIShape.html">IShape</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_class" href="classRectangle.html">Rectangle</a>(<a class="code hl_class" href="classVec3.html">Vec3</a> position, <span class="keywordtype">double</span> width, <span class="keywordtype">double</span> height, std::shared_ptr&lt;IMaterial&gt; material);</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classRectangle.html#ab9f43716b07131b960f922e118b43f5c">    8</a></span>    <a class="code hl_function" href="classRectangle.html#ab9f43716b07131b960f922e118b43f5c">~Rectangle</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classRectangle.html#a797e434fdfb528509ab15d4e270ccce4">hit</a>(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <span class="keywordtype">double</span> t_min, <span class="keywordtype">double</span> t_max, <a class="code hl_class" href="classHitRecord.html">HitRecord</a>&amp; record) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _position;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">double</span> _width;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">double</span> _height;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    std::shared_ptr&lt;IMaterial&gt; _material;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _normal;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// Rectangle shape: axis-aligned to the XY plane (perpendicular to Z-axis).</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// NOTE: Currently hard-coded to Z-axis orientation. Full rotation support will be added</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">// when the general shape transformation system is implemented.</span></div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classRectangle.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classRectangle.html">Rectangle</a> : <span class="keyword">public</span> <a class="code hl_class" href="classIShape.html">IShape</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="classRectangle.html">Rectangle</a>(<a class="code hl_class" href="classVec3.html">Vec3</a> position, <span class="keywordtype">double</span> width, <span class="keywordtype">double</span> height, std::shared_ptr&lt;IMaterial&gt; material);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classRectangle.html#ab9f43716b07131b960f922e118b43f5c">   11</a></span>    <a class="code hl_function" href="classRectangle.html#ab9f43716b07131b960f922e118b43f5c">~Rectangle</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classRectangle.html#a797e434fdfb528509ab15d4e270ccce4">hit</a>(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <span class="keywordtype">double</span> t_min, <span class="keywordtype">double</span> t_max, <a class="code hl_class" href="classHitRecord.html">HitRecord</a>&amp; record) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _position;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">double</span> _width;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">double</span> _height;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::shared_ptr&lt;IMaterial&gt; _material;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _normal;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
 </div>
 <div class="ttc" id="aclassHitRecord_html"><div class="ttname"><a href="classHitRecord.html">HitRecord</a></div><div class="ttdef"><b>Definition</b> HitRecord.hpp:7</div></div>
 <div class="ttc" id="aclassIShape_html"><div class="ttname"><a href="classIShape.html">IShape</a></div><div class="ttdoc">Interface for shapes that can be hit by rays.</div><div class="ttdef"><b>Definition</b> IShape.hpp:11</div></div>
 <div class="ttc" id="aclassRay_html"><div class="ttname"><a href="classRay.html">Ray</a></div><div class="ttdoc">Represents a ray in 3D space, defined by an origin and a direction.</div><div class="ttdef"><b>Definition</b> Ray.hpp:9</div></div>
-<div class="ttc" id="aclassRectangle_html"><div class="ttname"><a href="classRectangle.html">Rectangle</a></div><div class="ttdef"><b>Definition</b> Rectangle.hpp:5</div></div>
-<div class="ttc" id="aclassRectangle_html_a797e434fdfb528509ab15d4e270ccce4"><div class="ttname"><a href="classRectangle.html#a797e434fdfb528509ab15d4e270ccce4">Rectangle::hit</a></div><div class="ttdeci">bool hit(const Ray &amp;ray, double t_min, double t_max, HitRecord &amp;record) const override</div><div class="ttdoc">Checks if a ray hits the shape within the specified t-range.</div><div class="ttdef"><b>Definition</b> Rectangle.cpp:6</div></div>
+<div class="ttc" id="aclassRectangle_html"><div class="ttname"><a href="classRectangle.html">Rectangle</a></div><div class="ttdef"><b>Definition</b> Rectangle.hpp:8</div></div>
+<div class="ttc" id="aclassRectangle_html_a797e434fdfb528509ab15d4e270ccce4"><div class="ttname"><a href="classRectangle.html#a797e434fdfb528509ab15d4e270ccce4">Rectangle::hit</a></div><div class="ttdeci">bool hit(const Ray &amp;ray, double t_min, double t_max, HitRecord &amp;record) const override</div><div class="ttdoc">Checks if a ray hits the shape within the specified t-range.</div><div class="ttdef"><b>Definition</b> Rectangle.cpp:7</div></div>
 <div class="ttc" id="aclassRectangle_html_ab9f43716b07131b960f922e118b43f5c"><div class="ttname"><a href="classRectangle.html#ab9f43716b07131b960f922e118b43f5c">Rectangle::~Rectangle</a></div><div class="ttdeci">~Rectangle() override=default</div></div>
 <div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:7</div></div>
 </div><!-- fragment --></div><!-- contents -->

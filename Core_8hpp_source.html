@@ -102,32 +102,44 @@ $(document).ready(function(){initNavTree('Core_8hpp_source.html',''); initResiza
 <a href="Core_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../src/DataTypes/Scene.hpp&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="};">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="classCore.html">    6</a></span><span class="keyword">class </span><a class="code hl_class" href="classCore.html">Core</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classCore.html#ac495e1f6602469466a3c8a88a9b283ba">    8</a></span>    <a class="code hl_function" href="classCore.html#ac495e1f6602469466a3c8a88a9b283ba">Core</a>(std::string inputFile) : _inputFile(std::move(inputFile)) {}</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classCore.html#a5057b209797afa0e0df08fd2be864164">    9</a></span>    <a class="code hl_function" href="classCore.html#a5057b209797afa0e0df08fd2be864164">~Core</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">simulate</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    std::string _inputFile;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_class" href="classScene.html">Scene</a> _scene;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">double</span> _t_min = 0.001;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">double</span> _t_max = 1000.0;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _baseAmbient = <a class="code hl_class" href="classVec3.html">Vec3</a>(25, 25, 38);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _backgroundColor = <a class="code hl_class" href="classVec3.html">Vec3</a>(135, 206, 235);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::string _outputFile = <span class="stringliteral">&quot;output.ppm&quot;</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> trace(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <span class="keyword">const</span> <a class="code hl_class" href="classScene.html">Scene</a>&amp; scene, <span class="keywordtype">int</span> depth);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="Image_8hpp.html">Image.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">class </span><a class="code hl_class" href="classLogger.html">Logger</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classCore.html">   10</a></span><span class="keyword">class </span><a class="code hl_class" href="classCore.html">Core</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_class" href="classCore.html">Core</a>(std::string inputFile, <span class="keywordtype">bool</span> logging = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classCore.html#a776f8c46504b14183883c6273f93eaed">   13</a></span>    <a class="code hl_function" href="classCore.html#a776f8c46504b14183883c6273f93eaed">~Core</a>();</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">simulate</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::string _inputFile;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">bool</span> _logging;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::unique_ptr&lt;Logger&gt; _logger;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_class" href="classScene.html">Scene</a> _scene;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">double</span> _t_min = 0.001;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">double</span> _t_max = 1000.0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _baseAmbient = <a class="code hl_class" href="classVec3.html">Vec3</a>(25, 25, 38);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _backgroundColor = <a class="code hl_class" href="classVec3.html">Vec3</a>(135, 206, 235);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    std::string _outputFile = <span class="stringliteral">&quot;output.ppm&quot;</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">bool</span>  _loadScene();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="classImage.html">Image</a> _render();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span>  _writeOutput(<a class="code hl_class" href="classImage.html">Image</a>&amp; image);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> trace(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <span class="keyword">const</span> <a class="code hl_class" href="classScene.html">Scene</a>&amp; scene, <span class="keywordtype">int</span> depth);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
 </div>
-<div class="ttc" id="aclassCore_html"><div class="ttname"><a href="classCore.html">Core</a></div><div class="ttdef"><b>Definition</b> Core.hpp:6</div></div>
-<div class="ttc" id="aclassCore_html_a5057b209797afa0e0df08fd2be864164"><div class="ttname"><a href="classCore.html#a5057b209797afa0e0df08fd2be864164">Core::~Core</a></div><div class="ttdeci">~Core()=default</div></div>
-<div class="ttc" id="aclassCore_html_a8a3573a4c87c2e5cb7530df125385eca"><div class="ttname"><a href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">Core::simulate</a></div><div class="ttdeci">bool simulate()</div><div class="ttdoc">Simulates the ray tracing process and renders the scene. It first load the scene from the input file ...</div><div class="ttdef"><b>Definition</b> Core.cpp:8</div></div>
-<div class="ttc" id="aclassCore_html_ac495e1f6602469466a3c8a88a9b283ba"><div class="ttname"><a href="classCore.html#ac495e1f6602469466a3c8a88a9b283ba">Core::Core</a></div><div class="ttdeci">Core(std::string inputFile)</div><div class="ttdef"><b>Definition</b> Core.hpp:8</div></div>
+<div class="ttc" id="aImage_8hpp_html"><div class="ttname"><a href="Image_8hpp.html">Image.hpp</a></div></div>
+<div class="ttc" id="aclassCore_html"><div class="ttname"><a href="classCore.html">Core</a></div><div class="ttdef"><b>Definition</b> Core.hpp:10</div></div>
+<div class="ttc" id="aclassCore_html_a776f8c46504b14183883c6273f93eaed"><div class="ttname"><a href="classCore.html#a776f8c46504b14183883c6273f93eaed">Core::~Core</a></div><div class="ttdeci">~Core()</div></div>
+<div class="ttc" id="aclassCore_html_a8a3573a4c87c2e5cb7530df125385eca"><div class="ttname"><a href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">Core::simulate</a></div><div class="ttdeci">bool simulate()</div><div class="ttdoc">Simulates the ray tracing process and renders the scene. It first load the scene from the input file ...</div><div class="ttdef"><b>Definition</b> Core.cpp:16</div></div>
+<div class="ttc" id="aclassImage_html"><div class="ttname"><a href="classImage.html">Image</a></div><div class="ttdef"><b>Definition</b> Image.hpp:6</div></div>
+<div class="ttc" id="aclassLogger_html"><div class="ttname"><a href="classLogger.html">Logger</a></div><div class="ttdef"><b>Definition</b> Logger.hpp:8</div></div>
 <div class="ttc" id="aclassRay_html"><div class="ttname"><a href="classRay.html">Ray</a></div><div class="ttdoc">Represents a ray in 3D space, defined by an origin and a direction.</div><div class="ttdef"><b>Definition</b> Ray.hpp:9</div></div>
 <div class="ttc" id="aclassScene_html"><div class="ttname"><a href="classScene.html">Scene</a></div><div class="ttdef"><b>Definition</b> Scene.hpp:7</div></div>
 <div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:7</div></div>

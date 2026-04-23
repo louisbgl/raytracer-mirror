@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "AABB", "classAABB.html", null ],
     [ "Camera", "classCamera.html", null ],
     [ "Core", "classCore.html", null ],
     [ "CubicRoots", "structCubicRoots.html", null ],
@@ -14,12 +15,17 @@ var hierarchy =
     [ "IMaterial", "classIMaterial.html", [
       [ "ColoredDiffuse", "classColoredDiffuse.html", null ],
       [ "Lambertian", "classLambertian.html", null ],
+      [ "Phong", "classPhong.html", null ],
       [ "Transparent", "classTransparent.html", null ]
     ] ],
     [ "IShape", "classIShape.html", [
       [ "Box", "classBox.html", null ],
+      [ "Cone", "classCone.html", null ],
       [ "Cylinder", "classCylinder.html", null ],
+      [ "Hourglass", "classHourglass.html", null ],
+      [ "LimitedCone", "classLimitedCone.html", null ],
       [ "LimitedCylinder", "classLimitedCylinder.html", null ],
+      [ "LimitedHourglass", "classLimitedHourglass.html", null ],
       [ "Plane", "classPlane.html", null ],
       [ "Rectangle", "classRectangle.html", null ],
       [ "Sphere", "classSphere.html", null ],
@@ -27,8 +33,10 @@ var hierarchy =
       [ "Torus", "classTorus.html", null ]
     ] ],
     [ "LightFactory", "classLightFactory.html", null ],
+    [ "Logger", "classLogger.html", null ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
     [ "PluginLoader", "classPluginLoader.html", null ],
+    [ "ProgressBar", "classProgressBar.html", null ],
     [ "QuadraticRoots", "structQuadraticRoots.html", null ],
     [ "QuadraticSolver", "classQuadraticSolver.html", null ],
     [ "QuarticRoots", "structQuarticRoots.html", null ],

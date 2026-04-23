@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['vec3_0',['Vec3',['../classVec3.html',1,'']]]
+  ['tanglecube_0',['Tanglecube',['../classTanglecube.html',1,'']]],
+  ['torus_1',['Torus',['../classTorus.html',1,'']]],
+  ['transparent_2',['Transparent',['../classTransparent.html',1,'']]]
 ];

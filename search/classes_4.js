@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['ilight_0',['ILight',['../classILight.html',1,'']]],
-  ['image_1',['Image',['../classImage.html',1,'']]],
-  ['imaterial_2',['IMaterial',['../classIMaterial.html',1,'']]],
-  ['ishape_3',['IShape',['../classIShape.html',1,'']]]
+  ['helpdisplay_0',['HelpDisplay',['../classHelpDisplay.html',1,'']]],
+  ['hitrecord_1',['HitRecord',['../classHitRecord.html',1,'']]],
+  ['hourglass_2',['Hourglass',['../classHourglass.html',1,'']]]
 ];

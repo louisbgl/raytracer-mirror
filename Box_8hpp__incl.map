@@ -1,9 +1,7 @@
 <map id="src/plugins/Shapes/Box.hpp" name="src/plugins/Shapes/Box.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="101,5,243,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="27,5,170,45"/>
 <area shape="rect" id="Node000002" href="$IShape_8hpp.html" title=" " alt="" coords="5,93,192,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,47,121,85,117,81,152,44"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="216,93,275,119"/>
-<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="192,44,227,81,223,85,188,47"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,46,101,79,96,79,96,46"/>
 <area shape="rect" id="Node000003" href="$Ray_8hpp.html" title=" " alt="" coords="65,313,223,339"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,120,72,141,59,168,56,179,59,191,71,223,89,253,126,302,122,305,84,256,67,226,53,193,51,179,53,166,68,138,85,117"/>
 <area shape="rect" id="Node000008" href="$HitRecord_8hpp.html" title=" " alt="" coords="67,167,266,192"/>

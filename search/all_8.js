@@ -9,8 +9,19 @@ var searchData=
   ['lightfactory_2ecpp_6',['LightFactory.cpp',['../LightFactory_8cpp.html',1,'']]],
   ['lightfactory_2ehpp_7',['LightFactory.hpp',['../LightFactory_8hpp.html',1,'']]],
   ['lights_8',['lights',['../classScene.html#ad0d49881e9fcdd49c17ff9050311cf2c',1,'Scene']]],
-  ['limitedcylinder_9',['limitedcylinder',['../classLimitedCylinder.html',1,'LimitedCylinder'],['../classLimitedCylinder.html#a8b15c4e44bc4b7e27552cacfa9a9f8a7',1,'LimitedCylinder::LimitedCylinder()']]],
-  ['limitedcylinder_2ecpp_10',['LimitedCylinder.cpp',['../LimitedCylinder_8cpp.html',1,'']]],
-  ['limitedcylinder_2ehpp_11',['LimitedCylinder.hpp',['../LimitedCylinder_8hpp.html',1,'']]],
-  ['load_12',['load',['../classPluginLoader.html#a31b2abcb056bba54cc040554102781c8',1,'PluginLoader']]]
+  ['limitedcone_9',['limitedcone',['../classLimitedCone.html',1,'LimitedCone'],['../classLimitedCone.html#ace04bab6611984a3d77a40ec9171bad3',1,'LimitedCone::LimitedCone()']]],
+  ['limitedcone_2ecpp_10',['LimitedCone.cpp',['../LimitedCone_8cpp.html',1,'']]],
+  ['limitedcone_2ehpp_11',['LimitedCone.hpp',['../LimitedCone_8hpp.html',1,'']]],
+  ['limitedcylinder_12',['limitedcylinder',['../classLimitedCylinder.html#a8b15c4e44bc4b7e27552cacfa9a9f8a7',1,'LimitedCylinder::LimitedCylinder()'],['../classLimitedCylinder.html',1,'LimitedCylinder']]],
+  ['limitedcylinder_2ecpp_13',['LimitedCylinder.cpp',['../LimitedCylinder_8cpp.html',1,'']]],
+  ['limitedcylinder_2ehpp_14',['LimitedCylinder.hpp',['../LimitedCylinder_8hpp.html',1,'']]],
+  ['limitedhourglass_15',['limitedhourglass',['../classLimitedHourglass.html',1,'LimitedHourglass'],['../classLimitedHourglass.html#af99c384ad4be193b5186e69bd3fb3cdd',1,'LimitedHourglass::LimitedHourglass()']]],
+  ['limitedhourglass_2ecpp_16',['LimitedHourglass.cpp',['../LimitedHourglass_8cpp.html',1,'']]],
+  ['limitedhourglass_2ehpp_17',['LimitedHourglass.hpp',['../LimitedHourglass_8hpp.html',1,'']]],
+  ['load_18',['load',['../classPluginLoader.html#a31b2abcb056bba54cc040554102781c8',1,'PluginLoader']]],
+  ['logger_19',['logger',['../classLogger.html',1,'Logger'],['../classLogger.html#abc41bfb031d896170c7675fa96a6b30c',1,'Logger::Logger()']]],
+  ['logger_2ecpp_20',['Logger.cpp',['../Logger_8cpp.html',1,'']]],
+  ['logger_2ehpp_21',['Logger.hpp',['../Logger_8hpp.html',1,'']]],
+  ['logscene_22',['logScene',['../classLogger.html#a36e3d5569ae4ca4c8a0128f9ea1907ba',1,'Logger']]],
+  ['logtiming_23',['logTiming',['../classLogger.html#aa90cc94e74d1855da1bca33a9f6a28ab',1,'Logger']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vec3_0',['vec3',['../classVec3.html#a1d1c5f4f2d3cd0c56dd250e1404de220',1,'Vec3::Vec3()'],['../classVec3.html#a71a42b90a8c0ff4f79267a6beea33c81',1,'Vec3::Vec3(double x, double y, double z)']]]
+  ['unload_0',['unload',['../classPluginLoader.html#ae548588a3694793656e5a27716b17242',1,'PluginLoader']]],
+  ['update_1',['update',['../classProgressBar.html#a788d7e77edb239f7e99522644e804ac8',1,'ProgressBar']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['box_0',['Box',['../classBox.html',1,'']]]
+  ['aabb_0',['AABB',['../classAABB.html',1,'']]]
 ];

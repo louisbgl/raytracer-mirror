@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['quadraticroots_0',['QuadraticRoots',['../structQuadraticRoots.html',1,'']]],
-  ['quadraticsolver_1',['QuadraticSolver',['../classQuadraticSolver.html',1,'']]],
-  ['quarticroots_2',['QuarticRoots',['../structQuarticRoots.html',1,'']]],
-  ['quarticsolver_3',['QuarticSolver',['../classQuarticSolver.html',1,'']]]
+  ['phong_0',['Phong',['../classPhong.html',1,'']]],
+  ['plane_1',['Plane',['../classPlane.html',1,'']]],
+  ['pluginloader_2',['PluginLoader',['../classPluginLoader.html',1,'']]],
+  ['pointlight_3',['PointLight',['../classPointLight.html',1,'']]],
+  ['progressbar_4',['ProgressBar',['../classProgressBar.html',1,'']]]
 ];
