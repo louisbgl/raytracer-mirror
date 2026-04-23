@@ -39,5 +39,6 @@ private:
         {"planes", "plane"},
         {"boxes", "box"},
         {"toruses", "torus"},
+        {"limitedHourglasses", "limited_houglass"},
     };
 };
