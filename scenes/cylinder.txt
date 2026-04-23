@@ -1,0 +1,48 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 5.0; y = 4.0; z = 6.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+
+    cylinders = (
+        { position = { x = -2.0; y = 1.5; z = 0.0; }; radius = 0.4; material = "red"; },
+        { position = { x = 0.5; y = 1.5; z = 0.0; }; radius = 0.5; material = "green"; axis = { x = 0.3; y = 1.0; z = 0.0; }; },
+        { position = { x = 2.5; y = 1.5; z = 0.0; }; radius = 0.35; material = "blue"; axis = { x = -0.5; y = 1.0; z = 0.3; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = 4.0; y = 6.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 35.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.3; }
+    );
+};
