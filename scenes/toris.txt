@@ -9,25 +9,25 @@ camera:
 
 materials:
 {
-    lambertian = (
-        { name = "red"; color = { r = 200; g = 50; b = 50; }; },
-        { name = "blue"; color = { r = 50; g = 100; b = 255; }; },
-        { name = "green"; color = { r = 50; g = 200; b = 50; }; }
+    phong = (
+        { name = "red"; color = { r = 200; g = 50; b = 50; }; shininess = 32.0; },
+        { name = "green"; color = { r = 50; g = 200; b = 50; }; shininess = 32.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
     );
 };
 
 shapes:
 {
     planes = (
-        { position = { x = 0.0; y = -5.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "green"; }
-    );
-
-    spheres = (
-        { position = { x = -3.0; y = 0.0; z = -5.0; }; radius = 5.0; material = "red"; }
+        { position = { x = 0.0; y = -5.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
     toruses = (
-        { position = { x = 3.0; y = -3.0; z = 0.0; }; major_radius = 5.0; minor_radius = 2.0; material = "blue"; }
+        { position = { x = -5.0; y = 1.0; z = -3.0; }; major_radius = 2.0; minor_radius = 0.8; material = "red"; rotation = { x = 0.0; y = 90.0; z = 0.0; }; },
+        { position = { x = 4.0; y = 2.0; z = 1.0; }; major_radius = 3.0; minor_radius = 1.0; material = "green"; rotation = { x = 45.0; y = 30.0; z = 0.0; }; }
     );
 };
 
@@ -37,6 +37,10 @@ lights:
     diffuse = 0.8;
 
     point = (
-        { position = { x = 20.0; y = 30.0; z = 50.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+        { position = { x = 5.0; y = 12.0; z = 10.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 80.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.4; }
     );
 };

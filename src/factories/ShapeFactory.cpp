@@ -122,13 +122,14 @@ std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& confi
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
+    Vec3 rotation = _getRotation(config);
+    double tx = config["position"]["x"];
+    double ty = config["position"]["y"];
+    double tz = config["position"]["z"];
     double majorRadius = config["major_radius"];
     double minorRadius = config["minor_radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, majorRadius, minorRadius, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, majorRadius, minorRadius, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
