@@ -26,10 +26,7 @@ bool ShapeFactory::_ensureLoaded(const std::string& type) {
     if (_createFunctions.find(type) != _createFunctions.end()) return true;
 
     std::string pluginPath = "./plugins/shapes/" + type + ".so";
-    std::cout << "DEBUG: Trying to load: " << pluginPath << std::endl; // ADD THIS
     if (!_pluginLoader.load(pluginPath)) {
-
-        std::cout << "DEBUG: Trying to load: " << pluginPath << std::endl; // ADD THIS
         return false;
     }
     void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
