@@ -1,9 +1,13 @@
 #include "Rectangle.hpp"
+#include <cmath>
 
 Rectangle::Rectangle(Vec3 position, double width, double height, std::shared_ptr<IMaterial> material)
     : _position(position), _width(width), _height(height), _material(material), _normal(0, 0, 1) {}
 
 bool Rectangle::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
+    // NOTE: Rectangle is currently hard-coded to the XY plane (perpendicular to Z-axis).
+    // It only works for axis-aligned rectangles. Full rotation support will be added
+    // when the general shape transformation system is implemented.
     double direction_z = ray.direction().z();
 
     if (std::abs(direction_z) < 1e-6) {

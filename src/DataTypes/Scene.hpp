@@ -55,6 +55,18 @@ public:
     double diffuseMultiplier() const { return _diffuseMultiplier; }
 
     /**
+     * @brief Gets the number of materials in the scene.
+     * @return The material count.
+     */
+    int materialCount() const { return _materialCount; }
+
+    /**
+     * @brief Sets the number of materials in the scene.
+     * @param n The material count.
+     */
+    void setMaterialCount(int n) { _materialCount = n; }
+
+    /**
      * @brief Sets the world of the scene.
      * @param world The world to set.
      */
@@ -109,4 +121,5 @@ private:
     std::vector<std::shared_ptr<ILight>> _lights;
     double _ambientMultiplier;
     double _diffuseMultiplier;
+    int    _materialCount = 0;
 };

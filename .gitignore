@@ -3,6 +3,7 @@ build/
 *.dylib
 raytracer
 *.ppm
+logs/
 
 # criterion binary
 run_tests

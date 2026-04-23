@@ -2,7 +2,7 @@
 camera:
 {
     resolution = { width = 800; height = 600; };
-    position = { x = 0.0; y = 4.0; z = 12.0; };
+    position = { x = 2.0; y = 3.0; z = -5.0; };
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 75.0;
@@ -10,11 +10,11 @@ camera:
 
 materials:
 {
-    coloreddiffuse = (
-        { name = "white"; color = { r = 230; g = 230; b = 230; }; },
-        { name = "orange"; color = { r = 230; g = 120; b = 30; }; },
-        { name = "teal";   color = { r = 40;  g = 180; b = 170; }; },
-        { name = "floor";  color = { r = 180; g = 180; b = 180; }; }
+    phong = (
+        { name = "white"; color = { r = 230; g = 230; b = 230; }; shininess = 32.0; },
+        { name = "orange"; color = { r = 230; g = 120; b = 30; }; shininess = 32.0; },
+        { name = "teal";   color = { r = 40;  g = 180; b = 170; }; shininess = 32.0; },
+        { name = "floor";  color = { r = 180; g = 180; b = 180; }; shininess = 32.0; }
     );
 };
 

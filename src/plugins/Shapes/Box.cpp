@@ -1,25 +1,16 @@
 #include "Box.hpp"
+#include <cmath>
 
-Box::Box(Vec3 position, double width, double height, double depth, const std::string& orientation, std::shared_ptr<IMaterial> material)
-    : _position(position), _width(width), _height(height), _depth(depth), _orientation(orientation), _material(material) {}
+Box::Box(Vec3 position, double width, double height, double depth, std::shared_ptr<IMaterial> material)
+    : _position(position), _width(width), _height(height), _depth(depth), _material(material) {}
 
 bool Box::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
     double closest_t = t_max;
     Vec3 normal;
     bool found_hit = false;
 
-    Vec3 min_corner, max_corner;
-
-    if (_orientation == "x") {
-        min_corner = _position;
-        max_corner = _position + Vec3(_depth, _width, _height);
-    } else if (_orientation == "y") {
-        min_corner = _position;
-        max_corner = _position + Vec3(_width, _depth, _height);
-    } else {
-        min_corner = _position;
-        max_corner = _position + Vec3(_width, _height, _depth);
-    }
+    Vec3 min_corner = _position;
+    Vec3 max_corner = _position + Vec3(_width, _height, _depth);
 
     // Test X = min_x plane
     if (std::abs(ray.direction().x()) > 1e-6) {
@@ -115,6 +106,6 @@ bool Box::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) con
     return false;
 }
 
-extern "C" IShape* create(double x, double y, double z, double width, double height, double depth, const char* orientation, std::shared_ptr<IMaterial>* material) {
-    return new Box(Vec3(x, y, z), width, height, depth, std::string(orientation), *material);
+extern "C" IShape* create(double x, double y, double z, double width, double height, double depth, std::shared_ptr<IMaterial>* material) {
+    return new Box(Vec3(x, y, z), width, height, depth, *material);
 }
