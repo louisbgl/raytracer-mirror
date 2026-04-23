@@ -24,7 +24,7 @@ bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     if (!hitLocal(localRay, localRecord)) return false;
 
     // 4. Transform hit record back to world space
-    record = localToWorld(localRecord);
+    record = localToWorld(localRecord, ray);
 
     // 5. Validate t range in world space
     if (record.t < t_min || record.t > t_max) return false;
@@ -52,7 +52,7 @@ Ray AShape::worldToLocal(const Ray& ray) const {
     return Ray(rotatedOrigin, rotatedDirection);
 }
 
-HitRecord AShape::localToWorld(const HitRecord& local) const {
+HitRecord AShape::localToWorld(const HitRecord& local, const Ray& worldRay) const {
     // FORWARD TRANSFORMATION (local → world)
     // Forward:  local → rotate → translate → world
 
@@ -69,10 +69,9 @@ HitRecord AShape::localToWorld(const HitRecord& local) const {
 
     HitRecord world;
     world.point = worldPoint;
-    world.normal = worldNormal;
     world.t = local.t;
-    world.front_face = local.front_face;
     world.material = local.material;
+    world.set_face_normal(worldRay, worldNormal);
 
     return world;
 }
@@ -148,10 +147,27 @@ Vec3 AShape::applyRotation(const Vec3& v, double rx, double ry, double rz) const
 }
 
 Vec3 AShape::applyInverseRotation(const Vec3& v, double rx, double ry, double rz) const {
-    // INVERSE ROTATION
-    // The inverse of a rotation matrix is its transpose: R^(-1) = R^T
-    // For rotation matrices, this is equivalent to rotating by negative angles:
-    //   R^(-1) = R(-rx, -ry, -rz)
+    // INVERSE ROTATION = TRANSPOSE OF ROTATION MATRIX
+    // The forward rotation matrix R = Rx * Ry * Rz has the form shown in applyRotation()
+    // R^(-1) = R^T (transpose), which we compute by swapping rows/columns
 
-    return applyRotation(v, -rx, -ry, -rz);
+    double cosX = std::cos(rx), sinX = std::sin(rx);
+    double cosY = std::cos(ry), sinY = std::sin(ry);
+    double cosZ = std::cos(rz), sinZ = std::sin(rz);
+
+    // Transpose of the rotation matrix
+    // Original matrix columns become rows in transpose
+    double x = v.x() * (cosY * cosZ) +
+               v.y() * (sinX * sinY * cosZ - cosX * sinZ) +
+               v.z() * (cosX * sinY * cosZ + sinX * sinZ);
+
+    double y = v.x() * (cosY * sinZ) +
+               v.y() * (sinX * sinY * sinZ + cosX * cosZ) +
+               v.z() * (cosX * sinY * sinZ - sinX * cosZ);
+
+    double z = v.x() * (-sinY) +
+               v.y() * (sinX * cosY) +
+               v.z() * (cosX * cosY);
+
+    return Vec3(x, y, z);
 }

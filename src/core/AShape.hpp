@@ -53,7 +53,7 @@ private:
     mutable bool _aabbNeedsUpdate;
 
     Ray worldToLocal(const Ray& ray) const;
-    HitRecord localToWorld(const HitRecord& local) const;
+    HitRecord localToWorld(const HitRecord& local, const Ray& worldRay) const;
     AABB transformAABB(const AABB& localAABB) const;
 
     // Helper methods for 3D rotation math
