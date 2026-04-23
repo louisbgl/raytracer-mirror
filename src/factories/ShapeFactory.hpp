@@ -46,4 +46,5 @@ private:
     static std::shared_ptr<IShape> _createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 };

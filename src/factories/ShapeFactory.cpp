@@ -18,6 +18,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"cone", _createCone},
         {"hourglass", _createHourglass},
         {"limited_cone", _createLimitedCone},
+        {"limited_hourglass", _createLimitedHourglass},
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -151,4 +152,15 @@ std::shared_ptr<IShape> ShapeFactory::_createTorus(const libconfig::Setting& con
     double minorRadius = config["minor_radius"];
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["torus"]);
     return std::shared_ptr<IShape>(createFunc(x, y, z, majorRadius, minorRadius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material)
+{
+    double x = config["position"]["x"];
+    double y = config["position"]["y"];
+    double z = config["position"]["z"];
+    double h = config["height"];
+    double radius = config["radius"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_hourglass"]);
+    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
 }
