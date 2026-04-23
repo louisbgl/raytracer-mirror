@@ -5,7 +5,8 @@
 
 class Core {
 public:
-    Core(std::string inputFile) : _inputFile(std::move(inputFile)) {}
+    Core(std::string inputFile, bool showProgress = false)
+        : _inputFile(std::move(inputFile)), _showProgress(showProgress) {}
     ~Core() = default;
 
     /**
@@ -19,6 +20,7 @@ public:
 
 private:
     std::string _inputFile;
+    bool _showProgress;
     Scene _scene;
     double _t_min = 0.001;
     double _t_max = 1000.0;
