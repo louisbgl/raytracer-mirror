@@ -85,6 +85,7 @@ add_executable(raytracer
     src/factories/MaterialFactory.cpp
     src/factories/LightFactory.cpp
     src/utils/HelpDisplay.cpp
+    src/core/AShape.cpp
 )
 
 target_include_directories(raytracer PRIVATE
