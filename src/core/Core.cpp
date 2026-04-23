@@ -1,9 +1,11 @@
 #include "Core.hpp"
 
 #include <iostream>
+#include <memory>
 
 #include "../parsers/SceneParser.hpp"
 #include "Image.hpp"
+#include "ProgressBar.hpp"
 
 bool Core::simulate() {
     try {
@@ -18,6 +20,11 @@ bool Core::simulate() {
     int width = _scene.camera().getWidth();
     int height = _scene.camera().getHeight();
     Image image(width, height);
+
+    std::unique_ptr<ProgressBar> pb;
+    if (_showProgress)
+        pb = std::make_unique<ProgressBar>(height);
+
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             float u = static_cast<float>(x) / (width - 1);
@@ -27,7 +34,13 @@ bool Core::simulate() {
             Vec3 color = trace(ray, _scene, max_depth);
             image.setPixel(x, y, color);
         }
+        if (_showProgress)
+            pb->update(y + 1);
     }
+
+    if (_showProgress)
+        pb->finish();
+
     image.writePPM(_outputFile);
     return true;
 }
