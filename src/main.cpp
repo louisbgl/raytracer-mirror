@@ -14,14 +14,14 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    bool log = (argc == 3 && std::string(argv[2]) == "--log");
-    if (argc == 3 && !log) {
+    bool logging = (argc == 3 && std::string(argv[2]) == "--log");
+    if (argc == 3 && !logging) {
         HelpDisplay help;
         help.display();
         return 84;
     }
 
-    Core core(argv[1], log);
+    Core core(argv[1], logging);
     if (core.simulate()) return 0;
     else                 return 84;
 }
