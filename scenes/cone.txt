@@ -1,0 +1,69 @@
+# Configuration of the camera
+camera:
+{
+    resolution = { width = 1920; height = 1080; };
+    position = { x = 0.0; y = 5.0; z = 12.0; }; # Moved higher and further back
+    look_at = { x = 0.0; y = 1.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+# Material definitions
+materials:
+{
+    lambertian = (
+        { name = "orange"; color = { r = 255; g = 140; b = 50; }; },
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; },
+        { name = "purple"; color = { r = 180; g = 80; b = 220; }; },
+        { name = "red"; color = { r = 255; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
+    );
+};
+
+# Shapes in the scene
+shapes:
+{
+    spheres = (
+        # Large ground sphere
+        { position = { x = 0.0; y = -100.0; z = 0.0; }; radius = 100.0; material = "green"; }
+    );
+
+    cones = (
+        # Center Cone: Moderate slope
+        { 
+            position = { x = 0.0; y = 2.0; z = 0.0; }; 
+            radius = 0.5; 
+            material = "orange"; 
+        },
+        # Left Cone: Very sharp/skinny
+        { 
+            position = { x = -3.0; y = 4.0; z = -1.0; }; 
+            radius = 0.15; 
+            material = "blue"; 
+        },
+        # Right Cone: Very wide/flat
+        { 
+            position = { x = 3.5; y = 1.5; z = 1.0; }; 
+            radius = 1.2; 
+            material = "red"; 
+        },
+        # Distant small cone
+        { 
+            position = { x = -1.5; y = 6.0; z = -5.0; }; 
+            radius = 0.05; 
+            material = "purple"; 
+        }
+    );
+};
+
+# Light configuration
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = -10.0; y = 10.0; z = 10.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; },
+        { position = { x = 10.0; y = 5.0; z = 2.0; }; color = { r = 200; g = 200; b = 255; }; intensity = 0.5; }
+    );
+};

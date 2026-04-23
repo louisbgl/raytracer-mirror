@@ -5,9 +5,10 @@ std::unordered_map<std::string, void*> MaterialFactory::_createFunctions;
 
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
-        {"lambertian",  _createLambertian},
+        {"lambertian", _createLambertian},
         {"transparent", _createTransparent},
-        {"coloreddiffuse",     _createColoredDiffuse},
+        {"coloreddiffuse", _createColoredDiffuse},
+        {"phong", _createPhong}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -65,4 +66,14 @@ std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(_createFunctions["transparent"]);
     return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, r, g, b));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createPhong(const libconfig::Setting& config) {
+    int r = config["color"]["r"];
+    int g = config["color"]["g"];
+    int b = config["color"]["b"];
+    double shininess = config.exists("shininess") ? (double)config["shininess"] : 32.0;
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(_createFunctions["phong"]);
+    return std::shared_ptr<IMaterial>(createFunc(r, g, b, shininess));
 }

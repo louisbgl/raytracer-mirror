@@ -2,7 +2,7 @@
 #include "utils/HelpDisplay.hpp"
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
+    if (argc < 2 || argc > 3) {
         HelpDisplay help;
         help.display();
         return 84;
@@ -14,7 +14,14 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    Core core(argv[1]);
+    bool logging = (argc == 3 && std::string(argv[2]) == "--log");
+    if (argc == 3 && !logging) {
+        HelpDisplay help;
+        help.display();
+        return 84;
+    }
+
+    Core core(argv[1], logging);
     if (core.simulate()) return 0;
     else                 return 84;
 }

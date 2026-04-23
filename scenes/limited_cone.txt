@@ -1,0 +1,62 @@
+# Configuration of the camera
+camera:
+{
+    resolution = { width = 1920; height = 1080; };
+    position = { x = 0.0; y = 2.0; z = 5.0; };
+    look_at = { x = 0.0; y = 0.5; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 75.0;
+};
+
+# Material definitions
+materials:
+{
+    lambertian = (
+        { name = "gold"; color = { r = 255; g = 215; b = 0; }; },
+        { name = "gray"; color = { r = 150; g = 150; b = 150; }; }
+    );
+};
+
+# Shapes in the scene
+shapes:
+{
+    # Ground Plane (Using a very large sphere as in your previous example)
+    spheres = (
+        { 
+            position = { x = 0.0; y = -100.0; z = 0.0; }; 
+            radius = 100.0; 
+            material = "gray"; 
+        }
+    );
+
+    # Your LimitedCone
+    limitedCones = (
+        { 
+            position = { x = 0.0; y = 1.0; z = 0.0; }; 
+            radius = 0.6;    # This is your 'k' (slope)
+            height = 5.0;    # Extends 1.0 up and 1.0 down from position.y
+            material = "gold"; 
+        },
+        { 
+            position = { x = 2.0; y = 3.0; z = -5.0; }; 
+            radius = 1.0;    # This is your 'k' (slope)
+            height = 5.0;    # Extends 1.0 up and 1.0 down from position.y
+            material = "gray"; 
+        }
+    );
+};
+
+# Light configuration
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { 
+            position = { x = 4.0; y = 5.0; z = 4.0; }; 
+            color = { r = 255; g = 255; b = 255; }; 
+            intensity = 1.0; 
+        }
+    );
+};

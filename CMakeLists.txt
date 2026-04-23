@@ -78,6 +78,8 @@ add_executable(raytracer
     src/core/Image.cpp
     src/core/Core.cpp
     src/core/PluginLoader.cpp
+    src/core/ProgressBar.cpp
+    src/core/Logger.cpp
     src/parsers/SceneParser.cpp
     src/factories/ShapeFactory.cpp
     src/factories/MaterialFactory.cpp
@@ -180,11 +182,16 @@ add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/Math/Roots3And4.c) # Tanglecube uses the Graphics Gems polynomial solver
 add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
+add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp )
+add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp )
+add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp )
+add_raytracer_plugin(limited_hourglass shapes src/plugins/Shapes/LimitedHourglass.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
 add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
+add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
@@ -199,11 +206,12 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
     DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
+    DEPENDS cone limited_cone hourglass limited_hourglass 
     COMMENT "Building all shape plugins..."
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse
+    DEPENDS lambertian transparent coloreddiffuse phong
     COMMENT "Building all material plugins..."
 )
 

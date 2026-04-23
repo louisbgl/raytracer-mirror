@@ -1,0 +1,32 @@
+#include "Phong.hpp"
+
+#include "../../DataTypes/HitRecord.hpp"
+
+Phong::Phong(Vec3 albedo, double shininess) : _albedo(albedo / 255.0), _shininess(shininess) {}
+
+// ambient + diffuse + specular = phong
+// ambient is handled by core
+Vec3 Phong::shade(const HitRecord& record, const Vec3& lightDir, const Vec3& lightColor, const Vec3& viewDir) const {
+    // diffuse
+    double brightness = std::max(0.0, dot(record.normal, lightDir));
+    Vec3 diffuse = (_albedo * (lightColor / 255.0)) * brightness;
+
+    // specular
+    Vec3 negL = -lightDir;
+    Vec3 R = negL - record.normal * 2.0 * dot(negL, record.normal);
+    double specPow = std::pow(std::max(0.0, dot(R, viewDir)), _shininess);
+    Vec3 specular = (lightColor / 255.0) * specPow;
+
+    return (diffuse + specular) * 255.0;
+}
+
+bool Phong::scatter([[maybe_unused]] const Ray& ray_in,
+                             [[maybe_unused]] const HitRecord& record,
+                             [[maybe_unused]] Vec3& attenuation,
+                             [[maybe_unused]] Ray& scattered) const {
+    return false;
+}
+
+extern "C" IMaterial* create(double r, double g, double b, double shininess) {
+    return new Phong(Vec3(r, g, b), shininess);
+}

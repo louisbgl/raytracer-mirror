@@ -33,8 +33,35 @@ public:
         return Ray(_position, ray_direction);
     }
 
+    /**
+     * @brief Gets the height of the camera resolution.
+     * @return The height in pixels.
+     */
     double getHeight() const { return _height; }
-    double getWidth()  const { return _width; }
+
+    /**
+     * @brief Gets the width of the camera resolution.
+     * @return The width in pixels.
+     */
+    double getWidth() const { return _width; }
+
+    /**
+     * @brief Gets the position of the camera in world space.
+     * @return The camera position as a Vec3.
+     */
+    Vec3 getPosition() const { return _position; }
+
+    /**
+     * @brief Gets the look-at point of the camera.
+     * @return The look-at target as a Vec3.
+     */
+    Vec3 getLookAt() const { return _look_at; }
+
+    /**
+     * @brief Gets the field of view of the camera.
+     * @return The field of view in degrees.
+     */
+    float getFov() const { return _fov; }
 
 private:
     int _height;
