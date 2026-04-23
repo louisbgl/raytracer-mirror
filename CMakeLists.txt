@@ -131,6 +131,8 @@ endfunction()
 # Shape plugins
 add_raytracer_plugin(sphere shapes src/plugins/Shapes/Sphere.cpp)
 add_raytracer_plugin(cone shapes src/plugins/Shapes/Cone.cpp)
+add_raytracer_plugin(limited_cone shapes src/plugins/Shapes/LimitedCone.cpp)
+add_raytracer_plugin(hourglass shapes src/plugins/Shapes/Hourglass.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian materials src/plugins/Materials/Lambertian.cpp)
@@ -147,6 +149,8 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 add_custom_target(shapes
     DEPENDS sphere
     DEPENDS cone
+    DEPENDS limited_cone 
+    DEPENDS hourglass
     COMMENT "Building all shape plugins..."
 )
 
