@@ -10,8 +10,12 @@ camera:
 
 materials:
 {
-    coloreddiffuse = (
-        { name = "white"; color = { r = 240; g = 240; b = 240; }; }
+    // coloreddiffuse = (
+    //     { name = "white"; color = { r = 240; g = 240; b = 240; }; }
+    // );
+
+    phong = (
+        { name = "white"; color = { r = 240; g = 240; b = 240; }; shininess = 32.0; }
     );
 };
 
