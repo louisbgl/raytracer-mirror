@@ -74,13 +74,14 @@ std::shared_ptr<IShape> ShapeFactory::_createLimitedCylinder(const libconfig::Se
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double x = config["position"]["x"];
-    double y = config["position"]["y"];
-    double z = config["position"]["z"];
-    double h = config["height"];
+    Vec3 rotation = _getRotation(config);
+    double tx = config["position"]["x"];
+    double ty = config["position"]["y"];
+    double tz = config["position"]["z"];
     double radius = config["radius"];
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_cone"]);
-    return std::shared_ptr<IShape>(createFunc(x, y, z, radius, h, &material));
+    double height = config["height"];
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(_createFunctions["limited_cone"]);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, radius, height, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {

@@ -1,17 +1,18 @@
-
 #pragma once
 
-#include "../../Interfaces/IShape.hpp"
+#include "../../core/AShape.hpp"
 
-class LimitedCone : public IShape {
+class LimitedCone : public AShape {
 public:
-    LimitedCone(Vec3 pos, double radius, double height, std::shared_ptr<IMaterial> material);
+    LimitedCone(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material);
     ~LimitedCone() override = default;
 
-    bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const override;
+    bool hitLocal(const Ray& ray, HitRecord& record) const override;
+    AABB computeLocalAABB() const override;
 
 private:
-    Vec3 _position;
+    bool checkBaseIntersection(const Ray& ray, double& closest_t, HitRecord& record) const;
+
     double _radius;
     double _height;
     std::shared_ptr<IMaterial> _material;
