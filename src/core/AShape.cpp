@@ -3,11 +3,16 @@
 #include <algorithm>
 
 AShape::AShape(Vec3 rotation, Vec3 translation)
-    : _rotation(rotation), _translation(translation) {
-    updateWorldAABB();
+    : _rotation(rotation), _translation(translation), _aabbNeedsUpdate(true) {
 }
 
 bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
+    // Lazy AABB update on first hit call
+    if (_aabbNeedsUpdate) {
+        const_cast<AShape*>(this)->updateWorldAABB();
+        const_cast<AShape*>(this)->_aabbNeedsUpdate = false;
+    }
+
     // 1. Check world AABB first for early rejection
     if (!_worldAABB.hit(ray, t_min, t_max)) return false;
 

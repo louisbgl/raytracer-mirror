@@ -47,9 +47,10 @@ protected:
     void updateWorldAABB();
 
 private:
-    Vec3 _rotation;      // Euler angles for rotation
-    Vec3 _translation;   // Translation offset
-    AABB _worldAABB;     // Transformed bounding box in world space
+    Vec3 _rotation;             // Euler angles for rotation
+    Vec3 _translation;          // Translation offset
+    mutable AABB _worldAABB;    // Transformed bounding box in world space
+    mutable bool _aabbNeedsUpdate;
 
     Ray worldToLocal(const Ray& ray) const;
     HitRecord localToWorld(const HitRecord& local) const;
