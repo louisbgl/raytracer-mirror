@@ -13,24 +13,28 @@ var hierarchy =
     ] ],
     [ "Image", "classImage.html", null ],
     [ "IMaterial", "classIMaterial.html", [
+      [ "Chessboard", "classChessboard.html", null ],
       [ "ColoredDiffuse", "classColoredDiffuse.html", null ],
       [ "Lambertian", "classLambertian.html", null ],
+      [ "PerlinNoise", "classPerlinNoise.html", null ],
       [ "Phong", "classPhong.html", null ],
       [ "Transparent", "classTransparent.html", null ]
     ] ],
     [ "IShape", "classIShape.html", [
-      [ "Box", "classBox.html", null ],
+      [ "AShape", "classAShape.html", [
+        [ "Box", "classBox.html", null ],
+        [ "LimitedCone", "classLimitedCone.html", null ],
+        [ "LimitedCylinder", "classLimitedCylinder.html", null ],
+        [ "LimitedHourglass", "classLimitedHourglass.html", null ],
+        [ "Rectangle", "classRectangle.html", null ],
+        [ "Sphere", "classSphere.html", null ],
+        [ "Tanglecube", "classTanglecube.html", null ],
+        [ "Torus", "classTorus.html", null ]
+      ] ],
       [ "Cone", "classCone.html", null ],
       [ "Cylinder", "classCylinder.html", null ],
       [ "Hourglass", "classHourglass.html", null ],
-      [ "LimitedCone", "classLimitedCone.html", null ],
-      [ "LimitedCylinder", "classLimitedCylinder.html", null ],
-      [ "LimitedHourglass", "classLimitedHourglass.html", null ],
-      [ "Plane", "classPlane.html", null ],
-      [ "Rectangle", "classRectangle.html", null ],
-      [ "Sphere", "classSphere.html", null ],
-      [ "Tanglecube", "classTanglecube.html", null ],
-      [ "Torus", "classTorus.html", null ]
+      [ "Plane", "classPlane.html", null ]
     ] ],
     [ "LightFactory", "classLightFactory.html", null ],
     [ "Logger", "classLogger.html", null ],

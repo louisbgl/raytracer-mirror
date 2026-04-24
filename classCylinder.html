@@ -125,8 +125,8 @@ Collaboration diagram for Cylinder:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a05988c8eefd2c59b9999055c29691d27" id="r_a05988c8eefd2c59b9999055c29691d27"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCylinder.html#a05988c8eefd2c59b9999055c29691d27">Cylinder</a> (<a class="el" href="classVec3.html">Vec3</a> pos, double radius, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
-<tr class="separator:a05988c8eefd2c59b9999055c29691d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0e7234e4be9b29fab91d2be5793e46e" id="r_ab0e7234e4be9b29fab91d2be5793e46e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCylinder.html#ab0e7234e4be9b29fab91d2be5793e46e">Cylinder</a> (<a class="el" href="classVec3.html">Vec3</a> pos, <a class="el" href="classVec3.html">Vec3</a> axis, double radius, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
+<tr class="separator:ab0e7234e4be9b29fab91d2be5793e46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8118d6621444bac0c2b8dfa16ea2f190" id="r_a8118d6621444bac0c2b8dfa16ea2f190"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCylinder.html#a8118d6621444bac0c2b8dfa16ea2f190">~Cylinder</a> () override=default</td></tr>
 <tr class="separator:a8118d6621444bac0c2b8dfa16ea2f190"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0deb86d8a6b091570e296462c399e1d" id="r_ac0deb86d8a6b091570e296462c399e1d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCylinder.html#ac0deb86d8a6b091570e296462c399e1d">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const override</td></tr>
@@ -138,10 +138,10 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an infinite cylinder shape in the ray tracer. </p>
-<dl class="section note"><dt>Note</dt><dd>pos represents the center point on the cylinder's axis, and the cylinder extends infinitely along the y-axis. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>pos represents a point on the cylinder's axis, axis defines the cylinder's direction (normalized). </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a05988c8eefd2c59b9999055c29691d27" name="a05988c8eefd2c59b9999055c29691d27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05988c8eefd2c59b9999055c29691d27">&#9670;&#160;</a></span>Cylinder()</h2>
+<a id="ab0e7234e4be9b29fab91d2be5793e46e" name="ab0e7234e4be9b29fab91d2be5793e46e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e7234e4be9b29fab91d2be5793e46e">&#9670;&#160;</a></span>Cylinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,6 +151,12 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

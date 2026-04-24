@@ -1,0 +1,21 @@
+<map id="AShape" name="AShape">
+<area shape="rect" id="Node000001" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="455,79,525,104"/>
+<area shape="rect" id="Node000003" href="$classBox.html" title=" " alt="" coords="5,152,52,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="441,99,274,118,169,134,65,155,53,158,51,153,64,149,169,129,273,113,441,94"/>
+<area shape="rect" id="Node000004" href="$classLimitedCone.html" title=" " alt="" coords="77,152,181,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="441,105,181,156,180,151,440,100"/>
+<area shape="rect" id="Node000005" href="$classLimitedCylinder.html" title="Represents a finite cylinder shape in the ray tracer." alt="" coords="205,152,330,177"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="442,111,304,154,303,149,441,106"/>
+<area shape="rect" id="Node000006" href="$classLimitedHourglass.html" title=" " alt="" coords="354,152,490,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="471,116,435,154,431,150,468,112"/>
+<area shape="rect" id="Node000007" href="$classRectangle.html" title=" " alt="" coords="515,152,601,177"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="512,112,549,150,545,154,509,116"/>
+<area shape="rect" id="Node000008" href="$classSphere.html" title=" " alt="" coords="626,152,693,177"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="531,107,633,149,631,154,529,112"/>
+<area shape="rect" id="Node000009" href="$classTanglecube.html" title=" " alt="" coords="717,152,812,177"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="539,103,721,149,720,155,538,108"/>
+<area shape="rect" id="Node000010" href="$classTorus.html" title=" " alt="" coords="837,152,893,177"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="539,97,669,118,825,149,837,152,836,158,824,155,668,124,538,102"/>
+<area shape="rect" id="Node000002" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="457,5,523,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="493,44,493,79,487,79,487,44"/>
+</map>

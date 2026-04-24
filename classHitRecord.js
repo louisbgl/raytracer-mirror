@@ -7,5 +7,7 @@ var classHitRecord =
     [ "material", "classHitRecord.html#a35b119aaf1cf369dd0edc79a53ca4329", null ],
     [ "normal", "classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684", null ],
     [ "point", "classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2", null ],
-    [ "t", "classHitRecord.html#a20cade6a216398343ddcb3d1bde14f7d", null ]
+    [ "t", "classHitRecord.html#a20cade6a216398343ddcb3d1bde14f7d", null ],
+    [ "u", "classHitRecord.html#acc1de3002c22fa21aa3ce2aa1fa6a4ef", null ],
+    [ "v", "classHitRecord.html#ae3d8102ff4d8edb190dbf57d7acffdab", null ]
 ];

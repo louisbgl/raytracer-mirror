@@ -101,31 +101,31 @@ $(document).ready(function(){initNavTree('Box_8hpp_source.html',''); initResizab
 <div class="contents">
 <a href="Box_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../../Interfaces/IShape.hpp&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../../core/AShape.hpp&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// Axis-aligned box shape. Full rotation support will be added</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// when the general shape transformation system is implemented.</span></div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classBox.html">    7</a></span><span class="keyword">class </span><a class="code hl_class" href="classBox.html">Box</a> : <span class="keyword">public</span> <a class="code hl_class" href="classIShape.html">IShape</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_class" href="classBox.html">Box</a>(<a class="code hl_class" href="classVec3.html">Vec3</a> position, <span class="keywordtype">double</span> width, <span class="keywordtype">double</span> height, <span class="keywordtype">double</span> depth, std::shared_ptr&lt;IMaterial&gt; material);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classBox.html#aa016f64625bbd9643c9e36ff453ba1fe">   10</a></span>    <a class="code hl_function" href="classBox.html#aa016f64625bbd9643c9e36ff453ba1fe">~Box</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classBox.html#af16a437e83b3ac214353e360d530bc71">hit</a>(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <span class="keywordtype">double</span> t_min, <span class="keywordtype">double</span> t_max, <a class="code hl_class" href="classHitRecord.html">HitRecord</a>&amp; record) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _position;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">double</span> _width;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">double</span> _height;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">double</span> _depth;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::shared_ptr&lt;IMaterial&gt; _material;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="classBox.html">    5</a></span><span class="keyword">class </span><a class="code hl_class" href="classBox.html">Box</a> : <span class="keyword">public</span> <a class="code hl_class" href="classAShape.html">AShape</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <a class="code hl_class" href="classBox.html">Box</a>(<a class="code hl_class" href="classVec3.html">Vec3</a> rotation, <a class="code hl_class" href="classVec3.html">Vec3</a> translation, <span class="keywordtype">double</span> width, <span class="keywordtype">double</span> height, <span class="keywordtype">double</span> depth, std::shared_ptr&lt;IMaterial&gt; material);</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classBox.html#aa016f64625bbd9643c9e36ff453ba1fe">    8</a></span>    <a class="code hl_function" href="classBox.html#aa016f64625bbd9643c9e36ff453ba1fe">~Box</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classBox.html#aae38fbcd8b6c2660403c9645c43cf4d5">hitLocal</a>(<span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray, <a class="code hl_class" href="classHitRecord.html">HitRecord</a>&amp; record) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_class" href="classAABB.html">AABB</a> <a class="code hl_function" href="classBox.html#a8cbcdd75a21df7c87667fdc6155c9eaa">computeLocalAABB</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">double</span> _width;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">double</span> _height;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">double</span> _depth;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::shared_ptr&lt;IMaterial&gt; _material;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
 </div>
-<div class="ttc" id="aclassBox_html"><div class="ttname"><a href="classBox.html">Box</a></div><div class="ttdef"><b>Definition</b> Box.hpp:7</div></div>
+<div class="ttc" id="aclassAABB_html"><div class="ttname"><a href="classAABB.html">AABB</a></div><div class="ttdoc">Axis-Aligned Bounding Box for fast ray intersection tests.</div><div class="ttdef"><b>Definition</b> AABB.hpp:10</div></div>
+<div class="ttc" id="aclassAShape_html"><div class="ttname"><a href="classAShape.html">AShape</a></div><div class="ttdoc">Abstract base class providing automatic transformation and AABB optimization for all shapes.</div><div class="ttdef"><b>Definition</b> AShape.hpp:23</div></div>
+<div class="ttc" id="aclassBox_html"><div class="ttname"><a href="classBox.html">Box</a></div><div class="ttdef"><b>Definition</b> Box.hpp:5</div></div>
+<div class="ttc" id="aclassBox_html_a8cbcdd75a21df7c87667fdc6155c9eaa"><div class="ttname"><a href="classBox.html#a8cbcdd75a21df7c87667fdc6155c9eaa">Box::computeLocalAABB</a></div><div class="ttdeci">AABB computeLocalAABB() const override</div><div class="ttdoc">Return axis-aligned bounding box for shape at origin (local space).</div><div class="ttdef"><b>Definition</b> Box.cpp:73</div></div>
 <div class="ttc" id="aclassBox_html_aa016f64625bbd9643c9e36ff453ba1fe"><div class="ttname"><a href="classBox.html#aa016f64625bbd9643c9e36ff453ba1fe">Box::~Box</a></div><div class="ttdeci">~Box() override=default</div></div>
-<div class="ttc" id="aclassBox_html_af16a437e83b3ac214353e360d530bc71"><div class="ttname"><a href="classBox.html#af16a437e83b3ac214353e360d530bc71">Box::hit</a></div><div class="ttdeci">bool hit(const Ray &amp;ray, double t_min, double t_max, HitRecord &amp;record) const override</div><div class="ttdoc">Checks if a ray hits the shape within the specified t-range.</div><div class="ttdef"><b>Definition</b> Box.cpp:7</div></div>
+<div class="ttc" id="aclassBox_html_aae38fbcd8b6c2660403c9645c43cf4d5"><div class="ttname"><a href="classBox.html#aae38fbcd8b6c2660403c9645c43cf4d5">Box::hitLocal</a></div><div class="ttdeci">bool hitLocal(const Ray &amp;ray, HitRecord &amp;record) const override</div><div class="ttdoc">Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.</div><div class="ttdef"><b>Definition</b> Box.cpp:7</div></div>
 <div class="ttc" id="aclassHitRecord_html"><div class="ttname"><a href="classHitRecord.html">HitRecord</a></div><div class="ttdef"><b>Definition</b> HitRecord.hpp:7</div></div>
-<div class="ttc" id="aclassIShape_html"><div class="ttname"><a href="classIShape.html">IShape</a></div><div class="ttdoc">Interface for shapes that can be hit by rays.</div><div class="ttdef"><b>Definition</b> IShape.hpp:11</div></div>
 <div class="ttc" id="aclassRay_html"><div class="ttname"><a href="classRay.html">Ray</a></div><div class="ttdoc">Represents a ray in 3D space, defined by an origin and a direction.</div><div class="ttdef"><b>Definition</b> Ray.hpp:9</div></div>
 <div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:7</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,6 +1,7 @@
 var classLimitedCylinder =
 [
-    [ "LimitedCylinder", "classLimitedCylinder.html#a8b15c4e44bc4b7e27552cacfa9a9f8a7", null ],
+    [ "LimitedCylinder", "classLimitedCylinder.html#a76354e0c8d5b7748bb54ff6d71d74e8b", null ],
     [ "~LimitedCylinder", "classLimitedCylinder.html#aa010c2cbfbd07b5a8843800b637fd0b0", null ],
-    [ "hit", "classLimitedCylinder.html#a71195f4fb3c0220ceb19eab2ab24042d", null ]
+    [ "computeLocalAABB", "classLimitedCylinder.html#af5224088b3c35fb2353844af5d95efb6", null ],
+    [ "hitLocal", "classLimitedCylinder.html#a02f33b0a24bc4a86b7037db188b17d79", null ]
 ];

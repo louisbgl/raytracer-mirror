@@ -1,0 +1,5 @@
+<map id="AShape" name="AShape">
+<area shape="rect" id="Node000001" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="5,79,76,104"/>
+<area shape="rect" id="Node000002" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="7,5,74,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="43,44,43,79,38,79,38,44"/>
+</map>

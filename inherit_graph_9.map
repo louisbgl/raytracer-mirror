@@ -1,11 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classIMaterial.html" title="Interface for materials that define how rays interact with surfaces." alt="" coords="5,80,85,105"/>
-<area shape="rect" id="Node000001" href="$classColoredDiffuse.html" title=" " alt="" coords="133,5,252,31"/>
-<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="77,71,132,40,157,28,160,33,135,44,79,75"/>
-<area shape="rect" id="Node000002" href="$classLambertian.html" title=" " alt="" coords="145,55,241,80"/>
-<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="98,81,144,73,145,78,99,86"/>
-<area shape="rect" id="Node000003" href="$classPhong.html" title=" " alt="" coords="161,104,224,129"/>
-<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="99,99,162,109,161,114,98,104"/>
-<area shape="rect" id="Node000004" href="$classTransparent.html" title=" " alt="" coords="143,153,242,179"/>
-<area shape="poly" id="edge6_Node000000_Node000004" title=" " alt="" coords="82,110,135,138,161,151,159,156,132,143,79,115"/>
+<area shape="rect" id="Node000000" href="$classIMaterial.html" title="Interface for materials that define how rays interact with surfaces." alt="" coords="5,129,85,155"/>
+<area shape="rect" id="Node000001" href="$classChessboard.html" title=" " alt="" coords="143,5,242,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="60,116,91,78,132,40,152,28,154,33,135,44,95,81,65,120"/>
+<area shape="rect" id="Node000002" href="$classColoredDiffuse.html" title=" " alt="" coords="133,55,252,80"/>
+<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="77,120,132,89,157,78,160,82,135,94,79,125"/>
+<area shape="rect" id="Node000003" href="$classLambertian.html" title=" " alt="" coords="145,104,241,129"/>
+<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="98,130,144,122,145,128,99,136"/>
+<area shape="rect" id="Node000004" href="$classPerlinNoise.html" title=" " alt="" coords="145,153,241,179"/>
+<area shape="poly" id="edge6_Node000000_Node000004" title=" " alt="" coords="99,148,145,156,144,161,98,153"/>
+<area shape="rect" id="Node000005" href="$classPhong.html" title=" " alt="" coords="161,203,224,228"/>
+<area shape="poly" id="edge7_Node000000_Node000005" title=" " alt="" coords="82,159,135,188,162,200,160,205,132,192,79,164"/>
+<area shape="rect" id="Node000006" href="$classTransparent.html" title=" " alt="" coords="143,252,242,277"/>
+<area shape="poly" id="edge8_Node000000_Node000006" title=" " alt="" coords="66,165,96,201,135,237,157,250,154,254,132,241,92,205,62,168"/>
 </map>

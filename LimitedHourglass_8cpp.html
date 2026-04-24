@@ -96,55 +96,64 @@ $(document).ready(function(){initNavTree('LimitedHourglass_8cpp.html',''); initR
   <div class="headertitle"><div class="title">LimitedHourglass.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="LimitedHourglass_8hpp_source.html">./LimitedHourglass.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Vec3_8hpp_source.html">DataTypes/Vec3.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="LimitedHourglass_8hpp_source.html">LimitedHourglass.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QuadraticSolver_8hpp_source.html">../../Math/QuadraticSolver.hpp</a>&quot;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for LimitedHourglass.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="LimitedHourglass_8cpp__incl.png" border="0" usemap="#asrc_2plugins_2Shapes_2LimitedHourglass_8cpp" alt=""/></div>
 <map name="asrc_2plugins_2Shapes_2LimitedHourglass_8cpp" id="asrc_2plugins_2Shapes_2LimitedHourglass_8cpp">
-<area shape="rect" title=" " alt="" coords="346,5,513,45"/>
-<area shape="rect" href="LimitedHourglass_8hpp.html" title=" " alt="" coords="117,93,289,119"/>
-<area shape="poly" title=" " alt="" coords="376,48,250,91,248,86,375,43"/>
-<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="273,460,354,485"/>
-<area shape="poly" title=" " alt="" coords="427,46,414,105,407,178,407,328,400,365,383,400,361,429,339,453,336,449,357,426,379,397,395,363,402,327,402,178,409,104,422,45"/>
-<area shape="rect" title=" " alt="" coords="424,533,486,559"/>
-<area shape="poly" title=" " alt="" coords="438,45,451,104,458,178,458,401,458,520,452,520,452,401,452,178,445,105,432,46"/>
-<area shape="rect" href="QuadraticSolver_8hpp.html" title=" " alt="" coords="493,167,708,192"/>
-<area shape="poly" title=" " alt="" coords="453,44,579,155,575,159,449,48"/>
-<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="31,167,218,192"/>
-<area shape="poly" title=" " alt="" coords="192,121,149,159,145,156,189,117"/>
-<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="20,387,178,412"/>
-<area shape="poly" title=" " alt="" coords="82,195,45,213,29,225,16,241,9,259,9,277,13,296,22,314,48,348,76,376,72,379,44,352,18,317,8,298,3,278,4,258,11,239,25,222,42,208,79,190"/>
-<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="25,240,224,265"/>
-<area shape="poly" title=" " alt="" coords="127,192,127,226,122,226,122,192"/>
-<area shape="poly" title=" " alt="" coords="134,409,267,453,265,458,133,415"/>
-<area shape="poly" title=" " alt="" coords="338,483,421,525,419,529,335,488"/>
-<area shape="rect" title=" " alt="" coords="207,533,287,559"/>
-<area shape="poly" title=" " alt="" coords="305,487,269,525,265,521,301,484"/>
-<area shape="rect" title=" " alt="" coords="312,533,398,559"/>
-<area shape="poly" title=" " alt="" coords="323,484,344,520,339,523,318,487"/>
-<area shape="poly" title=" " alt="" coords="108,268,85,288,67,314,64,330,67,345,82,375,78,377,62,347,59,330,62,312,81,284,105,264"/>
-<area shape="rect" title=" " alt="" coords="76,313,154,339"/>
-<area shape="poly" title=" " alt="" coords="126,266,121,300,116,299,120,265"/>
-<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="178,313,367,339"/>
-<area shape="poly" title=" " alt="" coords="149,263,237,305,235,310,147,268"/>
-<area shape="poly" title=" " alt="" coords="246,341,141,384,139,379,244,336"/>
-<area shape="poly" title=" " alt="" coords="278,338,309,446,304,447,273,340"/>
-<area shape="poly" title=" " alt="" coords="596,193,571,249,560,286,555,325,555,401,548,439,530,474,506,503,482,526,479,522,502,500,525,471,543,437,550,400,550,325,554,285,566,247,591,191"/>
+<area shape="rect" title=" " alt="" coords="615,5,782,45"/>
+<area shape="rect" href="LimitedHourglass_8hpp.html" title=" " alt="" coords="381,93,545,119"/>
+<area shape="poly" title=" " alt="" coords="643,48,511,92,509,87,641,43"/>
+<area shape="rect" title=" " alt="" coords="578,607,641,632"/>
+<area shape="poly" title=" " alt="" coords="709,45,728,103,736,140,739,178,739,474,736,495,729,515,705,551,674,580,644,602,641,597,671,576,701,547,724,513,731,494,733,474,733,178,730,141,723,105,704,46"/>
+<area shape="rect" href="QuadraticSolver_8hpp.html" title=" " alt="" coords="483,167,698,192"/>
+<area shape="poly" title=" " alt="" coords="687,47,609,157,605,154,683,44"/>
+<area shape="rect" title=" " alt="" coords="773,93,832,119"/>
+<area shape="poly" title=" " alt="" coords="725,43,778,83,775,87,722,48"/>
+<area shape="rect" href="AShape_8hpp.html" title=" " alt="" coords="304,167,459,192"/>
+<area shape="poly" title=" " alt="" coords="451,121,407,160,403,156,448,117"/>
+<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="277,240,451,265"/>
+<area shape="poly" title=" " alt="" coords="381,193,373,228,367,226,376,192"/>
+<area shape="rect" href="AABB_8hpp.html" title=" " alt="" coords="422,387,557,412"/>
+<area shape="poly" title=" " alt="" coords="407,190,438,210,465,239,480,273,489,309,493,373,488,373,484,310,475,275,460,241,435,214,405,194"/>
+<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="255,460,412,485"/>
+<area shape="poly" title=" " alt="" coords="366,266,361,339,342,447,336,446,356,338,361,265"/>
+<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="149,313,347,339"/>
+<area shape="poly" title=" " alt="" coords="347,268,280,308,277,304,344,263"/>
+<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="339,533,421,559"/>
+<area shape="poly" title=" " alt="" coords="343,484,367,520,363,523,339,487"/>
+<area shape="poly" title=" " alt="" coords="418,556,565,602,564,607,416,561"/>
+<area shape="rect" title=" " alt="" coords="427,607,507,632"/>
+<area shape="poly" title=" " alt="" coords="396,557,444,596,440,600,392,561"/>
+<area shape="rect" title=" " alt="" coords="315,607,402,632"/>
+<area shape="poly" title=" " alt="" coords="379,560,369,594,363,593,374,558"/>
+<area shape="poly" title=" " alt="" coords="265,337,288,358,310,385,324,416,332,446,327,447,319,418,306,388,285,361,262,341"/>
+<area shape="rect" title=" " alt="" coords="219,387,296,412"/>
+<area shape="poly" title=" " alt="" coords="252,339,257,373,251,374,247,339"/>
+<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="5,387,195,412"/>
+<area shape="poly" title=" " alt="" coords="225,341,138,383,135,378,223,336"/>
+<area shape="poly" title=" " alt="" coords="138,409,283,453,282,459,137,415"/>
+<area shape="poly" title=" " alt="" coords="119,410,174,444,244,483,339,526,337,531,241,488,171,449,116,414"/>
+<area shape="poly" title=" " alt="" coords="465,414,372,457,370,452,463,410"/>
+<area shape="poly" title=" " alt="" coords="483,414,399,524,395,521,478,411"/>
+<area shape="rect" title=" " alt="" coords="487,460,572,485"/>
+<area shape="poly" title=" " alt="" coords="498,411,518,447,514,449,494,414"/>
+<area shape="poly" title=" " alt="" coords="596,192,606,249,612,325,612,474,612,593,607,593,607,474,607,325,601,249,591,193"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af16957c2b5359f881f07ddef94bd6c8c" id="r_af16957c2b5359f881f07ddef94bd6c8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classIShape.html">IShape</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LimitedHourglass_8cpp.html#af16957c2b5359f881f07ddef94bd6c8c">create</a> (double x, double y, double z, double radius, double height, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; *material)</td></tr>
-<tr class="separator:af16957c2b5359f881f07ddef94bd6c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ef61523180b45a5913ba72111dcb6e" id="r_a28ef61523180b45a5913ba72111dcb6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classIShape.html">IShape</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LimitedHourglass_8cpp.html#a28ef61523180b45a5913ba72111dcb6e">create</a> (double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; *material)</td></tr>
+<tr class="separator:a28ef61523180b45a5913ba72111dcb6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af16957c2b5359f881f07ddef94bd6c8c" name="af16957c2b5359f881f07ddef94bd6c8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af16957c2b5359f881f07ddef94bd6c8c">&#9670;&#160;</a></span>create()</h2>
+<a id="a28ef61523180b45a5913ba72111dcb6e" name="a28ef61523180b45a5913ba72111dcb6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ef61523180b45a5913ba72111dcb6e">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,19 +162,37 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classIShape.html">IShape</a> * create </td>
           <td>(</td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>rx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramname"><em>ry</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>z</em>, </td>
+          <td class="paramname"><em>rz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>ty</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tz</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

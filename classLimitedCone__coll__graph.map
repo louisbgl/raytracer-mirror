@@ -1,5 +1,7 @@
 <map id="LimitedCone" name="LimitedCone">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,109,104"/>
-<area shape="rect" id="Node000002" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="24,5,91,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,44,60,79,55,79,55,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,152,109,177"/>
+<area shape="rect" id="Node000002" href="$classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="22,79,93,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,118,60,152,55,152,55,118"/>
+<area shape="rect" id="Node000003" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="24,5,91,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="60,44,60,79,55,79,55,44"/>
 </map>

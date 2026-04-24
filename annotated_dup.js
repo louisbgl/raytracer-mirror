@@ -1,8 +1,10 @@
 var annotated_dup =
 [
     [ "AABB", "classAABB.html", "classAABB" ],
+    [ "AShape", "classAShape.html", "classAShape" ],
     [ "Box", "classBox.html", "classBox" ],
     [ "Camera", "classCamera.html", "classCamera" ],
+    [ "Chessboard", "classChessboard.html", "classChessboard" ],
     [ "ColoredDiffuse", "classColoredDiffuse.html", "classColoredDiffuse" ],
     [ "Cone", "classCone.html", "classCone" ],
     [ "Core", "classCore.html", "classCore" ],
@@ -24,6 +26,7 @@ var annotated_dup =
     [ "LimitedHourglass", "classLimitedHourglass.html", "classLimitedHourglass" ],
     [ "Logger", "classLogger.html", "classLogger" ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
+    [ "PerlinNoise", "classPerlinNoise.html", "classPerlinNoise" ],
     [ "Phong", "classPhong.html", "classPhong" ],
     [ "Plane", "classPlane.html", "classPlane" ],
     [ "PluginLoader", "classPluginLoader.html", "classPluginLoader" ],
