@@ -87,6 +87,7 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPerlinNoise(const libconfig::
 std::shared_ptr<IMaterial> MaterialFactory::_createImageTexture(const libconfig::Setting& config) {
     std::string path = config["path"].c_str();
 
-    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(_createFunctions["image_texture"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("image_texture");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(path.c_str()));
 }

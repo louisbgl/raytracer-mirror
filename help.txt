@@ -19,6 +19,7 @@ Shapes:
 Materials:
 	Chessboard (name, color1 (r, g, b), color2 (r, g, b), scale)
 	ColoredDiffuse (name, color (r, g, b))
+	ImageTexture (name, path)
 	Lambertian (name, color (r, g, b))
 	PerlinNoise (name, color (r, g, b), scale)
 	Phong (name, color (r, g, b), shininess)

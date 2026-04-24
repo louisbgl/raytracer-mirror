@@ -1,4 +1,5 @@
 #include "ImageTexture.hpp"
+#include "../PluginMetadata.hpp"
 #include "../../DataTypes/HitRecord.hpp"
 #include <fstream>
 #include <stdexcept>
@@ -60,4 +61,14 @@ bool ImageTexture::scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] 
 
 extern "C" IMaterial* create(const char* path) {
     return new ImageTexture(std::string(path));
-}   
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "image_texture",
+        .pluralForm = "image_textures",
+        .helpText = "ImageTexture (name, path)",
+        .category = "material"
+    };
+    return &meta;
+}
