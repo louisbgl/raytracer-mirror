@@ -1,5 +1,6 @@
 #include "Torus.hpp"
 #include "../../Math/QuarticSolver.hpp"
+#include "../../Math/Constants.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -46,6 +47,13 @@ bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 outward_normal = computeNormal(record.point);
     record.normal = outward_normal;
     record.front_face = true;
+
+    Vec3 p = record.point;
+    double phi = std::atan2(p.z(), p.x());
+    double theta = std::atan2(p.y(), std::sqrt(p.x() * p.x() + p.z() * p.z()) - _majorRadius);
+    record.u = phi * Math::INV_TWO_PI + 0.5;
+    record.v = theta * Math::INV_TWO_PI + 0.5;
+
     return true;
 }
 

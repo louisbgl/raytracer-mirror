@@ -1,5 +1,6 @@
 #include "LimitedCone.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../../Math/Constants.hpp"
 #include <cmath>
 #include <limits>
 
@@ -48,6 +49,8 @@ bool LimitedCone::hitLocal(const Ray& ray, HitRecord& record) const {
                 record.point = hitpoint;
                 record.material = _material;
                 record.set_face_normal(ray, outward_norm);
+                record.u = std::atan2(hitpoint.z(), hitpoint.x()) * Math::INV_TWO_PI + 0.5;
+                record.v = -hitpoint.y() / _height;
 
                 closest_t = t;
                 hit_anything = true;
@@ -84,6 +87,8 @@ bool LimitedCone::checkBaseIntersection(const Ray& ray, double& closest_t, HitRe
     record.point = hit_point;
     record.material = _material;
     record.set_face_normal(ray, Vec3(0, -1, 0));
+    record.u = hit_point.x() / (2.0 * base_radius) + 0.5;
+    record.v = hit_point.z() / (2.0 * base_radius) + 0.5;
 
     return true;
 }
