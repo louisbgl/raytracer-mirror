@@ -23,20 +23,11 @@ public:
 private:
     using MaterialCreator = std::shared_ptr<IMaterial>(*)(const libconfig::Setting&);
 
-    static PluginLoader _pluginLoader;
-    static std::unordered_map<std::string, void*> _createFunctions;
-
-    /**
-     * @brief Tries to ensure the plugin for the specified type is loaded.
-     * @param type The type of plugin to ensure (e.g., "lambertian").
-     * @return True if the plugin is loaded successfully, false otherwise.
-     */
-    static bool _ensureLoaded(const std::string& type);
-
     static std::shared_ptr<IMaterial> _createLambertian     (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createTransparent    (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createColoredDiffuse (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createPhong          (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createChessboard     (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createPerlinNoise    (const libconfig::Setting& config);
+    static std::shared_ptr<IMaterial> _createImageTexture   (const libconfig::Setting& config);
 };

@@ -2,25 +2,11 @@
 #include "../factories/MaterialFactory.hpp"
 #include "../factories/ShapeFactory.hpp"
 #include "../factories/LightFactory.hpp"
+#include "../core/PluginManager.hpp"
 #include <libconfig.h++>
 #include <iostream>
 #include <string>
 #include <unordered_map>
-
-const std::unordered_map<std::string, std::string> SceneParser::SHAPE_NAMES = {
-        {"planes", "plane"},
-        {"spheres", "sphere"},
-        {"cones", "cone"},
-        {"cylinders", "cylinder"},
-        {"hourglasses", "hourglass"},
-        {"limited_cones", "limited_cone"},
-        {"limited_cylinders", "limited_cylinder"},
-        {"limited_hourglasses", "limited_hourglass"},
-        {"rectangles", "rectangle"},
-        {"boxes", "box"},
-        {"toruses", "torus"},
-        {"tanglecubes", "tanglecube"},
-};
 
 Scene SceneParser::parse(const std::string& filename) {
     libconfig::Config config;
@@ -124,8 +110,7 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             const libconfig::Setting& shapeType = shapes[i];
             std::string typeName = shapeType.getName();
 
-            auto it = SHAPE_NAMES.find(typeName);
-            std::string factoryType = (it != SHAPE_NAMES.end()) ? it->second : typeName;
+            std::string factoryType = PluginManager::instance().getSingular(typeName);
 
             for (int j = 0; j < shapeType.getLength(); ++j) {
                 try {

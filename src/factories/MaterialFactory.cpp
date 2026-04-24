@@ -1,9 +1,7 @@
 #include "MaterialFactory.hpp"
+#include "../core/PluginManager.hpp"
 #include <libconfig.h++>
 #include <memory>
-
-PluginLoader MaterialFactory::_pluginLoader;
-std::unordered_map<std::string, void*> MaterialFactory::_createFunctions;
 
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
@@ -12,10 +10,9 @@ std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, cons
         {"coloreddiffuse", _createColoredDiffuse},
         {"phong", _createPhong},
         {"perlinnoise", _createPerlinNoise},
-        {"chessboard", _createChessboard}
+        {"chessboard", _createChessboard},
+        {"image_texture", _createImageTexture}
     };
-
-    if (!_ensureLoaded(type)) return nullptr;
 
     auto it = creators.find(type);
     if (it != creators.end()) {
@@ -24,32 +21,12 @@ std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, cons
     return nullptr;
 }
 
-bool MaterialFactory::_ensureLoaded(const std::string& type) {
-    // Normalize to lowercase for plugin path
-    std::string normalizedType = type;
-    if (!normalizedType.empty() && normalizedType[0] >= 'A' && normalizedType[0] <= 'Z') {
-        normalizedType[0] = normalizedType[0] + ('a' - 'A');
-    }
-
-    if (_createFunctions.find(normalizedType) != _createFunctions.end()) return true;
-
-    std::string pluginPath = "./plugins/materials/" + normalizedType + PLUGIN_EXTENSION;
-    if (!_pluginLoader.load(pluginPath)) { 
-        return false; 
-    }
-    void* createFunc = _pluginLoader.getSymbol(pluginPath, "create");
-    if (!createFunc) return false;
-
-    _createFunctions[normalizedType] = createFunc;
-    return true;
-}
-
 std::shared_ptr<IMaterial> MaterialFactory::_createLambertian(const libconfig::Setting& config) {
     int r = config["color"]["r"];
     int g = config["color"]["g"];
     int b = config["color"]["b"];
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["lambertian"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("lambertian");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b));
 }
 
@@ -57,8 +34,8 @@ std::shared_ptr<IMaterial> MaterialFactory::_createColoredDiffuse(const libconfi
     int r = config["color"]["r"];
     int g = config["color"]["g"];
     int b = config["color"]["b"];
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(_createFunctions["coloreddiffuse"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("coloreddiffuse");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b));
 }
 
@@ -68,8 +45,8 @@ std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::
     int r = config["color"]["r"];
     int g = config["color"]["g"];
     int b = config["color"]["b"];
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(_createFunctions["transparent"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("transparent");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, r, g, b));
 }
 
@@ -78,8 +55,8 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPhong(const libconfig::Settin
     int g = config["color"]["g"];
     int b = config["color"]["b"];
     double shininess = config.exists("shininess") ? (double)config["shininess"] : 32.0;
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(_createFunctions["phong"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("phong");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b, shininess));
 }
 
@@ -91,8 +68,8 @@ std::shared_ptr<IMaterial> MaterialFactory::_createChessboard(const libconfig::S
     int r2 = config["color2"]["r"];
     int g2 = config["color2"]["g"];
     int b2 = config["color2"]["b"];
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double, double, double)>(_createFunctions["chessboard"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("chessboard");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r1, g1, b1, r2, g2, b2, scale));
 }
 
@@ -102,7 +79,15 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPerlinNoise(const libconfig::
     int g = config["color"]["g"];
     int b = config["color"]["b"];
     double scale = config.exists("scale") ? config["scale"] : 1.0;
-
-    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(_createFunctions["perlinnoise"]);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("perlinnoise");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b, scale));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createImageTexture(const libconfig::Setting& config) {
+    std::string path = config["path"].c_str();
+
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("image_texture");
+    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(rawCreateFunc);
+    return std::shared_ptr<IMaterial>(createFunc(path.c_str()));
 }

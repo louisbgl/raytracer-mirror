@@ -2,34 +2,30 @@ Usage: raytracer <input_file>
 
 Currently supported:
 
-Shapes (Bounded - support rotation):
-	Sphere (position (x, y, z), radius, material, [rotation (x, y, z)])
-	LimitedCylinder (position (x, y, z), radius, height, material, [rotation (x, y, z)])
-	LimitedCone (position (x, y, z), radius, height, material, [rotation (x, y, z)])
-	Limited Hourglass (position (x, y, z), radius, height, material, [rotation (x, y, z)])
-	Rectangle (position (x, y, z), width, height, material, [rotation (x, y, z)])
+Shapes:
 	Box (position (x, y, z), width, height, depth, material, [rotation (x, y, z)])
-	Torus (position (x, y, z), majorRadius, minorRadius, material, [rotation (x, y, z)])
+	Cone (position (x, y, z), axis (x, y, z), radius, material)
+	Cylinder (position (x, y, z), axis (x, y, z), radius, material)
+	Hourglass (position (x, y, z), axis (x, y, z), radius, material)
+	LimitedCone (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	LimitedCylinder (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	LimitedHourglass (position (x, y, z), radius, height, material, [rotation (x, y, z)])
+	Plane (position (x, y, z), normal (x, y, z), material)
+	Rectangle (position (x, y, z), width, height, material, [rotation (x, y, z)])
+	Sphere (position (x, y, z), radius, material, [rotation (x, y, z)])
 	Tanglecube (position (x, y, z), scale, material, [rotation (x, y, z)])
-
-	NOTE: rotation is optional Euler angles in degrees (rx, ry, rz). Defaults to (0, 0, 0).
-
-Shapes (Infinite - use axis vector for orientation):
-	Plane (position (x, y, z), normal (nx, ny, nz), material)
-	    → Oriented via normal vector
-	Cylinder (position (x, y, z), radius, material, [axis (ax, ay, az)])
-	    → axis defines cylinder direction (defaults to Y-axis: 0, 1, 0)
-	Cone (position (x, y, z), radius, material, [axis (ax, ay, az)])
-	    → axis defines cone direction (defaults to Y-axis: 0, 1, 0)
-	Hourglass (position (x, y, z), radius, material, [axis (ax, ay, az)])
-	    → axis defines hourglass direction (defaults to Y-axis: 0, 1, 0)
+	Torus (position (x, y, z), major radius, minor radius, material, [rotation (x, y, z)])
 
 Materials:
-	Lambertian (name, color (r, g, b))
-	Transparent (name, opacity, refractiveIndex, color (r, g, b))
+	Chessboard (name, color1 (r, g, b), color2 (r, g, b), scale)
 	ColoredDiffuse (name, color (r, g, b))
+	ImageTexture (name, path)
+	Lambertian (name, color (r, g, b))
+	PerlinNoise (name, color (r, g, b), scale)
 	Phong (name, color (r, g, b), shininess)
+	Transparent (name, opacity, refractiveIndex, color (r, g, b))
 
 Lights:
-	PointLight (position (x, y, z), color (r, g, b), intensity)
 	DirectionalLight (direction (dx, dy, dz), color (r, g, b), intensity)
+	PointLight (position (x, y, z), color (r, g, b), intensity)
+

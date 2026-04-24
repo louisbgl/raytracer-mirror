@@ -30,6 +30,4 @@ private:
     void parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world);
     void parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights,
                      double& ambientMultiplier, double& diffuseMultiplier);
-    
-    static const std::unordered_map<std::string, std::string> SHAPE_NAMES; 
 };

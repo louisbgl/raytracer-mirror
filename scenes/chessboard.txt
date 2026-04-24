@@ -1,7 +1,7 @@
 camera:
 {
-    resolution = { width = 800; height = 600; };
-    position = { x = 0.0; y = 10.0; z = 10.0; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 10.0; z = 20.0; };
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
     fieldOfView = 75.0;

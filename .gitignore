@@ -4,6 +4,7 @@ build/
 raytracer
 *.ppm
 logs/
+generate_help
 
 # criterion binary
 run_tests

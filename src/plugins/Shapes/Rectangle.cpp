@@ -1,4 +1,5 @@
 #include "Rectangle.hpp"
+#include "../PluginMetadata.hpp"
 #include <cmath>
 
 Rectangle::Rectangle(Vec3 rotation, Vec3 translation, double width, double height, std::shared_ptr<IMaterial> material)
@@ -42,4 +43,14 @@ AABB Rectangle::computeLocalAABB() const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double width, double height, std::shared_ptr<IMaterial>* material) {
     return new Rectangle(Vec3(rx, ry, rz), Vec3(tx, ty, tz), width, height, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "rectangle",
+        .pluralForm = "rectangles",
+        .helpText = "Rectangle (position (x, y, z), width, height, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }
