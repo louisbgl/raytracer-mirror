@@ -1,6 +1,6 @@
 camera:
 {
-    resolution = { width = 1200; height = 800; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 4.0; y = 2.5; z = 5.0; };
     look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };

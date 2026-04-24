@@ -1,7 +1,7 @@
 // Light color showcase — pure white surfaces, low ambient, each light spatially separated
 camera:
 {
-    resolution = { width = 800; height = 600; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 0.0; y = 8.0; z = 16.0; };
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };

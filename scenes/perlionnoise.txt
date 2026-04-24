@@ -1,7 +1,7 @@
 # Perlin Noise Test Scene
 camera:
 {
-    resolution = { width = 1280; height = 720; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 0.0; y = 2.0; z = 10.0; }; 
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
