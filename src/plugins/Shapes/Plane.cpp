@@ -1,4 +1,5 @@
 #include "Plane.hpp"
+#include "../PluginMetadata.hpp"
 #include "../../Math/Constants.hpp"
 #include <cmath>
 
@@ -33,4 +34,14 @@ extern "C" IShape* create(
     double nx, double ny, double nz,
     std::shared_ptr<IMaterial>* material) {
     return new Plane(Vec3(x, y, z), Vec3(nx, ny, nz), *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "plane",
+        .pluralForm = "planes",
+        .helpText = "Plane (position (x, y, z), normal (x, y, z), material)",
+        .category = "shape"
+    };
+    return &metadata;
 }

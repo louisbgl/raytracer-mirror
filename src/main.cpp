@@ -1,5 +1,6 @@
 #include "core/Core.hpp"
 #include "utils/HelpDisplay.hpp"
+#include "core/PluginManager.hpp"
 
 int main(int argc, char* argv[]) {
     if (argc < 2 || argc > 3) {
@@ -21,6 +22,7 @@ int main(int argc, char* argv[]) {
         return 84;
     }
 
+    PluginManager::instance().initialize();
     Core core(argv[1], logging);
     if (core.simulate()) return 0;
     else                 return 84;

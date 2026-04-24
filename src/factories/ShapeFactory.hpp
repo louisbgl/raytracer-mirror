@@ -25,15 +25,6 @@ public:
 private:
     using ShapeCreator = std::shared_ptr<IShape>(*)(const libconfig::Setting&, std::shared_ptr<IMaterial>);
 
-    static PluginLoader _pluginLoader;
-    static std::unordered_map<std::string, void*> _createFunctions;
-
-    /**
-     * @brief Tries to ensure the plugin for the specified type is loaded.
-     * @param type The type of plugin to ensure (e.g., "sphere").
-     * @return True if the plugin is loaded successfully, false otherwise.
-     */
-    static bool _ensureLoaded(const std::string& type);
     static Vec3 _getRotation(const libconfig::Setting& config);
 
     // Bounded shapes (AShape - support rotation)

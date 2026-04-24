@@ -1,4 +1,5 @@
 #include "Box.hpp"
+#include "../PluginMetadata.hpp"
 #include "../../Math/Constants.hpp"
 #include <cmath>
 
@@ -91,4 +92,14 @@ AABB Box::computeLocalAABB() const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double width, double height, double depth, std::shared_ptr<IMaterial>* material) {
     return new Box(Vec3(rx, ry, rz), Vec3(tx, ty, tz), width, height, depth, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "box",
+        .pluralForm = "boxes",
+        .helpText = "Box (position (x, y, z), width, height, depth, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

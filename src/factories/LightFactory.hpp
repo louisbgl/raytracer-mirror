@@ -23,16 +23,6 @@ public:
 private:
     using LightCreator = std::shared_ptr<ILight>(*)(const libconfig::Setting&);
 
-    static PluginLoader _pluginLoader;
-    static std::unordered_map<std::string, void*> _createFunctions;
-
-    /**
-     * @brief Tries to ensure the plugin for the specified type is loaded.
-     * @param type The type of plugin to ensure (e.g., "point").
-     * @return True if the plugin is loaded successfully, false otherwise.
-     */
-    static bool _ensureLoaded(const std::string& type);
-
     static std::shared_ptr<ILight> _createPointLight(const libconfig::Setting& config);
     static std::shared_ptr<ILight> _createDirectionalLight(const libconfig::Setting& config);
 };

@@ -1,5 +1,6 @@
 #include "Tanglecube.hpp"
 #include "../../Math/QuarticSolver.hpp"
+#include "../PluginMetadata.hpp"
 #include "../../Math/Constants.hpp"
 #include <cmath>
 #include <algorithm>
@@ -116,4 +117,13 @@ AABB Tanglecube::computeLocalAABB() const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double scale, std::shared_ptr<IMaterial>* material) {
     return new Tanglecube(Vec3(rx, ry, rz), Vec3(tx, ty, tz), scale, *material);
+}
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "tanglecube",
+        .pluralForm = "tanglecubes",
+        .helpText = "Tanglecube (position (x, y, z), scale, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

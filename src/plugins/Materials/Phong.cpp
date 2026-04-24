@@ -1,4 +1,5 @@
 #include "Phong.hpp"
+#include "../PluginMetadata.hpp"
 
 #include "../../DataTypes/HitRecord.hpp"
 
@@ -29,4 +30,14 @@ bool Phong::scatter([[maybe_unused]] const Ray& ray_in,
 
 extern "C" IMaterial* create(double r, double g, double b, double shininess) {
     return new Phong(Vec3(r, g, b), shininess);
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "phong",
+        .pluralForm = "phong",
+        .helpText = "Phong (name, color (r, g, b), shininess)",
+        .category = "material"
+    };
+    return &meta;
 }

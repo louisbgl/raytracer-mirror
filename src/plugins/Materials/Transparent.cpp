@@ -1,4 +1,5 @@
 #include "Transparent.hpp"
+#include "../PluginMetadata.hpp"
 
 #include <cmath>
 
@@ -56,4 +57,14 @@ Vec3 Transparent::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) 
 
 extern "C" IMaterial* create(double opacity, double refractiveIndex, double r, double g, double b) {
     return new Transparent(opacity, refractiveIndex, Vec3(r, g, b));
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "transparent",
+        .pluralForm = "transparent",
+        .helpText = "Transparent (name, opacity, refractiveIndex, color (r, g, b))",
+        .category = "material"
+    };
+    return &meta;
 }

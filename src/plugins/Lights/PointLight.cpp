@@ -1,4 +1,5 @@
 #include "PointLight.hpp"
+#include "../PluginMetadata.hpp"
 
 PointLight::PointLight(Vec3 position, Vec3 color, double intensity)
     : _position(position), _color(color), _intensity(intensity) {}
@@ -12,4 +13,14 @@ double PointLight::get_light_data(const Vec3& hit_point, Vec3& direction, Vec3& 
 
 extern "C" ILight* create(double x, double y, double z, double r, double g, double b, double intensity) {
     return new PointLight(Vec3(x, y, z), Vec3(r, g, b), intensity);
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "pointlight",
+        .pluralForm = "point",
+        .helpText = "PointLight (position (x, y, z), color (r, g, b), intensity)",
+        .category = "light"
+    };
+    return &meta;
 }

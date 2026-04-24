@@ -1,4 +1,5 @@
 #include "ColoredDiffuse.hpp"
+#include "../PluginMetadata.hpp"
 
 #include "../../DataTypes/HitRecord.hpp"
 
@@ -19,4 +20,14 @@ bool ColoredDiffuse::scatter([[maybe_unused]] const Ray& ray_in,
 
 extern "C" IMaterial* create(double r, double g, double b) {
     return new ColoredDiffuse(Vec3(r, g, b));
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "coloreddiffuse",
+        .pluralForm = "coloreddiffuse",
+        .helpText = "ColoredDiffuse (name, color (r, g, b))",
+        .category = "material"
+    };
+    return &meta;
 }
