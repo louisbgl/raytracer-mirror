@@ -78,6 +78,7 @@ add_executable(raytracer
     src/core/Image.cpp
     src/core/Core.cpp
     src/core/PluginLoader.cpp
+    src/core/PluginManager.cpp
     src/core/ProgressBar.cpp
     src/core/Logger.cpp
     src/parsers/SceneParser.cpp
@@ -144,6 +145,9 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
 endif()
 
 # ── Plugins ────────────────────────────────────────────────────────────────────
+# Track all plugin targets for help generation
+set(ALL_PLUGIN_TARGETS "" CACHE INTERNAL "List of all plugin targets")
+
 # Helper function to create plugin targets (accepts multiple source files via ARGN)
 function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
     add_library(${PLUGIN_NAME} SHARED ${SOURCE_FILE} ${ARGN})
@@ -168,6 +172,9 @@ function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
         LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/${PLUGIN_TYPE}
         PREFIX ""  # Remove 'lib' prefix from .so/.dylib files
     )
+
+    # Track this plugin for help generation
+    set(ALL_PLUGIN_TARGETS ${ALL_PLUGIN_TARGETS} ${PLUGIN_NAME} CACHE INTERNAL "List of all plugin targets")
 endfunction()
 
 # Disable deprecated K&R style warnings for Graphics Gems code
@@ -176,18 +183,21 @@ set_source_files_properties(src/Math/Roots3And4.c PROPERTIES
 )
 
 # Shape plugins
-add_raytracer_plugin(sphere   shapes src/plugins/Shapes/Sphere.cpp)
+# Bounded shapes (inherit from AShape - need AShape.cpp linked)
+add_raytracer_plugin(sphere   shapes src/plugins/Shapes/Sphere.cpp src/core/AShape.cpp)
+add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp src/core/AShape.cpp)
+add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp src/core/AShape.cpp)
+add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp src/core/AShape.cpp)
+add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/core/AShape.cpp src/Math/Roots3And4.c)
+add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/core/AShape.cpp src/Math/Roots3And4.c)
+add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp src/core/AShape.cpp)
+add_raytracer_plugin(limited_hourglass shapes src/plugins/Shapes/LimitedHourglass.cpp src/core/AShape.cpp)
+
+# Infinite shapes (inherit directly from IShape - no AShape needed)
 add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
-add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp)
-add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp)
-add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
-add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/Math/Roots3And4.c) # Tanglecube uses the Graphics Gems polynomial solver
-add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/Math/Roots3And4.c)
-add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp )
-add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp )
-add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp )
-add_raytracer_plugin(limited_hourglass shapes src/plugins/Shapes/LimitedHourglass.cpp)
+add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp)
+add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
@@ -228,3 +238,38 @@ add_custom_target(plugins
     DEPENDS shapes materials lights
     COMMENT "Building all plugins..."
 )
+
+# ── Help Generator Utility ─────────────────────────────────────────────────────
+add_executable(generate_help
+    tools/generate_help.cpp
+    src/core/PluginManager.cpp
+    src/core/PluginLoader.cpp
+)
+
+target_include_directories(generate_help PRIVATE ${PROJECT_SOURCE_DIR}/src)
+
+target_link_libraries(generate_help PRIVATE raytracer_flags)
+
+# Link libdl on Linux (not needed on macOS)
+if(NOT APPLE)
+    target_link_libraries(generate_help PRIVATE dl)
+endif()
+
+# Set platform-specific plugin extension
+if(APPLE)
+    target_compile_definitions(generate_help PRIVATE PLUGIN_EXTENSION=".dylib")
+else()
+    target_compile_definitions(generate_help PRIVATE PLUGIN_EXTENSION=".so")
+endif()
+
+# Custom target that runs generate_help after ALL plugins are fully built
+add_custom_target(help_txt ALL
+    COMMAND generate_help
+    DEPENDS generate_help ${ALL_PLUGIN_TARGETS}
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Generating help.txt from plugin metadata"
+    BYPRODUCTS ${CMAKE_SOURCE_DIR}/help.txt
+)
+
+# Make raytracer depend on help_txt so help.txt is always up-to-date
+add_dependencies(raytracer help_txt)
