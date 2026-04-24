@@ -12,6 +12,7 @@ std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, cons
         {"coloreddiffuse", _createColoredDiffuse},
         {"phong", _createPhong},
         {"perlinnoise", _createPerlinNoise},
+        {"chessboard", _createChessboard}
     };
 
     if (!_ensureLoaded(type)) return nullptr;
@@ -80,6 +81,19 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPhong(const libconfig::Settin
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(_createFunctions["phong"]);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b, shininess));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createChessboard(const libconfig::Setting& config) {
+    double scale = config.exists("scale") ? (double)config["scale"] : 1.0;
+    int r1 = config["color1"]["r"];
+    int g1 = config["color1"]["g"];
+    int b1 = config["color1"]["b"];
+    int r2 = config["color2"]["r"];
+    int g2 = config["color2"]["g"];
+    int b2 = config["color2"]["b"];
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double, double, double)>(_createFunctions["chessboard"]);
+    return std::shared_ptr<IMaterial>(createFunc(r1, g1, b1, r2, g2, b2, scale));
 }
 
 std::shared_ptr<IMaterial> MaterialFactory::_createPerlinNoise(const libconfig::Setting& config)
