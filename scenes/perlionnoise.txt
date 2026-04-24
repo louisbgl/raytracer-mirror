@@ -1,0 +1,45 @@
+# Perlin Noise Test Scene
+camera:
+{
+    resolution = { width = 1280; height = 720; };
+    position = { x = 0.0; y = 2.0; z = 10.0; }; 
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 40.0;
+};
+
+materials:
+{
+    perlinnoise = (
+        { name = "marble_base"; color = { r = 255; g = 255; b = 255; }; scale = 4.0; },
+        { name = "lava_flow";   color = { r = 255; g = 50; b = 0; };   scale = 10.0; },
+        { name = "void"; color = { r= 0; g = 0; b = 0;}; scale = 50.0}
+    );
+};
+
+shapes:
+{
+    spheres = (
+        # A large sphere to show off the noise wrap
+        { position = { x = 0.0; y = 2.0; z = 0.0; }; radius = 2.0; material = "lava_flow"; }
+    );
+    
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0;  z = 0.0; }; material = "void"; }
+    );
+};
+
+lights:
+{
+    // Very low ambient — unlit areas stay dark so light colors stand out clearly
+    ambient = 0.05;
+    diffuse = 0.95;
+
+    // Each point light sits directly above its sphere with a strong pure color
+    point = (
+        { position = { x = -6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 0;   b = 0;   }; intensity = 60.0; },
+        { position = { x = -2.0; y = 6.0; z = 2.0; }; color = { r = 0;   g = 255; b = 0;   }; intensity = 60.0; },
+        { position = { x =  2.0; y = 6.0; z = 2.0; }; color = { r = 0;   g = 0;   b = 255; }; intensity = 60.0; },
+        { position = { x =  6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 255; b = 0;   }; intensity = 60.0; }
+    );
+};
