@@ -10,6 +10,8 @@ var dir_aebb8dcc11953d78e620bbef0b9e2183 =
     [ "Logger.hpp", "Logger_8hpp.html", "Logger_8hpp" ],
     [ "PluginLoader.cpp", "PluginLoader_8cpp.html", null ],
     [ "PluginLoader.hpp", "PluginLoader_8hpp.html", "PluginLoader_8hpp" ],
+    [ "PluginManager.cpp", "PluginManager_8cpp.html", "PluginManager_8cpp" ],
+    [ "PluginManager.hpp", "PluginManager_8hpp.html", "PluginManager_8hpp" ],
     [ "ProgressBar.cpp", "ProgressBar_8cpp.html", null ],
     [ "ProgressBar.hpp", "ProgressBar_8hpp.html", "ProgressBar_8hpp" ]
 ];

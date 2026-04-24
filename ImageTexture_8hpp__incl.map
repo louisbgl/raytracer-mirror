@@ -1,0 +1,20 @@
+<map id="src/plugins/Materials/ImageTexture.hpp" name="src/plugins/Materials/ImageTexture.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="47,5,205,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,68,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,48,62,86,58,82,103,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,93,159,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="129,46,129,79,123,79,123,46"/>
+<area shape="rect" id="Node000004" href="$IMaterial_8hpp.html" title=" " alt="" coords="184,93,385,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,43,250,85,248,90,163,48"/>
+<area shape="rect" id="Node000005" href="$Vec3_8hpp.html" title=" " alt="" coords="201,240,366,265"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="278,120,265,141,254,167,253,183,255,198,269,227,264,229,250,200,247,183,249,166,260,139,274,117"/>
+<area shape="rect" id="Node000009" href="$Ray_8hpp.html" title=" " alt="" coords="263,167,421,192"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="296,117,326,154,322,158,292,121"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="156,313,219,339"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="269,268,216,307,213,303,266,263"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="243,313,323,339"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="286,266,286,300,281,300,281,266"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="348,313,435,339"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="302,263,364,303,361,308,299,268"/>
+<area shape="poly" id="edge9_Node000009_Node000005" title=" " alt="" coords="334,194,303,231,299,228,330,191"/>
+</map>

@@ -1,15 +1,17 @@
 <map id="src/plugins/Shapes/Cone.cpp" name="src/plugins/Shapes/Cone.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="384,5,526,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="409,5,552,45"/>
 <area shape="rect" id="Node000002" href="$Cone_8hpp.html" title=" " alt="" coords="178,93,268,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="400,48,271,91,269,86,399,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="420,48,274,92,273,87,418,43"/>
 <area shape="rect" id="Node000005" href="$Vec3_8hpp.html" title=" " alt="" coords="273,460,354,485"/>
-<area shape="poly" id="edge14_Node000001_Node000005" title=" " alt="" coords="447,47,421,104,411,141,407,178,407,328,400,365,383,400,361,429,339,453,336,449,357,426,379,397,395,363,402,327,402,178,406,140,416,103,442,44"/>
+<area shape="poly" id="edge14_Node000001_Node000005" title=" " alt="" coords="466,47,447,72,428,104,413,140,407,178,407,328,400,365,383,400,361,429,339,453,336,449,357,426,379,397,395,363,402,327,402,178,408,138,423,101,443,69,461,44"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="424,533,486,559"/>
-<area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="458,46,458,178,458,401,458,520,452,520,452,401,452,178,452,46"/>
+<area shape="poly" id="edge19_Node000001_Node000006" title=" " alt="" coords="478,46,465,105,458,178,458,401,458,520,452,520,452,401,452,178,460,104,473,45"/>
 <area shape="rect" id="Node000012" href="$QuadraticSolver_8hpp.html" title=" " alt="" coords="493,167,708,192"/>
-<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="471,44,533,117,577,156,573,160,529,121,467,47"/>
-<area shape="rect" id="Node000013" href="$Constants_8hpp.html" title=" " alt="" coords="543,93,719,119"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="498,43,594,85,592,90,496,48"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="491,44,509,79,535,117,576,156,572,160,530,120,505,82,486,47"/>
+<area shape="rect" id="Node000013" href="$PluginMetadata_8hpp.html" title=" " alt="" coords="544,93,708,119"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="517,43,594,84,591,89,514,48"/>
+<area shape="rect" id="Node000014" href="$Constants_8hpp.html" title=" " alt="" coords="732,93,908,119"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="553,41,758,88,757,93,552,46"/>
 <area shape="rect" id="Node000003" href="$IShape_8hpp.html" title=" " alt="" coords="31,167,218,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="209,121,153,161,150,156,206,117"/>
 <area shape="rect" id="Node000004" href="$Ray_8hpp.html" title=" " alt="" coords="20,387,178,412"/>

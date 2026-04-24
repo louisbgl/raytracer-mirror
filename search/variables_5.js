@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pi_0',['PI',['../namespaceMath.html#acfc7ead6b66a7dce80f1a510df01845c',1,'Math']]],
-  ['point_1',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]]
+  ['normal_0',['normal',['../classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684',1,'HitRecord']]]
 ];

@@ -8,8 +8,11 @@ var searchData=
   ['plane_2ehpp_5',['Plane.hpp',['../Plane_8hpp.html',1,'']]],
   ['pluginloader_2ecpp_6',['PluginLoader.cpp',['../PluginLoader_8cpp.html',1,'']]],
   ['pluginloader_2ehpp_7',['PluginLoader.hpp',['../PluginLoader_8hpp.html',1,'']]],
-  ['pointlight_2ecpp_8',['PointLight.cpp',['../PointLight_8cpp.html',1,'']]],
-  ['pointlight_2ehpp_9',['PointLight.hpp',['../PointLight_8hpp.html',1,'']]],
-  ['progressbar_2ecpp_10',['ProgressBar.cpp',['../ProgressBar_8cpp.html',1,'']]],
-  ['progressbar_2ehpp_11',['ProgressBar.hpp',['../ProgressBar_8hpp.html',1,'']]]
+  ['pluginmanager_2ecpp_8',['PluginManager.cpp',['../PluginManager_8cpp.html',1,'']]],
+  ['pluginmanager_2ehpp_9',['PluginManager.hpp',['../PluginManager_8hpp.html',1,'']]],
+  ['pluginmetadata_2ehpp_10',['PluginMetadata.hpp',['../PluginMetadata_8hpp.html',1,'']]],
+  ['pointlight_2ecpp_11',['PointLight.cpp',['../PointLight_8cpp.html',1,'']]],
+  ['pointlight_2ehpp_12',['PointLight.hpp',['../PointLight_8hpp.html',1,'']]],
+  ['progressbar_2ecpp_13',['ProgressBar.cpp',['../ProgressBar_8cpp.html',1,'']]],
+  ['progressbar_2ehpp_14',['ProgressBar.hpp',['../ProgressBar_8hpp.html',1,'']]]
 ];

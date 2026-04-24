@@ -15,6 +15,7 @@ var hierarchy =
     [ "IMaterial", "classIMaterial.html", [
       [ "Chessboard", "classChessboard.html", null ],
       [ "ColoredDiffuse", "classColoredDiffuse.html", null ],
+      [ "ImageTexture", "classImageTexture.html", null ],
       [ "Lambertian", "classLambertian.html", null ],
       [ "PerlinNoise", "classPerlinNoise.html", null ],
       [ "Phong", "classPhong.html", null ],
@@ -40,6 +41,8 @@ var hierarchy =
     [ "Logger", "classLogger.html", null ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
     [ "PluginLoader", "classPluginLoader.html", null ],
+    [ "PluginManager", "classPluginManager.html", null ],
+    [ "PluginMetadata", "structPluginMetadata.html", null ],
     [ "ProgressBar", "classProgressBar.html", null ],
     [ "QuadraticRoots", "structQuadraticRoots.html", null ],
     [ "QuadraticSolver", "classQuadraticSolver.html", null ],

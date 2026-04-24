@@ -6,6 +6,7 @@ var searchData=
   ['phong_3',['Phong',['../classPhong.html#a924c01c705a91751f2499cfbf2d4a48f',1,'Phong']]],
   ['plane_4',['Plane',['../classPlane.html#a02d7239e199c4b126bc9f52b6144ac2b',1,'Plane']]],
   ['pluginloader_5',['PluginLoader',['../classPluginLoader.html#a380c2e424082defa37abd0993b45e062',1,'PluginLoader']]],
-  ['pointlight_6',['PointLight',['../classPointLight.html#afdae06d6e7c08353b1ef2db4459d3e41',1,'PointLight']]],
-  ['progressbar_7',['ProgressBar',['../classProgressBar.html#a081797298d679405923faadca719fda5',1,'ProgressBar']]]
+  ['pluginmanager_6',['pluginmanager',['../classPluginManager.html#a5af06c8051cfe9b5a8e286e012d23d2f',1,'PluginManager::PluginManager(const PluginManager &amp;)=delete'],['../classPluginManager.html#ac38dc7e7f2112593ab755fae0ffbd76b',1,'PluginManager::PluginManager(PluginManager &amp;&amp;)=delete']]],
+  ['pointlight_7',['PointLight',['../classPointLight.html#afdae06d6e7c08353b1ef2db4459d3e41',1,'PointLight']]],
+  ['progressbar_8',['ProgressBar',['../classProgressBar.html#a081797298d679405923faadca719fda5',1,'ProgressBar']]]
 ];

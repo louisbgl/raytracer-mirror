@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('Hourglass_8cpp.html',''); initResizabl
 <div class="textblock"><code>#include &quot;<a class="el" href="Hourglass_8hpp_source.html">./Hourglass.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vec3_8hpp_source.html">DataTypes/Vec3.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QuadraticSolver_8hpp_source.html">../../Math/QuadraticSolver.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PluginMetadata_8hpp_source.html">../PluginMetadata.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Constants_8hpp_source.html">../../Math/Constants.hpp</a>&quot;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -106,17 +107,19 @@ Include dependency graph for Hourglass.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="Hourglass_8cpp__incl.png" border="0" usemap="#asrc_2plugins_2Shapes_2Hourglass_8cpp" alt=""/></div>
 <map name="asrc_2plugins_2Shapes_2Hourglass_8cpp" id="asrc_2plugins_2Shapes_2Hourglass_8cpp">
-<area shape="rect" title=" " alt="" coords="384,5,526,45"/>
+<area shape="rect" title=" " alt="" coords="409,5,552,45"/>
 <area shape="rect" href="Hourglass_8hpp.html" title=" " alt="" coords="154,93,276,119"/>
-<area shape="poly" title=" " alt="" coords="398,48,264,92,262,87,397,43"/>
+<area shape="poly" title=" " alt="" coords="418,48,268,92,266,87,416,43"/>
 <area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="273,460,354,485"/>
-<area shape="poly" title=" " alt="" coords="447,47,421,104,411,141,407,178,407,328,400,365,383,400,361,429,339,453,336,449,357,426,379,397,395,363,402,327,402,178,406,140,416,103,442,44"/>
+<area shape="poly" title=" " alt="" coords="466,47,447,72,428,104,413,140,407,178,407,328,400,365,383,400,361,429,339,453,336,449,357,426,379,397,395,363,402,327,402,178,408,138,423,101,443,69,461,44"/>
 <area shape="rect" title=" " alt="" coords="424,533,486,559"/>
-<area shape="poly" title=" " alt="" coords="458,46,458,178,458,401,458,520,452,520,452,401,452,178,452,46"/>
+<area shape="poly" title=" " alt="" coords="478,46,465,105,458,178,458,401,458,520,452,520,452,401,452,178,460,104,473,45"/>
 <area shape="rect" href="QuadraticSolver_8hpp.html" title=" " alt="" coords="493,167,708,192"/>
-<area shape="poly" title=" " alt="" coords="471,44,533,117,577,156,573,160,529,121,467,47"/>
-<area shape="rect" href="Constants_8hpp.html" title=" " alt="" coords="543,93,719,119"/>
-<area shape="poly" title=" " alt="" coords="498,43,594,85,592,90,496,48"/>
+<area shape="poly" title=" " alt="" coords="491,44,509,79,535,117,576,156,572,160,530,120,505,82,486,47"/>
+<area shape="rect" href="PluginMetadata_8hpp.html" title=" " alt="" coords="544,93,708,119"/>
+<area shape="poly" title=" " alt="" coords="517,43,594,84,591,89,514,48"/>
+<area shape="rect" href="Constants_8hpp.html" title=" " alt="" coords="732,93,908,119"/>
+<area shape="poly" title=" " alt="" coords="553,41,758,88,757,93,552,46"/>
 <area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="31,167,218,192"/>
 <area shape="poly" title=" " alt="" coords="202,121,152,160,149,156,199,117"/>
 <area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="20,387,178,412"/>
@@ -144,6 +147,8 @@ Include dependency graph for Hourglass.cpp:</div>
 Functions</h2></td></tr>
 <tr class="memitem:aae229ac5acfed0b73cd0b2bff75fc2c0" id="r_aae229ac5acfed0b73cd0b2bff75fc2c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classIShape.html">IShape</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Hourglass_8cpp.html#aae229ac5acfed0b73cd0b2bff75fc2c0">create</a> (double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; *material)</td></tr>
 <tr class="separator:aae229ac5acfed0b73cd0b2bff75fc2c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73c8cf2edd391dfa3a366e99ff4cb3c1" id="r_a73c8cf2edd391dfa3a366e99ff4cb3c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPluginMetadata.html">PluginMetadata</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Hourglass_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1">metadata</a> ()</td></tr>
+<tr class="separator:a73c8cf2edd391dfa3a366e99ff4cb3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="aae229ac5acfed0b73cd0b2bff75fc2c0" name="aae229ac5acfed0b73cd0b2bff75fc2c0"></a>
@@ -204,6 +209,23 @@ Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73c8cf2edd391dfa3a366e99ff4cb3c1" name="a73c8cf2edd391dfa3a366e99ff4cb3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73c8cf2edd391dfa3a366e99ff4cb3c1">&#9670;&#160;</a></span>metadata()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPluginMetadata.html">PluginMetadata</a> * metadata </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">

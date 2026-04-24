@@ -1,13 +1,15 @@
 <map id="src/plugins/Shapes/Cylinder.cpp" name="src/plugins/Shapes/Cylinder.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="358,5,501,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="384,5,526,45"/>
 <area shape="rect" id="Node000002" href="$Cylinder_8hpp.html" title=" " alt="" coords="169,93,272,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="381,48,265,91,263,86,379,43"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="400,48,268,92,267,87,398,43"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="373,533,436,559"/>
-<area shape="poly" id="edge17_Node000001_Node000006" title=" " alt="" coords="427,46,414,105,407,178,407,401,407,520,402,520,402,401,402,178,409,104,422,45"/>
+<area shape="poly" id="edge18_Node000001_Node000006" title=" " alt="" coords="447,47,421,104,411,141,407,178,407,401,407,520,402,520,402,401,402,178,406,140,416,103,442,44"/>
 <area shape="rect" id="Node000012" href="$QuadraticSolver_8hpp.html" title=" " alt="" coords="442,167,657,192"/>
-<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="440,44,458,79,483,117,524,156,520,160,478,120,453,82,435,47"/>
-<area shape="rect" id="Node000013" href="$Constants_8hpp.html" title=" " alt="" coords="492,93,668,119"/>
-<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="467,43,547,84,545,89,465,48"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="460,45,468,80,484,117,502,139,523,157,519,161,498,143,480,120,463,82,455,46"/>
+<area shape="rect" id="Node000013" href="$PluginMetadata_8hpp.html" title=" " alt="" coords="493,93,657,119"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="486,43,548,84,545,88,483,48"/>
+<area shape="rect" id="Node000014" href="$Constants_8hpp.html" title=" " alt="" coords="682,93,858,119"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="527,42,712,87,710,93,526,47"/>
 <area shape="rect" id="Node000003" href="$IShape_8hpp.html" title=" " alt="" coords="31,167,218,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,121,153,160,150,156,203,117"/>
 <area shape="rect" id="Node000004" href="$Ray_8hpp.html" title=" " alt="" coords="19,387,176,412"/>
