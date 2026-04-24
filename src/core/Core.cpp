@@ -93,7 +93,7 @@ Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
             Vec3 lightDir, lightColor;
             double lightDistance = light->get_light_data(record.point, lightDir, lightColor);
 
-            Ray shadowRay(record.point, lightDir);
+            Ray shadowRay(record.point + record.normal * 1e-4, lightDir);
             HitRecord shadowRecord;
 
             Vec3 viewDir = -ray.direction();
