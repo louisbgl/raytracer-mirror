@@ -1,5 +1,6 @@
 #include "Cylinder.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../PluginMetadata.hpp"
 
 Cylinder::Cylinder(Vec3 pos, Vec3 axis, double radius, std::shared_ptr<IMaterial> material)
     : _position(pos), _axis(normalize(axis)), _radius(radius), _material(material) {}
@@ -49,4 +50,14 @@ Vec3 Cylinder::computeBodyNormal(const Vec3& hit_point) const {
 
 extern "C" IShape* create(double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr<IMaterial>* material) {
     return new Cylinder(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "cylinder",
+        .pluralForm = "cylinders",
+        .helpText = "Cylinder (position (x, y, z), axis (x, y, z), radius, material)",
+        .category = "shape"
+    };
+    return &metadata;
 }

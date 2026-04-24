@@ -1,5 +1,6 @@
 #include "LimitedCone.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../PluginMetadata.hpp"
 #include <cmath>
 #include <limits>
 
@@ -97,4 +98,14 @@ AABB LimitedCone::computeLocalAABB() const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr<IMaterial>* material) {
     return new LimitedCone(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, height, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "limited_cone",
+        .pluralForm = "limited_cones",
+        .helpText = "LimitedCone (position (x, y, z), radius, height, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

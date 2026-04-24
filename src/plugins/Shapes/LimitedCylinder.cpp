@@ -1,5 +1,6 @@
 #include "LimitedCylinder.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../PluginMetadata.hpp"
 #include <limits>
 
 LimitedCylinder::LimitedCylinder(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material)
@@ -96,4 +97,14 @@ Vec3 LimitedCylinder::computeBodyNormal(const Vec3& hit_point) const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr<IMaterial>* material) {
     return new LimitedCylinder(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, height, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "limited_cylinder",
+        .pluralForm = "limited_cylinders",
+        .helpText = "LimitedCylinder (position (x, y, z), radius, height, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

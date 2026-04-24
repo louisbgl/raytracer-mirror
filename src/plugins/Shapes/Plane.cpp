@@ -1,4 +1,5 @@
 #include "Plane.hpp"
+#include "../PluginMetadata.hpp"
 
 Plane::Plane(Vec3 pos, Vec3 normal, std::shared_ptr<IMaterial> material)
     : _pos(pos), _normal(normal), _material(material) {}
@@ -23,4 +24,14 @@ extern "C" IShape* create(
     double nx, double ny, double nz,
     std::shared_ptr<IMaterial>* material) {
     return new Plane(Vec3(x, y, z), Vec3(nx, ny, nz), *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "plane",
+        .pluralForm = "planes",
+        .helpText = "Plane (position (x, y, z), normal (x, y, z), material)",
+        .category = "shape"
+    };
+    return &metadata;
 }

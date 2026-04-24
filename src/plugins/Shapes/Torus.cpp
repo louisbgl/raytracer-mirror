@@ -1,5 +1,6 @@
 #include "Torus.hpp"
 #include "../../Math/QuarticSolver.hpp"
+#include "../PluginMetadata.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -71,4 +72,14 @@ Vec3 Torus::computeNormal(const Vec3& point) const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
     return new Torus(Vec3(rx, ry, rz), Vec3(tx, ty, tz), majorRadius, minorRadius, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "torus",
+        .pluralForm = "toruses",
+        .helpText = "Torus (position (x, y, z), major radius, minor radius, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

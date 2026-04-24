@@ -1,5 +1,6 @@
 #include "Sphere.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../PluginMetadata.hpp"
 
 Sphere::Sphere(Vec3 rotation, Vec3 translation, double radius, std::shared_ptr<IMaterial> material)
     : AShape(rotation, translation), _radius(radius), _material(material) {}
@@ -42,4 +43,14 @@ AABB Sphere::computeLocalAABB() const {
 
 extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, std::shared_ptr<IMaterial>* material) {
     return new Sphere(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, *material);
+}
+
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "sphere",
+        .pluralForm = "spheres",
+        .helpText = "Sphere (position (x, y, z), radius, material, [rotation (x, y, z)])",
+        .category = "shape"
+    };
+    return &metadata;
 }

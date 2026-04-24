@@ -1,6 +1,7 @@
 #include "./Cone.hpp"
 #include "DataTypes/Vec3.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../PluginMetadata.hpp"
 #include <cmath>
 
 static constexpr double EPS = 1e-9;
@@ -63,3 +64,12 @@ extern "C" IShape* create(double x, double y, double z, double ax, double ay, do
     return new Cone(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
 }
 
+extern "C" PluginMetadata* metadata() {
+    static PluginMetadata metadata = {
+        .pluginName = "cone",
+        .pluralForm = "cones",
+        .helpText = "Cone (position (x, y, z), axis (x, y, z), radius, material)",
+        .category = "shape"
+    };
+    return &metadata;
+}
