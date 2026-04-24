@@ -1,0 +1,60 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = -9.0; y = 3.0; z = 20.0; };
+    look_at = { x = -9.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 80.0;
+};
+
+materials:
+{
+    image_texture = (
+        { name = "sun";     path = "textures/sun.ppm"; },
+        { name = "mercury"; path = "textures/mercury.ppm"; },
+        { name = "venus";   path = "textures/venus.ppm"; },
+        { name = "earth";   path = "textures/earth.ppm"; },
+        { name = "moon";    path = "textures/moon.ppm"; },
+        { name = "mars";    path = "textures/mars.ppm"; },
+        { name = "jupiter"; path = "textures/jupiter.ppm"; },
+        { name = "saturn";  path = "textures/saturn.ppm"; },
+        { name = "uranus";  path = "textures/uranus.ppm"; },
+        { name = "neptune"; path = "textures/neptune.ppm"; },
+        { name = "pluto";   path = "textures/pluto.ppm"; }
+    );
+
+    perlinnoise = (
+        { name = "space"; color = { r = 30; g = 30; b = 30; }; scale = 10.0; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = -8.0; }; normal = { x = 0.0; y = 0.0; z = 1.0; }; material = "space"; }
+    );
+
+    spheres = (
+        { position = { x = -22.0; y = 0.0; z = 0.0; }; radius = 3.0;  material = "sun";     rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -16.5; y = 0.0; z = 0.0; }; radius = 0.25; material = "mercury"; rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -14.5; y = 0.0; z = 0.0; }; radius = 0.45; material = "venus";   rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -12.0; y = 0.0; z = 0.0; }; radius = 0.5;  material = "earth";   rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -11.1; y = 0.5; z = 0.8; }; radius = 0.15; material = "moon";    rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -9.5;  y = 0.0; z = 0.0; }; radius = 0.35; material = "mars";    rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -6.5;  y = 0.0; z = 0.0; }; radius = 1.5;  material = "jupiter"; rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = -2.5;  y = 0.0; z = 0.0; }; radius = 1.2;  material = "saturn";  rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = 1.5;   y = 0.0; z = 0.0; }; radius = 0.7;  material = "uranus";  rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = 4.5;   y = 0.0; z = 0.0; }; radius = 0.65; material = "neptune"; rotation = { x = 0.0; y = 0.0; z = 0.0; }; },
+        { position = { x = 7.0;   y = 0.0; z = 0.0; }; radius = 0.2;  material = "pluto";   rotation = { x = 0.0; y = 0.0; z = 0.0; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.15;
+    diffuse = 0.85;
+
+    directional = (
+        { direction = { x = 0.2; y = -0.6; z = -1.0; }; color = { r = 255; g = 245; b = 220; }; intensity = 1.0; }
+    );
+};
