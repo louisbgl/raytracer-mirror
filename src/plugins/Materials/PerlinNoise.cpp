@@ -1,5 +1,6 @@
 
 #include "./PerlinNoise.hpp"
+#include "../PluginMetadata.hpp"
 #include "DataTypes/Ray.hpp"
 #include "DataTypes/Vec3.hpp"
 #include "../../DataTypes/HitRecord.hpp"
@@ -136,4 +137,14 @@ double PerlinNoise::trilinearInterp(const CubeVectors& c, double u, double v, do
 
 extern "C" IMaterial* create(double r, double g, double b, double scale) {
     return new PerlinNoise(Vec3(r, g, b), scale);
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "perlinnoise",
+        .pluralForm = "perlinnoise",
+        .helpText = "PerlinNoise (name, color (r, g, b), scale)",
+        .category = "material"
+    };
+    return &meta;
 }

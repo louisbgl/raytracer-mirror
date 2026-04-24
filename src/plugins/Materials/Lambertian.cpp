@@ -1,4 +1,5 @@
 #include "Lambertian.hpp"
+#include "../PluginMetadata.hpp"
 
 #include "../../DataTypes/HitRecord.hpp"
 
@@ -19,3 +20,13 @@ bool Lambertian::scatter([[maybe_unused]] const Ray& ray_in,
 }
 
 extern "C" IMaterial* create(double r, double g, double b) { return new Lambertian(Vec3(r, g, b)); }
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "lambertian",
+        .pluralForm = "lambertian",
+        .helpText = "Lambertian (name, color (r, g, b))",
+        .category = "material"
+    };
+    return &meta;
+}

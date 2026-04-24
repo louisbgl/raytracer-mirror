@@ -1,4 +1,5 @@
 #include "Chessboard.hpp"
+#include "../PluginMetadata.hpp"
 
 #include "../../DataTypes/HitRecord.hpp"
 
@@ -25,4 +26,14 @@ bool Chessboard::scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] co
 
 extern "C" IMaterial* create(double r1, double g1, double b1, double r2, double g2, double b2, double scale) {
     return new Chessboard(Vec3(r1, g1, b1), Vec3(r2, g2, b2), scale);
+}
+
+extern "C" const PluginMetadata* metadata() {
+    static PluginMetadata meta = {
+        .pluginName = "chessboard",
+        .pluralForm = "chessboard",
+        .helpText = "Chessboard (name, color1 (r, g, b), color2 (r, g, b), scale)",
+        .category = "material"
+    };
+    return &meta;
 }
