@@ -215,8 +215,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse phong chessboard
-    DEPENDS lambertian transparent coloreddiffuse phong perlinnoise
+    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise
     COMMENT "Building all material plugins..."
 )
 
