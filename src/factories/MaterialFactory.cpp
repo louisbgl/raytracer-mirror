@@ -10,7 +10,8 @@ std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, cons
         {"coloreddiffuse", _createColoredDiffuse},
         {"phong", _createPhong},
         {"perlinnoise", _createPerlinNoise},
-        {"chessboard", _createChessboard}
+        {"chessboard", _createChessboard},
+        {"image_texture", _createImageTexture}
     };
 
     auto it = creators.find(type);
@@ -81,4 +82,11 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPerlinNoise(const libconfig::
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("perlinnoise");
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(r, g, b, scale));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createImageTexture(const libconfig::Setting& config) {
+    std::string path = config["path"].c_str();
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(_createFunctions["image_texture"]);
+    return std::shared_ptr<IMaterial>(createFunc(path.c_str()));
 }

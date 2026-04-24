@@ -1,0 +1,32 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 0.0; z = 16.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 90.0;
+};
+
+materials:
+{
+    image_texture = (
+        { name = "baseball"; path = "textures/baseball.ppm"; },
+²    );
+};
+
+shapes:
+{
+    spheres = (
+        { position = { x = 5.0; y = 0.0; z = 0.0; }; radius = 4.0; material = "baseball"; rotation = { x = 0.0; y = 0.0; z = 0.0; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.1;
+    diffuse = 0.9;
+
+    directional = (
+        { direction = { x = -1.0; y = -0.5; z = -1.0; }; color = { r = 255; g = 245; b = 220; }; intensity = 1.0; }
+    );
+};

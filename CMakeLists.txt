@@ -229,6 +229,7 @@ add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredD
 add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
 add_raytracer_plugin(chessboard materials src/plugins/Materials/Chessboard.cpp)
 add_raytracer_plugin(perlinnoise materials src/plugins/Materials/PerlinNoise.cpp)
+add_raytracer_plugin(image_texture materials src/plugins/Materials/ImageTexture.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
@@ -248,7 +249,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise
+    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise image_texture
     COMMENT "Building all material plugins..."
 )
 

@@ -29,4 +29,5 @@ private:
     static std::shared_ptr<IMaterial> _createPhong          (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createChessboard     (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createPerlinNoise    (const libconfig::Setting& config);
+    static std::shared_ptr<IMaterial> _createImageTexture   (const libconfig::Setting& config);
 };
