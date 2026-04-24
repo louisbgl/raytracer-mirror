@@ -7,7 +7,9 @@ var searchData=
   ['image_2ehpp_4',['Image.hpp',['../Image_8hpp.html',1,'']]],
   ['imaterial_5',['IMaterial',['../classIMaterial.html',1,'']]],
   ['imaterial_2ehpp_6',['IMaterial.hpp',['../IMaterial_8hpp.html',1,'']]],
-  ['ishape_7',['IShape',['../classIShape.html',1,'']]],
-  ['ishape_2ehpp_8',['IShape.hpp',['../IShape_8hpp.html',1,'']]],
-  ['istangent_9',['isTangent',['../structQuadraticRoots.html#af043878812cd98fc4eba90532e5f0e1a',1,'QuadraticRoots']]]
+  ['inv_5fpi_7',['INV_PI',['../namespaceMath.html#adef241e1d1a1487cb652498422c50d1c',1,'Math']]],
+  ['inv_5ftwo_5fpi_8',['INV_TWO_PI',['../namespaceMath.html#aa16f27b7c5fb4757023f8ad29352f068',1,'Math']]],
+  ['ishape_9',['IShape',['../classIShape.html',1,'']]],
+  ['ishape_2ehpp_10',['IShape.hpp',['../IShape_8hpp.html',1,'']]],
+  ['istangent_11',['isTangent',['../structQuadraticRoots.html#af043878812cd98fc4eba90532e5f0e1a',1,'QuadraticRoots']]]
 ];

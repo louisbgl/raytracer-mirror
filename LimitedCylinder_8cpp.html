@@ -98,49 +98,54 @@ $(document).ready(function(){initNavTree('LimitedCylinder_8cpp.html',''); initRe
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="LimitedCylinder_8hpp_source.html">LimitedCylinder.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QuadraticSolver_8hpp_source.html">../../Math/QuadraticSolver.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Constants_8hpp_source.html">../../Math/Constants.hpp</a>&quot;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;limits&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for LimitedCylinder.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="LimitedCylinder_8cpp__incl.png" border="0" usemap="#asrc_2plugins_2Shapes_2LimitedCylinder_8cpp" alt=""/></div>
 <map name="asrc_2plugins_2Shapes_2LimitedCylinder_8cpp" id="asrc_2plugins_2Shapes_2LimitedCylinder_8cpp">
-<area shape="rect" title=" " alt="" coords="365,5,519,45"/>
-<area shape="rect" href="LimitedCylinder_8hpp.html" title=" " alt="" coords="229,93,381,119"/>
-<area shape="poly" title=" " alt="" coords="410,48,338,89,336,84,408,43"/>
-<area shape="rect" href="QuadraticSolver_8hpp.html" title=" " alt="" coords="424,167,639,192"/>
-<area shape="poly" title=" " alt="" coords="447,45,454,80,470,117,486,138,505,156,502,160,482,142,465,120,449,82,441,46"/>
-<area shape="rect" title=" " alt="" coords="479,93,538,119"/>
-<area shape="poly" title=" " alt="" coords="460,44,492,81,488,84,456,47"/>
-<area shape="rect" href="AShape_8hpp.html" title=" " alt="" coords="179,167,334,192"/>
-<area shape="poly" title=" " alt="" coords="299,121,274,157,270,154,295,118"/>
-<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="169,240,344,265"/>
-<area shape="poly" title=" " alt="" coords="259,192,259,226,254,226,254,192"/>
-<area shape="rect" href="AABB_8hpp.html" title=" " alt="" coords="5,387,140,412"/>
-<area shape="poly" title=" " alt="" coords="230,194,194,214,159,242,133,274,112,310,83,374,78,372,107,308,128,271,155,238,191,210,228,190"/>
-<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="170,460,327,485"/>
-<area shape="poly" title=" " alt="" coords="243,268,222,288,206,314,200,350,207,386,220,420,235,447,230,450,215,422,202,387,195,350,201,312,218,285,239,264"/>
-<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="215,313,413,339"/>
-<area shape="poly" title=" " alt="" coords="268,264,298,301,294,304,264,267"/>
-<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="248,533,329,559"/>
-<area shape="poly" title=" " alt="" coords="258,484,278,520,273,523,253,487"/>
-<area shape="rect" title=" " alt="" coords="523,607,585,632"/>
-<area shape="poly" title=" " alt="" coords="330,556,510,604,509,609,329,561"/>
-<area shape="rect" title=" " alt="" coords="339,607,419,632"/>
-<area shape="poly" title=" " alt="" coords="305,557,355,596,352,600,302,561"/>
-<area shape="rect" title=" " alt="" coords="228,607,315,632"/>
-<area shape="poly" title=" " alt="" coords="288,560,280,594,275,593,283,558"/>
-<area shape="poly" title=" " alt="" coords="299,341,276,361,256,388,249,417,248,446,243,446,244,417,252,386,272,357,295,337"/>
-<area shape="rect" title=" " alt="" coords="266,387,343,412"/>
-<area shape="poly" title=" " alt="" coords="315,339,311,374,305,373,310,339"/>
-<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="367,387,557,412"/>
-<area shape="poly" title=" " alt="" coords="339,336,427,378,424,383,337,341"/>
-<area shape="poly" title=" " alt="" coords="429,415,297,458,295,453,427,409"/>
-<area shape="poly" title=" " alt="" coords="450,415,315,527,311,523,446,410"/>
-<area shape="poly" title=" " alt="" coords="102,410,208,452,206,457,100,414"/>
-<area shape="poly" title=" " alt="" coords="84,411,116,445,160,483,202,507,244,526,242,531,199,512,156,488,112,449,80,414"/>
-<area shape="rect" title=" " alt="" coords="10,460,95,485"/>
-<area shape="poly" title=" " alt="" coords="72,413,62,448,57,446,67,412"/>
-<area shape="poly" title=" " alt="" coords="543,191,576,246,591,284,597,324,597,474,594,508,587,540,568,595,562,593,581,539,588,507,591,474,591,325,585,286,571,249,538,194"/>
+<area shape="rect" title=" " alt="" coords="659,5,813,45"/>
+<area shape="rect" href="LimitedCylinder_8hpp.html" title=" " alt="" coords="355,93,507,119"/>
+<area shape="poly" title=" " alt="" coords="664,48,489,92,488,87,662,43"/>
+<area shape="rect" title=" " alt="" coords="578,607,641,632"/>
+<area shape="poly" title=" " alt="" coords="739,46,739,178,739,474,736,495,729,515,705,551,674,580,644,602,641,597,671,576,701,547,724,513,731,494,733,474,733,178,733,46"/>
+<area shape="rect" href="QuadraticSolver_8hpp.html" title=" " alt="" coords="483,167,698,192"/>
+<area shape="poly" title=" " alt="" coords="720,48,613,158,609,155,716,44"/>
+<area shape="rect" href="Constants_8hpp.html" title=" " alt="" coords="773,93,949,119"/>
+<area shape="poly" title=" " alt="" coords="768,43,833,84,830,88,765,48"/>
+<area shape="rect" title=" " alt="" coords="973,93,1032,119"/>
+<area shape="poly" title=" " alt="" coords="801,43,961,90,959,95,799,48"/>
+<area shape="rect" href="AShape_8hpp.html" title=" " alt="" coords="304,167,459,192"/>
+<area shape="poly" title=" " alt="" coords="425,121,399,157,395,154,420,117"/>
+<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="277,240,451,265"/>
+<area shape="poly" title=" " alt="" coords="381,193,373,228,367,226,376,192"/>
+<area shape="rect" href="AABB_8hpp.html" title=" " alt="" coords="422,387,557,412"/>
+<area shape="poly" title=" " alt="" coords="407,190,438,210,465,239,480,273,489,309,493,373,488,373,484,310,475,275,460,241,435,214,405,194"/>
+<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="255,460,412,485"/>
+<area shape="poly" title=" " alt="" coords="366,266,361,339,342,447,336,446,356,338,361,265"/>
+<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="149,313,347,339"/>
+<area shape="poly" title=" " alt="" coords="347,268,280,308,277,304,344,263"/>
+<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="339,533,421,559"/>
+<area shape="poly" title=" " alt="" coords="343,484,367,520,363,523,339,487"/>
+<area shape="poly" title=" " alt="" coords="418,556,565,602,564,607,416,561"/>
+<area shape="rect" title=" " alt="" coords="427,607,507,632"/>
+<area shape="poly" title=" " alt="" coords="396,557,444,596,440,600,392,561"/>
+<area shape="rect" title=" " alt="" coords="315,607,402,632"/>
+<area shape="poly" title=" " alt="" coords="379,560,369,594,363,593,374,558"/>
+<area shape="poly" title=" " alt="" coords="265,337,288,358,310,385,324,416,332,446,327,447,319,418,306,388,285,361,262,341"/>
+<area shape="rect" title=" " alt="" coords="219,387,296,412"/>
+<area shape="poly" title=" " alt="" coords="252,339,257,373,251,374,247,339"/>
+<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="5,387,195,412"/>
+<area shape="poly" title=" " alt="" coords="225,341,138,383,135,378,223,336"/>
+<area shape="poly" title=" " alt="" coords="138,409,283,453,282,459,137,415"/>
+<area shape="poly" title=" " alt="" coords="119,410,174,444,244,483,339,526,337,531,241,488,171,449,116,414"/>
+<area shape="poly" title=" " alt="" coords="465,414,372,457,370,452,463,410"/>
+<area shape="poly" title=" " alt="" coords="483,414,399,524,395,521,478,411"/>
+<area shape="rect" title=" " alt="" coords="487,460,572,485"/>
+<area shape="poly" title=" " alt="" coords="498,411,518,447,514,449,494,414"/>
+<area shape="poly" title=" " alt="" coords="596,192,606,249,612,325,612,474,612,593,607,593,607,474,607,325,601,249,591,193"/>
 </map>
 </div>
 </div><table class="memberdecls">

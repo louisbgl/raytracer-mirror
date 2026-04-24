@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['t_0',['t',['../classHitRecord.html#a20cade6a216398343ddcb3d1bde14f7d',1,'HitRecord']]],
-  ['t1_1',['t1',['../structQuadraticRoots.html#a4c623444b00527b9e11f6f250a5a3e16',1,'QuadraticRoots']]],
-  ['t2_2',['t2',['../structQuadraticRoots.html#ac9b6cbf60b3cd5f85d97c1738546908c',1,'QuadraticRoots']]]
+  ['roots_0',['roots',['../structCubicRoots.html#a4ee555f71f46ed4ad31009264e0f070d',1,'CubicRoots::roots'],['../structQuarticRoots.html#aaa0c74fa3c618679ee7140f282ab496a',1,'QuarticRoots::roots']]]
 ];

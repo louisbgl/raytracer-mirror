@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['roots_0',['roots',['../structCubicRoots.html#a4ee555f71f46ed4ad31009264e0f070d',1,'CubicRoots::roots'],['../structQuarticRoots.html#aaa0c74fa3c618679ee7140f282ab496a',1,'QuarticRoots::roots']]]
+  ['pi_0',['PI',['../namespaceMath.html#acfc7ead6b66a7dce80f1a510df01845c',1,'Math']]],
+  ['point_1',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]]
 ];

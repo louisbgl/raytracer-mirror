@@ -1,9 +1,11 @@
 <map id="src/plugins/Shapes/Box.cpp" name="src/plugins/Shapes/Box.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="383,5,525,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="523,5,665,45"/>
 <area shape="rect" id="Node000002" href="$Box_8hpp.html" title=" " alt="" coords="379,93,454,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="447,47,430,82,426,80,443,44"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="553,48,456,90,454,85,550,43"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="523,607,585,632"/>
-<area shape="poly" id="edge19_Node000001_Node000007" title=" " alt="" coords="492,43,525,66,560,96,586,134,594,155,597,178,597,474,594,508,587,540,568,595,562,593,581,539,588,507,591,474,591,178,589,156,581,136,556,100,522,70,489,48"/>
+<area shape="poly" id="edge20_Node000001_Node000007" title=" " alt="" coords="597,46,597,178,597,474,594,508,587,540,568,595,562,593,581,539,588,507,591,474,591,178,591,46"/>
+<area shape="rect" id="Node000015" href="$Constants_8hpp.html" title=" " alt="" coords="631,93,807,119"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="626,43,691,84,688,88,623,48"/>
 <area shape="rect" id="Node000003" href="$AShape_8hpp.html" title=" " alt="" coords="206,167,361,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="396,121,318,162,316,158,394,116"/>
 <area shape="rect" id="Node000004" href="$IShape_8hpp.html" title=" " alt="" coords="196,240,371,265"/>

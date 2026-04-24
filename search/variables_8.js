@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['v_0',['v',['../classHitRecord.html#ae3d8102ff4d8edb190dbf57d7acffdab',1,'HitRecord']]]
+  ['u_0',['u',['../classHitRecord.html#acc1de3002c22fa21aa3ce2aa1fa6a4ef',1,'HitRecord']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['point_0',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]]
+  ['normal_0',['normal',['../classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684',1,'HitRecord']]]
 ];

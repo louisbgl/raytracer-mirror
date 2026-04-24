@@ -25,6 +25,13 @@
 var NAVTREE =
 [
   [ "Raytracer", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -48,7 +55,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AABB_8hpp.html",
-"classLimitedCone.html#a1e9152eeacf995563da8890691ef32ea"
+"classLambertian.html#a26fc031be93f36d55827d7b12a852bd2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

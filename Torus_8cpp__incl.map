@@ -1,13 +1,15 @@
 <map id="src/plugins/Shapes/Torus.cpp" name="src/plugins/Shapes/Torus.cpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="491,5,634,45"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="531,5,674,45"/>
 <area shape="rect" id="Node000002" href="$Torus_8hpp.html" title=" " alt="" coords="463,93,547,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="551,47,524,84,520,80,547,44"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="581,48,532,87,529,82,577,43"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="23,607,86,632"/>
-<area shape="poly" id="edge22_Node000001_Node000007" title=" " alt="" coords="491,34,352,47,272,59,192,74,120,93,61,117,39,131,22,145,12,161,8,178,8,474,12,507,20,540,44,594,39,596,15,541,6,508,3,474,3,178,7,159,18,142,36,126,59,112,118,88,191,69,271,54,351,42,491,28"/>
+<area shape="poly" id="edge23_Node000001_Node000007" title=" " alt="" coords="531,32,382,44,296,55,209,70,131,89,66,113,42,127,23,143,12,160,8,178,8,474,12,507,20,540,44,594,39,596,15,541,6,508,3,474,3,178,7,158,19,139,39,123,64,108,129,84,208,64,295,50,382,39,531,27"/>
 <area shape="rect" id="Node000014" title=" " alt="" coords="560,313,645,339"/>
-<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="568,45,602,299,597,300,563,46"/>
+<area shape="poly" id="edge22_Node000001_Node000014" title=" " alt="" coords="605,46,605,300,600,300,600,46"/>
 <area shape="rect" id="Node000015" href="$QuarticSolver_8hpp.html" title="C++ wrapper around Graphics Gems polynomial root solver." alt="" coords="639,93,838,119"/>
-<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="606,43,701,85,699,90,604,48"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="637,43,708,84,705,89,634,48"/>
+<area shape="rect" id="Node000017" href="$Constants_8hpp.html" title=" " alt="" coords="863,93,1039,119"/>
+<area shape="poly" id="edge21_Node000001_Node000017" title=" " alt="" coords="675,40,887,88,886,93,674,45"/>
 <area shape="rect" id="Node000003" href="$AShape_8hpp.html" title=" " alt="" coords="411,167,565,192"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="505,120,497,154,491,153,500,118"/>
 <area shape="rect" id="Node000004" href="$IShape_8hpp.html" title=" " alt="" coords="231,240,406,265"/>

@@ -7,6 +7,7 @@ var searchData=
   ['materialfactory_4',['MaterialFactory',['../classMaterialFactory.html',1,'']]],
   ['materialfactory_2ecpp_5',['MaterialFactory.cpp',['../MaterialFactory_8cpp.html',1,'']]],
   ['materialfactory_2ehpp_6',['MaterialFactory.hpp',['../MaterialFactory_8hpp.html',1,'']]],
-  ['max_7',['max',['../classAABB.html#a259336628a35a719359b7f450d12d2a2',1,'AABB']]],
-  ['min_8',['min',['../classAABB.html#a7f48f1d50f3adb2c1beb8d13d8e35902',1,'AABB']]]
+  ['math_7',['Math',['../namespaceMath.html',1,'']]],
+  ['max_8',['max',['../classAABB.html#a259336628a35a719359b7f450d12d2a2',1,'AABB']]],
+  ['min_9',['min',['../classAABB.html#a7f48f1d50f3adb2c1beb8d13d8e35902',1,'AABB']]]
 ];
