@@ -85,6 +85,7 @@ add_executable(raytracer
     src/factories/MaterialFactory.cpp
     src/factories/LightFactory.cpp
     src/utils/HelpDisplay.cpp
+    src/core/AShape.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -102,6 +103,7 @@ target_link_libraries(raytracer PRIVATE
 # Link libdl on Linux (not needed on macOS)
 if(NOT APPLE)
     target_link_libraries(raytracer PRIVATE dl)
+    target_link_options(raytracer PRIVATE -rdynamic)
 endif()
 
 # Set platform-specific plugin extension
@@ -192,6 +194,8 @@ add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
 add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
 add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
+add_raytracer_plugin(chessboard materials src/plugins/Materials/Chessboard.cpp)
+add_raytracer_plugin(perlinnoise materials src/plugins/Materials/PerlinNoise.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
@@ -211,7 +215,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse phong
+    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise
     COMMENT "Building all material plugins..."
 )
 

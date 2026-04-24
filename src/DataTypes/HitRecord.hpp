@@ -15,6 +15,8 @@ public:
     double t;
     bool front_face;
     std::shared_ptr<IMaterial> material;
+    double u = 0.0;
+    double v = 0.0;
 
     void set_face_normal(const Ray& r, const Vec3& outward_normal) {
         front_face = dot(r.direction(), outward_normal) < 0;

@@ -1,0 +1,93 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 12.0; y = 8.0; z = 15.0; };
+    look_at = { x = 0.0; y = 2.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 70.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "red"; color = { r = 220; g = 60; b = 60; }; shininess = 32.0; },
+        { name = "green"; color = { r = 60; g = 220; b = 60; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 60; g = 120; b = 220; }; shininess = 32.0; },
+        { name = "yellow"; color = { r = 230; g = 200; b = 50; }; shininess = 32.0; },
+        { name = "purple"; color = { r = 180; g = 60; b = 200; }; shininess = 32.0; },
+        { name = "cyan"; color = { r = 60; g = 200; b = 200; }; shininess = 32.0; },
+        { name = "orange"; color = { r = 240; g = 140; b = 40; }; shininess = 32.0; },
+        { name = "pink"; color = { r = 255; g = 100; b = 150; }; shininess = 32.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 180; g = 180; b = 180; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+
+    spheres = (
+        { position = { x = -6.0; y = 1.0; z = -2.0; }; radius = 1.0; material = "red"; rotation = { x = 0.0; y = 0.0; z = 0.0; }; }
+    );
+
+    limited_cylinders = (
+        { position = { x = -4.0; y = 1.5; z = 1.0; }; radius = 0.6; height = 3.0; material = "green"; rotation = { x = 0.0; y = 20.0; z = 0.0; }; }
+    );
+
+    limited_cones = (
+        { position = { x = -2.0; y = 2.5; z = -1.5; }; radius = 0.7; height = 2.5; material = "blue"; rotation = { x = 0.0; y = -30.0; z = 0.0; }; }
+    );
+
+    limited_hourglasses = (
+        { position = { x = 0.0; y = 2.0; z = 2.0; }; radius = 0.6; height = 2.0; material = "yellow"; rotation = { x = 0.0; y = 45.0; z = 0.0; }; }
+    );
+
+    rectangles = (
+        { position = { x = 2.0; y = 2.0; z = -2.0; }; width = 2.0; height = 3.0; material = "purple"; rotation = { x = 0.0; y = 60.0; z = 0.0; }; }
+    );
+
+    boxes = (
+        { position = { x = 4.0; y = 1.2; z = 1.5; }; width = 1.8; height = 2.4; depth = 1.2; material = "cyan"; rotation = { x = 0.0; y = -45.0; z = 15.0; }; }
+    );
+
+    toruses = (
+        { position = { x = 6.0; y = 2.5; z = -1.0; }; major_radius = 1.2; minor_radius = 0.4; material = "orange"; rotation = { x = 45.0; y = 30.0; z = 0.0; }; }
+    );
+
+    tanglecubes = (
+        { position = { x = -6.0; y = 1.5; z = 4.0; }; scale = 0.4; material = "pink"; rotation = { x = 20.0; y = -40.0; z = 10.0; }; }
+    );
+
+    cylinders = (
+        { position = { x = 8.0; y = 0.0; z = 0.0; }; radius = 0.3; material = "red"; axis = { x = 0.3; y = 1.0; z = 0.2; }; }
+    );
+
+    cones = (
+        { position = { x = -8.0; y = 3.0; z = 0.0; }; radius = 0.4; material = "green"; axis = { x = -0.4; y = 1.0; z = 0.1; }; }
+    );
+
+    hourglasses = (
+        { position = { x = 0.0; y = 0.0; z = -5.0; }; radius = 0.35; material = "blue"; axis = { x = 0.2; y = 1.0; z = -0.3; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.15;
+    diffuse = 0.85;
+
+    point = (
+        { position = { x = 8.0; y = 12.0; z = 8.0; }; color = { r = 255; g = 240; b = 220; }; intensity = 80.0; },
+        { position = { x = -6.0; y = 8.0; z = 6.0; }; color = { r = 180; g = 200; b = 255; }; intensity = 50.0; },
+        { position = { x = 0.0; y = 5.0; z = -8.0; }; color = { r = 255; g = 180; b = 200; }; intensity = 40.0; }
+    );
+
+    directional = (
+        { direction = { x = 0.5; y = -1.0; z = 0.3; }; color = { r = 255; g = 230; b = 200; }; intensity = 0.4; }
+    );
+};

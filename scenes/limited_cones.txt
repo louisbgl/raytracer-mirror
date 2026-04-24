@@ -1,6 +1,6 @@
 camera:
 {
-    resolution = { width = 1000; height = 1000; };
+    resolution = { width = 1000; height = 000; };
     position = { x = 3.5; y = 2.0; z = 4.5; };
     look_at = { x = 0.0; y = 1.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
@@ -10,8 +10,8 @@ camera:
 materials:
 {
     phong = (
-        { name = "purple"; color = { r = 180; g = 80; b = 220; }; shininess = 32.0; },
-        { name = "green"; color = { r = 80; g = 200; b = 100; }; shininess = 32.0; },
+        { name = "orange"; color = { r = 255; g = 150; b = 50; }; shininess = 32.0; },
+        { name = "cyan"; color = { r = 50; g = 200; b = 230; }; shininess = 32.0; },
         { name = "floor"; color = { r = 200; g = 200; b = 200; }; shininess = 8.0; }
     );
 };
@@ -22,9 +22,9 @@ shapes:
         { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
-    limited_hourglasses = (
-        { position = { x = -1.0; y = 1.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "purple"; },
-        { position = { x = 1.0; y = 1.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "green"; rotation = { x = 0.0; y = 0.0; z = 45.0; }; }
+    limited_cones = (
+        { position = { x = -1.0; y = 2.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "orange"; },
+        { position = { x = 1.0; y = 2.0; z = 0.0; }; radius = 0.5; height = 2.0; material = "cyan"; rotation = { x = 0.0; y = 0.0; z = 45.0; }; }
     );
 };
 

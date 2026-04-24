@@ -37,4 +37,6 @@ private:
     static std::shared_ptr<IMaterial> _createTransparent    (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createColoredDiffuse (const libconfig::Setting& config);
     static std::shared_ptr<IMaterial> _createPhong          (const libconfig::Setting& config);
+    static std::shared_ptr<IMaterial> _createChessboard     (const libconfig::Setting& config);
+    static std::shared_ptr<IMaterial> _createPerlinNoise    (const libconfig::Setting& config);
 };

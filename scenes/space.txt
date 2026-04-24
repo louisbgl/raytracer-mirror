@@ -1,0 +1,58 @@
+# Procedural Space Scene
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 0.0; z = 12.0; }; 
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 45.0;
+};
+
+materials:
+{
+    perlinnoise = (
+        # The Gas Giant: Moderate scale with a warm palette
+        { name = "gas_giant"; color = { r = 200; g = 150; b = 100; }; scale = 3.5; },
+        
+        # The Nebula Background: Very low scale for massive, slow clouds
+        { name = "nebula"; color = { r = 80; g = 30; b = 120; }; scale = 0.4; },
+        
+        # The Starfield: Extremely high scale to create "points" of light
+        { name = "stars"; color = { r = 255; g = 255; b = 255; }; scale = 300.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "sun"; color = { r = 255; g = 255; b = 244;}; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        # Central Planet
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 3.5; material = "sun"; },
+
+        # A distant, tiny "moon" or station
+        { position = { x = 7.0; y = 4.0; z = -5.0; }; radius = 0.8; material = "nebula"; }
+    );
+    
+    # Using a massive plane far in the background as a "Skybox"
+    # Rotate the normal so it faces the camera
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = -20.0; }; normal = { x = 0.0; y = 0.0; z = 1.0; }; material = "stars"; }
+    );
+};
+
+lights:
+{
+    # In space, the ambient light should be near zero. 
+    # This makes the "unlit" side of the planet pitch black, which is very cinematic.
+    ambient = 0.01;
+    diffuse = 1.0;
+
+    point = (
+        # A single "Sun" light source from the side
+        //{ position = { x = 20.0; y = 10.0; z = 10.0; }; color = { r = 255; g = 250; b = 240; }; intensity = 1000.0; },
+        { position = { x = 6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 255;   b = 244;   }; intensity = 60.0; }
+    );
+};

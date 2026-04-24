@@ -1,10 +1,11 @@
 #include "Sphere.hpp"
 #include "../../Math/QuadraticSolver.hpp"
 
-Sphere::Sphere(Vec3 pos, double radius, std::shared_ptr<IMaterial> material) : _position(pos), _radius(radius), _material(material) {}
+Sphere::Sphere(Vec3 rotation, Vec3 translation, double radius, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation), _radius(radius), _material(material) {}
 
-bool Sphere::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    Vec3 oc = ray.origin() - _position;
+bool Sphere::hitLocal(const Ray& ray, HitRecord& record) const {
+    Vec3 oc = ray.origin();
     double a = dot(ray.direction(), ray.direction());
     double b = 2.0 * dot(oc, ray.direction());
     double c = dot(oc, oc) - _radius * _radius;
@@ -15,15 +16,15 @@ bool Sphere::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     }
 
     double t = roots.t1;
-    if (t < t_min || t > t_max) {
+    if (t < 0) {
         t = roots.t2;
-        if (t < t_min || t > t_max) {
+        if (t < 0) {
             return false;
         }
     }
 
     Vec3 hit_point = ray.at(t);
-    Vec3 outward_normal = normalize(hit_point - _position);
+    Vec3 outward_normal = normalize(hit_point);
 
     record.point = hit_point;
     record.t = t;
@@ -33,6 +34,12 @@ bool Sphere::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     return true;
 }
 
-extern "C" IShape* create(double x, double y, double z, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Sphere(Vec3(x, y, z), radius, *material);
+AABB Sphere::computeLocalAABB() const {
+    Vec3 min(-_radius, -_radius, -_radius);
+    Vec3 max(_radius, _radius, _radius);
+    return AABB(min, max);
+}
+
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, std::shared_ptr<IMaterial>* material) {
+    return new Sphere(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, *material);
 }

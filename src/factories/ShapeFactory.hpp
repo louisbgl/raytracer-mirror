@@ -34,17 +34,21 @@ private:
      * @return True if the plugin is loaded successfully, false otherwise.
      */
     static bool _ensureLoaded(const std::string& type);
+    static Vec3 _getRotation(const libconfig::Setting& config);
 
-    static std::shared_ptr<IShape> _createSphere         (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createCylinder       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createLimitedCylinder(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createRectangle      (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createBox            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createPlane          (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createTanglecube     (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createTorus          (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createLimitedCone(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
-    static std::shared_ptr<IShape> _createLimitedHourglass(const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    // Bounded shapes (AShape - support rotation)
+    static std::shared_ptr<IShape> _createSphere           (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createLimitedCylinder  (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createLimitedCone      (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createLimitedHourglass (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createRectangle        (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createBox              (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createTorus            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createTanglecube       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+
+    // Infinite shapes (IShape - shape-specific orientation)
+    static std::shared_ptr<IShape> _createPlane            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createCylinder         (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createCone             (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createHourglass        (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 };

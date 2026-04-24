@@ -3,11 +3,11 @@
 #include <algorithm>
 #include <cmath>
 
-Torus::Torus(Vec3 position, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
-    : _position(std::move(position)), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
+Torus::Torus(Vec3 rotation, Vec3 translation, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
 
-bool Torus::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    Vec3 oc = ray.origin() - _position;
+bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
+    Vec3 oc = ray.origin();
     Vec3 d = ray.direction();
 
     double sum_d_sqr = dot(d, d);
@@ -25,13 +25,14 @@ bool Torus::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) c
     QuarticRoots roots = QuarticSolver::solve(e, d_coeff, c, b, a);
     if (!roots.hasRoots()) return false;
 
-    double closest_t = t_max;
+    double closest_t = std::numeric_limits<double>::infinity();
     bool hit_anything = false;
+    const double epsilon = 1e-6;
 
     for (int i = 0; i < roots.count; ++i) {
         double t = roots.roots[i];
 
-        if (t > t_min && t < closest_t) {
+        if (t > epsilon && t < closest_t) {
             closest_t = t;
             hit_anything = true;
         }
@@ -40,27 +41,34 @@ bool Torus::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) c
     if (!hit_anything) return false;
 
     record.t = closest_t;
-    record.point = ray.at(record.t);
-    record.set_face_normal(ray, computeNormal(record.point));
+    record.point = ray.at(closest_t);
     record.material = _material;
+    Vec3 outward_normal = computeNormal(record.point);
+    record.normal = outward_normal;
+    record.front_face = true;
     return true;
 }
 
-Vec3 Torus::computeNormal(const Vec3& point) const {
-    Vec3 p = point - _position;
+AABB Torus::computeLocalAABB() const {
+    double outer = _majorRadius + _minorRadius;
+    Vec3 min(-outer, -_minorRadius, -outer);
+    Vec3 max(outer, _minorRadius, outer);
+    return AABB(min, max);
+}
 
-    double sum_sqr = dot(p, p);
+Vec3 Torus::computeNormal(const Vec3& point) const {
+    double sum_sqr = dot(point, point);
     double k = sum_sqr - _majorRadius * _majorRadius - _minorRadius * _minorRadius;
 
     Vec3 normal(
-        4.0 * p.x() * k,
-        4.0 * p.y() * (k + 2.0 * _majorRadius * _majorRadius),
-        4.0 * p.z() * k
+        4.0 * point.x() * k,
+        4.0 * point.y() * (k + 2.0 * _majorRadius * _majorRadius),
+        4.0 * point.z() * k
     );
 
     return normalize(normal);
 }
 
-extern "C" IShape* create(double x, double y, double z, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
-    return new Torus(Vec3(x, y, z), majorRadius, minorRadius, *material);
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
+    return new Torus(Vec3(rx, ry, rz), Vec3(tx, ty, tz), majorRadius, minorRadius, *material);
 }

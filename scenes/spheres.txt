@@ -1,7 +1,6 @@
-# Basic scene with two lambertian spheres
 camera:
 {
-    resolution = { width = 800; height = 600; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 0.0; y = 0.0; z = 2.0; };
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
@@ -19,7 +18,7 @@ materials:
 shapes:
 {
     spheres = (
-        { position = { x = -0.3; y = 0.0; z = -0.5; }; radius = 0.5; material = "red"; },
+        { position = { x = -0.3; y = 0.0; z = -0.5; }; radius = 0.5; material = "red"; rotation = { x = 0.0; y = 10.0; z = 0.0; }; },
         { position = { x = 0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "blue"; }
     );
 };
