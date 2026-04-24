@@ -11,9 +11,32 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
 # Common compiler flags
 add_library(raytracer_flags INTERFACE)
+
+# Base flags for all builds
 target_compile_options(raytracer_flags INTERFACE
-    -Wall -Wextra -Werror -g3
+    -Wall -Wextra -Werror
 )
+
+# Debug flags
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT CMAKE_BUILD_TYPE)
+    target_compile_options(raytracer_flags INTERFACE
+        -g3                    # Full debug symbols
+        -O0                    # No optimization (for debugging)
+    )
+    message(STATUS "Building in Debug mode")
+endif()
+
+# Release flags - aggressive optimizations for raytracing performance
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(raytracer_flags INTERFACE
+        -O3                    # Maximum optimization
+        -march=native          # Use CPU-specific instructions (SIMD, AVX, etc.)
+        -ffast-math           # Aggressive floating-point optimizations
+        -funroll-loops        # Unroll loops for performance
+        -DNDEBUG              # Disable assertions
+    )
+    message(STATUS "Building in Release mode with aggressive optimizations")
+endif()
 
 include(FetchContent)
 
