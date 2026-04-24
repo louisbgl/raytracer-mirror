@@ -2,6 +2,7 @@
 #include "DataTypes/Vec3.hpp"
 #include "../../Math/QuadraticSolver.hpp"
 #include "../PluginMetadata.hpp"
+#include "../../Math/Constants.hpp"
 #include <cmath>
 
 Hourglass::Hourglass(Vec3 pos, Vec3 axis, double radius, std::shared_ptr<IMaterial> material)
@@ -48,6 +49,15 @@ bool Hourglass::hit(const Ray& ray, double t_min, double t_max, HitRecord& recor
         record.point = hitpoint;
         record.material = _material;
         record.set_face_normal(ray, outward_norm);
+
+        double perp_len = length(p_perp);
+        if (perp_len > 1e-9) {
+            Vec3 ref = (std::abs(_axis.x()) < 0.9) ? Vec3(1, 0, 0) : Vec3(0, 1, 0);
+            Vec3 tangent = normalize(cross(ref, _axis));
+            Vec3 pn = p_perp / perp_len;
+            record.u = std::atan2(dot(pn, cross(_axis, tangent)), dot(pn, tangent)) * Math::INV_TWO_PI + 0.5;
+        }
+        record.v = along_axis;
 
         return true;
     }

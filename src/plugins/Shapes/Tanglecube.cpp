@@ -1,7 +1,9 @@
 #include "Tanglecube.hpp"
 #include "../../Math/QuarticSolver.hpp"
 #include "../PluginMetadata.hpp"
+#include "../../Math/Constants.hpp"
 #include <cmath>
+#include <algorithm>
 
 Tanglecube::Tanglecube(Vec3 rotation, Vec3 translation, double scale, std::shared_ptr<IMaterial> material)
     : AShape(rotation, translation), _scale(scale), _material(material) {}
@@ -94,6 +96,12 @@ bool Tanglecube::hitLocal(const Ray& ray, HitRecord& record) const {
         outward_normal = normalize(outward_normal);
         record.normal = outward_normal;
         record.front_face = true;
+
+        Vec3 d = normalize(record.point);
+        double phi = std::atan2(-d.z(), d.x()) + Math::PI;
+        double cos_theta = std::clamp(-d.y(), -1.0, 1.0);
+        record.u = phi * Math::INV_TWO_PI;
+        record.v = std::acos(cos_theta) * Math::INV_PI;
 
         return true;
     }

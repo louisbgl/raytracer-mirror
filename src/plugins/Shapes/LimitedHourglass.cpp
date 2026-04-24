@@ -1,6 +1,7 @@
 #include "LimitedHourglass.hpp"
 #include "../../Math/QuadraticSolver.hpp"
 #include "../PluginMetadata.hpp"
+#include "../../Math/Constants.hpp"
 #include <cmath>
 #include <limits>
 
@@ -48,6 +49,8 @@ bool LimitedHourglass::hitLocal(const Ray& ray, HitRecord& record) const {
                 record.point = hitpoint;
                 record.material = _material;
                 record.set_face_normal(ray, outward_norm);
+                record.u = std::atan2(hitpoint.z(), hitpoint.x()) * Math::INV_TWO_PI + 0.5;
+                record.v = (hitpoint.y() + _height / 2.0) / _height;
 
                 closest_t = t;
                 hit_anything = true;
@@ -87,6 +90,13 @@ bool LimitedHourglass::checkCapIntersection(const Ray& ray, double cap_y, double
     record.point = hit_point;
     record.material = _material;
     record.set_face_normal(ray, normal);
+    if (cap_radius > 1e-9) {
+        record.u = hit_point.x() / (2.0 * cap_radius) + 0.5;
+        record.v = hit_point.z() / (2.0 * cap_radius) + 0.5;
+    } else {
+        record.u = 0.5;
+        record.v = 0.5;
+    }
 
     closest_t = t;
     return true;

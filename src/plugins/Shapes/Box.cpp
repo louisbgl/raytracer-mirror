@@ -1,5 +1,6 @@
 #include "Box.hpp"
 #include "../PluginMetadata.hpp"
+#include "../../Math/Constants.hpp"
 #include <cmath>
 
 Box::Box(Vec3 rotation, Vec3 translation, double width, double height, double depth, std::shared_ptr<IMaterial> material)
@@ -67,6 +68,18 @@ bool Box::hitLocal(const Ray& ray, HitRecord& record) const {
     record.point = ray.at(t_min);
     record.material = _material;
     record.set_face_normal(ray, normal);
+
+    Vec3 hit = record.point;
+    if (hit_axis == 0) {
+        record.u = (hit.z() + _depth / 2.0) / _depth;
+        record.v = (hit.y() + _height / 2.0) / _height;
+    } else if (hit_axis == 1) {
+        record.u = (hit.x() + _width / 2.0) / _width;
+        record.v = (hit.z() + _depth / 2.0) / _depth;
+    } else {
+        record.u = (hit.x() + _width / 2.0) / _width;
+        record.v = (hit.y() + _height / 2.0) / _height;
+    }
 
     return true;
 }

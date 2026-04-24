@@ -29,6 +29,8 @@ bool Rectangle::hitLocal(const Ray& ray, HitRecord& record) const {
     record.t = t;
     record.material = _material;
     record.set_face_normal(ray, Vec3(0, 0, 1));
+    record.u = (hit_point.x() + _width / 2.0) / _width;
+    record.v = (hit_point.y() + _height / 2.0) / _height;
 
     return true;
 }

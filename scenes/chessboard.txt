@@ -13,17 +13,17 @@ materials:
         { name = "red_sphere"; color = { r = 200; g = 60; b = 60; }; shininess = 32.0; }
     );
     chessboard = (
-        { name = "floor"; color1 = { r = 255; g = 255; b = 255; }; color2 = { r = 20; g = 20; b = 20; }; scale = 0.6; }
+        { name = "floor"; color1 = { r = 255; g = 255; b = 255; }; color2 = { r = 20; g = 20; b = 20; }; scale = 6.0 }
     );
 };
 
 shapes:
 {
     planes = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "red_sphere"; }
     );
     spheres = (
-        { position = { x = 0.0; y = 2.0; z = 0.0; }; radius = 2.0; material = "red_sphere"; }
+        { position = { x = 0.0; y = 2.0; z = 0.0; }; radius = 2.0; material = "floor"; }
     );
 };
 

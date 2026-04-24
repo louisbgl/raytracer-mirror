@@ -1,6 +1,9 @@
 #include "Sphere.hpp"
 #include "../../Math/QuadraticSolver.hpp"
 #include "../PluginMetadata.hpp"
+#include "../../Math/Constants.hpp"
+#include <cmath>
+#include <algorithm>
 
 Sphere::Sphere(Vec3 rotation, Vec3 translation, double radius, std::shared_ptr<IMaterial> material)
     : AShape(rotation, translation), _radius(radius), _material(material) {}
@@ -31,6 +34,11 @@ bool Sphere::hitLocal(const Ray& ray, HitRecord& record) const {
     record.t = t;
     record.material = _material;
     record.set_face_normal(ray, outward_normal);
+
+    double phi = std::atan2(-outward_normal.z(), outward_normal.x()) + Math::PI;
+    double cos_theta = std::clamp(-outward_normal.y(), -1.0, 1.0);
+    record.u = phi * Math::INV_TWO_PI;
+    record.v = std::acos(cos_theta) * Math::INV_PI;
 
     return true;
 }
