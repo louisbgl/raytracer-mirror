@@ -1,4 +1,6 @@
 #include "Plane.hpp"
+#include "../../Math/Constants.hpp"
+#include <cmath>
 
 Plane::Plane(Vec3 pos, Vec3 normal, std::shared_ptr<IMaterial> material)
     : _pos(pos), _normal(normal), _material(material) {}
@@ -15,6 +17,14 @@ bool Plane::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) c
     record.point = ray.at(t);
     record.material = _material;
     record.set_face_normal(ray, _normal);
+
+    Vec3 up_hint = (std::abs(_normal.y()) < 0.9) ? Vec3(0, 1, 0) : Vec3(1, 0, 0);
+    Vec3 tangent = normalize(cross(up_hint, _normal));
+    Vec3 bitangent = cross(_normal, tangent);
+    Vec3 local = record.point - _pos;
+    record.u = dot(local, tangent);
+    record.v = dot(local, bitangent);
+
     return true;
 }
 

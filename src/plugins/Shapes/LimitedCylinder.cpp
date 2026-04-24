@@ -1,5 +1,7 @@
 #include "LimitedCylinder.hpp"
 #include "../../Math/QuadraticSolver.hpp"
+#include "../../Math/Constants.hpp"
+#include <cmath>
 #include <limits>
 
 LimitedCylinder::LimitedCylinder(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material)
@@ -43,6 +45,8 @@ bool LimitedCylinder::checkBodyIntersection(const Ray& ray, double t_min, double
                 record.point = hit_point;
                 record.set_face_normal(ray, computeBodyNormal(hit_point));
                 record.material = _material;
+                record.u = std::atan2(hit_point.z(), hit_point.x()) * Math::INV_TWO_PI + 0.5;
+                record.v = y / _height;
 
                 closest_t = t;
                 found_hit = true;
@@ -75,6 +79,8 @@ bool LimitedCylinder::checkCapIntersection(const Ray& ray, double cap_y, const V
     record.point = hit_point;
     record.set_face_normal(ray, normal);
     record.material = _material;
+    record.u = hit_point.x() / (2.0 * _radius) + 0.5;
+    record.v = hit_point.z() / (2.0 * _radius) + 0.5;
 
     closest_t = t;
     return true;
