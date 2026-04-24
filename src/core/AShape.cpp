@@ -71,6 +71,8 @@ HitRecord AShape::localToWorld(const HitRecord& local, const Ray& worldRay) cons
     world.point = worldPoint;
     world.t = local.t;
     world.material = local.material;
+    world.u = local.u;
+    world.v = local.v;
     world.set_face_normal(worldRay, worldNormal);
 
     return world;
