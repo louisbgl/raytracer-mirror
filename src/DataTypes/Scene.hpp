@@ -79,7 +79,16 @@ public:
      */
     void set_camera(const Camera& camera) { _camera = camera; }
 
+    /**
+     * @brief Gets the RendererConfig of the scene.
+     * @return A reference to the RendererConfig.
+     */
     const RendererConfig& rendererConfig() const { return _rendererConfig; }
+
+    /**
+     * @brief Sets the RendererConfig of the scene.
+     * @param config The RendererConfig to set.
+     */
     void setRendererConfig(const RendererConfig& config) { _rendererConfig = config; }
 
     /**
