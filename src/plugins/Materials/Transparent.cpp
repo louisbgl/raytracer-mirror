@@ -40,7 +40,7 @@ bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& atte
         direction = refract(unitDirection, record.normal, refractionRatio);
     }
 
-    scattered = Ray(record.point, direction);
+    scattered = Ray(record.point + direction * 1e-4, direction);
     return true;
 }
 
