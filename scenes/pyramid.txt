@@ -1,0 +1,91 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 5.0; y = 4.0; z = 7.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 50.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "orange"; color = { r = 230; g = 120; b = 40;  }; shininess = 32.0; },
+        { name = "red";    color = { r = 200; g = 50;  b = 50;  }; shininess = 32.0; },
+        { name = "purple"; color = { r = 140; g = 60;  b = 200; }; shininess = 32.0; },
+        { name = "blue";   color = { r = 50;  g = 100; b = 220; }; shininess = 32.0; },
+        { name = "base";   color = { r = 90;  g = 90;  b = 90;  }; shininess = 8.0;  },
+        { name = "floor";  color = { r = 180; g = 180; b = 180; }; shininess = 4.0;  }
+    );
+};
+
+// Pyramid vertices:
+//   A = (-1, 0, -1)   B = (1, 0, -1)
+//   D = (-1, 0,  1)   C = (1, 0,  1)
+//   P = ( 0, 3,  0)   <- apex
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+
+    triangles = (
+        // Front face  (A B P)
+        {
+            v0 = { x = -1.0; y = 0.0; z = -1.0; };
+            v1 = { x =  1.0; y = 0.0; z = -1.0; };
+            v2 = { x =  0.0; y = 3.0; z =  0.0; };
+            material = "orange";
+        },
+        // Right face  (B C P)
+        {
+            v0 = { x = 1.0; y = 0.0; z = -1.0; };
+            v1 = { x = 1.0; y = 0.0; z =  1.0; };
+            v2 = { x = 0.0; y = 3.0; z =  0.0; };
+            material = "red";
+        },
+        // Back face  (C D P)
+        {
+            v0 = { x =  1.0; y = 0.0; z = 1.0; };
+            v1 = { x = -1.0; y = 0.0; z = 1.0; };
+            v2 = { x =  0.0; y = 3.0; z = 0.0; };
+            material = "purple";
+        },
+        // Left face  (D A P)
+        {
+            v0 = { x = -1.0; y = 0.0; z =  1.0; };
+            v1 = { x = -1.0; y = 0.0; z = -1.0; };
+            v2 = { x =  0.0; y = 3.0; z =  0.0; };
+            material = "blue";
+        },
+        // Base tri 1  (A B C)
+        {
+            v0 = { x = -1.0; y = 0.0; z = -1.0; };
+            v1 = { x =  1.0; y = 0.0; z = -1.0; };
+            v2 = { x =  1.0; y = 0.0; z =  1.0; };
+            material = "base";
+        },
+        // Base tri 2  (A C D)
+        {
+            v0 = { x = -1.0; y = 0.0; z = -1.0; };
+            v1 = { x =  1.0; y = 0.0; z =  1.0; };
+            v2 = { x = -1.0; y = 0.0; z =  1.0; };
+            material = "base";
+        }
+    );
+};
+
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = 4.0; y = 6.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 50.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.2; }; color = { r = 255; g = 240; b = 220; }; intensity = 0.4; }
+    );
+};
