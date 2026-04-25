@@ -92,6 +92,18 @@ public:
     void setRendererConfig(const RendererConfig& config) { _rendererConfig = config; }
 
     /**
+     * @brief Sets the ambient light multiplier.
+     * @param ambient The ambient multiplier value.
+     */
+    void setAmbientMultiplier(double ambient) { _ambientMultiplier = ambient; }
+
+    /**
+     * @brief Sets the diffuse light multiplier.
+     * @param diffuse The diffuse multiplier value.
+     */
+    void setDiffuseMultiplier(double diffuse) { _diffuseMultiplier = diffuse; }
+
+    /**
      * @brief Checks if the scene has a specific light.
      * @param light The light to check for.
      * @return True if the scene has the light, false otherwise.
