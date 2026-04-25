@@ -41,7 +41,12 @@ Scene SceneParser::parse(const std::string& filename) {
     double diffuseMultiplier = 0.6;
     parseLights(config, lights, ambientMultiplier, diffuseMultiplier);
 
-    scene = Scene(world, scene.camera(), lights, ambientMultiplier, diffuseMultiplier);
+    scene.set_world(world);
+    for (auto& light : lights) {
+        scene.add_light(light);
+    }
+    scene.setAmbientMultiplier(ambientMultiplier);
+    scene.setDiffuseMultiplier(diffuseMultiplier);
     scene.setMaterialCount(static_cast<int>(materialMap.size()));
 
     return scene;
