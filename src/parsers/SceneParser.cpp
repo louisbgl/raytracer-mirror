@@ -4,6 +4,7 @@
 #include "../factories/LightFactory.hpp"
 #include "../core/PluginManager.hpp"
 #include "../utils/ConfigUtils.hpp"
+#include "../DataTypes/RendererConfig.hpp"
 #include <libconfig.h++>
 #include <iostream>
 #include <string>
@@ -47,9 +48,7 @@ Scene SceneParser::parse(const std::string& filename) {
 }
 
 void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
-    bool enabled = false;
-    int samples = 1;
-    std::string method = "ssaa";
+    RendererConfig rendererConfig;
 
     try {
         const libconfig::Setting& renderer = config.lookup("renderer");
@@ -57,21 +56,17 @@ void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
         if (renderer.exists("antialiasing")) {
             const libconfig::Setting& aa = renderer["antialiasing"];
 
-            if (aa.exists("enabled")) enabled = aa["enabled"];
-            if (aa.exists("samples")) samples = validateAASamples(aa["samples"]);
-            if (aa.exists("method")) method = validateAAMethod(aa["method"].c_str());
+            if (aa.exists("enabled")) rendererConfig.aaEnabled = aa["enabled"];
+            if (aa.exists("samples")) rendererConfig.aaSamples = validateAASamples(aa["samples"]);
+            if (aa.exists("method")) rendererConfig.aaMethod = validateAAMethod(aa["method"].c_str());
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        // Renderer settings not found, using defaults
+        // Renderer config is optional, fallback to defaults
     } catch (const libconfig::SettingTypeException& tex) {
         std::cerr << "Renderer configuration type error at: " << tex.getPath() << std::endl;
     }
 
-    std::cout << "Antialiasing: " << (enabled ? "Enabled" : "Disabled")
-              << ", Samples: " << samples
-              << ", Method: " << method << std::endl;
-
-    (void)scene;
+    scene.setRendererConfig(rendererConfig);
 }
 
 void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
