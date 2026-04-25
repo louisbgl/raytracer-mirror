@@ -15,6 +15,7 @@ Shapes:
 	Sphere (position (x, y, z), radius, material, [rotation (x, y, z)])
 	Tanglecube (position (x, y, z), scale, material, [rotation (x, y, z)])
 	Torus (position (x, y, z), major radius, minor radius, material, [rotation (x, y, z)])
+	Triangle (v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z, material): A triangle defined by three vertices and a material.
 
 Materials:
 	Chessboard (name, color1 (r, g, b), color2 (r, g, b), scale)
