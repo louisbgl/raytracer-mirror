@@ -35,7 +35,8 @@ var hierarchy =
       [ "Cone", "classCone.html", null ],
       [ "Cylinder", "classCylinder.html", null ],
       [ "Hourglass", "classHourglass.html", null ],
-      [ "Plane", "classPlane.html", null ]
+      [ "Plane", "classPlane.html", null ],
+      [ "Triangle", "classTriangle.html", null ]
     ] ],
     [ "LightFactory", "classLightFactory.html", null ],
     [ "Logger", "classLogger.html", null ],

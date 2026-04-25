@@ -48,6 +48,7 @@ var annotated_dup =
     [ "Tanglecube", "classTanglecube.html", "classTanglecube" ],
     [ "Torus", "classTorus.html", "classTorus" ],
     [ "Transparent", "classTransparent.html", "classTransparent" ],
+    [ "Triangle", "classTriangle.html", "classTriangle" ],
     [ "Vec3", "classVec3.html", "classVec3" ],
     [ "World", "classWorld.html", "classWorld" ]
 ];

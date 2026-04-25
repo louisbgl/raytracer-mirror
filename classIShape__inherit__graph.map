@@ -1,15 +1,17 @@
 <map id="IShape" name="IShape">
-<area shape="rect" id="Node000001" title="Interface for shapes that can be hit by rays." alt="" coords="633,5,699,31"/>
+<area shape="rect" id="Node000001" title="Interface for shapes that can be hit by rays." alt="" coords="685,5,751,31"/>
 <area shape="rect" id="Node000002" href="$classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="455,79,525,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="626,38,520,81,518,76,624,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="672,36,526,81,525,76,670,31"/>
 <area shape="rect" id="Node000011" href="$classCone.html" title=" " alt="" coords="549,79,604,104"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="643,41,593,81,590,76,639,37"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="685,39,601,81,599,76,682,34"/>
 <area shape="rect" id="Node000012" href="$classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer." alt="" coords="628,79,704,104"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="669,44,669,79,663,79,663,44"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="704,43,677,80,672,77,699,40"/>
 <area shape="rect" id="Node000013" href="$classHourglass.html" title=" " alt="" coords="728,79,815,104"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="696,36,756,76,753,81,693,41"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="737,40,765,77,761,80,733,43"/>
 <area shape="rect" id="Node000014" href="$classPlane.html" title=" " alt="" coords="839,79,898,104"/>
-<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="712,33,840,77,838,82,711,38"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="756,34,845,76,843,81,753,39"/>
+<area shape="rect" id="Node000015" href="$classTriangle.html" title=" " alt="" coords="923,79,996,104"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="765,30,923,77,922,82,764,35"/>
 <area shape="rect" id="Node000003" href="$classBox.html" title=" " alt="" coords="5,152,52,177"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="441,99,274,118,169,134,65,155,53,158,51,153,64,149,169,129,273,113,441,94"/>
 <area shape="rect" id="Node000004" href="$classLimitedCone.html" title=" " alt="" coords="77,152,181,177"/>

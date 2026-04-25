@@ -177,6 +177,11 @@ var NAVTREEINDEX0 =
 "Transparent_8cpp.html#ad904d62202d0d6477860ba913faadeed":[2,0,0,6,1,12,1],
 "Transparent_8hpp.html":[2,0,0,6,1,13],
 "Transparent_8hpp_source.html":[2,0,0,6,1,13],
+"Triangle_8cpp.html":[2,0,0,6,2,24],
+"Triangle_8cpp.html#a453d0515a3b9a3458e05282ba78b307c":[2,0,0,6,2,24,0],
+"Triangle_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1":[2,0,0,6,2,24,1],
+"Triangle_8hpp.html":[2,0,0,6,2,25],
+"Triangle_8hpp_source.html":[2,0,0,6,2,25],
 "Vec3_8hpp.html":[2,0,0,1,4],
 "Vec3_8hpp.html#a352dc3bfab3bdc799f2bca7f196bd366":[2,0,0,1,4,8],
 "Vec3_8hpp.html#a3fd5ba8573083b42d0a54c61eee30ffe":[2,0,0,1,4,11],
@@ -244,10 +249,5 @@ var NAVTREEINDEX0 =
 "classDirectionalLight.html":[1,0,11],
 "classDirectionalLight.html#a9c76ff87fe121d77b8058ff13e8b1b2a":[1,0,11,0],
 "classDirectionalLight.html#af7f43c28e9534c82df185f6dd35f04db":[1,0,11,1],
-"classHelpDisplay.html":[1,0,12],
-"classHelpDisplay.html#a085c8398d42f3a8d310070f279618c99":[1,0,12,1],
-"classHelpDisplay.html#abbc91e84af2337783d14a83dafadf5b9":[1,0,12,0],
-"classHitRecord.html":[1,0,13],
-"classHitRecord.html#a1fd4b882a5d322eaae832b500c87aab4":[1,0,13,2],
-"classHitRecord.html#a20cade6a216398343ddcb3d1bde14f7d":[1,0,13,7]
+"classHelpDisplay.html":[1,0,12]
 };

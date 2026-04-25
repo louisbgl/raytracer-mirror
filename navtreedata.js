@@ -56,7 +56,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AABB_8hpp.html",
-"classHitRecord.html#a35b119aaf1cf369dd0edc79a53ca4329"
+"classHelpDisplay.html#a085c8398d42f3a8d310070f279618c99",
+"structQuadraticRoots.html#af043878812cd98fc4eba90532e5f0e1a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

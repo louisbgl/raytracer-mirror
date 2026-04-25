@@ -23,5 +23,7 @@ var dir_aa767d18aaebe43319b3771c289a6da9 =
     [ "Tanglecube.cpp", "Tanglecube_8cpp.html", "Tanglecube_8cpp" ],
     [ "Tanglecube.hpp", "Tanglecube_8hpp.html", "Tanglecube_8hpp" ],
     [ "Torus.cpp", "Torus_8cpp.html", "Torus_8cpp" ],
-    [ "Torus.hpp", "Torus_8hpp.html", "Torus_8hpp" ]
+    [ "Torus.hpp", "Torus_8hpp.html", "Torus_8hpp" ],
+    [ "Triangle.cpp", "Triangle_8cpp.html", "Triangle_8cpp" ],
+    [ "Triangle.hpp", "Triangle_8hpp.html", "Triangle_8hpp" ]
 ];

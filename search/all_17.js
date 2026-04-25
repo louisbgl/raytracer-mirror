@@ -19,5 +19,6 @@ var searchData=
   ['_7esceneparser_16',['~SceneParser',['../classSceneParser.html#a1088f0a3ba02d9e61c7667eed5a01ffa',1,'SceneParser']]],
   ['_7esphere_17',['~Sphere',['../classSphere.html#a49ced142bd3b79b528af3363cccbaf7e',1,'Sphere']]],
   ['_7etanglecube_18',['~Tanglecube',['../classTanglecube.html#aa08ac449fb7874150cab44cb642c3409',1,'Tanglecube']]],
-  ['_7etorus_19',['~Torus',['../classTorus.html#a22c600b567c626c124c8876fbe37ebdc',1,'Torus']]]
+  ['_7etorus_19',['~Torus',['../classTorus.html#a22c600b567c626c124c8876fbe37ebdc',1,'Torus']]],
+  ['_7etriangle_20',['~Triangle',['../classTriangle.html#a7fa3602358b15ad95071695a1cbb2ac2',1,'Triangle']]]
 ];
