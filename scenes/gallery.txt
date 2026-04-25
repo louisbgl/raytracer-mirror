@@ -1,0 +1,213 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 18.0; y = 13.0; z = 8.0; };
+    look_at = { x = 0.0; y = 1.5; z = -3.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 55.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "mat1"; color = { r = 220; g = 60; b = 60; }; }
+    );
+
+    coloreddiffuse = (
+        { name = "mat2"; color = { r = 80; g = 180; b = 220; }; },
+        { name = "gray"; color = { r = 100; g = 100; b = 100; }; },
+        { name = "white"; color = { r = 255; g = 255; b = 255; }; }
+    );
+
+    phong = (
+        { name = "mat3"; color = { r = 60; g = 220; b = 60; }; shininess = 64.0; }
+    );
+
+    transparent = (
+        { name = "mat4"; opacity = 0.2; refractiveIndex = 1.5; color = { r = 255; g = 255; b = 255; }; }
+    );
+
+    chessboard = (
+        { name = "mat5"; color1 = { r = 255; g = 200; b = 50; }; color2 = { r = 50; g = 50; b = 50; }; scale = 6.0; }
+    );
+
+    perlinnoise = (
+        { name = "mat6"; color = { r = 180; g = 100; b = 200; }; scale = 1.0; }
+    );
+
+    image_texture = (
+        { name = "mat7"; path = "textures/earth.ppm"; }
+    );
+};
+
+shapes:
+{
+    // Floor
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "white"; }
+    );
+
+    // COLUMNS: mat1(lambertian) | mat2(coloreddiffuse) | mat3(phong) | mat4(transparent) | mat5(chessboard) | mat6(perlinnoise) | mat7(image_texture)
+    // ROWS: Each row is a different shape type
+
+    // Row 1: Spheres
+    spheres = (
+        { position = { x = -9.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat1"; },
+        { position = { x = -6.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat2"; },
+        { position = { x = -3.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat3"; },
+        { position = { x = 0.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat4"; },
+        { position = { x = 3.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat5"; },
+        { position = { x = 6.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat6"; },
+        { position = { x = 9.0; y = 2.0; z = 3.0; }; radius = 0.5; material = "mat7"; }
+    );
+
+    // Row 2: Toruses
+    toruses = (
+        { position = { x = -9.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat1"; },
+        { position = { x = -6.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat2"; },
+        { position = { x = -3.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat3"; },
+        { position = { x = 0.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat4"; },
+        { position = { x = 3.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat5"; },
+        { position = { x = 6.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat6"; },
+        { position = { x = 9.0; y = 2.0; z = 1.0; }; major_radius = 0.5; minor_radius = 0.2; material = "mat7"; }
+    );
+
+    // Row 3: Limited Cylinders
+    limited_cylinders = (
+        { position = { x = -9.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat1"; },
+        { position = { x = -6.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat2"; },
+        { position = { x = -3.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat3"; },
+        { position = { x = 0.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat4"; },
+        { position = { x = 3.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat5"; },
+        { position = { x = 6.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat6"; },
+        { position = { x = 9.0; y = 1.5; z = -1.0; }; radius = 0.4; height = 1.0; material = "mat7"; }
+    );
+
+    // Row 4: Limited Cones
+    limited_cones = (
+        { position = { x = -9.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat1"; },
+        { position = { x = -6.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat2"; },
+        { position = { x = -3.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat3"; },
+        { position = { x = 0.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat4"; },
+        { position = { x = 3.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat5"; },
+        { position = { x = 6.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat6"; },
+        { position = { x = 9.0; y = 2.5; z = -3.0; }; radius = 0.5; height = 1.0; material = "mat7"; }
+    );
+
+    // Row 5: Limited Hourglasses
+    limited_hourglasses = (
+        { position = { x = -9.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat1"; },
+        { position = { x = -6.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat2"; },
+        { position = { x = -3.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat3"; },
+        { position = { x = 0.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat4"; },
+        { position = { x = 3.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat5"; },
+        { position = { x = 6.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat6"; },
+        { position = { x = 9.0; y = 2.0; z = -5.0; }; radius = 0.5; height = 1.0; material = "mat7"; }
+    );
+
+    // Row 6: Tanglecubes
+    tanglecubes = (
+        { position = { x = -9.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat1"; },
+        { position = { x = -6.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat2"; },
+        { position = { x = -3.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat3"; },
+        { position = { x = 0.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat4"; },
+        { position = { x = 3.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat5"; },
+        { position = { x = 6.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat6"; },
+        { position = { x = 9.0; y = 2.0; z = -7.0; }; scale = 0.25; material = "mat7"; }
+    );
+
+    // All boxes: platform, pedestals, and row 8 display boxes
+    boxes = (
+        // Main platform - wider for 7 columns
+        { position = { x = 0.0; y = 0.5; z = -3.0; }; width = 20.0; height = 1.0; depth = 14.0; material = "gray"; },
+
+        // Pedestals - 7 rows, 7 columns each
+        { position = { x = -9.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = 3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = 1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = -1.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = -3.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = -5.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = -7.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        { position = { x = -9.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -6.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = -3.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 0.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 3.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 6.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+        { position = { x = 9.0; y = 1.25; z = -9.0; }; width = 1.2; height = 0.5; depth = 1.2; material = "gray"; },
+
+        // Row 7: Display boxes (rotated 45° to stand on corner)
+        { position = { x = -9.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat1"; rotation = { x = 45.0; y = 45.0; z = 10.0; }; },
+        { position = { x = -6.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat2"; rotation = { x = 45.0; y = 45.0; z = 20.0; }; },
+        { position = { x = -3.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat3"; rotation = { x = 45.0; y = 45.0; z = 30.0; }; },
+        { position = { x = 0.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat4"; rotation = { x = 45.0; y = 45.0; z = 40.0; }; },
+        { position = { x = 3.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat5"; rotation = { x = 45.0; y = 45.0; z = 50.0; }; },
+        { position = { x = 6.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat6"; rotation = { x = 45.0; y = 45.0; z = 60.0; }; },
+        { position = { x = 9.0; y = 2.2; z = -9.0; }; width = 0.7; height = 0.7; depth = 0.7; material = "mat7"; rotation = { x = 45.0; y = 45.0; z = 70.0; }; }
+    );
+};
+
+lights:
+{
+    ambient = 0.3;
+    diffuse = 0.7;
+
+    point = (
+        // Main overhead light (centered over gallery)
+        { position = { x = 0.0; y = 18.0; z = -4.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 250.0; },
+        // Front warm light
+        { position = { x = 10.0; y = 12.0; z = 6.0; }; color = { r = 255; g = 200; b = 150; }; intensity = 100.0; },
+        // Left side cyan accent
+        { position = { x = -12.0; y = 8.0; z = -2.0; }; color = { r = 100; g = 200; b = 255; }; intensity = 60.0; },
+        // Right side magenta accent
+        { position = { x = 12.0; y = 8.0; z = -6.0; }; color = { r = 255; g = 100; b = 200; }; intensity = 60.0; },
+        // Back subtle green
+        { position = { x = 0.0; y = 10.0; z = -12.0; }; color = { r = 150; g = 255; b = 180; }; intensity = 50.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.4; y = -1.0; z = -0.3; }; color = { r = 255; g = 250; b = 245; }; intensity = 0.35; }
+    );
+};
