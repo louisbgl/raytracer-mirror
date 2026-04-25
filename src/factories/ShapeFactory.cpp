@@ -12,6 +12,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"limited_cone", _createLimitedCone},
         {"limited_hourglass", _createLimitedHourglass},
         {"rectangle", _createRectangle},
+        {"triangle", _createTriangle},
         {"box", _createBox},
         {"torus", _createTorus},
         {"tanglecube", _createTanglecube},
@@ -96,6 +97,15 @@ std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting&
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("rectangle");
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
     return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), tx, ty, tz, width, height, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createTriangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    double v0x = config["v0"]["x"], v0y = config["v0"]["y"], v0z = config["v0"]["z"];
+    double v1x = config["v1"]["x"], v1y = config["v1"]["y"], v1z = config["v1"]["z"];
+    double v2x = config["v2"]["x"], v2y = config["v2"]["y"], v2z = config["v2"]["z"];
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("triangle");
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
+    return std::shared_ptr<IShape>(createFunc(v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z, &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
