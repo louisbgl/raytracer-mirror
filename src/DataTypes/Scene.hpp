@@ -2,6 +2,7 @@
 
 #include "World.hpp"
 #include "Camera.hpp"
+#include "RendererConfig.hpp"
 #include "../Interfaces/ILight.hpp"
 
 class Scene {
@@ -78,6 +79,9 @@ public:
      */
     void set_camera(const Camera& camera) { _camera = camera; }
 
+    const RendererConfig& rendererConfig() const { return _rendererConfig; }
+    void setRendererConfig(const RendererConfig& config) { _rendererConfig = config; }
+
     /**
      * @brief Checks if the scene has a specific light.
      * @param light The light to check for.
@@ -122,4 +126,5 @@ private:
     double _ambientMultiplier;
     double _diffuseMultiplier;
     int    _materialCount = 0;
+    RendererConfig _rendererConfig;
 };
