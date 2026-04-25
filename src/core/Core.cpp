@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <random>
 
 #include "../parsers/SceneParser.hpp"
 #include "Logger.hpp"
@@ -53,6 +54,18 @@ bool Core::_loadScene() {
 }
 
 Image Core::_render() {
+    const auto& rc = _scene.rendererConfig();
+
+    if (rc.aaEnabled && rc.aaSamples > 1) {
+        if (rc.aaMethod == "ssaa") {
+            return _renderSSAA(rc.aaSamples);
+        }
+    }
+
+    return _renderNoAA();
+}
+
+Image Core::_renderNoAA() {
     int width  = _scene.camera().getWidth();
     int height = _scene.camera().getHeight();
     Image image(width, height);
@@ -66,6 +79,42 @@ Image Core::_render() {
             float u = static_cast<float>(x) / (width - 1);
             float v = 1.0f - static_cast<float>(y) / (height - 1);
             image.setPixel(x, y, trace(_scene.camera().getRay(u, v), _scene, 50));
+        }
+        if (_logging)
+            pb->update(y + 1);
+    }
+
+    if (_logging) {
+        pb->finish();
+        std::cout << "  Log: " << _logger->path() << std::endl;
+    }
+    return image;
+}
+
+Image Core::_renderSSAA(int samples) {
+    int width  = _scene.camera().getWidth();
+    int height = _scene.camera().getHeight();
+    Image image(width, height);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+
+    std::unique_ptr<ProgressBar> pb;
+    if (_logging)
+        pb = std::make_unique<ProgressBar>(height);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            Vec3 pixelColor(0, 0, 0);
+
+            for (int s = 0; s < samples; ++s) {
+                float u = (static_cast<float>(x) + dist(gen)) / width;
+                float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
+                pixelColor = pixelColor + trace(_scene.camera().getRay(u, v), _scene, 50);
+            }
+
+            image.setPixel(x, y, pixelColor / static_cast<double>(samples));
         }
         if (_logging)
             pb->update(y + 1);
