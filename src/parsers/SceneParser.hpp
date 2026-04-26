@@ -25,9 +25,13 @@ public:
     Scene parse(const std::string& filename);
 
 private:
+    void parseRenderer(libconfig::Config& config, Scene& scene);
     void parseCamera(libconfig::Config& config, Scene& scene);
     void parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap);
     void parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world);
     void parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights,
                      double& ambientMultiplier, double& diffuseMultiplier);
+
+    int validateAASamples(int samples) const;
+    std::string validateAAMethod(const std::string& method) const;
 };

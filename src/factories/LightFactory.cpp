@@ -1,4 +1,5 @@
 #include "LightFactory.hpp"
+#include "../utils/ConfigUtils.hpp"
 #include "../core/PluginManager.hpp"
 
 std::shared_ptr<ILight> LightFactory::create(const std::string& type, const libconfig::Setting& config) {
@@ -15,15 +16,15 @@ std::shared_ptr<ILight> LightFactory::create(const std::string& type, const libc
 }
 
 std::shared_ptr<ILight> LightFactory::_createPointLight(const libconfig::Setting& config) {
-    double px = config["position"]["x"];
-    double py = config["position"]["y"];
-    double pz = config["position"]["z"];
+    double px = ConfigUtils::getNumber(config["position"]["x"]);
+    double py = ConfigUtils::getNumber(config["position"]["y"]);
+    double pz = ConfigUtils::getNumber(config["position"]["z"]);
 
-    int cr = config["color"]["r"];
-    int cg = config["color"]["g"];
-    int cb = config["color"]["b"];
+    int cr = ConfigUtils::getNumber(config["color"]["r"]);
+    int cg = ConfigUtils::getNumber(config["color"]["g"]);
+    int cb = ConfigUtils::getNumber(config["color"]["b"]);
 
-    double intensity = config["intensity"];
+    double intensity = ConfigUtils::getNumber(config["intensity"]);
 
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("pointlight");
     auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(rawCreateFunc);
@@ -31,15 +32,15 @@ std::shared_ptr<ILight> LightFactory::_createPointLight(const libconfig::Setting
 }
 
 std::shared_ptr<ILight> LightFactory::_createDirectionalLight(const libconfig::Setting& config) {
-    double nx = config["direction"]["x"];
-    double ny = config["direction"]["y"];
-    double nz = config["direction"]["z"];
+    double nx = ConfigUtils::getNumber(config["direction"]["x"]);
+    double ny = ConfigUtils::getNumber(config["direction"]["y"]);
+    double nz = ConfigUtils::getNumber(config["direction"]["z"]);
 
-    int cr = config["color"]["r"];
-    int cg = config["color"]["g"];
-    int cb = config["color"]["b"];
+    int cr = ConfigUtils::getNumber(config["color"]["r"]);
+    int cg = ConfigUtils::getNumber(config["color"]["g"]);
+    int cb = ConfigUtils::getNumber(config["color"]["b"]);
 
-    double intensity = config["intensity"];
+    double intensity = ConfigUtils::getNumber(config["intensity"]);
 
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("directionallight");
     auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(rawCreateFunc);

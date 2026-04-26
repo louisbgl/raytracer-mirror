@@ -3,10 +3,13 @@
 #include "../factories/ShapeFactory.hpp"
 #include "../factories/LightFactory.hpp"
 #include "../core/PluginManager.hpp"
+#include "../utils/ConfigUtils.hpp"
+#include "../DataTypes/RendererConfig.hpp"
 #include <libconfig.h++>
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 Scene SceneParser::parse(const std::string& filename) {
     libconfig::Config config;
@@ -24,6 +27,7 @@ Scene SceneParser::parse(const std::string& filename) {
 
     Scene scene;
 
+    parseRenderer(config, scene);
     parseCamera(config, scene);
 
     std::unordered_map<std::string, std::shared_ptr<IMaterial>> materialMap;
@@ -37,26 +41,53 @@ Scene SceneParser::parse(const std::string& filename) {
     double diffuseMultiplier = 0.6;
     parseLights(config, lights, ambientMultiplier, diffuseMultiplier);
 
-    scene = Scene(world, scene.camera(), lights, ambientMultiplier, diffuseMultiplier);
+    scene.set_world(world);
+    for (auto& light : lights) {
+        scene.add_light(light);
+    }
+    scene.setAmbientMultiplier(ambientMultiplier);
+    scene.setDiffuseMultiplier(diffuseMultiplier);
     scene.setMaterialCount(static_cast<int>(materialMap.size()));
 
     return scene;
 }
 
+void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
+    RendererConfig rendererConfig;
+
+    try {
+        const libconfig::Setting& renderer = config.lookup("renderer");
+
+        if (renderer.exists("antialiasing")) {
+            const libconfig::Setting& aa = renderer["antialiasing"];
+
+            if (aa.exists("enabled")) rendererConfig.aaEnabled = aa["enabled"];
+            if (aa.exists("samples")) rendererConfig.aaSamples = validateAASamples(aa["samples"]);
+            if (aa.exists("method")) rendererConfig.aaMethod = validateAAMethod(aa["method"].c_str());
+        }
+    } catch (const libconfig::SettingNotFoundException& nfex) {
+        // Renderer config is optional, fallback to defaults
+    } catch (const libconfig::SettingTypeException& tex) {
+        std::cerr << "Renderer configuration type error at: " << tex.getPath() << std::endl;
+    }
+
+    scene.setRendererConfig(rendererConfig);
+}
+
 void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
     try {
-        int height = config.lookup("camera.resolution.height");
-        int width = config.lookup("camera.resolution.width");
-        double pos_x = config.lookup("camera.position.x");
-        double pos_y = config.lookup("camera.position.y");
-        double pos_z = config.lookup("camera.position.z");
-        double look_x = config.lookup("camera.look_at.x");
-        double look_y = config.lookup("camera.look_at.y");
-        double look_z = config.lookup("camera.look_at.z");
-        double up_x = config.lookup("camera.up.x");
-        double up_y = config.lookup("camera.up.y");
-        double up_z = config.lookup("camera.up.z");
-        double fov = config.lookup("camera.fieldOfView");
+        int height = ConfigUtils::getNumber(config.lookup("camera.resolution.height"));
+        int width = ConfigUtils::getNumber(config.lookup("camera.resolution.width"));
+        double pos_x = ConfigUtils::getNumber(config.lookup("camera.position.x"));
+        double pos_y = ConfigUtils::getNumber(config.lookup("camera.position.y"));
+        double pos_z = ConfigUtils::getNumber(config.lookup("camera.position.z"));
+        double look_x = ConfigUtils::getNumber(config.lookup("camera.look_at.x"));
+        double look_y = ConfigUtils::getNumber(config.lookup("camera.look_at.y"));
+        double look_z = ConfigUtils::getNumber(config.lookup("camera.look_at.z"));
+        double up_x = ConfigUtils::getNumber(config.lookup("camera.up.x"));
+        double up_y = ConfigUtils::getNumber(config.lookup("camera.up.y"));
+        double up_z = ConfigUtils::getNumber(config.lookup("camera.up.z"));
+        double fov = ConfigUtils::getNumber(config.lookup("camera.fieldOfView"));
 
         Camera camera(
             height, width,
@@ -148,10 +179,10 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
 
         // Parse ambient and diffuse multipliers if they exist
         if (lightSettings.exists("ambient")) {
-            ambientMultiplier = lightSettings["ambient"];
+            ambientMultiplier = ConfigUtils::getNumber(lightSettings["ambient"]);
         }
         if (lightSettings.exists("diffuse")) {
-            diffuseMultiplier = lightSettings["diffuse"];
+            diffuseMultiplier = ConfigUtils::getNumber(lightSettings["diffuse"]);
         }
 
         for (int i = 0; i < lightSettings.getLength(); ++i) {
@@ -179,3 +210,28 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
         std::cerr << "Lights section not found in config" << std::endl;
     }
 }
+
+int SceneParser::validateAASamples(int samples) const {
+    if (samples < 1) {
+        std::cerr << "Warning: AntiAliasing samples must be >= 1, using 1" << std::endl;
+        return 1;
+    }
+    if (samples > 64) {
+        std::cerr << "Warning: AntiAliasing samples > 64 may be very slow" << std::endl;
+    }
+    return samples;
+}
+
+std::string SceneParser::validateAAMethod(const std::string& method) const {
+    static const std::unordered_set<std::string> supportedMethods = {
+        "ssaa"
+    };
+
+    if (supportedMethods.find(method) != supportedMethods.end()) {
+        return method;
+    }
+
+    std::cerr << "Warning: Unknown AntiAliasing method '" << method << "', using default 'ssaa'" << std::endl;
+    return "ssaa";
+}
+

@@ -34,6 +34,8 @@ private:
 
     bool  _loadScene();
     Image _render();
+    Image _renderNoAA();
+    Image _renderSSAA(int samples);
     void  _writeOutput(Image& image);
 
     Vec3 trace(const Ray& ray, const Scene& scene, int depth);

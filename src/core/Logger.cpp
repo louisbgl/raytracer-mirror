@@ -48,6 +48,14 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
     _write("camera", "position: (" + fmt(pos.x()) + ", " + fmt(pos.y()) + ", " + fmt(pos.z()) + ")");
     _write("camera", "look_at:  (" + fmt(at.x())  + ", " + fmt(at.y())  + ", " + fmt(at.z())  + ")"
         + "   fov: " + fmt(cam.getFov()) + "\xc2\xb0");
+
+    const auto& rc = scene.rendererConfig();
+    if (rc.aaEnabled && rc.aaSamples > 1) {
+        _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
+            + std::to_string(rc.aaSamples) + " samples)");
+    } else {
+        _write("renderer", "antialiasing: disabled");
+    }
 }
 
 void Logger::logTiming(double parseS, double renderS, double writeS, long long pixelCount) {

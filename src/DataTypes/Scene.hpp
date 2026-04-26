@@ -2,6 +2,7 @@
 
 #include "World.hpp"
 #include "Camera.hpp"
+#include "RendererConfig.hpp"
 #include "../Interfaces/ILight.hpp"
 
 class Scene {
@@ -79,6 +80,30 @@ public:
     void set_camera(const Camera& camera) { _camera = camera; }
 
     /**
+     * @brief Gets the RendererConfig of the scene.
+     * @return A reference to the RendererConfig.
+     */
+    const RendererConfig& rendererConfig() const { return _rendererConfig; }
+
+    /**
+     * @brief Sets the RendererConfig of the scene.
+     * @param config The RendererConfig to set.
+     */
+    void setRendererConfig(const RendererConfig& config) { _rendererConfig = config; }
+
+    /**
+     * @brief Sets the ambient light multiplier.
+     * @param ambient The ambient multiplier value.
+     */
+    void setAmbientMultiplier(double ambient) { _ambientMultiplier = ambient; }
+
+    /**
+     * @brief Sets the diffuse light multiplier.
+     * @param diffuse The diffuse multiplier value.
+     */
+    void setDiffuseMultiplier(double diffuse) { _diffuseMultiplier = diffuse; }
+
+    /**
      * @brief Checks if the scene has a specific light.
      * @param light The light to check for.
      * @return True if the scene has the light, false otherwise.
@@ -122,4 +147,5 @@ private:
     double _ambientMultiplier;
     double _diffuseMultiplier;
     int    _materialCount = 0;
+    RendererConfig _rendererConfig;
 };
