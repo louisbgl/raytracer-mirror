@@ -339,7 +339,7 @@ if(IMAGEMAGICK_CONVERT)
 
     if(EXISTS ${PROJECT_SOURCE_DIR}/textures/convert_images.sh)
         add_custom_target(convert_textures
-            COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR}/textures ./convert_images.sh
+            COMMAND ${CMAKE_COMMAND} -E env PATH=$ENV{PATH}:/usr/bin:/usr/local/bin ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR}/textures ./convert_images.sh
             WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
             COMMENT "Converting texture images to PPM format"
         )
