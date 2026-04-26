@@ -1,3 +1,11 @@
+renderer:
+{
+    background = {
+        color = { r = 255; g = 182; b = 193; }; // pink
+        image = "textures/space.ppm";
+    };
+};
+
 camera:
 {
     resolution = { width = 1000; height = 1000; };

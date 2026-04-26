@@ -14,7 +14,7 @@ renderer:
 
     background = {
         color = { r = 135; g = 206; b = 235; }; # Pink
-        image = "textures/minecraft_empty.png";
+        image = "textures/space.ppm";
     };
 
     output = "output.ppm";
@@ -64,11 +64,6 @@ materials:
 
 shapes:
 {
-    // Floor
-    planes = (
-        { position = { x = 0; y = 0; z = 0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "white"; }
-    );
-
     // COLUMNS: mat1(lambertian) | mat2(coloreddiffuse) | mat3(phong) | mat4(transparent) | mat5(chessboard) | mat6(perlinnoise) | mat7(image_texture)
     // ROWS: Each row is a different shape type
 
