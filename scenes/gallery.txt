@@ -1,10 +1,23 @@
 renderer:
 {
     antialiasing = {
-        enabled = true;
+        enabled = false;
         samples = 4;
         method = "ssaa";
     };
+
+    lighting = {
+        ambientColor = { r = 25; g = 25; b = 38; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 135; g = 206; b = 235; }; # Pink
+        image = "textures/minecraft_empty.png";
+    };
+
+    output = "output.ppm";
 };
 
 camera:
@@ -200,9 +213,6 @@ shapes:
 
 lights:
 {
-    ambient = 0.3;
-    diffuse = 0.7;
-
     point = (
         // Main overhead light (centered over gallery)
         { position = { x = 0.0; y = 18.0; z = -4.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 250.0; },

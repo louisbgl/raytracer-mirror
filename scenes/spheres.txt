@@ -1,3 +1,10 @@
+renderer:
+{
+    background = {
+        color = { r = 255; g = 182; b = 193; }; // pink
+    };
+};
+
 camera:
 {
     resolution = { width = 1000; height = 1000; };
