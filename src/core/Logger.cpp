@@ -50,11 +50,28 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         + "   fov: " + fmt(cam.getFov()) + "\xc2\xb0");
 
     const auto& rc = scene.rendererConfig();
+
+    _write("renderer", "output: " + rc.outputFile);
+
     if (rc.aaEnabled && rc.aaSamples > 1) {
         _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
             + std::to_string(rc.aaSamples) + " samples)");
     } else {
         _write("renderer", "antialiasing: disabled");
+    }
+
+    std::ostringstream ambient;
+    ambient << "ambient: " << rc.ambientColor << "  multiplier: " << fmt(rc.ambientMultiplier);
+    _write("renderer", ambient.str());
+
+    _write("renderer", "diffuse multiplier: " + fmt(rc.diffuseMultiplier));
+
+    if (!rc.backgroundImage.empty()) {
+        _write("renderer", "background: image (" + rc.backgroundImage + ")");
+    } else {
+        std::ostringstream bg;
+        bg << "background: " << rc.backgroundColor;
+        _write("renderer", bg.str());
     }
 }
 
