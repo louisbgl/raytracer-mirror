@@ -128,15 +128,15 @@ Image Core::_renderSSAA(int samples) {
 }
 
 void Core::_writeOutput(Image& image) {
-    image.writePPM(_outputFile);
+    image.writePPM(_scene.rendererConfig().outputFile);
 }
 
 Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
-    if (depth <= 0) return _backgroundColor;
+    if (depth <= 0) return _scene.rendererConfig().backgroundColor;
 
     HitRecord record;
     if (scene.world().get_closest_hit(ray, _t_min, _t_max, record)) {
-        Vec3 color = _baseAmbient * scene.ambientMultiplier();
+        Vec3 color = _scene.rendererConfig().ambientColor * scene.ambientMultiplier();
 
         for (const auto& light : scene.lights()) {
             Vec3 lightDir, lightColor;
@@ -159,5 +159,5 @@ Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
 
         return color;
     }
-    return _backgroundColor;
+    return _scene.rendererConfig().backgroundColor;
 }

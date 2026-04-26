@@ -28,9 +28,6 @@ private:
     Scene _scene;
     double _t_min = 0.001;
     double _t_max = 1000.0;
-    Vec3 _baseAmbient = Vec3(25, 25, 38);
-    Vec3 _backgroundColor = Vec3(135, 206, 235);
-    std::string _outputFile = "output.ppm";
 
     bool  _loadScene();
     Image _render();
