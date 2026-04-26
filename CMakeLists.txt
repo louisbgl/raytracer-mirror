@@ -299,3 +299,16 @@ add_custom_target(help_txt ALL
 
 # Make raytracer depend on help_txt so help.txt is always up-to-date
 add_dependencies(raytracer help_txt)
+
+# ── Texture Conversion ─────────────────────────────────────────────────────────
+# Convert images to PPM format if convert_images.sh exists
+if(EXISTS ${PROJECT_SOURCE_DIR}/textures/convert_images.sh)
+    add_custom_target(convert_textures
+        COMMAND ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR}/textures ./convert_images.sh
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+        COMMENT "Converting texture images to PPM format"
+    )
+
+    # Run texture conversion before building raytracer
+    add_dependencies(raytracer convert_textures)
+endif()
