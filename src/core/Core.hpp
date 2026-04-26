@@ -26,6 +26,7 @@ private:
     bool _logging;
     std::unique_ptr<Logger> _logger;
     Scene _scene;
+    std::unique_ptr<Image> _backgroundImage;
     double _t_min = 0.001;
     double _t_max = 1000.0;
 
@@ -35,5 +36,6 @@ private:
     Image _renderSSAA(int samples);
     void  _writeOutput(Image& image);
 
-    Vec3 trace(const Ray& ray, const Scene& scene, int depth);
+    Vec3 trace(const Ray& ray, int depth, double screenU, double screenV);
+    Vec3 _sampleBackground(double screenU, double screenV);
 };
