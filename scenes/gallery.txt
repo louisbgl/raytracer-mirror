@@ -1,3 +1,25 @@
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 8;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 25; g = 25; b = 38; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 135; g = 206; b = 235; }; # Pink
+        image = "textures/space.ppm";
+    };
+
+    output = "output.ppm";
+};
+
 camera:
 {
     resolution = { width = 1000; height = 1000; };
@@ -23,7 +45,7 @@ materials:
         { name = "mat3"; color = { r = 60; g = 220; b = 60; }; shininess = 64.0; }
     );
 
-    transparent = (
+    refractive = (
         { name = "mat4"; opacity = 0.2; refractiveIndex = 1.5; color = { r = 255; g = 255; b = 255; }; }
     );
 
@@ -42,11 +64,6 @@ materials:
 
 shapes:
 {
-    // Floor
-    planes = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "white"; }
-    );
-
     // COLUMNS: mat1(lambertian) | mat2(coloreddiffuse) | mat3(phong) | mat4(transparent) | mat5(chessboard) | mat6(perlinnoise) | mat7(image_texture)
     // ROWS: Each row is a different shape type
 
@@ -191,9 +208,6 @@ shapes:
 
 lights:
 {
-    ambient = 0.3;
-    diffuse = 0.7;
-
     point = (
         // Main overhead light (centered over gallery)
         { position = { x = 0.0; y = 18.0; z = -4.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 250.0; },

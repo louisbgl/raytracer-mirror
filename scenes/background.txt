@@ -1,0 +1,42 @@
+renderer:
+{
+    background = {
+        color = { r = 255; g = 182; b = 193; }; // pink
+        image = "textures/space.ppm";
+    };
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 0.0; z = 2.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 90.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "red"; color = { r = 200; g = 50; b = 50; }; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        { position = { x = -0.3; y = 0.0; z = -0.5; }; radius = 0.5; material = "red"; rotation = { x = 0.0; y = 10.0; z = 0.0; }; },
+        { position = { x = 0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "blue"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.2;
+    diffuse = 0.8;
+
+    point = (
+        { position = { x = 2.0; y = 3.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+    );
+};

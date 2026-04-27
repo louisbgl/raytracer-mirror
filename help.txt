@@ -1,6 +1,27 @@
-Usage: raytracer <input_file>
+Usage: raytracer <input_file> [--log]
 
-Currently supported:
+Scene File Structure:
+
+Camera:
+	resolution = { width = <int>; height = <int>; };
+	position = { x = <float>; y = <float>; z = <float>; };
+	look_at = { x = <float>; y = <float>; z = <float>; };
+	up = { x = <float>; y = <float>; z = <float>; };
+	fieldOfView = <float>;
+
+Renderer (optional):
+	outputFile = <string> (default: "output.ppm")
+	antialiasing:
+		enabled = <bool> (default: false)
+		method = <string> ("ssaa") (default: "ssaa")
+		samples = <int> (default: 1)
+	lighting:
+		ambientColor = { r = <int>; g = <int>; b = <int>; } (default: 25, 25, 38)
+		ambientMultiplier = <float> (default: 0.4)
+		diffuseMultiplier = <float> (default: 0.6)
+	background:
+		color = { r = <int>; g = <int>; b = <int>; } (default: 135, 206, 235)
+		image = <string> (optional PPM file path)
 
 Shapes:
 	Box (position (x, y, z), width, height, depth, material, [rotation (x, y, z)])
@@ -25,7 +46,8 @@ Materials:
 	Lambertian (name, color (r, g, b))
 	PerlinNoise (name, color (r, g, b), scale)
 	Phong (name, color (r, g, b), shininess)
-	Transparent (name, opacity, refractiveIndex, color (r, g, b))
+	Reflective (name, reflectivity, color (r, g, b))
+	Refractive (name, opacity, refractiveIndex, color (r, g, b))
 
 Lights:
 	DirectionalLight (direction (dx, dy, dz), color (r, g, b), intensity)

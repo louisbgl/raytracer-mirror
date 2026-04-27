@@ -11,8 +11,8 @@ if command -v magick >/dev/null 2>&1; then
 elif command -v convert >/dev/null 2>&1; then
 	IM_CMD=(convert)
 else
-	echo "Error: ImageMagick is required (magick or convert command not found)."
-	exit 1
+	echo "Warning: ImageMagick not found (magick or convert command not found). Skipping texture conversion."
+	exit 0
 fi
 
 shopt -s nullglob nocaseglob

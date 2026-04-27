@@ -1,7 +1,7 @@
 // Glass cylinder in front of a colored sphere to highlight refraction.
 camera:
 {
-    resolution = { width = 1200; height = 900; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 3.0; y = 2.0; z = 4.0; };
     look_at = { x = 0.0; y = 0.0; z = -1.2; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
@@ -15,7 +15,7 @@ materials:
         { name = "ground"; color = { r = 55; g = 80; b = 135; }; }
     );
 
-    transparent = (
+    refractive = (
         { name = "glass"; opacity = 0.85; refractiveIndex = 1.1; color = { r = 245; g = 250; b = 255; }; }
     );
 };
