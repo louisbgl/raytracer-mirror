@@ -48,6 +48,31 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
     _write("camera", "position: (" + fmt(pos.x()) + ", " + fmt(pos.y()) + ", " + fmt(pos.z()) + ")");
     _write("camera", "look_at:  (" + fmt(at.x())  + ", " + fmt(at.y())  + ", " + fmt(at.z())  + ")"
         + "   fov: " + fmt(cam.getFov()) + "\xc2\xb0");
+
+    const auto& rc = scene.rendererConfig();
+
+    _write("renderer", "output: " + rc.outputFile);
+
+    if (rc.aaEnabled && rc.aaSamples > 1) {
+        _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
+            + std::to_string(rc.aaSamples) + " samples)");
+    } else {
+        _write("renderer", "antialiasing: disabled");
+    }
+
+    std::ostringstream ambient;
+    ambient << "ambient: " << rc.ambientColor << "  multiplier: " << fmt(rc.ambientMultiplier);
+    _write("renderer", ambient.str());
+
+    _write("renderer", "diffuse multiplier: " + fmt(rc.diffuseMultiplier));
+
+    if (!rc.backgroundImage.empty()) {
+        _write("renderer", "background: image (" + rc.backgroundImage + ")");
+    } else {
+        std::ostringstream bg;
+        bg << "background: " << rc.backgroundColor;
+        _write("renderer", bg.str());
+    }
 }
 
 void Logger::logTiming(double parseS, double renderS, double writeS, long long pixelCount) {

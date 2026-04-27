@@ -14,8 +14,31 @@ int main() {
             return 1;
         }
 
-        out << "Usage: raytracer <input_file>\n\n";
-        out << "Currently supported:\n\n";
+        out << "Usage: raytracer <input_file> [--log]\n\n";
+        out << "Scene File Structure:\n\n";
+
+        // Camera section
+        out << "Camera:\n";
+        out << "\tresolution = { width = <int>; height = <int>; };\n";
+        out << "\tposition = { x = <float>; y = <float>; z = <float>; };\n";
+        out << "\tlook_at = { x = <float>; y = <float>; z = <float>; };\n";
+        out << "\tup = { x = <float>; y = <float>; z = <float>; };\n";
+        out << "\tfieldOfView = <float>;\n\n";
+
+        // Renderer section
+        out << "Renderer (optional):\n";
+        out << "\toutputFile = <string> (default: \"output.ppm\")\n";
+        out << "\tantialiasing:\n";
+        out << "\t\tenabled = <bool> (default: false)\n";
+        out << "\t\tmethod = <string> (\"ssaa\") (default: \"ssaa\")\n";
+        out << "\t\tsamples = <int> (default: 1)\n";
+        out << "\tlighting:\n";
+        out << "\t\tambientColor = { r = <int>; g = <int>; b = <int>; } (default: 25, 25, 38)\n";
+        out << "\t\tambientMultiplier = <float> (default: 0.4)\n";
+        out << "\t\tdiffuseMultiplier = <float> (default: 0.6)\n";
+        out << "\tbackground:\n";
+        out << "\t\tcolor = { r = <int>; g = <int>; b = <int>; } (default: 135, 206, 235)\n";
+        out << "\t\timage = <string> (optional PPM file path)\n\n";
 
         // Get shapes
         auto shapes = PluginManager::instance().getPluginsByCategory("shape");

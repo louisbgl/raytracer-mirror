@@ -1,9 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <cstdint>
-
+#include <memory>
 #include "../../Interfaces/IMaterial.hpp"
+#include "../../core/Image.hpp"
 
 class ImageTexture : public IMaterial {
 public:
@@ -16,9 +15,5 @@ public:
                  [[maybe_unused]] Ray& scattered) const override;
 
 private:
-    int _width;
-    int _height;
-    std::vector<uint8_t> _data;
-
-    
+    std::unique_ptr<Image> _image;
 };

@@ -2,15 +2,14 @@
 
 #include "World.hpp"
 #include "Camera.hpp"
+#include "RendererConfig.hpp"
 #include "../Interfaces/ILight.hpp"
 
 class Scene {
 public:
-    Scene() : _ambientMultiplier(0.4), _diffuseMultiplier(0.6) {}
-    Scene(World world, Camera camera, std::vector<std::shared_ptr<ILight>> lights,
-          double ambientMultiplier = 0.4, double diffuseMultiplier = 0.6)
-        : _world(std::move(world)), _camera(std::move(camera)), _lights(std::move(lights)),
-          _ambientMultiplier(ambientMultiplier), _diffuseMultiplier(diffuseMultiplier) {}
+    Scene() = default;
+    Scene(World world, Camera camera, std::vector<std::shared_ptr<ILight>> lights)
+        : _world(std::move(world)), _camera(std::move(camera)), _lights(std::move(lights)) {}
 
     /**
      * @brief Gets the world of the scene.
@@ -43,18 +42,6 @@ public:
     const std::vector<std::shared_ptr<ILight>>& lights() const { return _lights; }
 
     /**
-     * @brief Gets the ambient light multiplier.
-     * @return The ambient multiplier value.
-     */
-    double ambientMultiplier() const { return _ambientMultiplier; }
-
-    /**
-     * @brief Gets the diffuse light multiplier.
-     * @return The diffuse multiplier value.
-     */
-    double diffuseMultiplier() const { return _diffuseMultiplier; }
-
-    /**
      * @brief Gets the number of materials in the scene.
      * @return The material count.
      */
@@ -77,6 +64,18 @@ public:
      * @param camera The camera to set.
      */
     void set_camera(const Camera& camera) { _camera = camera; }
+
+    /**
+     * @brief Gets the RendererConfig of the scene.
+     * @return A reference to the RendererConfig.
+     */
+    const RendererConfig& rendererConfig() const { return _rendererConfig; }
+
+    /**
+     * @brief Sets the RendererConfig of the scene.
+     * @param config The RendererConfig to set.
+     */
+    void setRendererConfig(const RendererConfig& config) { _rendererConfig = config; }
 
     /**
      * @brief Checks if the scene has a specific light.
@@ -119,7 +118,6 @@ private:
     World _world;
     Camera _camera;
     std::vector<std::shared_ptr<ILight>> _lights;
-    double _ambientMultiplier;
-    double _diffuseMultiplier;
     int    _materialCount = 0;
+    RendererConfig _rendererConfig;
 };
