@@ -9,6 +9,7 @@ public:
     ~Triangle() override = default;
 
     bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const override;
+    AABB boundingBox() const override { return _aabb; }
 
 private:
     Vec3 _v0;
