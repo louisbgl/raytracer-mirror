@@ -29,9 +29,6 @@ private:
     std::unique_ptr<Image> _backgroundImage;
     double _t_min = 0.001;
     double _t_max = 1e6;
-    Vec3 _baseAmbient = Vec3(25, 25, 38);
-    Vec3 _backgroundColor = Vec3(135, 206, 235);
-    std::string _outputFile = "output.ppm";
 
     bool  _loadScene();
     Image _render();
