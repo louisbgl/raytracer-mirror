@@ -1,14 +1,14 @@
 #pragma once
 
 #include "AABB.hpp"
-#include "../Interfaces/IShape.hpp"
+#include "../Interfaces/IBoundable.hpp"
 #include <vector>
 #include <memory>
 #include <algorithm>
 
-class BVHNode : public IShape {
+class BVHNode : public IBoundable {
 public:
-    BVHNode(std::vector<std::shared_ptr<IShape>>& shapes, size_t start, size_t end) {
+    BVHNode(std::vector<std::shared_ptr<IBoundable>>& shapes, size_t start, size_t end) {
         size_t count = end - start;
 
         if (count == 1) {
@@ -27,7 +27,7 @@ public:
             if (span.z() > span[axis]) axis = 2;
 
             std::sort(shapes.begin() + start, shapes.begin() + end,
-                [axis](const std::shared_ptr<IShape>& a, const std::shared_ptr<IShape>& b) {
+                [axis](const std::shared_ptr<IBoundable>& a, const std::shared_ptr<IBoundable>& b) {
                     return a->boundingBox().min()[axis] < b->boundingBox().min()[axis];
                 });
 
@@ -52,7 +52,7 @@ public:
     AABB boundingBox() const override { return _box; }
 
 private:
-    std::shared_ptr<IShape> _left;
-    std::shared_ptr<IShape> _right;
+    std::shared_ptr<IBoundable> _left;
+    std::shared_ptr<IBoundable> _right;
     AABB _box;
 };
