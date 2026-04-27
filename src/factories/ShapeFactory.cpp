@@ -106,12 +106,10 @@ std::shared_ptr<IShape> ShapeFactory::_createTriangle(const libconfig::Setting& 
 
 std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     Vec3 rotation = _getRotation(config);
-   double tx = config["position"]["x"];
-    double ty = config["position"]["y"];
-    double tz = config["position"]["z"];
-    double width = config["width"];
-    double height = config["height"];
-    double depth = config["depth"];
+    Vec3 position = ConfigUtils::parsePosition(config);
+    double width = ConfigUtils::getNumber(config["width"]);
+    double height = ConfigUtils::getNumber(config["height"]);
+    double depth = ConfigUtils::getNumber(config["depth"]);
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("box");
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
     return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), position.x(), position.y(), position.z(), width, height, depth, &material));
