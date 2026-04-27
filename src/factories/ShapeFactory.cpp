@@ -13,6 +13,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"limited_hourglass", _createLimitedHourglass},
         {"rectangle", _createRectangle},
         {"triangle", _createTriangle},
+        {"mesh", _createMesh},
         {"box", _createBox},
         {"torus", _createTorus},
         {"tanglecube", _createTanglecube},
@@ -110,7 +111,7 @@ std::shared_ptr<IShape> ShapeFactory::_createTriangle(const libconfig::Setting& 
 
 std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
     Vec3 rotation = _getRotation(config);
-    double tx = config["position"]["x"];
+   double tx = config["position"]["x"];
     double ty = config["position"]["y"];
     double tz = config["position"]["z"];
     double width = config["width"];
@@ -193,4 +194,11 @@ std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting&
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("hourglass");
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
     return std::shared_ptr<IShape>(createFunc(x, y, z, ax, ay, az, radius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createMesh(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    std::string path = config["path"].c_str();
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("mesh");
+    auto createFunc = reinterpret_cast<IShape* (*)(const char*, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
+    return std::shared_ptr<IShape>(createFunc(path.c_str(), &material));
 }

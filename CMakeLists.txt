@@ -224,7 +224,9 @@ add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp)
 add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp)
 # triangle has a bounded hitbox but is not derived from AShape, so it doesn't need AShape.cpp linked
-add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp)
+add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp src/plugins/Shapes/TrianglePlugin.cpp)
+# mesh bundles ObjParser + Triangle — Triangle.cpp only (no TrianglePlugin.cpp to avoid duplicate create/metadata)
+add_raytracer_plugin(mesh shapes src/plugins/Shapes/Mesh.cpp src/parsers/ObjParser.cpp src/plugins/Shapes/Triangle.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
