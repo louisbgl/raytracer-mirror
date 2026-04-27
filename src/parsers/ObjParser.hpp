@@ -7,14 +7,14 @@
 
 #include "../DataTypes/Vec3.hpp"
 #include "../Interfaces/IMaterial.hpp"
-#include "../Interfaces/IShape.hpp"
+#include "../Interfaces/IBoundable.hpp"
 
 class ObjParser {
 public:
     ObjParser() = default;
     ~ObjParser() = default;
 
-    std::vector<std::shared_ptr<IShape>> parse(const std::string& filename, std::shared_ptr<IMaterial> material);
+    std::vector<std::shared_ptr<IBoundable>> parse(const std::string& filename, std::shared_ptr<IMaterial> material);
 
 private:
     struct FaceVertex {
@@ -32,5 +32,5 @@ private:
     std::vector<Vec3> _vertices;
     std::vector<std::array<double, 2>> _texcoords;
     std::vector<Vec3> _normals;
-    std::vector<std::shared_ptr<IShape>> _shapes;
+    std::vector<std::shared_ptr<IBoundable>> _shapes;
 };

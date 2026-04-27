@@ -1,10 +1,10 @@
 #include "ObjParser.hpp"
-#include "../plugins/Shapes/Triangle.hpp"
+#include "../plugins/Shapes/MeshTriangle.hpp"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
 
-std::vector<std::shared_ptr<IShape>> ObjParser::parse(const std::string& filename, std::shared_ptr<IMaterial> material) {
+std::vector<std::shared_ptr<IBoundable>> ObjParser::parse(const std::string& filename, std::shared_ptr<IMaterial> material) {
     _vertices.clear();
     _texcoords.clear();
     _normals.clear();
@@ -96,7 +96,7 @@ void ObjParser::parseFace(const std::string& line, std::shared_ptr<IMaterial> ma
             uvs = {{ uvA, uvB, uvC }};
         }
 
-        _shapes.push_back(std::make_shared<Triangle>(
+        _shapes.push_back(std::make_shared<MeshTriangle>(
             _vertices[a.vIdx], _vertices[b.vIdx], _vertices[c.vIdx],
             material, normals, uvs
         ));
