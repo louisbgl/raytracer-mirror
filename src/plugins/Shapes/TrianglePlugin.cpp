@@ -2,6 +2,8 @@
 #include "../PluginMetadata.hpp"
 
 extern "C" IShape* create(
+    double rx, double ry, double rz,
+    double tx, double ty, double tz,
     double v0x, double v0y, double v0z,
     double v1x, double v1y, double v1z,
     double v2x, double v2y, double v2z,
@@ -11,6 +13,8 @@ extern "C" IShape* create(
         Vec3(v0x, v0y, v0z),
         Vec3(v1x, v1y, v1z),
         Vec3(v2x, v2y, v2z),
+        Vec3(rx, ry, rz),
+        Vec3(tx, ty, tz),
         *material
     );
 }
@@ -19,7 +23,7 @@ extern "C" PluginMetadata* metadata() {
     static PluginMetadata metadata = {
         .pluginName = "triangle",
         .pluralForm = "triangles",
-        .helpText = "Triangle (v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z, material): flat-shaded triangle. Per-vertex normals and UVs available via direct construction (ObjParser/Mesh), not through this plugin interface.",
+        .helpText = "Triangle (v0, v1, v2 in local space + position + rotation + material): flat-shaded scene triangle with full AShape transform support.",
         .category = "shape"
     };
     return &metadata;
