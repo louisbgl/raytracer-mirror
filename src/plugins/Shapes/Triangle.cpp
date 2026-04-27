@@ -1,33 +1,16 @@
 #include "Triangle.hpp"
-#include "../PluginMetadata.hpp"
 
-Triangle::Triangle(Vec3 v0, Vec3 v1, Vec3 v2, std::shared_ptr<IMaterial> material,
-                   std::optional<std::array<Vec3, 3>> normals,
-                   std::optional<std::array<UV, 3>> uvs)
-    : _v0(v0),
+Triangle::Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation),
+      _v0(v0),
       _edge1(v1 - v0),
       _edge2(v2 - v0),
       _normal(normalize(cross(_edge1, _edge2))),
-      _material(material),
-      _vertexNormals(normals),
-      _vertexUVs(uvs)
+      _material(material)
 {
-    Vec3 min(
-        std::min({ v0.x(), v1.x(), v2.x() }) - 1e-4,
-        std::min({ v0.y(), v1.y(), v2.y() }) - 1e-4,
-        std::min({ v0.z(), v1.z(), v2.z() }) - 1e-4
-    );
-    Vec3 max(
-        std::max({ v0.x(), v1.x(), v2.x() }) + 1e-4,
-        std::max({ v0.y(), v1.y(), v2.y() }) + 1e-4,
-        std::max({ v0.z(), v1.z(), v2.z() }) + 1e-4
-    );
-    _aabb = AABB(min, max);
 }
 
-bool Triangle::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
-    if (!_aabb.hit(ray, t_min, t_max)) return false;
-
+bool Triangle::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 h = cross(ray.direction(), _edge2);
     double a = dot(_edge1, h);
 
@@ -43,30 +26,30 @@ bool Triangle::hit(const Ray& ray, double t_min, double t_max, HitRecord& record
     if (v < 0.0 || u + v > 1.0) return false;
 
     double t = f * dot(_edge2, q);
-    if (t < t_min || t > t_max) return false;
-
-    double w = 1.0 - u - v;
 
     record.t = t;
     record.point = ray.at(t);
     record.material = _material;
-
-    if (_vertexNormals) {
-        const auto& n = *_vertexNormals;
-        record.set_face_normal(ray, normalize(w * n[0] + u * n[1] + v * n[2]));
-    } else {
-        record.set_face_normal(ray, _normal);
-    }
-
-    if (_vertexUVs) {
-        const auto& uv = *_vertexUVs;
-        record.u = w * uv[0].u + u * uv[1].u + v * uv[2].u;
-        record.v = w * uv[0].v + u * uv[1].v + v * uv[2].v;
-    } else {
-        record.u = u;
-        record.v = v;
-    }
+    record.u = u;
+    record.v = v;
+    record.set_face_normal(ray, _normal);
 
     return true;
 }
 
+AABB Triangle::computeLocalAABB() const {
+    Vec3 v1 = _v0 + _edge1;
+    Vec3 v2 = _v0 + _edge2;
+    return AABB(
+        Vec3(
+            std::min({ _v0.x(), v1.x(), v2.x() }) - 1e-4,
+            std::min({ _v0.y(), v1.y(), v2.y() }) - 1e-4,
+            std::min({ _v0.z(), v1.z(), v2.z() }) - 1e-4
+        ),
+        Vec3(
+            std::max({ _v0.x(), v1.x(), v2.x() }) + 1e-4,
+            std::max({ _v0.y(), v1.y(), v2.y() }) + 1e-4,
+            std::max({ _v0.z(), v1.z(), v2.z() }) + 1e-4
+        )
+    );
+}
