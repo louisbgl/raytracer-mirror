@@ -45,7 +45,7 @@ materials:
         { name = "mat3"; color = { r = 60; g = 220; b = 60; }; shininess = 64.0; }
     );
 
-    transparent = (
+    refractive = (
         { name = "mat4"; opacity = 0.2; refractiveIndex = 1.5; color = { r = 255; g = 255; b = 255; }; }
     );
 
