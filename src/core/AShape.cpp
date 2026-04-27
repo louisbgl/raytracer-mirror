@@ -31,6 +31,14 @@ bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     return true;
 }
 
+AABB AShape::boundingBox() const {
+    if (_aabbNeedsUpdate) {
+        const_cast<AShape*>(this)->updateWorldAABB();
+        const_cast<AShape*>(this)->_aabbNeedsUpdate = false;
+    }
+    return _worldAABB;
+}
+
 void AShape::updateWorldAABB() {
     AABB localAABB = computeLocalAABB();
     _worldAABB = transformAABB(localAABB);
