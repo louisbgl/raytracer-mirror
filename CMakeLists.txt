@@ -145,6 +145,8 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
         add_executable(run_tests EXCLUDE_FROM_ALL
             ${TEST_SOURCES}
             src/Math/Roots3And4.c
+            src/parsers/ObjParser.cpp
+            src/plugins/Shapes/Triangle.cpp
         )
 
         target_include_directories(run_tests PRIVATE
