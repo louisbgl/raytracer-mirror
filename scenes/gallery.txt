@@ -1,3 +1,25 @@
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 8;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 25; g = 25; b = 38; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 135; g = 206; b = 235; }; # Pink
+        image = "textures/space.ppm";
+    };
+
+    output = "output.ppm";
+};
+
 camera:
 {
     resolution = { width = 1000; height = 1000; };
