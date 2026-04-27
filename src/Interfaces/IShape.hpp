@@ -2,7 +2,6 @@
 
 #include "../DataTypes/Ray.hpp"
 #include "../DataTypes/HitRecord.hpp"
-#include "../Math/AABB.hpp"
 
 /**
  * @brief Interface for shapes that can be hit by rays.
