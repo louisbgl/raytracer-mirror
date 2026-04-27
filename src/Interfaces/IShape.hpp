@@ -22,11 +22,4 @@ public:
      * @return True if a hit is found, false otherwise.
      */
     virtual bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const = 0;
-    /**
-     * @brief Returns the axis-aligned bounding box of this shape.
-     * @note Infinite shapes (plane, cylinder...) don't have a meaningful AABB,
-     *       so the default returns an empty box. Only shapes used inside a BVH
-     *       (e.g. Triangle) need to override this.
-     */
-    virtual AABB boundingBox() const { return AABB{}; }
 };
