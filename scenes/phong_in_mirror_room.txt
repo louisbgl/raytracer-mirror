@@ -1,0 +1,89 @@
+// Phong sphere in a room with reflective walls
+renderer:
+{
+    antialiasing = {
+        enabled = false;
+        samples = 1;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 50; g = 50; b = 60; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 20; g = 20; b = 25; };
+        image = "textures/space.ppm";
+    };
+
+    output = "output.ppm";
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 1.0; z = 8.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 45.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "shiny_red"; color = { r = 200; g = 50; b = 50; }; shininess = 128.0; }
+    );
+
+    reflective = (
+        { name = "mirror_wall"; reflectivity = 0.7; color = { r = 255; g = 255; b = 255; }; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 80; g = 80; b = 100; }; }
+    );
+};
+
+shapes:
+{
+    // Central phong sphere
+    spheres = (
+        { position = { x = 0.0; y = -1.0; z = -1.0; }; radius = 1.0; material = "shiny_red"; }
+    );
+
+    // Floor
+    planes = (
+        { position = { x = 0.0; y = -2.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+
+    // Mirror walls as thin boxes
+    boxes = (
+        // Back wall
+        { position = { x = 0.0; y = 0.0; z = -4.0; }; width = 6.0; height = 6.0; depth = 0.1; material = "mirror_wall"; },
+
+        // Left wall
+        { position = { x = -3.0; y = 0.0; z = 0.0; }; width = 0.1; height = 6.0; depth = 8.0; material = "mirror_wall"; },
+
+        // Right wall
+        { position = { x = 3.0; y = 0.0; z = 0.0; }; width = 0.1; height = 6.0; depth = 8.0; material = "mirror_wall"; }
+    );
+};
+
+lights:
+{
+    point = (
+        // Main light from above
+        { position = { x = 0.0; y = 5.0; z = 0.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 100.0; },
+
+        // Side light for highlights
+        { position = { x = 3.0; y = 2.0; z = 2.0; }; color = { r = 255; g = 240; b = 220; }; intensity = 60.0; },
+
+        // Fill light
+        { position = { x = -2.0; y = 1.0; z = 3.0; }; color = { r = 200; g = 220; b = 255; }; intensity = 40.0; }
+    );
+
+    directional = (
+        { direction = { x = 0.3; y = -1.0; z = 0.2; }; color = { r = 255; g = 250; b = 245; }; intensity = 0.3; }
+    );
+};
