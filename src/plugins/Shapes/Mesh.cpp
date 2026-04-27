@@ -29,7 +29,7 @@ extern "C" PluginMetadata* metadata() {
     static PluginMetadata metadata = {
         .pluginName = "mesh",
         .pluralForm = "meshes",
-        .helpText = "Mesh (filename, rotation, position, material): OBJ mesh with full AShape transform support.",
+        .helpText = "Mesh (path, position (x, y, z), material, [rotation (x, y, z)])",
         .category = "shape"
     };
     return &metadata;

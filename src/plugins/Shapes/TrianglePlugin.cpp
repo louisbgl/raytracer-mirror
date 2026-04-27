@@ -23,7 +23,7 @@ extern "C" PluginMetadata* metadata() {
     static PluginMetadata metadata = {
         .pluginName = "triangle",
         .pluralForm = "triangles",
-        .helpText = "Triangle (v0, v1, v2 in local space + position + rotation + material): flat-shaded scene triangle with full AShape transform support.",
+        .helpText = "Triangle (v0 (x, y, z), v1 (x, y, z), v2 (x, y, z), material, [position (x, y, z)], [rotation (x, y, z)])",
         .category = "shape"
     };
     return &metadata;
