@@ -226,7 +226,7 @@ add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
-add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(refractive materials src/plugins/Materials/Refractive.cpp)
 add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
 add_raytracer_plugin(chessboard materials src/plugins/Materials/Chessboard.cpp)
@@ -251,7 +251,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise image_texture
+    DEPENDS lambertian refractive coloreddiffuse phong chessboard perlinnoise image_texture
     COMMENT "Building all material plugins..."
 )
 

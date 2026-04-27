@@ -15,7 +15,7 @@ materials:
         { name = "ground"; color = { r = 55; g = 80; b = 135; }; }
     );
 
-    transparent = (
+    refractive = (
         { name = "glass"; opacity = 0.85; refractiveIndex = 1.1; color = { r = 245; g = 250; b = 255; }; }
     );
 };

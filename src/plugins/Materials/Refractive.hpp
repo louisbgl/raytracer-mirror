@@ -2,9 +2,20 @@
 
 #include "../../Interfaces/IMaterial.hpp"
 
-class Transparent : public IMaterial {
+/**
+ * @brief Refractive material implementing light bending and transparency.
+ *
+ * Combines transparency with physically-based refraction using Snell's law.
+ * Light bends when entering/exiting the material based on the refractive index.
+ * Handles total internal reflection at grazing angles.
+ *
+ * @param opacity Controls material opacity (0 = fully transparent, 1 = opaque)
+ * @param refractiveIndex Index of refraction (1.0 = air, 1.33 = water, 1.5 = glass, 2.4 = diamond)
+ * @param color Tint applied to light passing through (RGB 0-255)
+ */
+class Refractive : public IMaterial {
 public:
-    Transparent(double opacity, double refractiveIndex, Vec3 color);
+    Refractive(double opacity, double refractiveIndex, Vec3 color);
 
     Vec3 shade([[maybe_unused]] const HitRecord& record, [[maybe_unused]] const Vec3& lightDir,
                [[maybe_unused]] const Vec3& lightColor,  [[maybe_unused]] const Vec3& viewDir) const override;

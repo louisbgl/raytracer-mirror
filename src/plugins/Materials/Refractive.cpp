@@ -1,22 +1,22 @@
-#include "Transparent.hpp"
+#include "Refractive.hpp"
 #include "../PluginMetadata.hpp"
 
 #include <cmath>
 
 #include "../../DataTypes/HitRecord.hpp"
 
-Transparent::Transparent(double opacity, double refractiveIndex, Vec3 color)
+Refractive::Refractive(double opacity, double refractiveIndex, Vec3 color)
     : _opacity(opacity), _refractiveIndex(refractiveIndex), _color(color) {}
 
-Vec3 Transparent::shade([[maybe_unused]] const HitRecord& record,
+Vec3 Refractive::shade([[maybe_unused]] const HitRecord& record,
                         [[maybe_unused]] const Vec3& lightDir,
                         [[maybe_unused]] const Vec3& lightColor,
                         [[maybe_unused]] const Vec3& viewDir) const {
-    // Transparent materials don't contribute much to direct lighting
+    // Refractive materials don't contribute to direct lighting
     return Vec3(0, 0, 0);
 }
 
-bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation,
+bool Refractive::scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation,
                           Ray& scattered) const {
     attenuation = _color / 255.0;
 
@@ -45,10 +45,10 @@ bool Transparent::scatter(const Ray& ray_in, const HitRecord& record, Vec3& atte
 }
 
 // Helper function: reflection
-Vec3 Transparent::reflect(const Vec3& v, const Vec3& n) const { return v - 2.0 * dot(v, n) * n; }
+Vec3 Refractive::reflect(const Vec3& v, const Vec3& n) const { return v - 2.0 * dot(v, n) * n; }
 
 // Helper function: refraction (Snell's Law in vector form)
-Vec3 Transparent::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) const {
+Vec3 Refractive::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) const {
     double cosTheta = std::min(dot(-uv, n), 1.0);
     Vec3 rOutPerp = etai_over_etat * (uv + cosTheta * n);
     Vec3 rOutParallel = -std::sqrt(std::abs(1.0 - length_squared(rOutPerp))) * n;
@@ -56,14 +56,14 @@ Vec3 Transparent::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) 
 }
 
 extern "C" IMaterial* create(double opacity, double refractiveIndex, double r, double g, double b) {
-    return new Transparent(opacity, refractiveIndex, Vec3(r, g, b));
+    return new Refractive(opacity, refractiveIndex, Vec3(r, g, b));
 }
 
 extern "C" const PluginMetadata* metadata() {
     static PluginMetadata meta = {
-        .pluginName = "transparent",
-        .pluralForm = "transparent",
-        .helpText = "Transparent (name, opacity, refractiveIndex, color (r, g, b))",
+        .pluginName = "refractive",
+        .pluralForm = "refractive",
+        .helpText = "Refractive (name, opacity, refractiveIndex, color (r, g, b))",
         .category = "material"
     };
     return &meta;
