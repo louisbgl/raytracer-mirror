@@ -7,7 +7,7 @@
 std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, const libconfig::Setting& config) {
     static std::unordered_map<std::string, MaterialCreator> creators = {
         {"lambertian", _createLambertian},
-        {"transparent", _createTransparent},
+        {"refractive", _createRefractive},
         {"coloreddiffuse", _createColoredDiffuse},
         {"phong", _createPhong},
         {"perlinnoise", _createPerlinNoise},
@@ -36,11 +36,11 @@ std::shared_ptr<IMaterial> MaterialFactory::_createColoredDiffuse(const libconfi
     return std::shared_ptr<IMaterial>(createFunc(color.x(), color.y(), color.z()));
 }
 
-std::shared_ptr<IMaterial> MaterialFactory::_createTransparent(const libconfig::Setting& config) {
+std::shared_ptr<IMaterial> MaterialFactory::_createRefractive(const libconfig::Setting& config) {
     double opacity = ConfigUtils::getNumber(config["opacity"]);
     double refractiveIndex = ConfigUtils::getNumber(config["refractiveIndex"]);
     Vec3 color = ConfigUtils::parseColor(config);
-    auto rawCreateFunc = PluginManager::instance().getCreateFunction("transparent");
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("refractive");
     auto createFunc = reinterpret_cast<IMaterial* (*)(double, double, double, double, double)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(opacity, refractiveIndex, color.x(), color.y(), color.z()));
 }
