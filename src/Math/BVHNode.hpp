@@ -26,12 +26,11 @@ public:
             if (span.y() > span.x()) axis = 1;
             if (span.z() > span[axis]) axis = 2;
 
-            std::sort(shapes.begin() + start, shapes.begin() + end,
+            size_t mid = start + count / 2;
+            std::nth_element(shapes.begin() + start, shapes.begin() + mid, shapes.begin() + end,
                 [axis](const std::shared_ptr<IBoundable>& a, const std::shared_ptr<IBoundable>& b) {
                     return a->boundingBox().min()[axis] < b->boundingBox().min()[axis];
                 });
-
-            size_t mid = start + count / 2;
             _left  = std::make_shared<BVHNode>(shapes, start, mid);
             _right = std::make_shared<BVHNode>(shapes, mid, end);
         }
