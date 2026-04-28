@@ -88,7 +88,7 @@ Image Core::_renderNoAA() {
         for (int x = 0; x < width; ++x) {
             float u = static_cast<float>(x) / (width - 1);
             float v = 1.0f - static_cast<float>(y) / (height - 1);
-            image.setPixel(x, y, trace(_scene.camera().getRay(u, v), 50, u, v));
+            image.setPixel(x, y, trace(_scene.camera().getRay(u, v), _maxDepth, u, v));
         }
         if (_logging)
             pb->update(y + 1);
@@ -123,7 +123,7 @@ Image Core::_renderSSAA(int samples) {
             for (int s = 0; s < samples; ++s) {
                 float u = (static_cast<float>(x) + dist(gen)) / width;
                 float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
-                pixelColor = pixelColor + trace(_scene.camera().getRay(u, v), 50, baseU, baseV);
+                pixelColor = pixelColor + trace(_scene.camera().getRay(u, v), _maxDepth, baseU, baseV);
             }
 
             image.setPixel(x, y, pixelColor / static_cast<double>(samples));
