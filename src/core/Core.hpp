@@ -28,7 +28,7 @@ private:
     Scene _scene;
     std::unique_ptr<Image> _backgroundImage;
     double _t_min = 0.001;
-    double _t_max = 1000.0;
+    double _t_max = 1e6;
 
     bool  _loadScene();
     Image _render();

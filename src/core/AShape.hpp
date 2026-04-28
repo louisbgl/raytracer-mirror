@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Interfaces/IShape.hpp"
+#include "../Interfaces/IBoundable.hpp"
 #include "../Math/AABB.hpp"
 
 /**
@@ -20,7 +20,7 @@
  *  - The concrete shape's positon will be 0, 0, 0
  *  - The concrete shape will be axis-aligned
  */
-class AShape : public IShape {
+class AShape : public IBoundable {
 public:
     /**
      * @param rotation Euler angles in degrees (rx, ry, rz) - ZYX convention
@@ -32,6 +32,7 @@ public:
      * @brief [FINAL] Full intersection pipeline: AABB check → transform to local → hitLocal() → transform to world → range check
      */
     bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const final override;
+    AABB boundingBox() const override;
 
     /**
      * @brief Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.

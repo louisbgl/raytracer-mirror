@@ -14,6 +14,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         {"limited_hourglass", _createLimitedHourglass},
         {"rectangle", _createRectangle},
         {"triangle", _createTriangle},
+        {"mesh", _createMesh},
         {"box", _createBox},
         {"torus", _createTorus},
         {"tanglecube", _createTanglecube},
@@ -33,10 +34,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
 
 Vec3 ShapeFactory::_getRotation(const libconfig::Setting& config) {
     if (config.exists("rotation")) {
-        double x = ConfigUtils::getNumber(config["rotation"]["x"]);
-        double y = ConfigUtils::getNumber(config["rotation"]["y"]);
-        double z = ConfigUtils::getNumber(config["rotation"]["z"]);
-        return Vec3(x, y, z);
+        return ConfigUtils::parseVec3(config["rotation"]);
     }
     return Vec3(0, 0, 0);
 }
@@ -91,12 +89,14 @@ std::shared_ptr<IShape> ShapeFactory::_createRectangle(const libconfig::Setting&
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createTriangle(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    double v0x = config["v0"]["x"], v0y = config["v0"]["y"], v0z = ConfigUtils::getNumber(config["v0"]["z"]);
-    double v1x = config["v1"]["x"], v1y = config["v1"]["y"], v1z = ConfigUtils::getNumber(config["v1"]["z"]);
-    double v2x = config["v2"]["x"], v2y = config["v2"]["y"], v2z = ConfigUtils::getNumber(config["v2"]["z"]);
+    Vec3 rotation = _getRotation(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    Vec3 v0 = ConfigUtils::parseVec3(config["v0"]);
+    Vec3 v1 = ConfigUtils::parseVec3(config["v1"]);
+    Vec3 v2 = ConfigUtils::parseVec3(config["v2"]);
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("triangle");
-    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
-    return std::shared_ptr<IShape>(createFunc(v0x, v0y, v0z, v1x, v1y, v1z, v2x, v2y, v2z, &material));
+    auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
+    return std::shared_ptr<IShape>(createFunc(rotation.x(), rotation.y(), rotation.z(), position.x(), position.y(), position.z(), v0.x(), v0.y(), v0.z(), v1.x(), v1.y(), v1.z(), v2.x(), v2.y(), v2.z(), &material));
 }
 
 std::shared_ptr<IShape> ShapeFactory::_createBox(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
@@ -168,4 +168,13 @@ std::shared_ptr<IShape> ShapeFactory::_createHourglass(const libconfig::Setting&
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("hourglass");
     auto createFunc = reinterpret_cast<IShape* (*)(double, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
     return std::shared_ptr<IShape>(createFunc(position.x(), position.y(), position.z(), ax, ay, az, radius, &material));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createMesh(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    std::string path = config["path"].c_str();
+    Vec3 rotation = _getRotation(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("mesh");
+    auto createFunc = reinterpret_cast<IShape* (*)(const char*, double, double, double, double, double, double, std::shared_ptr<IMaterial>*)>(rawCreateFunc);
+    return std::shared_ptr<IShape>(createFunc(path.c_str(), rotation.x(), rotation.y(), rotation.z(), position.x(), position.y(), position.z(), &material));
 }
