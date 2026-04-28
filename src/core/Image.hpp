@@ -2,6 +2,8 @@
 
 #include "../DataTypes/Vec3.hpp"
 #include <vector>
+#include <memory>
+#include <string>
 
 class Image {
 public:
@@ -20,10 +22,33 @@ public:
     void setPixel(int x, int y, const Vec3& color);
 
     /**
+     * @brief Gets the color of a specific pixel in the image.
+     * @param x The x-coordinate of the pixel (0 to width-1).
+     * @param y The y-coordinate of the pixel (0 to height-1).
+     * @return The color of the pixel, represented as a Vec3 (R, G, B).
+     */
+    Vec3 getPixel(int x, int y) const;
+
+    /**
+     * @brief Samples the image using UV coordinates.
+     * @param u Horizontal coordinate (0.0 to 1.0).
+     * @param v Vertical coordinate (0.0 to 1.0).
+     * @return The sampled color as a Vec3.
+     */
+    Vec3 sample(double u, double v) const;
+
+    /**
      * @brief Writes the image to a file in PPM format.
      * @param filename The name of the file to write to.
      */
     void writePPM(const std::string& filename) const;
+
+    /**
+     * @brief Reads an image from a PPM file.
+     * @param filename The name of the file to read from.
+     * @return The loaded image, or nullptr if loading failed.
+     */
+    static std::unique_ptr<Image> readPPM(const std::string& filename);
 
 private:
     int _width, _height;

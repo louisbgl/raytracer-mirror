@@ -3,8 +3,11 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <random>
+#include <cmath>
 
 #include "../parsers/SceneParser.hpp"
+#include "../Math/Constants.hpp"
 #include "Logger.hpp"
 #include "ProgressBar.hpp"
 
@@ -45,6 +48,14 @@ bool Core::_loadScene() {
         return false;
     }
 
+    const auto& bgImage = _scene.rendererConfig().backgroundImage;
+    if (!bgImage.empty()) {
+        _backgroundImage = Image::readPPM(bgImage);
+        if (!_backgroundImage) {
+            std::cerr << "Warning: Failed to load background image, using solid color" << std::endl;
+        }
+    }
+
     if (_logging) {
         _logger = std::make_unique<Logger>();
         _logger->logScene(_inputFile, _scene);
@@ -53,6 +64,18 @@ bool Core::_loadScene() {
 }
 
 Image Core::_render() {
+    const auto& rc = _scene.rendererConfig();
+
+    if (rc.aaEnabled && rc.aaSamples > 1) {
+        if (rc.aaMethod == "ssaa") {
+            return _renderSSAA(rc.aaSamples);
+        }
+    }
+
+    return _renderNoAA();
+}
+
+Image Core::_renderNoAA() {
     int width  = _scene.camera().getWidth();
     int height = _scene.camera().getHeight();
     Image image(width, height);
@@ -65,7 +88,45 @@ Image Core::_render() {
         for (int x = 0; x < width; ++x) {
             float u = static_cast<float>(x) / (width - 1);
             float v = 1.0f - static_cast<float>(y) / (height - 1);
-            image.setPixel(x, y, trace(_scene.camera().getRay(u, v), _scene, 50));
+            image.setPixel(x, y, trace(_scene.camera().getRay(u, v), 50, u, v));
+        }
+        if (_logging)
+            pb->update(y + 1);
+    }
+
+    if (_logging) {
+        pb->finish();
+        std::cout << "  Log: " << _logger->path() << std::endl;
+    }
+    return image;
+}
+
+Image Core::_renderSSAA(int samples) {
+    int width  = _scene.camera().getWidth();
+    int height = _scene.camera().getHeight();
+    Image image(width, height);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+
+    std::unique_ptr<ProgressBar> pb;
+    if (_logging)
+        pb = std::make_unique<ProgressBar>(height);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            Vec3 pixelColor(0, 0, 0);
+            float baseU = static_cast<float>(x) / (width - 1);
+            float baseV = 1.0f - static_cast<float>(y) / (height - 1);
+
+            for (int s = 0; s < samples; ++s) {
+                float u = (static_cast<float>(x) + dist(gen)) / width;
+                float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
+                pixelColor = pixelColor + trace(_scene.camera().getRay(u, v), 50, baseU, baseV);
+            }
+
+            image.setPixel(x, y, pixelColor / static_cast<double>(samples));
         }
         if (_logging)
             pb->update(y + 1);
@@ -79,17 +140,17 @@ Image Core::_render() {
 }
 
 void Core::_writeOutput(Image& image) {
-    image.writePPM(_outputFile);
+    image.writePPM(_scene.rendererConfig().outputFile);
 }
 
-Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
-    if (depth <= 0) return _backgroundColor;
+Vec3 Core::trace(const Ray& ray, int depth, double screenU, double screenV) {
+    if (depth <= 0) return _sampleBackground(screenU, screenV);
 
     HitRecord record;
-    if (scene.world().get_closest_hit(ray, _t_min, _t_max, record)) {
-        Vec3 color = _baseAmbient * scene.ambientMultiplier();
+    if (_scene.world().get_closest_hit(ray, _t_min, _t_max, record)) {
+        Vec3 color = _scene.rendererConfig().ambientColor * _scene.rendererConfig().ambientMultiplier;
 
-        for (const auto& light : scene.lights()) {
+        for (const auto& light : _scene.lights()) {
             Vec3 lightDir, lightColor;
             double lightDistance = light->get_light_data(record.point, lightDir, lightColor);
 
@@ -97,18 +158,24 @@ Vec3 Core::trace(const Ray& ray, const Scene& scene, int depth) {
             HitRecord shadowRecord;
 
             Vec3 viewDir = -ray.direction();
-            if (!scene.world().get_closest_hit(shadowRay, _t_min, lightDistance, shadowRecord)) {
-                color += record.material->shade(record, lightDir, lightColor, viewDir) *
-                         scene.diffuseMultiplier();
+            if (!_scene.world().get_closest_hit(shadowRay, _t_min, lightDistance, shadowRecord)) {
+                color += record.material->shade(record, lightDir, lightColor, viewDir) *_scene.rendererConfig().diffuseMultiplier;
             }
         }
 
         Vec3 attenuation;
         Ray scattered;
         if (record.material->scatter(ray, record, attenuation, scattered))
-            color += attenuation * trace(scattered, scene, depth - 1);
+            color += attenuation * trace(scattered, depth - 1, screenU, screenV);
 
         return color;
     }
-    return _backgroundColor;
+    return _sampleBackground(screenU, screenV);
+}
+
+Vec3 Core::_sampleBackground(double screenU, double screenV) {
+    if (_backgroundImage) {
+        return _backgroundImage->sample(screenU, screenV);
+    }
+    return _scene.rendererConfig().backgroundColor;
 }

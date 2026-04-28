@@ -10,8 +10,8 @@ camera:
 materials:
 {
     image_texture = (
-        { name = "baseball"; path = "textures/baseball.ppm"; },
-²    );
+        { name = "baseball"; path = "textures/baseball.ppm"; }
+    );
 };
 
 shapes:

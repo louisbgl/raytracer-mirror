@@ -1,0 +1,50 @@
+// Glass cylinder in front of a colored sphere to highlight refraction.
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 3.0; y = 2.0; z = 4.0; };
+    look_at = { x = 0.0; y = 0.0; z = -1.2; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 55.0;
+};
+
+materials:
+{
+    lambertian = (
+        { name = "ball"; color = { r = 230; g = 70; b = 55; }; },
+        { name = "ground"; color = { r = 55; g = 80; b = 135; }; }
+    );
+
+    refractive = (
+        { name = "glass"; opacity = 0.85; refractiveIndex = 1.1; color = { r = 245; g = 250; b = 255; }; }
+    );
+};
+
+shapes:
+{
+    // Target object seen through refraction.
+    spheres = (
+        { position = { x = 0.0; y = 0.0; z = -3.2; }; radius = 0.85; material = "ball"; }
+    );
+
+    // Transparent finite cylinder directly between camera and sphere.
+    limited_cylinders = (
+        { position = { x = 0.0; y = -1.0; z = -1.0; }; radius = 0.55; height = 2.2; material = "glass"; }
+    );
+
+    // Simple ground for extra visual cues around refraction.
+    planes = (
+        { position = { x = 0.0; y = -1.1; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "ground"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.12;
+    diffuse = 0.88;
+
+    point = (
+        { position = { x = -4.0; y = 4.5; z = 4.0; }; color = { r = 255; g = 245; b = 230; }; intensity = 28.0; },
+        { position = { x = 3.0; y = 1.8; z = 2.2; }; color = { r = 190; g = 215; b = 255; }; intensity = 12.0; }
+    );
+};

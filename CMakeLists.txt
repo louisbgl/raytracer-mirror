@@ -145,6 +145,8 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
         add_executable(run_tests EXCLUDE_FROM_ALL
             ${TEST_SOURCES}
             src/Math/Roots3And4.c
+            src/parsers/ObjParser.cpp
+            src/plugins/Shapes/MeshTriangle.cpp
         )
 
         target_include_directories(run_tests PRIVATE
@@ -221,12 +223,14 @@ add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp)
 add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp)
-# triangle has a bounded hitbox but is not derived from AShape, so it doesn't need AShape.cpp linked
-add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp)
+add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp src/core/AShape.cpp)
+# mesh uses MeshTriangle (IBoundable, no AShape overhead) internally; Mesh itself is AShape
+add_raytracer_plugin(mesh shapes src/plugins/Shapes/Mesh.cpp src/parsers/ObjParser.cpp src/plugins/Shapes/MeshTriangle.cpp src/core/AShape.cpp)
 
 # Material plugins
 add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
-add_raytracer_plugin(transparent materials src/plugins/Materials/Transparent.cpp)
+add_raytracer_plugin(refractive materials src/plugins/Materials/Refractive.cpp)
+add_raytracer_plugin(reflective materials src/plugins/Materials/Reflective.cpp)
 add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
 add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
 add_raytracer_plugin(chessboard materials src/plugins/Materials/Chessboard.cpp)
@@ -251,7 +255,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian transparent coloreddiffuse phong chessboard perlinnoise image_texture
+    DEPENDS lambertian refractive reflective coloreddiffuse phong chessboard perlinnoise image_texture
     COMMENT "Building all material plugins..."
 )
 
@@ -299,3 +303,54 @@ add_custom_target(help_txt ALL
 
 # Make raytracer depend on help_txt so help.txt is always up-to-date
 add_dependencies(raytracer help_txt)
+
+# ── Texture Conversion ─────────────────────────────────────────────────────────
+# Try to find ImageMagick (magick or convert command)
+find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
+
+if(NOT IMAGEMAGICK_CONVERT)
+    # Try to install via package manager as fallback
+    message(STATUS "ImageMagick not found in system, attempting to install...")
+
+    include(ExternalProject)
+
+    if(APPLE)
+        # Use brew on macOS
+        execute_process(
+            COMMAND brew install imagemagick
+            RESULT_VARIABLE BREW_RESULT
+            OUTPUT_QUIET ERROR_QUIET
+        )
+        find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
+    else()
+        # Use apt on Linux
+        execute_process(
+            COMMAND sudo apt-get update
+            RESULT_VARIABLE APT_UPDATE_RESULT
+            OUTPUT_QUIET ERROR_QUIET
+        )
+        execute_process(
+            COMMAND sudo apt-get install -y imagemagick
+            RESULT_VARIABLE APT_RESULT
+            OUTPUT_QUIET ERROR_QUIET
+        )
+        find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
+    endif()
+endif()
+
+if(IMAGEMAGICK_CONVERT)
+    message(STATUS "Found ImageMagick: ${IMAGEMAGICK_CONVERT}")
+
+    if(EXISTS ${PROJECT_SOURCE_DIR}/textures/convert_images.sh)
+        add_custom_target(convert_textures
+            COMMAND ${CMAKE_COMMAND} -E env PATH=$ENV{PATH}:/usr/bin:/usr/local/bin ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR}/textures ./convert_images.sh
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+            COMMENT "Converting texture images to PPM format"
+        )
+
+        # Run texture conversion before building raytracer
+        add_dependencies(raytracer convert_textures)
+    endif()
+else()
+    message(WARNING "ImageMagick could not be found or installed - texture conversion disabled.")
+endif()

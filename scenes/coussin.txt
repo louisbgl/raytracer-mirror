@@ -1,0 +1,41 @@
+renderer:
+{
+    lighting = { ambientColor = { r = 20; g = 20; b = 25; }; ambientMultiplier = 0.3; diffuseMultiplier = 0.9; };
+    background = { color = { r = 12; g = 12; b = 18; }; };
+    output = "output.ppm";
+};
+
+camera:
+{
+    resolution = { width = 800; height = 800; };
+    position = { x = 2.5; y = 1.8; z = 2.5; };
+    look_at = { x = 0.0; y = 0.05; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 50.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "fabric"; color = { r = 180; g = 120; b = 90; }; shininess = 8.0; }
+    );
+};
+
+shapes:
+{
+    meshes = (
+        { path = "textures/obj/arthur/coussin.obj"; material = "fabric"; }
+    );
+
+    planes = (
+        { position = { x = 0.0; y = -0.481; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "fabric"; }
+    );
+};
+
+lights:
+{
+    point = (
+        { position = { x = 3.0; y = 4.0; z = 2.0; }; color = { r = 255; g = 245; b = 230; }; intensity = 30.0; },
+        { position = { x = -2.0; y = 1.0; z = 1.0; }; color = { r = 200; g = 210; b = 255; }; intensity = 10.0; }
+    );
+};
