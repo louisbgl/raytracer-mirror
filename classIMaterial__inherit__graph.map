@@ -1,17 +1,19 @@
 <map id="IMaterial" name="IMaterial">
-<area shape="rect" id="Node000001" title="Interface for materials that define how rays interact with surfaces." alt="" coords="415,5,495,31"/>
-<area shape="rect" id="Node000002" href="$classChessboard.html" title=" " alt="" coords="5,79,104,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="402,31,116,81,105,83,104,78,116,76,401,26"/>
-<area shape="rect" id="Node000003" href="$classColoredDiffuse.html" title=" " alt="" coords="129,79,247,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="401,36,232,81,230,76,400,31"/>
-<area shape="rect" id="Node000004" href="$classImageTexture.html" title=" " alt="" coords="271,79,382,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="423,40,349,81,346,76,421,35"/>
-<area shape="rect" id="Node000005" href="$classLambertian.html" title=" " alt="" coords="407,79,503,104"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="457,44,457,79,452,79,452,44"/>
-<area shape="rect" id="Node000006" href="$classPerlinNoise.html" title=" " alt="" coords="527,79,623,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="487,35,556,76,554,81,485,40"/>
-<area shape="rect" id="Node000007" href="$classPhong.html" title=" " alt="" coords="647,79,710,104"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="504,32,648,78,646,83,503,37"/>
-<area shape="rect" id="Node000008" href="$classTransparent.html" title=" " alt="" coords="735,79,833,104"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="509,28,735,77,734,82,508,33"/>
+<area shape="rect" id="Node000001" title="Interface for materials that define how rays interact with surfaces." alt="" coords="5,179,85,204"/>
+<area shape="rect" id="Node000002" href="$classChessboard.html" title=" " alt="" coords="143,5,242,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,164,82,103,104,69,132,40,149,29,152,33,135,44,109,73,87,106,58,167"/>
+<area shape="rect" id="Node000003" href="$classColoredDiffuse.html" title=" " alt="" coords="133,55,252,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="60,166,91,127,132,89,152,78,154,82,135,93,95,131,65,169"/>
+<area shape="rect" id="Node000004" href="$classImageTexture.html" title=" " alt="" coords="137,104,248,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="77,169,132,138,157,127,160,132,135,143,79,174"/>
+<area shape="rect" id="Node000005" href="$classLambertian.html" title=" " alt="" coords="145,153,241,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="98,180,144,172,145,177,99,185"/>
+<area shape="rect" id="Node000006" href="$classPerlinNoise.html" title=" " alt="" coords="145,203,241,228"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="99,197,145,205,144,210,98,203"/>
+<area shape="rect" id="Node000007" href="$classPhong.html" title=" " alt="" coords="161,252,224,277"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="82,209,135,237,162,250,160,254,132,242,79,213"/>
+<area shape="rect" id="Node000008" href="$classReflective.html" title="Reflective material implementing perfect mirror reflection." alt="" coords="149,301,236,327"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="66,214,96,251,135,287,157,299,154,304,132,291,92,254,62,217"/>
+<area shape="rect" id="Node000009" href="$classRefractive.html" title="Refractive material implementing light bending and transparency." alt="" coords="148,351,237,376"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="58,216,87,275,109,308,135,336,154,348,151,353,132,340,105,311,83,278,54,218"/>
 </map>

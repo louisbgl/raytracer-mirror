@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['ray_0',['Ray',['../classRay.html',1,'']]],
-  ['rectangle_1',['Rectangle',['../classRectangle.html',1,'']]]
+  ['quadraticroots_0',['QuadraticRoots',['../structQuadraticRoots.html',1,'']]],
+  ['quadraticsolver_1',['QuadraticSolver',['../classQuadraticSolver.html',1,'']]],
+  ['quarticroots_2',['QuarticRoots',['../structQuarticRoots.html',1,'']]],
+  ['quarticsolver_3',['QuarticSolver',['../classQuarticSolver.html',1,'']]]
 ];

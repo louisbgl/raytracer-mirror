@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('classImage.html',''); initResizable();
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classImage-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Image Class Reference</div></div>
 </div><!--header-->
@@ -113,9 +114,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d7ee661e4d7215b21fb94658e22e47d" id="r_a8d7ee661e4d7215b21fb94658e22e47d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a8d7ee661e4d7215b21fb94658e22e47d">setPixel</a> (int x, int y, const <a class="el" href="classVec3.html">Vec3</a> &amp;color)</td></tr>
 <tr class="memdesc:a8d7ee661e4d7215b21fb94658e22e47d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of a specific pixel in the image.  <br /></td></tr>
 <tr class="separator:a8d7ee661e4d7215b21fb94658e22e47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e42747a00227551466626bf22e56fd5" id="r_a4e42747a00227551466626bf22e56fd5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a4e42747a00227551466626bf22e56fd5">getPixel</a> (int x, int y) const</td></tr>
+<tr class="memdesc:a4e42747a00227551466626bf22e56fd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the color of a specific pixel in the image.  <br /></td></tr>
+<tr class="separator:a4e42747a00227551466626bf22e56fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9c18658d00f5eaf2f110eb74a1b0f64" id="r_aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aa9c18658d00f5eaf2f110eb74a1b0f64">sample</a> (double u, double v) const</td></tr>
+<tr class="memdesc:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples the image using <a class="el" href="structUV.html">UV</a> coordinates.  <br /></td></tr>
+<tr class="separator:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b5dfdeafcd288d4117cddec4185c4ea" id="r_a9b5dfdeafcd288d4117cddec4185c4ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a9b5dfdeafcd288d4117cddec4185c4ea">writePPM</a> (const std::string &amp;filename) const</td></tr>
 <tr class="memdesc:a9b5dfdeafcd288d4117cddec4185c4ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the image to a file in PPM format.  <br /></td></tr>
 <tr class="separator:a9b5dfdeafcd288d4117cddec4185c4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a91bd82ab24b3bc112662e3b09ef0589c" id="r_a91bd82ab24b3bc112662e3b09ef0589c"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a91bd82ab24b3bc112662e3b09ef0589c">readPPM</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a91bd82ab24b3bc112662e3b09ef0589c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an image from a PPM file.  <br /></td></tr>
+<tr class="separator:a91bd82ab24b3bc112662e3b09ef0589c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afb0339b802ed560e69eb07358d30198f" name="afb0339b802ed560e69eb07358d30198f"></a>
@@ -180,6 +193,44 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4e42747a00227551466626bf22e56fd5" name="a4e42747a00227551466626bf22e56fd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e42747a00227551466626bf22e56fd5">&#9670;&#160;</a></span>getPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVec3.html">Vec3</a> Image::getPixel </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the color of a specific pixel in the image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The x-coordinate of the pixel (0 to width-1). </td></tr>
+    <tr><td class="paramname">y</td><td>The y-coordinate of the pixel (0 to height-1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The color of the pixel, represented as a <a class="el" href="classVec3.html">Vec3</a> (R, G, B). </dd></dl>
+
+</div>
+</div>
 <a id="a000645ffdca3b8260ddda3932b56b9d4" name="a000645ffdca3b8260ddda3932b56b9d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a000645ffdca3b8260ddda3932b56b9d4">&#9670;&#160;</a></span>height()</h2>
 
@@ -202,6 +253,79 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91bd82ab24b3bc112662e3b09ef0589c" name="a91bd82ab24b3bc112662e3b09ef0589c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91bd82ab24b3bc112662e3b09ef0589c">&#9670;&#160;</a></span>readPPM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt; Image::readPPM </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads an image from a PPM file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The name of the file to read from. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The loaded image, or nullptr if loading failed. </dd></dl>
+
+</div>
+</div>
+<a id="aa9c18658d00f5eaf2f110eb74a1b0f64" name="aa9c18658d00f5eaf2f110eb74a1b0f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9c18658d00f5eaf2f110eb74a1b0f64">&#9670;&#160;</a></span>sample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVec3.html">Vec3</a> Image::sample </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Samples the image using <a class="el" href="structUV.html">UV</a> coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u</td><td>Horizontal coordinate (0.0 to 1.0). </td></tr>
+    <tr><td class="paramname">v</td><td>Vertical coordinate (0.0 to 1.0). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The sampled color as a <a class="el" href="classVec3.html">Vec3</a>. </dd></dl>
 
 </div>
 </div>

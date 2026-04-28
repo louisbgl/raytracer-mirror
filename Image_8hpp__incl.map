@@ -1,9 +1,13 @@
 <map id="src/core/Image.hpp" name="src/core/Image.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="129,5,275,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="245,5,391,31"/>
 <area shape="rect" id="Node000002" href="$Vec3_8hpp.html" title=" " alt="" coords="50,79,215,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,33,155,71,151,67,189,29"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="289,33,176,76,175,71,287,28"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="240,79,303,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="215,29,253,67,249,71,212,33"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="313,32,289,69,284,66,308,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="327,79,405,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="328,30,353,66,348,69,324,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="429,79,487,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="342,28,424,70,422,75,339,33"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,152,68,177"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="119,106,65,146,62,141,116,102"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="93,152,173,177"/>

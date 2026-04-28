@@ -104,9 +104,13 @@ Inheritance diagram for Triangle:</div>
 <div class="dyncontent">
 <div class="center"><img src="classTriangle__inherit__graph.png" border="0" usemap="#aTriangle_inherit__map" alt="Inheritance graph"/></div>
 <map name="aTriangle_inherit__map" id="aTriangle_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,79,79,104"/>
-<area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="9,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="45,44,45,79,39,79,39,44"/>
+<area shape="rect" title=" " alt="" coords="16,225,89,251"/>
+<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="17,152,88,177"/>
+<area shape="poly" title=" " alt="" coords="55,191,55,225,50,225,50,191"/>
+<area shape="rect" href="classIBoundable.html" title="Opt&#45;in interface for shapes that have a real axis&#45;aligned bounding box. Only finite shapes implement ..." alt="" coords="5,79,100,104"/>
+<area shape="poly" title=" " alt="" coords="55,118,55,152,50,152,50,118"/>
+<area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="19,5,86,31"/>
+<area shape="poly" title=" " alt="" coords="55,44,55,79,50,79,50,44"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -114,28 +118,49 @@ Collaboration diagram for Triangle:</div>
 <div class="dyncontent">
 <div class="center"><img src="classTriangle__coll__graph.png" border="0" usemap="#aTriangle_coll__map" alt="Collaboration graph"/></div>
 <map name="aTriangle_coll__map" id="aTriangle_coll__map">
-<area shape="rect" title=" " alt="" coords="5,79,79,104"/>
-<area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="9,5,75,31"/>
-<area shape="poly" title=" " alt="" coords="45,44,45,79,39,79,39,44"/>
+<area shape="rect" title=" " alt="" coords="16,225,89,251"/>
+<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="17,152,88,177"/>
+<area shape="poly" title=" " alt="" coords="55,191,55,225,50,225,50,191"/>
+<area shape="rect" href="classIBoundable.html" title="Opt&#45;in interface for shapes that have a real axis&#45;aligned bounding box. Only finite shapes implement ..." alt="" coords="5,79,100,104"/>
+<area shape="poly" title=" " alt="" coords="55,118,55,152,50,152,50,118"/>
+<area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="19,5,86,31"/>
+<area shape="poly" title=" " alt="" coords="55,44,55,79,50,79,50,44"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac996a35f643c6608d6e0158ba54e2500" id="r_ac996a35f643c6608d6e0158ba54e2500"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#ac996a35f643c6608d6e0158ba54e2500">Triangle</a> (<a class="el" href="classVec3.html">Vec3</a> v0, <a class="el" href="classVec3.html">Vec3</a> v1, <a class="el" href="classVec3.html">Vec3</a> v2, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
-<tr class="separator:ac996a35f643c6608d6e0158ba54e2500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd678404d934200a0742d447c68fefe1" id="r_afd678404d934200a0742d447c68fefe1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#afd678404d934200a0742d447c68fefe1">Triangle</a> (<a class="el" href="classVec3.html">Vec3</a> v0, <a class="el" href="classVec3.html">Vec3</a> v1, <a class="el" href="classVec3.html">Vec3</a> v2, <a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
+<tr class="separator:afd678404d934200a0742d447c68fefe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fa3602358b15ad95071695a1cbb2ac2" id="r_a7fa3602358b15ad95071695a1cbb2ac2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#a7fa3602358b15ad95071695a1cbb2ac2">~Triangle</a> () override=default</td></tr>
 <tr class="separator:a7fa3602358b15ad95071695a1cbb2ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d200bd3443a170793342e5ee98e6eb8" id="r_a9d200bd3443a170793342e5ee98e6eb8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#a9d200bd3443a170793342e5ee98e6eb8">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const override</td></tr>
-<tr class="memdesc:a9d200bd3443a170793342e5ee98e6eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a ray hits the shape within the specified t-range.  <br /></td></tr>
-<tr class="separator:a9d200bd3443a170793342e5ee98e6eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a406e2db3b32e78a80d6e1a241d501e91" id="r_a406e2db3b32e78a80d6e1a241d501e91"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#a406e2db3b32e78a80d6e1a241d501e91">hitLocal</a> (const <a class="el" href="classRay.html">Ray</a> &amp;localRay, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const override</td></tr>
+<tr class="memdesc:a406e2db3b32e78a80d6e1a241d501e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.  <br /></td></tr>
+<tr class="separator:a406e2db3b32e78a80d6e1a241d501e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a7d2e423786b59eca92589cda3337b" id="r_a75a7d2e423786b59eca92589cda3337b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAABB.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTriangle.html#a75a7d2e423786b59eca92589cda3337b">computeLocalAABB</a> () const override</td></tr>
+<tr class="memdesc:a75a7d2e423786b59eca92589cda3337b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return axis-aligned bounding box for shape at origin (local space).  <br /></td></tr>
+<tr class="separator:a75a7d2e423786b59eca92589cda3337b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classAShape"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAShape')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAShape.html">AShape</a></td></tr>
+<tr class="memitem:af3b7cab4e9cf252c189ea1f77af015ae inherit pub_methods_classAShape" id="r_af3b7cab4e9cf252c189ea1f77af015ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#af3b7cab4e9cf252c189ea1f77af015ae">AShape</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation)</td></tr>
+<tr class="separator:af3b7cab4e9cf252c189ea1f77af015ae inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape" id="r_afbff68d7a0a5fdc03eca3c610d3d740a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const final override</td></tr>
+<tr class="memdesc:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="mdescLeft">&#160;</td><td class="mdescRight">[FINAL] Full intersection pipeline: <a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> check → transform to local → <a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688" title="Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.">hitLocal()</a> → transform to world → range check  <br /></td></tr>
+<tr class="separator:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b463f5454e822579671c73d2984051c inherit pub_methods_classAShape" id="r_a2b463f5454e822579671c73d2984051c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAABB.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#a2b463f5454e822579671c73d2984051c">boundingBox</a> () const override</td></tr>
+<tr class="separator:a2b463f5454e822579671c73d2984051c inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classIShape"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classIShape')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classIShape.html">IShape</a></td></tr>
 <tr class="memitem:ab7886f440c162870f309db3772739ffa inherit pub_methods_classIShape" id="r_ab7886f440c162870f309db3772739ffa"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIShape.html#ab7886f440c162870f309db3772739ffa">~IShape</a> ()=default</td></tr>
 <tr class="separator:ab7886f440c162870f309db3772739ffa inherit pub_methods_classIShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classAShape"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classAShape')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classAShape.html">AShape</a></td></tr>
+<tr class="memitem:afac33774671e0b4aaf414b27f56f4237 inherit pro_methods_classAShape" id="r_afac33774671e0b4aaf414b27f56f4237"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#afac33774671e0b4aaf414b27f56f4237">updateWorldAABB</a> ()</td></tr>
+<tr class="separator:afac33774671e0b4aaf414b27f56f4237 inherit pro_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac996a35f643c6608d6e0158ba54e2500" name="ac996a35f643c6608d6e0158ba54e2500"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac996a35f643c6608d6e0158ba54e2500">&#9670;&#160;</a></span>Triangle()</h2>
+<a id="afd678404d934200a0742d447c68fefe1" name="afd678404d934200a0742d447c68fefe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd678404d934200a0742d447c68fefe1">&#9670;&#160;</a></span>Triangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,6 +182,18 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
           <td class="paramname"><em>v2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
+          <td class="paramname"><em>rotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
+          <td class="paramname"><em>translation</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -200,8 +237,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9d200bd3443a170793342e5ee98e6eb8" name="a9d200bd3443a170793342e5ee98e6eb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d200bd3443a170793342e5ee98e6eb8">&#9670;&#160;</a></span>hit()</h2>
+<a id="a75a7d2e423786b59eca92589cda3337b" name="a75a7d2e423786b59eca92589cda3337b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a7d2e423786b59eca92589cda3337b">&#9670;&#160;</a></span>computeLocalAABB()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,22 +247,39 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool Triangle::hit </td>
+          <td class="memname"><a class="el" href="classAABB.html">AABB</a> Triangle::computeLocalAABB </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return axis-aligned bounding box for shape at origin (local space). </p>
+
+<p>Implements <a class="el" href="classAShape.html#a80011e2c3a3d2470fc234f77732e17a5">AShape</a>.</p>
+
+</div>
+</div>
+<a id="a406e2db3b32e78a80d6e1a241d501e91" name="a406e2db3b32e78a80d6e1a241d501e91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a406e2db3b32e78a80d6e1a241d501e91">&#9670;&#160;</a></span>hitLocal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Triangle::hitLocal </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classRay.html">Ray</a> &amp;&#160;</td>
-          <td class="paramname"><em>ray</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t_min</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>t_max</em>, </td>
+          <td class="paramname"><em>localRay</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -246,19 +300,9 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Checks if a ray hits the shape within the specified t-range. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ray</td><td>The ray to check. </td></tr>
-    <tr><td class="paramname">t_min</td><td>The minimum t-value. </td></tr>
-    <tr><td class="paramname">t_max</td><td>The maximum t-value. </td></tr>
-    <tr><td class="paramname">record</td><td>[OUT] The hit record to fill if a hit is found. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a hit is found, false otherwise. </dd></dl>
+<p>Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max. </p>
 
-<p>Implements <a class="el" href="classIShape.html#ad1dcefec640ab739b0944a20ba5de6d4">IShape</a>.</p>
+<p>Implements <a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688">AShape</a>.</p>
 
 </div>
 </div>

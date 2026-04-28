@@ -3,17 +3,14 @@ var searchData=
   ['t_0',['t',['../classHitRecord.html#a20cade6a216398343ddcb3d1bde14f7d',1,'HitRecord']]],
   ['t1_1',['t1',['../structQuadraticRoots.html#a4c623444b00527b9e11f6f250a5a3e16',1,'QuadraticRoots']]],
   ['t2_2',['t2',['../structQuadraticRoots.html#ac9b6cbf60b3cd5f85d97c1738546908c',1,'QuadraticRoots']]],
-  ['tanglecube_3',['tanglecube',['../classTanglecube.html#a168afbabaf8e7989011f88389b553b00',1,'Tanglecube::Tanglecube()'],['../classTanglecube.html',1,'Tanglecube']]],
+  ['tanglecube_3',['tanglecube',['../classTanglecube.html',1,'Tanglecube'],['../classTanglecube.html#a168afbabaf8e7989011f88389b553b00',1,'Tanglecube::Tanglecube()']]],
   ['tanglecube_2ecpp_4',['Tanglecube.cpp',['../Tanglecube_8cpp.html',1,'']]],
   ['tanglecube_2ehpp_5',['Tanglecube.hpp',['../Tanglecube_8hpp.html',1,'']]],
   ['torus_6',['torus',['../classTorus.html',1,'Torus'],['../classTorus.html#acbd092829223b1b57390be75f5f55f5a',1,'Torus::Torus()']]],
   ['torus_2ecpp_7',['Torus.cpp',['../Torus_8cpp.html',1,'']]],
   ['torus_2ehpp_8',['Torus.hpp',['../Torus_8hpp.html',1,'']]],
-  ['transparent_9',['transparent',['../classTransparent.html',1,'Transparent'],['../classTransparent.html#a5d0159eab894dd9adea5c691848d46d4',1,'Transparent::Transparent()']]],
-  ['transparent_2ecpp_10',['Transparent.cpp',['../Transparent_8cpp.html',1,'']]],
-  ['transparent_2ehpp_11',['Transparent.hpp',['../Transparent_8hpp.html',1,'']]],
-  ['triangle_12',['triangle',['../classTriangle.html#ac996a35f643c6608d6e0158ba54e2500',1,'Triangle::Triangle()'],['../classTriangle.html',1,'Triangle']]],
-  ['triangle_2ecpp_13',['Triangle.cpp',['../Triangle_8cpp.html',1,'']]],
-  ['triangle_2ehpp_14',['Triangle.hpp',['../Triangle_8hpp.html',1,'']]],
-  ['two_5fpi_15',['TWO_PI',['../namespaceMath.html#a6d9e27a8aa389f970fdfff58f6131ce6',1,'Math']]]
+  ['triangle_9',['triangle',['../classTriangle.html',1,'Triangle'],['../classTriangle.html#afd678404d934200a0742d447c68fefe1',1,'Triangle::Triangle()']]],
+  ['triangle_2ecpp_10',['Triangle.cpp',['../Triangle_8cpp.html',1,'']]],
+  ['triangle_2ehpp_11',['Triangle.hpp',['../Triangle_8hpp.html',1,'']]],
+  ['two_5fpi_12',['TWO_PI',['../namespaceMath.html#a6d9e27a8aa389f970fdfff58f6131ce6',1,'Math']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['normal_0',['normal',['../classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684',1,'HitRecord']]]
+  ['helptext_0',['helpText',['../structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e',1,'PluginMetadata']]]
 ];

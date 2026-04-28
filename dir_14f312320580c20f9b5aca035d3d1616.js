@@ -12,6 +12,8 @@ var dir_14f312320580c20f9b5aca035d3d1616 =
     [ "PerlinNoise.hpp", "PerlinNoise_8hpp.html", "PerlinNoise_8hpp" ],
     [ "Phong.cpp", "Phong_8cpp.html", "Phong_8cpp" ],
     [ "Phong.hpp", "Phong_8hpp.html", "Phong_8hpp" ],
-    [ "Transparent.cpp", "Transparent_8cpp.html", "Transparent_8cpp" ],
-    [ "Transparent.hpp", "Transparent_8hpp.html", "Transparent_8hpp" ]
+    [ "Reflective.cpp", "Reflective_8cpp.html", "Reflective_8cpp" ],
+    [ "Reflective.hpp", "Reflective_8hpp.html", "Reflective_8hpp" ],
+    [ "Refractive.cpp", "Refractive_8cpp.html", "Refractive_8cpp" ],
+    [ "Refractive.hpp", "Refractive_8hpp.html", "Refractive_8hpp" ]
 ];

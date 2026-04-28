@@ -104,8 +104,10 @@ Inheritance diagram for LimitedHourglass:</div>
 <div class="dyncontent">
 <div class="center"><img src="classLimitedHourglass__inherit__graph.png" border="0" usemap="#aLimitedHourglass_inherit__map" alt="Inheritance graph"/></div>
 <map name="aLimitedHourglass_inherit__map" id="aLimitedHourglass_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,152,141,177"/>
-<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="38,79,109,104"/>
+<area shape="rect" title=" " alt="" coords="5,225,141,251"/>
+<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="38,152,109,177"/>
+<area shape="poly" title=" " alt="" coords="76,191,76,225,71,225,71,191"/>
+<area shape="rect" href="classIBoundable.html" title="Opt&#45;in interface for shapes that have a real axis&#45;aligned bounding box. Only finite shapes implement ..." alt="" coords="26,79,121,104"/>
 <area shape="poly" title=" " alt="" coords="76,118,76,152,71,152,71,118"/>
 <area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="40,5,107,31"/>
 <area shape="poly" title=" " alt="" coords="76,44,76,79,71,79,71,44"/>
@@ -116,8 +118,10 @@ Collaboration diagram for LimitedHourglass:</div>
 <div class="dyncontent">
 <div class="center"><img src="classLimitedHourglass__coll__graph.png" border="0" usemap="#aLimitedHourglass_coll__map" alt="Collaboration graph"/></div>
 <map name="aLimitedHourglass_coll__map" id="aLimitedHourglass_coll__map">
-<area shape="rect" title=" " alt="" coords="5,152,141,177"/>
-<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="38,79,109,104"/>
+<area shape="rect" title=" " alt="" coords="5,225,141,251"/>
+<area shape="rect" href="classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="38,152,109,177"/>
+<area shape="poly" title=" " alt="" coords="76,191,76,225,71,225,71,191"/>
+<area shape="rect" href="classIBoundable.html" title="Opt&#45;in interface for shapes that have a real axis&#45;aligned bounding box. Only finite shapes implement ..." alt="" coords="26,79,121,104"/>
 <area shape="poly" title=" " alt="" coords="76,118,76,152,71,152,71,118"/>
 <area shape="rect" href="classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="40,5,107,31"/>
 <area shape="poly" title=" " alt="" coords="76,44,76,79,71,79,71,44"/>
@@ -142,6 +146,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape" id="r_afbff68d7a0a5fdc03eca3c610d3d740a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const final override</td></tr>
 <tr class="memdesc:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="mdescLeft">&#160;</td><td class="mdescRight">[FINAL] Full intersection pipeline: <a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> check → transform to local → <a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688" title="Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.">hitLocal()</a> → transform to world → range check  <br /></td></tr>
 <tr class="separator:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b463f5454e822579671c73d2984051c inherit pub_methods_classAShape" id="r_a2b463f5454e822579671c73d2984051c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAABB.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#a2b463f5454e822579671c73d2984051c">boundingBox</a> () const override</td></tr>
+<tr class="separator:a2b463f5454e822579671c73d2984051c inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classIShape"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classIShape')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classIShape.html">IShape</a></td></tr>
 <tr class="memitem:ab7886f440c162870f309db3772739ffa inherit pub_methods_classIShape" id="r_ab7886f440c162870f309db3772739ffa"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIShape.html#ab7886f440c162870f309db3772739ffa">~IShape</a> ()=default</td></tr>
 <tr class="separator:ab7886f440c162870f309db3772739ffa inherit pub_methods_classIShape"><td class="memSeparator" colspan="2">&#160;</td></tr>

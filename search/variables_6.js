@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['pi_0',['PI',['../namespaceMath.html#acfc7ead6b66a7dce80f1a510df01845c',1,'Math']]],
-  ['pluginname_1',['pluginName',['../structPluginMetadata.html#a0c471c018f4199c4f15f13ef91bde706',1,'PluginMetadata']]],
-  ['pluralform_2',['pluralForm',['../structPluginMetadata.html#a72171c805a5d8b9f6a18923ab92b5dff',1,'PluginMetadata']]],
-  ['point_3',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]]
+  ['inv_5fpi_0',['INV_PI',['../namespaceMath.html#adef241e1d1a1487cb652498422c50d1c',1,'Math']]],
+  ['inv_5ftwo_5fpi_1',['INV_TWO_PI',['../namespaceMath.html#aa16f27b7c5fb4757023f8ad29352f068',1,'Math']]]
 ];

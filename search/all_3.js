@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['diffusemultiplier_0',['diffuseMultiplier',['../classScene.html#ada63d7d7c8cef80d8afd5b86ed132b8e',1,'Scene']]],
+  ['diffusemultiplier_0',['diffuseMultiplier',['../structRendererConfig.html#a0b13454499673dfb9c81c5dfee0528ba',1,'RendererConfig']]],
   ['direction_1',['direction',['../classRay.html#a0a1c356397d4cfde34f4eeb0e27a191d',1,'Ray']]],
   ['directionallight_2',['directionallight',['../classDirectionalLight.html',1,'DirectionalLight'],['../classDirectionalLight.html#a9c76ff87fe121d77b8058ff13e8b1b2a',1,'DirectionalLight::DirectionalLight()']]],
   ['directionallight_2ecpp_3',['DirectionalLight.cpp',['../DirectionalLight_8cpp.html',1,'']]],

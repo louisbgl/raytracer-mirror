@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['material_0',['material',['../classHitRecord.html#a35b119aaf1cf369dd0edc79a53ca4329',1,'HitRecord']]]
+  ['front_5fface_0',['front_face',['../classHitRecord.html#a95d5e41521e7dd017ec39d583602c745',1,'HitRecord']]]
 ];
