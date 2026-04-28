@@ -29,7 +29,7 @@ private:
     std::unique_ptr<Image> _backgroundImage;
     double _t_min = 0.001;
     double _t_max = 1e6;
-    int _maxDepth = 1000;
+    int _maxDepth = 50;
 
     bool  _loadScene();
     Image _render();
