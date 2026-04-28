@@ -1,0 +1,40 @@
+renderer:
+{
+    lighting = { ambientColor = { r = 20; g = 20; b = 30; }; ambientMultiplier = 0.25; diffuseMultiplier = 0.9; };
+    background = { color = { r = 30; g = 50; b = 80; }; };
+    output = "output.ppm";
+};
+
+camera:
+{
+    resolution = { width = 800; height = 800; };
+    // flag lies flat at y≈0, spans x[-2.4, 2.4] z[-1.7, 5.4] — look from above-front
+    position = { x = 0.0; y = 5.0; z = -4.0; };
+    look_at = { x = 0.0; y = 0.0; z = 1.8; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 65.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "white"; color = { r = 220; g = 220; b = 220; }; shininess = 8.0; }
+    );
+};
+
+shapes:
+{
+    meshes = (
+        { path = "textures/obj/arthur/drapeau.obj"; material = "white"; }
+    );
+};
+
+lights:
+{
+    point = (
+        // key: above and in front, slightly right
+        { position = { x = 3.0; y = 6.0; z = -2.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 40.0; },
+        // fill: from the far side to catch the back faces
+        { position = { x = -2.0; y = 3.0; z = 7.0; }; color = { r = 180; g = 200; b = 255; }; intensity = 20.0; }
+    );
+};
