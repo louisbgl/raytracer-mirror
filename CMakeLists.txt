@@ -223,7 +223,7 @@ add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
 add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
 add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp)
 add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp)
-add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp src/plugins/Shapes/TrianglePlugin.cpp src/core/AShape.cpp)
+add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp src/core/AShape.cpp)
 # mesh uses MeshTriangle (IBoundable, no AShape overhead) internally; Mesh itself is AShape
 add_raytracer_plugin(mesh shapes src/plugins/Shapes/Mesh.cpp src/parsers/ObjParser.cpp src/plugins/Shapes/MeshTriangle.cpp src/core/AShape.cpp)
 
