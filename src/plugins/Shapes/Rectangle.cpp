@@ -2,8 +2,8 @@
 #include "../PluginMetadata.hpp"
 #include <cmath>
 
-Rectangle::Rectangle(Vec3 rotation, Vec3 translation, double width, double height, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _width(width), _height(height), _material(material) {}
+Rectangle::Rectangle(Vec3 rotation, Vec3 translation, Vec3 scale, double width, double height, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _width(width), _height(height), _material(material) {}
 
 bool Rectangle::hitLocal(const Ray& ray, HitRecord& record) const {
     // Rectangle in XY plane at z=0, centered at origin
@@ -41,8 +41,8 @@ AABB Rectangle::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double width, double height, std::shared_ptr<IMaterial>* material) {
-    return new Rectangle(Vec3(rx, ry, rz), Vec3(tx, ty, tz), width, height, *material);
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, double width, double height, std::shared_ptr<IMaterial>* material) {
+    return new Rectangle(Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), width, height, *material);
 }
 
 extern "C" PluginMetadata* metadata() {
