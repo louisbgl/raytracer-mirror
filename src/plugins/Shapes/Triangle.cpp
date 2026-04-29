@@ -56,21 +56,21 @@ AABB Triangle::computeLocalAABB() const {
 }
 
 extern "C" IShape* create(
-    double rx, double ry, double rz,
-    double tx, double ty, double tz,
-    double sx, double sy, double sz,
-    double v0x, double v0y, double v0z,
-    double v1x, double v1y, double v1z,
-    double v2x, double v2y, double v2z,
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    Vec3C v0,
+    Vec3C v1,
+    Vec3C v2,
     std::shared_ptr<IMaterial>* material
 ) {
     return new Triangle(
-        Vec3(v0x, v0y, v0z),
-        Vec3(v1x, v1y, v1z),
-        Vec3(v2x, v2y, v2z),
-        Vec3(rx, ry, rz),
-        Vec3(tx, ty, tz),
-        Vec3(sx, sy, sz),
+        Vec3(v0),
+        Vec3(v1),
+        Vec3(v2),
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
         *material
     );
 }
