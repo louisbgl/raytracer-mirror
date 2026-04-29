@@ -62,8 +62,18 @@ Vec3 Cylinder::computeBodyNormal(const Vec3& hit_point) const {
     return normalize(p_perp);
 }
 
-extern "C" IShape* create(double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Cylinder(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
+extern "C" IShape* create(
+    Vec3C position,
+    Vec3C axis,
+    double radius,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Cylinder(
+        Vec3(position),
+        Vec3(axis),
+        radius,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {
