@@ -80,7 +80,7 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         tEnabled << "multithreading: " << "yes";
         _write("renderer", tEnabled.str());
         std::ostringstream tCount;
-        tCount << "multithreading:"<< "  thread count: " << rc.threadCount;
+        tCount << "multithreading:"<< " thread count: " << rc.threadCount;
         _write("renderer", tCount.str());
     } else {
         _write("multithreading", "  off");

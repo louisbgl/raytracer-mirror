@@ -110,16 +110,7 @@ Image Core::_render()
         std::cout << "  Log: " << _logger->path() << std::endl;
     }
 
-
-
     return image;
-    // if (rc.aaEnabled && rc.aaSamples > 1) {
-    //     if (rc.aaMethod == "ssaa") {
-    //         return _renderSSAA(rc.aaSamples);
-    //     }
-    // }
-    //
-    // return _renderNoAA();
 }
 
 void Core::_renderNoAA(Image &image, int first_row, int last_row, ProgressBar *progbar)
@@ -138,30 +129,6 @@ void Core::_renderNoAA(Image &image, int first_row, int last_row, ProgressBar *p
             progbar->update(1);
         }
     }
-
-    // int width  = _scene.camera().getWidth();
-    // int height = _scene.camera().getHeight();
-    // Image image(width, height);
-    //
-    // std::unique_ptr<ProgressBar> pb;
-    // if (_logging)
-    //     pb = std::make_unique<ProgressBar>(height);
-    //
-    // for (int y = 0; y < height; ++y) {
-    //     for (int x = 0; x < width; ++x) {
-    //         float u = static_cast<float>(x) / (width - 1);
-    //         float v = 1.0f - static_cast<float>(y) / (height - 1);
-    //         image.setPixel(x, y, trace(_scene.camera().getRay(u, v), 50, u, v));
-    //     }
-    //     if (_logging)
-    //         pb->update(y + 1);
-    // }
-    //
-    // if (_logging) {
-    //     pb->finish();
-    //     std::cout << "  Log: " << _logger->path() << std::endl;
-    // }
-   // return image;
 }
 
 void Core::_renderSSAA(Image &image, int first_row, int last_row, ProgressBar *progbar, int samples)
@@ -169,7 +136,7 @@ void Core::_renderSSAA(Image &image, int first_row, int last_row, ProgressBar *p
     int w = _scene.camera().getWidth();
     int h = _scene.camera().getHeight();
 
-    // Thread-local RNG
+    // safe thread rng
     std::mt19937 gen(std::hash<std::thread::id>{}(std::this_thread::get_id()));
     std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
@@ -192,41 +159,6 @@ void Core::_renderSSAA(Image &image, int first_row, int last_row, ProgressBar *p
             progbar->update(1);
         }
     }
-    // int width  = _scene.camera().getWidth();
-    // int height = _scene.camera().getHeight();
-    // Image image(width, height);
-    //
-    // std::random_device rd;
-    // std::mt19937 gen(rd());
-    // std::uniform_real_distribution<float> dist(0.0f, 1.0f);
-    //
-    // std::unique_ptr<ProgressBar> pb;
-    // if (_logging)
-    //     pb = std::make_unique<ProgressBar>(height);
-    //
-    // for (int y = 0; y < height; ++y) {
-    //     for (int x = 0; x < width; ++x) {
-    //         Vec3 pixelColor(0, 0, 0);
-    //         float baseU = static_cast<float>(x) / (width - 1);
-    //         float baseV = 1.0f - static_cast<float>(y) / (height - 1);
-    //
-    //         for (int s = 0; s < samples; ++s) {
-    //             float u = (static_cast<float>(x) + dist(gen)) / width;
-    //             float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
-    //             pixelColor = pixelColor + trace(_scene.camera().getRay(u, v), 50, baseU, baseV);
-    //         }
-    //
-    //         image.setPixel(x, y, pixelColor / static_cast<double>(samples));
-    //     }
-    //     if (_logging)
-    //         pb->update(y + 1);
-    // }
-    //
-    // if (_logging) {
-    //     pb->finish();
-    //     std::cout << "  Log: " << _logger->path() << std::endl;
-    // }
-    // return image;
 }
 
 void Core::_writeOutput(Image& image) {
