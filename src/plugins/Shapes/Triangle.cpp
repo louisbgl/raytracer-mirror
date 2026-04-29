@@ -1,8 +1,8 @@
 #include "Triangle.hpp"
 #include "../PluginMetadata.hpp"
 
-Triangle::Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation),
+Triangle::Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale),
       _v0(v0),
       _edge1(v1 - v0),
       _edge2(v2 - v0),
@@ -58,6 +58,7 @@ AABB Triangle::computeLocalAABB() const {
 extern "C" IShape* create(
     double rx, double ry, double rz,
     double tx, double ty, double tz,
+    double sx, double sy, double sz,
     double v0x, double v0y, double v0z,
     double v1x, double v1y, double v1z,
     double v2x, double v2y, double v2z,
@@ -69,6 +70,7 @@ extern "C" IShape* create(
         Vec3(v2x, v2y, v2z),
         Vec3(rx, ry, rz),
         Vec3(tx, ty, tz),
+        Vec3(sx, sy, sz),
         *material
     );
 }
