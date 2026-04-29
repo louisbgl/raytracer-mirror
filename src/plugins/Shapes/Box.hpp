@@ -4,7 +4,7 @@
 
 class Box : public AShape {
 public:
-    Box(Vec3 rotation, Vec3 translation, double width, double height, double depth, std::shared_ptr<IMaterial> material);
+    Box(Vec3 rotation, Vec3 translation, Vec3 scale, double width, double height, double depth, std::shared_ptr<IMaterial> material);
     ~Box() override = default;
 
     bool hitLocal(const Ray& ray, HitRecord& record) const override;
