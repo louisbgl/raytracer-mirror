@@ -65,8 +65,18 @@ bool Hourglass::hit(const Ray& ray, double t_min, double t_max, HitRecord& recor
     return false;
 }
 
-extern "C" IShape* create(double x, double y, double z, double ax, double ay, double az, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Hourglass(Vec3(x, y, z), Vec3(ax, ay, az), radius, *material);
+extern "C" IShape* create(
+    Vec3C position,
+    Vec3C axis,
+    double radius,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Hourglass(
+        Vec3(position),
+        Vec3(axis),
+        radius,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {
