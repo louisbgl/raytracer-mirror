@@ -13,6 +13,7 @@
 #include <filesystem>
 
 Scene SceneParser::parse(const std::string& filename) {
+    _currentFile = filename;  // Store for error messages
     libconfig::Config config;
 
     try {
@@ -168,7 +169,7 @@ void SceneParser::parseMaterials(libconfig::Config& config, std::unordered_map<s
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Materials section not found in config" << std::endl;
+        std::cerr << "Materials section not found in " << _currentFile << std::endl;
     }
 }
 
@@ -207,7 +208,7 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Shapes section not found in config" << std::endl;
+        std::cerr << "Shapes section not found in " << _currentFile << std::endl;
     }
 }
 
@@ -237,7 +238,7 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Lights section not found in config" << std::endl;
+        std::cerr << "Lights section not found in " << _currentFile << std::endl;
     }
 }
 
