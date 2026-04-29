@@ -2,6 +2,7 @@
 
 #include "../src/DataTypes/Scene.hpp"
 #include "Image.hpp"
+#include "core/ProgressBar.hpp"
 #include <memory>
 #include <string>
 
@@ -32,9 +33,11 @@ private:
 
     bool  _loadScene();
     Image _render();
-    Image _renderNoAA();
-    Image _renderSSAA(int samples);
+    // Image _renderNoAA();
+    // Image _renderSSAA(int samples);
     void  _writeOutput(Image& image);
+    void _renderNoAA(Image &image, int first_row, int last_row, ProgressBar *progbar);
+    void _renderSSAA(Image &image, int first_row, int last_row, ProgressBar *progbar, int samples);
 
     Vec3 trace(const Ray& ray, int depth, double screenU, double screenV);
     Vec3 _sampleBackground(double screenU, double screenV);

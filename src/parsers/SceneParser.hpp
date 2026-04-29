@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../DataTypes/Scene.hpp"
+#include "DataTypes/RendererConfig.hpp"
 #include <libconfig.h++>
 #include <string>
 #include <unordered_map>
@@ -37,4 +38,6 @@ private:
     void parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
     void parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
     void parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
+
+    void parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
 };
