@@ -92,10 +92,8 @@ bool Tanglecube::hitLocal(const Ray& ray, HitRecord& record) const {
         record.point = ray.at(closest_t);
         record.material = _material;
 
-        Vec3 outward_normal = gradient(record.point.x(), record.point.y(), record.point.z());
-        outward_normal = normalize(outward_normal);
-        record.normal = outward_normal;
-        record.front_face = true;
+        Vec3 outward_normal = normalize(gradient(record.point.x(), record.point.y(), record.point.z()));
+        record.set_face_normal(ray, outward_normal);
 
         Vec3 d = normalize(record.point);
         double phi = std::atan2(-d.z(), d.x()) + Math::PI;
@@ -115,9 +113,20 @@ AABB Tanglecube::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double scale, std::shared_ptr<IMaterial>* material) {
-    return new Tanglecube(Vec3(rx, ry, rz), Vec3(tx, ty, tz), scale, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    double scale,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Tanglecube(
+        Vec3(rotation),
+        Vec3(translation),
+        scale,
+        *material
+    );
 }
+
 extern "C" PluginMetadata* metadata() {
     static PluginMetadata metadata = {
         .pluginName = "tanglecube",
