@@ -21,8 +21,17 @@ std::shared_ptr<ILight> LightFactory::_createPointLight(const libconfig::Setting
     double intensity = ConfigUtils::getNumber(config["intensity"]);
 
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("pointlight");
-    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(rawCreateFunc);
-    return std::shared_ptr<ILight>(createFunc(position.x(), position.y(), position.z(), color.x(), color.y(), color.z(), intensity));
+    
+    auto createFunc = reinterpret_cast<ILight* (*)(
+        Vec3C,
+        Vec3C,
+        double
+    )>(rawCreateFunc);
+    return std::shared_ptr<ILight>(createFunc(
+        position.toCStruct(),
+        color.toCStruct(),
+        intensity
+    ));
 }
 
 std::shared_ptr<ILight> LightFactory::_createDirectionalLight(const libconfig::Setting& config) {
@@ -31,6 +40,14 @@ std::shared_ptr<ILight> LightFactory::_createDirectionalLight(const libconfig::S
     double intensity = ConfigUtils::getNumber(config["intensity"]);
 
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("directionallight");
-    auto createFunc = reinterpret_cast<ILight* (*)(double, double, double, double, double, double, double)>(rawCreateFunc);
-    return std::shared_ptr<ILight>(createFunc(direction.x(), direction.y(), direction.z(), color.x(), color.y(), color.z(), intensity));
+    auto createFunc = reinterpret_cast<ILight* (*)(
+        Vec3C,
+        Vec3C,
+        double
+    )>(rawCreateFunc);
+    return std::shared_ptr<ILight>(createFunc(
+        direction.toCStruct(),
+        color.toCStruct(),
+        intensity
+    ));
 }
