@@ -5,8 +5,8 @@
 #include <cmath>
 #include <limits>
 
-LimitedCone::LimitedCone(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _radius(radius), _height(height), _material(material) {}
+LimitedCone::LimitedCone(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, double height, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _radius(radius), _height(height), _material(material) {}
 
 bool LimitedCone::hitLocal(const Ray& ray, HitRecord& record) const {
     double closest_t = std::numeric_limits<double>::infinity();
@@ -101,8 +101,8 @@ AABB LimitedCone::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr<IMaterial>* material) {
-    return new LimitedCone(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, height, *material);
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, double radius, double height, std::shared_ptr<IMaterial>* material) {
+    return new LimitedCone(Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), radius, height, *material);
 }
 
 extern "C" PluginMetadata* metadata() {
