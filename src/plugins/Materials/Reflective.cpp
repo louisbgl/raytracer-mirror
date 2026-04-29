@@ -30,8 +30,14 @@ double Reflective::_clampReflectivity(double reflectivity) {
     return std::clamp(reflectivity, 0.0, 1.0);
 }
 
-extern "C" IMaterial* create(double reflectivity, double r, double g, double b) {
-    return new Reflective(reflectivity, Vec3(r, g, b));
+extern "C" IMaterial* create(
+    double reflectivity,
+    Vec3C color
+) {
+    return new Reflective(
+        reflectivity,
+        Vec3(color)
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {
