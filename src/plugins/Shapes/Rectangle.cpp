@@ -41,8 +41,20 @@ AABB Rectangle::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, double width, double height, std::shared_ptr<IMaterial>* material) {
-    return new Rectangle(Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), width, height, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    double width, double height,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Rectangle(
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        width, height,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {
