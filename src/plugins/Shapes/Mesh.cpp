@@ -3,8 +3,8 @@
 #include "../PluginMetadata.hpp"
 #include <stdexcept>
 
-Mesh::Mesh(const std::string& filename, Vec3 rotation, Vec3 translation, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation)
+Mesh::Mesh(const std::string& filename, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale)
 {
     ObjParser parser;
     auto shapes = parser.parse(filename, material);
@@ -21,8 +21,8 @@ AABB Mesh::computeLocalAABB() const {
     return _bvh->boundingBox();
 }
 
-extern "C" IShape* create(const char* filename, double rx, double ry, double rz, double tx, double ty, double tz, std::shared_ptr<IMaterial>* material) {
-    return new Mesh(std::string(filename), Vec3(rx, ry, rz), Vec3(tx, ty, tz), *material);
+extern "C" IShape* create(const char* filename, double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, std::shared_ptr<IMaterial>* material) {
+    return new Mesh(std::string(filename), Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), *material);
 }
 
 extern "C" PluginMetadata* metadata() {
