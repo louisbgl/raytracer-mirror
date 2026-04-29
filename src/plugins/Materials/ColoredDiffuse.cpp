@@ -18,6 +18,10 @@ bool ColoredDiffuse::scatter([[maybe_unused]] const Ray& ray_in,
     return false;
 }
 
+Vec3 ColoredDiffuse::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
+
 extern "C" IMaterial* create(double r, double g, double b) {
     return new ColoredDiffuse(Vec3(r, g, b));
 }
