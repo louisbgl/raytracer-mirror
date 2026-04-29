@@ -40,7 +40,12 @@ public:
         return *this;
     }
 
-    constexpr Vec3& operator/=(double scalar) noexcept {
+    constexpr Vec3& operator*=(const Vec3& other) {
+        _x *= other._x; _y *= other._y; _z *= other._z;
+        return *this;
+    }
+
+    constexpr Vec3& operator/=(double scalar) {
         return *this *= (1.0 / scalar);
     }
 

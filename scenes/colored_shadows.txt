@@ -1,0 +1,136 @@
+camera:
+{
+    resolution = { width = 2000; height = 2000; };
+    position = { x = 0; y = -100; z = 35; };
+    look_at = { x = 0; y = 0; z = 5; };
+    up = { x = 0; y = 0; z = 1; };
+    fieldOfView = 50.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 4;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 20; g = 20; b = 25; };
+        ambientMultiplier = 0.15;
+        diffuseMultiplier = 0.85;
+    };
+
+    background = {
+        color = { r = 135; g = 206; b = 235; };  // Sky blue
+    };
+
+    output = "output.ppm";
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "white_floor"; color = { r = 255; g = 255; b = 255; }; }
+    );
+
+    refractive = (
+        {
+            name = "red_glass";
+            opacity = 0.3;
+            refractiveIndex = 1.5;
+            color = { r = 255; g = 50; b = 50; };
+        },
+        {
+            name = "blue_glass";
+            opacity = 0.3;
+            refractiveIndex = 1.5;
+            color = { r = 50; g = 100; b = 255; };
+        },
+        {
+            name = "yellow_glass";
+            opacity = 0.3;
+            refractiveIndex = 1.5;
+            color = { r = 255; g = 255; b = 50; };
+        }
+    );
+
+    reflective = (
+        {
+            name = "mirror";
+            reflectivity = 0.9;
+            color = { r = 200; g = 200; b = 200; };
+        }
+    );
+
+    phong = (
+        {
+            name = "opaque_gray";
+            color = { r = 120; g = 120; b = 120; };
+            shininess = 32.0;
+        }
+    );
+};
+
+shapes:
+{
+    planes = (
+        {
+            position = { x = 0; y = 0; z = -2; };
+            normal = { x = 0; y = 0; z = 1; };
+            material = "white_floor";
+        }
+    );
+
+    spheres = (
+        {
+            position = { x = -25; y = -10; z = 8; };
+            radius = 6;
+            material = "red_glass";
+        },
+        {
+            position = { x = -12; y = 15; z = 7; };
+            radius = 5;
+            material = "opaque_gray";
+        }
+    );
+
+    boxes = (
+        {
+            position = { x = 0; y = -10; z = 8; };
+            width = 10; height = 10; depth = 10;
+            material = "blue_glass";
+            rotation = { x = 0; y = 0; z = 25; };
+        }
+    );
+
+    limited_cylinders = (
+        {
+            position = { x = 25; y = -10; z = 2; };
+            radius = 5;
+            height = 12;
+            material = "yellow_glass";
+        }
+    );
+
+    toruses = (
+        {
+            position = { x = 12; y = 15; z = 7; };
+            major_radius = 6;
+            minor_radius = 2;
+            material = "mirror";
+            rotation = { x = 90; y = 0; z = 0; };
+        }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 0; y = 0; z = 50; };
+            color = { r = 255; g = 255; b = 255; };
+            intensity = 2000;
+        }
+    );
+};
