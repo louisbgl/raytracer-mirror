@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <cmath>
 
-Torus::Torus(Vec3 rotation, Vec3 translation, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
+Torus::Torus(Vec3 rotation, Vec3 translation, Vec3 scale, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
 
 bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 oc = ray.origin();
@@ -78,8 +78,8 @@ Vec3 Torus::computeNormal(const Vec3& point) const {
     return normalize(normal);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
-    return new Torus(Vec3(rx, ry, rz), Vec3(tx, ty, tz), majorRadius, minorRadius, *material);
+extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
+    return new Torus(Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), majorRadius, minorRadius, *material);
 }
 
 extern "C" PluginMetadata* metadata() {
