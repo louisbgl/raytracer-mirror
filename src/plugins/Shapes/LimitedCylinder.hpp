@@ -8,7 +8,7 @@
  */
 class LimitedCylinder : public AShape {
 public:
-    LimitedCylinder(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material);
+    LimitedCylinder(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, double height, std::shared_ptr<IMaterial> material);
     ~LimitedCylinder() override = default;
 
     bool hitLocal(const Ray& ray, HitRecord& record) const override;
