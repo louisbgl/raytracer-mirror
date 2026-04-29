@@ -34,4 +34,11 @@ public:
      * @return true if the ray continues (reflection/refraction), false if it stops (absorbed).
      */
     virtual bool scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation, Ray& scattered) const = 0;
+
+    /**
+     * @brief Returns how much light passes through this material for shadow calculations.
+     * @return Vec3 where (1,1,1) = fully transparent, (0,0,0) = fully opaque
+     * @details Used when tracing shadow rays. Allows colored shadows through tinted glass.
+     */
+    virtual Vec3 shadowTransmittance() const = 0;
 };

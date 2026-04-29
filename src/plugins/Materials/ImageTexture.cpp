@@ -24,6 +24,10 @@ bool ImageTexture::scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] 
     return false;
 }
 
+Vec3 ImageTexture::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
+
 extern "C" IMaterial* create(const char* path) {
     return new ImageTexture(std::string(path));
 }

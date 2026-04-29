@@ -20,6 +20,10 @@ bool Chessboard::scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] co
     return false;
 }
 
+Vec3 Chessboard::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
+
 extern "C" IMaterial* create(double r1, double g1, double b1, double r2, double g2, double b2, double scale) {
     return new Chessboard(Vec3(r1, g1, b1), Vec3(r2, g2, b2), scale);
 }
