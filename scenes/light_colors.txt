@@ -1,4 +1,24 @@
-// Light color showcase — pure white surfaces, low ambient, each light spatially separated
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 8;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.05;
+        diffuseMultiplier = 0.95;
+    };
+
+    background = {
+        color = { r = 0; g = 0; b = 0; };
+    };
+
+    output = "output.ppm";
+};
+
 camera:
 {
     resolution = { width = 1000; height = 1000; };
@@ -35,10 +55,6 @@ shapes:
 
 lights:
 {
-    // Very low ambient — unlit areas stay dark so light colors stand out clearly
-    ambient = 0.05;
-    diffuse = 0.95;
-
     // Each point light sits directly above its sphere with a strong pure color
     point = (
         { position = { x = -6.0; y = 6.0; z = 2.0; }; color = { r = 255; g = 0;   b = 0;   }; intensity = 60.0; },
