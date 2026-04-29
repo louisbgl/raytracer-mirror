@@ -59,8 +59,16 @@ Vec3 Refractive::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) c
     return rOutPerp + rOutParallel;
 }
 
-extern "C" IMaterial* create(double opacity, double refractiveIndex, double r, double g, double b) {
-    return new Refractive(opacity, refractiveIndex, Vec3(r, g, b));
+extern "C" IMaterial* create(
+    double opacity,
+    double refractiveIndex,
+    Vec3C color
+) {
+    return new Refractive(
+        opacity,
+        refractiveIndex,
+        Vec3(color)
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {
