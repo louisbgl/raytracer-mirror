@@ -40,8 +40,9 @@ public:
     /**
      * @brief Writes the image to a file in PPM format.
      * @param filename The name of the file to write to.
+     * @param binary Whether to write in binary (P6) or text (P3) format.
      */
-    void writePPM(const std::string& filename) const;
+    void writePPM(const std::string& filename, bool binary = true) const;
 
     /**
      * @brief Reads an image from a PPM file.
@@ -53,4 +54,9 @@ public:
 private:
     int _width, _height;
     std::vector<Vec3> _pixels;
+
+    void _writePPMp3(const std::string& filename) const;
+    void _writePPMp6(const std::string& filename) const;
+    static void _readPPMp3(int width, int height, std::ifstream& file, std::unique_ptr<Image>& image);
+    static void _readPPMp6(int width, int height, std::ifstream& file, std::unique_ptr<Image>& image);
 };
