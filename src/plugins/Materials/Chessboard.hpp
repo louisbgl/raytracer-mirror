@@ -11,6 +11,7 @@ public:
     bool scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] const HitRecord& record,
                  [[maybe_unused]] Vec3& attenuation,
                  [[maybe_unused]] Ray& scattered) const override;
+    Vec3 shadowTransmittance() const override;
 
 private:
     Vec3 _color1;
