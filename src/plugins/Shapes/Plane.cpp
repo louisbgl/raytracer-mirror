@@ -30,10 +30,15 @@ bool Plane::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) c
 }
 
 extern "C" IShape* create(
-    double x,  double y,  double z,
-    double nx, double ny, double nz,
-    std::shared_ptr<IMaterial>* material) {
-    return new Plane(Vec3(x, y, z), Vec3(nx, ny, nz), *material);
+    Vec3C position,
+    Vec3C normal,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Plane(
+        Vec3(position),
+        Vec3(normal),
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {
