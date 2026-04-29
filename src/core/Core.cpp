@@ -107,7 +107,10 @@ Image Core::_render()
 
     if (_logging && progbar) {
         progbar->finish();
+        std::cout << "  Log: " << _logger->path() << std::endl;
     }
+
+
 
     return image;
     // if (rc.aaEnabled && rc.aaSamples > 1) {

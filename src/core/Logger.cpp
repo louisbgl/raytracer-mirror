@@ -1,4 +1,5 @@
 #include "Logger.hpp"
+#include <unistd.h>
 
 #include <chrono>
 #include <ctime>
@@ -72,6 +73,17 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         std::ostringstream bg;
         bg << "background: " << rc.backgroundColor;
         _write("renderer", bg.str());
+    }
+
+    if (rc.multithreadingEnabled) {
+        std::ostringstream tEnabled;
+        tEnabled << "multithreading: " << "yes";
+        _write("renderer", tEnabled.str());
+        std::ostringstream tCount;
+        tCount << "multithreading:"<< "  thread count: " << rc.threadCount;
+        _write("renderer", tCount.str());
+    } else {
+        _write("multithreading", "  off");
     }
 }
 
