@@ -21,8 +21,20 @@ AABB Mesh::computeLocalAABB() const {
     return _bvh->boundingBox();
 }
 
-extern "C" IShape* create(const char* filename, double rx, double ry, double rz, double tx, double ty, double tz, double sx, double sy, double sz, std::shared_ptr<IMaterial>* material) {
-    return new Mesh(std::string(filename), Vec3(rx, ry, rz), Vec3(tx, ty, tz), Vec3(sx, sy, sz), *material);
+extern "C" IShape* create(
+    const char* filename,
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Mesh(
+        std::string(filename),
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {
