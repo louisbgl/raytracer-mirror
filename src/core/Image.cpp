@@ -67,8 +67,8 @@ void Image::_writePPMp3(const std::string& filename) const {
 
     std::ostringstream row_buffer;
     for (int y = 0; y < _height; ++y) {
-        row_buffer.str("");  // Clear buffer
-        row_buffer.clear();  // Clear state flags
+        row_buffer.str("");
+        row_buffer.clear();
 
         for (int x = 0; x < _width; ++x) {
             const Vec3& pixel = _pixels[y * _width + x];
@@ -78,7 +78,7 @@ void Image::_writePPMp3(const std::string& filename) const {
             row_buffer << r << " " << g << " " << b << "\n";
         }
 
-        ofs << row_buffer.str();  // Write entire row at once
+        ofs << row_buffer.str();
     }
     ofs.close();
 }
@@ -87,18 +87,15 @@ void Image::_writePPMp6(const std::string& filename) const {
     std::ofstream ofs(filename, std::ios::binary);
     ofs << "P6\n" << _width << " " << _height << "\n255\n";
 
-    // Allocate buffer for one row
     std::vector<unsigned char> row_buffer(_width * 3);
 
     for (int y = 0; y < _height; ++y) {
-        // Fill row buffer
         for (int x = 0; x < _width; ++x) {
             const Vec3& pixel = _pixels[y * _width + x];
             row_buffer[x * 3 + 0] = static_cast<unsigned char>(std::clamp(pixel.x(), 0.0, 255.0));
             row_buffer[x * 3 + 1] = static_cast<unsigned char>(std::clamp(pixel.y(), 0.0, 255.0));
             row_buffer[x * 3 + 2] = static_cast<unsigned char>(std::clamp(pixel.z(), 0.0, 255.0));
         }
-        // Write entire row at once
         ofs.write(reinterpret_cast<const char*>(row_buffer.data()), row_buffer.size());
     }
     ofs.close();
