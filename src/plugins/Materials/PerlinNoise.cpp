@@ -69,7 +69,11 @@ Vec3 PerlinNoise::shade(const HitRecord& record, [[maybe_unused]]const Vec3& lig
 
     // If you want a "Space Vibe", ignore traditional lighting (diff) so it glows
     return (nebula_color * _albedo) + stars;
-} 
+}
+
+Vec3 PerlinNoise::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
 
 double PerlinNoise::noise(const Vec3& point) const
 {
