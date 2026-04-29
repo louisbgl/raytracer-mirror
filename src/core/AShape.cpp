@@ -29,7 +29,7 @@ bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     if (!hitLocal(localRay, localRecord)) return false;
 
     // 4. Transform hit record back to world space
-    record = localToWorld(localRecord);
+    record = localToWorld(localRecord, ray);
 
     // Recompute t in world space to keep ordering consistent after scaling.
     record.t = dot(record.point - ray.origin(), ray.direction());
@@ -58,7 +58,7 @@ Ray AShape::worldToLocal(const Ray& ray) const {
     return Ray(localOrigin, localDirection);
 }
 
-HitRecord AShape::localToWorld(const HitRecord& local) const {
+HitRecord AShape::localToWorld(const HitRecord& local, const Ray& worldRay) const {
     Vec3 worldPoint = _transform.transformPoint(local.point);
     Vec3 worldNormal = _normalTransform.transformDirection(local.normal);
 
@@ -67,6 +67,8 @@ HitRecord AShape::localToWorld(const HitRecord& local) const {
 
     world.u = local.u;
     world.v = local.v;
+
+    world.set_face_normal(worldRay, worldNormal);
 
     return world;
 }
