@@ -44,10 +44,14 @@ bool Refractive::scatter(const Ray& ray_in, const HitRecord& record, Vec3& atten
     return true;
 }
 
-// Helper function: reflection
+Vec3 Refractive::shadowTransmittance() const {
+    Vec3 normalizedColor = _color / 255.0;
+    return normalizedColor * (1.0 - _opacity);
+}
+
 Vec3 Refractive::reflect(const Vec3& v, const Vec3& n) const { return v - 2.0 * dot(v, n) * n; }
 
-// Helper function: refraction (Snell's Law in vector form)
+// Refraction (Snell's Law in vector form)
 Vec3 Refractive::refract(const Vec3& uv, const Vec3& n, double etai_over_etat) const {
     double cosTheta = std::min(dot(-uv, n), 1.0);
     Vec3 rOutPerp = etai_over_etat * (uv + cosTheta * n);

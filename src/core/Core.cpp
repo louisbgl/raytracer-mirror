@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iostream>
 #include <memory>
+#include <functional>
 #include <random>
 #include <cmath>
 #include <thread>
@@ -34,6 +35,7 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     _writeOutput(image);
+    std::cout << "Output image saved to " << _scene.rendererConfig().outputFile << std::endl;
 
     auto t3 = Clock::now();
     if (_logging)
@@ -101,6 +103,33 @@ Image Core::_render()
                 this->_renderNoAA(image, first_row, last_row, progbar);
             }
         });
+    int width  = _scene.camera().getWidth();
+    int height = _scene.camera().getHeight();
+    Image image(width, height);
+
+    // Choose pixel computation method once (extensible for future AA methods)
+    std::function<Vec3(int, int)> computePixel;
+    if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
+        computePixel = [this, width, height, samples = rc.aaSamples](int x, int y) {
+            return _computePixelColorSSAA(x, y, width, height, samples);
+        };
+    } else {
+        computePixel = [this, width, height](int x, int y) {
+            return _computePixelColor(x, y, width, height);
+        };
+    }
+
+    std::unique_ptr<ProgressBar> pb;
+    if (_logging)
+        pb = std::make_unique<ProgressBar>(height);
+
+    for (int y = 0; y < height; ++y) {
+        for (int x = 0; x < width; ++x) {
+            Vec3 color = computePixel(x, y);
+            image.setPixel(x, y, color);
+        }
+        if (_logging)
+            pb->update(y + 1);
     }
 
     for (auto& thrd: threads) { thrd.join(); }
@@ -159,13 +188,35 @@ void Core::_renderSSAA(Image &image, int first_row, int last_row, ProgressBar *p
             progbar->update(1);
         }
     }
+Vec3 Core::_computePixelColor(int x, int y, int width, int height) {
+    float u = static_cast<float>(x) / (width - 1);
+    float v = 1.0f - static_cast<float>(y) / (height - 1);
+    return _trace(_scene.camera().getRay(u, v), _maxDepth, u, v);
+}
+
+Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int samples) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+
+    Vec3 pixelColor(0, 0, 0);
+    float baseU = static_cast<float>(x) / (width - 1);
+    float baseV = 1.0f - static_cast<float>(y) / (height - 1);
+
+    for (int s = 0; s < samples; ++s) {
+        float u = (static_cast<float>(x) + dist(gen)) / width;
+        float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
+        pixelColor = pixelColor + _trace(_scene.camera().getRay(u, v), _maxDepth, baseU, baseV);
+    }
+
+    return pixelColor / static_cast<double>(samples);
 }
 
 void Core::_writeOutput(Image& image) {
     image.writePPM(_scene.rendererConfig().outputFile);
 }
 
-Vec3 Core::trace(const Ray& ray, int depth, double screenU, double screenV) {
+Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) {
     if (depth <= 0) return _sampleBackground(screenU, screenV);
 
     HitRecord record;
@@ -179,16 +230,33 @@ Vec3 Core::trace(const Ray& ray, int depth, double screenU, double screenV) {
             Ray shadowRay(record.point + record.normal * 1e-4, lightDir);
             HitRecord shadowRecord;
 
+            double t = _t_min;
+            Vec3 transmittance(1, 1, 1);
+
             Vec3 viewDir = -ray.direction();
-            if (!_scene.world().get_closest_hit(shadowRay, _t_min, lightDistance, shadowRecord)) {
-                color += record.material->shade(record, lightDir, lightColor, viewDir) *_scene.rendererConfig().diffuseMultiplier;
+            while (t < lightDistance) {
+                static double epsilon = 1e-4;
+                if (!_scene.world().get_closest_hit(shadowRay, t, lightDistance, shadowRecord)) {
+                    break;
+                }
+                
+                transmittance *= shadowRecord.material->shadowTransmittance();
+
+                if (length(transmittance) < epsilon) {
+                    transmittance = Vec3(0, 0, 0);
+                    break;
+                }
+
+                t = shadowRecord.t + epsilon;
             }
+
+            color += record.material->shade(record, lightDir, lightColor, viewDir) *_scene.rendererConfig().diffuseMultiplier * transmittance;
         }
 
         Vec3 attenuation;
         Ray scattered;
         if (record.material->scatter(ray, record, attenuation, scattered))
-            color += attenuation * trace(scattered, depth - 1, screenU, screenV);
+            color += attenuation * _trace(scattered, depth - 1, screenU, screenV);
 
         return color;
     }

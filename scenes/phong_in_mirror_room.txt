@@ -24,10 +24,10 @@ renderer:
 camera:
 {
     resolution = { width = 1000; height = 1000; };
-    position = { x = 0.0; y = 1.0; z = 8.0; };
-    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    position = { x = 15.0; y = 15.0; z = 15.0; };
+    look_at = { x = 0.0; y = 5.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
-    fieldOfView = 45.0;
+    fieldOfView = 70.0;
 };
 
 materials:
@@ -37,7 +37,7 @@ materials:
     );
 
     reflective = (
-        { name = "mirror_wall"; reflectivity = 0.7; color = { r = 255; g = 255; b = 255; }; }
+        { name = "mirror_wall"; reflectivity = 0.9; color = { r = 222; g = 255; b = 222; }; }
     );
 
     coloreddiffuse = (
@@ -47,43 +47,42 @@ materials:
 
 shapes:
 {
-    // Central phong sphere
+    // Central phong sphere - well lit and centered
     spheres = (
-        { position = { x = 0.0; y = -1.0; z = -1.0; }; radius = 1.0; material = "shiny_red"; }
+        { position = { x = 0.0; y = 5.0; z = 0.0; }; radius = 5.0; material = "shiny_red"; }
     );
 
-    // Floor
+    // Floor (diffuse to reduce mirror bounces)
     planes = (
-        { position = { x = 0.0; y = -2.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
     );
 
-    // Mirror walls as thin boxes
+    // Four mirror walls forming a room (40x40 units)
     boxes = (
-        // Back wall
-        { position = { x = 0.0; y = 0.0; z = -4.0; }; width = 6.0; height = 6.0; depth = 0.1; material = "mirror_wall"; },
+        // Back wall (negative Z)
+        { position = { x = 0.0; y = 20.0; z = -20.0; }; width = 40.0; height = 40.0; depth = 0.5; material = "mirror_wall"; },
 
-        // Left wall
-        { position = { x = -3.0; y = 0.0; z = 0.0; }; width = 0.1; height = 6.0; depth = 8.0; material = "mirror_wall"; },
+        // Front wall (positive Z)
+        { position = { x = 0.0; y = 20.0; z = 20.0; }; width = 40.0; height = 40.0; depth = 0.5; material = "mirror_wall"; },
 
-        // Right wall
-        { position = { x = 3.0; y = 0.0; z = 0.0; }; width = 0.1; height = 6.0; depth = 8.0; material = "mirror_wall"; }
+        // Left wall (negative X)
+        { position = { x = -20.0; y = 20.0; z = 0.0; }; width = 0.5; height = 40.0; depth = 40.0; material = "mirror_wall"; },
+
+        // Right wall (positive X)
+        { position = { x = 20.0; y = 20.0; z = 0.0; }; width = 0.5; height = 40.0; depth = 40.0; material = "mirror_wall"; }
     );
 };
 
 lights:
 {
     point = (
-        // Main light from above
-        { position = { x = 0.0; y = 5.0; z = 0.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 100.0; },
+        // Bright light above sphere to show reflections
+        { position = { x = 0.0; y = 25.0; z = 0.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 200.0; },
 
-        // Side light for highlights
-        { position = { x = 3.0; y = 2.0; z = 2.0; }; color = { r = 255; g = 240; b = 220; }; intensity = 60.0; },
+        // Side key light
+        { position = { x = 10.0; y = 15.0; z = 10.0; }; color = { r = 255; g = 240; b = 220; }; intensity = 150.0; },
 
-        // Fill light
-        { position = { x = -2.0; y = 1.0; z = 3.0; }; color = { r = 200; g = 220; b = 255; }; intensity = 40.0; }
-    );
-
-    directional = (
-        { direction = { x = 0.3; y = -1.0; z = 0.2; }; color = { r = 255; g = 250; b = 245; }; intensity = 0.3; }
+        // Fill light from opposite side
+        { position = { x = -8.0; y = 12.0; z = -8.0; }; color = { r = 220; g = 230; b = 255; }; intensity = 100.0; }
     );
 };

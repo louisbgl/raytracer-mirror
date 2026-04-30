@@ -14,6 +14,7 @@ public:
                const Vec3& viewDir) const override;
     bool scatter([[maybe_unused]] const Ray& ray_in, [[maybe_unused]] const HitRecord& record,
                  [[maybe_unused]] Vec3& attenuation, [[maybe_unused]] Ray& scattered) const override;
+    Vec3 shadowTransmittance() const override;
     void fillArray();
 private:
     static const int POINT_COUNT = 256;
