@@ -40,6 +40,5 @@ private:
     void parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
     void parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
     void parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
-
     void parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
 };

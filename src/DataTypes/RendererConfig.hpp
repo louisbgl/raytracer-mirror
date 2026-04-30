@@ -5,8 +5,9 @@
 
 struct RendererConfig {
     bool aaEnabled = false;
-    int aaSamples = 1;
-    std::string aaMethod = "ssaa";
+    int aaSamples = 1; // Only for SSAA
+    double aaThreshold = 0.1; // Only for adaptive SSAA
+    std::string aaMethod = "ssaa"; // "ssaa" | "adaptive"
 
     double ambientMultiplier = 0.4;
     double diffuseMultiplier = 0.6;
@@ -18,5 +19,5 @@ struct RendererConfig {
     std::string outputFile = "output.ppm";
 
     bool multithreadingEnabled = true;
-    int threadCount = 0;
+    int threadCount = 0; // 0 means auto-detect based on hardware concurrency
 };

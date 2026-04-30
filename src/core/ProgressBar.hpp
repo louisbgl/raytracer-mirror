@@ -13,7 +13,7 @@ public:
     double finish();
 
 private:
-    static constexpr int BAR_WIDTH = 30;
+    static constexpr int BAR_WIDTH = 20;
 
     int _total;
     std::chrono::steady_clock::time_point _start;

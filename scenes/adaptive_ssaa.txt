@@ -1,6 +1,6 @@
 camera:
 {
-    resolution = { width = 1000; height = 1000; };
+    resolution = { width = 2000; height = 2000; };
     position = { x = 0; y = -35; z = -100; };
     look_at = { x = 0; y = -5; z = 0; };
     up = { x = 0; y = -1; z = 0; };
@@ -11,8 +11,8 @@ renderer:
 {
     antialiasing = {
         enabled = true;
-        method = "ssaa";
-        samples = 4;
+        method = "adaptive";
+        threshold = 0.2;
     };
 
     lighting = {
@@ -92,6 +92,11 @@ shapes:
             position = { x = -12; y = -7; z = 15; };
             radius = 5;
             material = "opaque_gray";
+        },
+        {
+            position = { x = 6; y = -4; z = -20; };
+            radius = 6;
+            material = "mirror";
         }
     );
 
@@ -131,6 +136,11 @@ lights:
             position = { x = 0; y = -50; z = 0; };
             color = { r = 255; g = 255; b = 255; };
             intensity = 2000;
+        },
+        {
+            position = { x = 18; y = -50; z = 2; };
+            color = { r = 255; g = 120; b = 40; };
+            intensity = 1000;
         }
     );
 };
