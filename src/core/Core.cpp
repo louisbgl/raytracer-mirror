@@ -91,6 +91,10 @@ Image Core::_render()
         computePixel = [this, w, h, samples = rc.aaSamples](int x, int y) {
             return _computePixelColorSSAA(x, y, w, h, samples);
         };
+    } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
+        computePixel = [this, w, h, threshold = rc.aaThreshold](int x, int y) {
+            return _computePixelColorAdaptiveSSAA(x, y, w, h, threshold);
+        };
     } else {
         computePixel = [this, w, h](int x, int y) {
             return _computePixelColor(x, y, w, h);
@@ -127,14 +131,17 @@ Image Core::_render()
     return image;
 }
 
-
-Vec3 Core::_computePixelColor(int x, int y, int width, int height) {
-    float u = static_cast<float>(x) / (width - 1);
-    float v = 1.0f - static_cast<float>(y) / (height - 1);
-    return _trace(_scene.camera().getRay(u, v), _maxDepth, u, v);
+void Core::_writeOutput(Image& image) {
+    image.writePPM(_scene.rendererConfig().outputFile);
 }
 
-Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int samples) {
+Vec3 Core::_computePixelColor(int x, int y, int width, int height) const {
+    float u = static_cast<float>(x) / (width - 1);
+    float v = 1.0f - static_cast<float>(y) / (height - 1);
+    return _trace(_scene.camera().getRay(u, v), _maxRayBounces, u, v);
+}
+
+Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int samples) const {
     thread_local std::mt19937 gen(std::hash<std::thread::id>{}(std::this_thread::get_id()));
     std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
@@ -145,17 +152,17 @@ Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int sampl
     for (int s = 0; s < samples; ++s) {
         float u = (static_cast<float>(x) + dist(gen)) / width;
         float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
-        pixelColor = pixelColor + _trace(_scene.camera().getRay(u, v), _maxDepth, baseU, baseV);
+        pixelColor = pixelColor + _trace(_scene.camera().getRay(u, v), _maxRayBounces, baseU, baseV);
     }
 
     return pixelColor / static_cast<double>(samples);
 }
 
-void Core::_writeOutput(Image& image) {
-    image.writePPM(_scene.rendererConfig().outputFile);
+Vec3 Core::_computePixelColorAdaptiveSSAA(int x, int y, int width, int height, double threshold) const {
+    return _adaptiveSubdivide(x, y, 0.0, 0.0, 1.0, width, height, threshold, 0);
 }
 
-Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) {
+Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) const {
     if (depth <= 0) return _sampleBackground(screenU, screenV);
 
     HitRecord record;
@@ -202,9 +209,49 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) {
     return _sampleBackground(screenU, screenV);
 }
 
-Vec3 Core::_sampleBackground(double screenU, double screenV) {
+Vec3 Core::_sampleBackground(double screenU, double screenV) const {
     if (_backgroundImage) {
         return _backgroundImage->sample(screenU, screenV);
     }
     return _scene.rendererConfig().backgroundColor;
+}
+
+Vec3 Core::_sampleSubPixel(int x, int y, double offX, double offY, int width, int height) const {
+    double subU = (static_cast<double>(x) + offX) / width;
+    double subV = 1.0 - (static_cast<double>(y) + offY) / height;
+    return _trace(_scene.camera().getRay(subU, subV), _maxRayBounces, subU, subV);
+}
+
+Vec3 Core::_adaptiveSubdivide(int x, int y, double offX, double offY, double size, int width, int height, double threshold, int depth) const {
+    double half = size / 2.0;
+    std::array<Vec3, 4> corners = {
+        _sampleSubPixel(x, y, offX,         offY,        width, height),
+        _sampleSubPixel(x, y, offX + size,   offY,        width, height),
+        _sampleSubPixel(x, y, offX,          offY + size, width, height),
+        _sampleSubPixel(x, y, offX + size,   offY + size, width, height),
+    };
+
+    if (depth >= _maxSubdivDepth || _computeVariance(corners) <= threshold)
+        return (corners[0] + corners[1] + corners[2] + corners[3]) / 4.0;
+
+    return (
+        _adaptiveSubdivide(x, y, offX,        offY,        half, width, height, threshold, depth + 1) +
+        _adaptiveSubdivide(x, y, offX + half,  offY,        half, width, height, threshold, depth + 1) +
+        _adaptiveSubdivide(x, y, offX,         offY + half, half, width, height, threshold, depth + 1) +
+        _adaptiveSubdivide(x, y, offX + half,  offY + half, half, width, height, threshold, depth + 1)
+    ) / 4.0;
+}
+
+double Core::_computeVariance(std::span<const Vec3> colors) const {
+    Vec3 mean(0, 0, 0);
+    for (const auto& c : colors)
+        mean += c;
+    mean /= static_cast<double>(colors.size());
+
+    double variance = 0.0;
+    for (const auto& c : colors) {
+        Vec3 diff = c - mean;
+        variance += dot(diff, diff);
+    }
+    return variance / colors.size();
 }
