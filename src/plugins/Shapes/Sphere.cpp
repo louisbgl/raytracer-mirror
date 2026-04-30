@@ -5,8 +5,8 @@
 #include <cmath>
 #include <algorithm>
 
-Sphere::Sphere(Vec3 rotation, Vec3 translation, double radius, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _radius(radius), _material(material) {}
+Sphere::Sphere(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _radius(radius), _material(material) {}
 
 bool Sphere::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 oc = ray.origin();
@@ -49,8 +49,20 @@ AABB Sphere::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, std::shared_ptr<IMaterial>* material) {
-    return new Sphere(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    double radius,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Sphere(
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        radius,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {

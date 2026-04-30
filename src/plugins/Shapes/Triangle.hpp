@@ -4,7 +4,7 @@
 
 class Triangle : public AShape {
 public:
-    Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, std::shared_ptr<IMaterial> material);
+    Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material);
     ~Triangle() override = default;
 
     bool hitLocal(const Ray& localRay, HitRecord& record) const override;

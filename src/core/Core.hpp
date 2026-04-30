@@ -2,6 +2,7 @@
 
 #include "../src/DataTypes/Scene.hpp"
 #include "Image.hpp"
+#include "core/ProgressBar.hpp"
 #include <memory>
 #include <string>
 
@@ -29,13 +30,14 @@ private:
     std::unique_ptr<Image> _backgroundImage;
     double _t_min = 0.001;
     double _t_max = 1e6;
+    int _maxDepth = 50;
 
     bool  _loadScene();
     Image _render();
-    Image _renderNoAA();
-    Image _renderSSAA(int samples);
+    Vec3  _computePixelColor(int x, int y, int width, int height);
+    Vec3  _computePixelColorSSAA(int x, int y, int width, int height, int samples);
     void  _writeOutput(Image& image);
 
-    Vec3 trace(const Ray& ray, int depth, double screenU, double screenV);
+    Vec3 _trace(const Ray& ray, int depth, double screenU, double screenV);
     Vec3 _sampleBackground(double screenU, double screenV);
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../DataTypes/Scene.hpp"
+#include "DataTypes/RendererConfig.hpp"
 #include <libconfig.h++>
 #include <string>
 #include <unordered_map>
@@ -25,6 +26,8 @@ public:
     Scene parse(const std::string& filename);
 
 private:
+    std::string _currentFile;  // Temporary for error messages
+
     void parseRenderer(libconfig::Config& config, Scene& scene);
     void parseCamera(libconfig::Config& config, Scene& scene);
     void parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap);
@@ -37,4 +40,6 @@ private:
     void parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
     void parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
     void parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
+
+    void parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
 };

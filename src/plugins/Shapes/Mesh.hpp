@@ -9,7 +9,7 @@
 
 class Mesh : public AShape {
 public:
-    Mesh(const std::string& filename, Vec3 rotation, Vec3 translation, std::shared_ptr<IMaterial> material);
+    Mesh(const std::string& filename, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material);
     ~Mesh() override = default;
 
     bool hitLocal(const Ray& localRay, HitRecord& record) const override;

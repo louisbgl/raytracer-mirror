@@ -69,7 +69,11 @@ Vec3 PerlinNoise::shade(const HitRecord& record, [[maybe_unused]]const Vec3& lig
 
     // If you want a "Space Vibe", ignore traditional lighting (diff) so it glows
     return (nebula_color * _albedo) + stars;
-} 
+}
+
+Vec3 PerlinNoise::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
 
 double PerlinNoise::noise(const Vec3& point) const
 {
@@ -135,8 +139,14 @@ double PerlinNoise::trilinearInterp(const CubeVectors& c, double u, double v, do
     return accum;
 }
 
-extern "C" IMaterial* create(double r, double g, double b, double scale) {
-    return new PerlinNoise(Vec3(r, g, b), scale);
+extern "C" IMaterial* create(
+    Vec3C color,
+    double scale
+) {
+    return new PerlinNoise(
+        Vec3(color),
+        scale
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {

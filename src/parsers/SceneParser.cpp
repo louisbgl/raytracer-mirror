@@ -13,6 +13,7 @@
 #include <filesystem>
 
 Scene SceneParser::parse(const std::string& filename) {
+    _currentFile = filename;  // Store for error messages
     libconfig::Config config;
 
     try {
@@ -58,6 +59,7 @@ void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
         parseLighting(renderer, rendererConfig);
         parseBackground(renderer, rendererConfig);
         parseAntialiasing(renderer, rendererConfig);
+        parseThreads(renderer, rendererConfig);
 
         if (renderer.exists("output")) {
             rendererConfig.outputFile = renderer["output"].c_str();
@@ -168,7 +170,7 @@ void SceneParser::parseMaterials(libconfig::Config& config, std::unordered_map<s
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Materials section not found in config" << std::endl;
+        std::cerr << "Materials section not found in " << _currentFile << std::endl;
     }
 }
 
@@ -207,7 +209,7 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Shapes section not found in config" << std::endl;
+        std::cerr << "Shapes section not found in " << _currentFile << std::endl;
     }
 }
 
@@ -237,7 +239,7 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
             }
         }
     } catch (const libconfig::SettingNotFoundException& nfex) {
-        std::cerr << "Lights section not found in config" << std::endl;
+        std::cerr << "Lights section not found in " << _currentFile << std::endl;
     }
 }
 
@@ -265,3 +267,19 @@ std::string SceneParser::validateAAMethod(const std::string& method) const {
     return "ssaa";
 }
 
+void SceneParser::parseThreads(const libconfig::Setting& renderer, RendererConfig& config)
+{
+    if (!renderer.exists("multithreading")) {
+        return;
+    }
+
+    const libconfig::Setting& mtRenderer = renderer["multithreading"];
+
+    if (mtRenderer.exists("enabled")) {
+        config.multithreadingEnabled = mtRenderer["enabled"];
+    }
+
+    if (mtRenderer.exists("threads")) {
+        config.threadCount = static_cast<int>(ConfigUtils::getNumber(mtRenderer["threads"]));
+    }
+}

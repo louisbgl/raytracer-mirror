@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <cmath>
 
-Torus::Torus(Vec3 rotation, Vec3 translation, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
+Torus::Torus(Vec3 rotation, Vec3 translation, Vec3 scale, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
 
 bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 oc = ray.origin();
@@ -46,8 +46,7 @@ bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
     record.point = ray.at(closest_t);
     record.material = _material;
     Vec3 outward_normal = computeNormal(record.point);
-    record.normal = outward_normal;
-    record.front_face = true;
+    record.set_face_normal(ray, outward_normal);
 
     Vec3 p = record.point;
     double phi = std::atan2(p.z(), p.x());
@@ -78,8 +77,20 @@ Vec3 Torus::computeNormal(const Vec3& point) const {
     return normalize(normal);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double majorRadius, double minorRadius, std::shared_ptr<IMaterial>* material) {
-    return new Torus(Vec3(rx, ry, rz), Vec3(tx, ty, tz), majorRadius, minorRadius, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    double majorRadius, double minorRadius,
+    std::shared_ptr<IMaterial>* material)
+{
+    return new Torus(
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        majorRadius, minorRadius,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {

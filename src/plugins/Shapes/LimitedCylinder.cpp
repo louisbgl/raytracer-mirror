@@ -5,8 +5,8 @@
 #include <cmath>
 #include <limits>
 
-LimitedCylinder::LimitedCylinder(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _radius(radius), _height(height), _material(material) {}
+LimitedCylinder::LimitedCylinder(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, double height, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _radius(radius), _height(height), _material(material) {}
 
 bool LimitedCylinder::hitLocal(const Ray& ray, HitRecord& record) const {
     double closest_t = std::numeric_limits<double>::infinity();
@@ -101,8 +101,22 @@ Vec3 LimitedCylinder::computeBodyNormal(const Vec3& hit_point) const {
     return normalize(Vec3(hit_point.x(), 0, hit_point.z()));
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double radius, double height, std::shared_ptr<IMaterial>* material) {
-    return new LimitedCylinder(Vec3(rx, ry, rz), Vec3(tx, ty, tz), radius, height, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    double radius,
+    double height,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new LimitedCylinder(
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        radius,
+        height,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {

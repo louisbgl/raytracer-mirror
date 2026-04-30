@@ -18,6 +18,7 @@ public:
     Vec3 shade([[maybe_unused]] const HitRecord& record, [[maybe_unused]] const Vec3& lightDir,
                [[maybe_unused]] const Vec3& lightColor,  [[maybe_unused]] const Vec3& viewDir) const override;
     bool scatter(const Ray& ray_in, const HitRecord& record, Vec3& attenuation, Ray& scattered) const override;
+    Vec3 shadowTransmittance() const override;
 
 private:
     double _reflectivity;

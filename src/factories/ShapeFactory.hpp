@@ -26,6 +26,7 @@ private:
     using ShapeCreator = std::shared_ptr<IShape>(*)(const libconfig::Setting&, std::shared_ptr<IMaterial>);
 
     static Vec3 _getRotation(const libconfig::Setting& config);
+    static Vec3 _getScale(const libconfig::Setting& config);
 
     // Bounded shapes (AShape - support rotation)
     static std::shared_ptr<IShape> _createSphere           (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);

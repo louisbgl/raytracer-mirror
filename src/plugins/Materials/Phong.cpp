@@ -28,8 +28,18 @@ bool Phong::scatter([[maybe_unused]] const Ray& ray_in,
     return false;
 }
 
-extern "C" IMaterial* create(double r, double g, double b, double shininess) {
-    return new Phong(Vec3(r, g, b), shininess);
+Vec3 Phong::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
+
+extern "C" IMaterial* create(
+    Vec3C color,
+    double shininess
+) {
+    return new Phong(
+        Vec3(color),
+        shininess
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {

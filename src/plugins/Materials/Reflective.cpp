@@ -22,12 +22,22 @@ bool Reflective::scatter(const Ray& ray_in, const HitRecord& record, Vec3& atten
     return true;
 }
 
+Vec3 Reflective::shadowTransmittance() const {
+    return Vec3(0, 0, 0);
+}
+
 double Reflective::_clampReflectivity(double reflectivity) {
     return std::clamp(reflectivity, 0.0, 1.0);
 }
 
-extern "C" IMaterial* create(double reflectivity, double r, double g, double b) {
-    return new Reflective(reflectivity, Vec3(r, g, b));
+extern "C" IMaterial* create(
+    double reflectivity,
+    Vec3C color
+) {
+    return new Reflective(
+        reflectivity,
+        Vec3(color)
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {

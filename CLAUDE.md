@@ -187,6 +187,15 @@ lights: { <plural> = ( {params} ) }
 **AABB culling:** Automatic for AShape shapes
 **Limit recursion depth:** Avoid stack overflow with many reflective surfaces
 
+## Debugging
+
+**Rendering glitches (NaN artifacts, missing objects, incorrect normals):**
+- Rebuild in Debug mode: `cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug && cmake --build build`
+- Run with debug build: `./raytracer scene.txt --log`
+- Check for assertion failures, especially "Cannot normalize zero vector" in Vec3::normalize()
+- Common causes: degenerate geometry, parallel camera vectors, accumulated floating-point error
+- Debug builds enable assertions that catch divide-by-zero and invalid vector operations
+
 ## Adding OBJ File Support (Implementation Guide)
 
 **New Plugin: Mesh (shape)**

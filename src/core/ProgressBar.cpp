@@ -2,6 +2,7 @@
 
 #include <iomanip>
 #include <iostream>
+#include <mutex>
 #include <sstream>
 
 static std::string repeat(const std::string& s, int n) {
@@ -16,13 +17,23 @@ ProgressBar::ProgressBar(int total)
     std::cout << std::endl;
 }
 
-void ProgressBar::update(int current) {
+void ProgressBar::update(int delta) {
     if (_total <= 0) return;
+
+    int current = _currentThreads.fetch_add(delta) + delta;
+    if (current % 10 != 0 && current != _total) {
+        return;
+    }
+
+    std::lock_guard<std::mutex> lock(_dispMutex);
 
     auto now = std::chrono::steady_clock::now();
     double elapsed = std::chrono::duration<double>(now - _start).count();
 
     float pct = static_cast<float>(current) / _total;
+    if (pct > 1.0f) {
+        pct = 1.0f;
+    }
     int filled = static_cast<int>(pct * BAR_WIDTH);
 
     std::string bar = repeat("█", filled) + repeat("░", BAR_WIDTH - filled);

@@ -1,0 +1,187 @@
+// Transform debug grid
+// Rows (Z): sphere | box | limited_cylinder | limited_cone | limited_hourglass | torus | mesh
+// Cols (X): no-transform | scale-X*2 | scale-Y*2 | rot-X-45 | rot-Y-45 | rot-Z-45
+
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 4;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.08;
+        diffuseMultiplier = 0.92;
+    };
+
+    background = {
+        color = { r = 18; g = 20; b = 28; };
+    };
+
+    output = "output.ppm";
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 24.0; z = 10.0; };
+    look_at = { x = 0.0; y = 0.5; z = -12.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 65.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "teal";  color = { r = 70; g = 200; b = 215; }; shininess = 48.0; }
+    );
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 210; g = 210; b = 210; }; }
+    );
+};
+
+shapes:
+{
+    // ─────────────────────────────────────────────────────
+    // Row 0: Meshes — cat.obj (approx 762w x 338h x 144d units, scale=0.003)  (z = 0.0)
+    // ─────────────────────────────────────────────────────
+    meshes = (
+        // col 0: no transform
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x = -10.0; y = 1.5; z =  0.0; }; scale = { x = 0.003; y = 0.003; z = 0.003; }; material = "teal"; },
+        // col 1: scale X*2
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x =  -6.0; y = 1.5; z =  0.0; }; scale = { x = 0.006; y = 0.003; z = 0.003; }; material = "teal"; },
+        // col 2: scale Y*2
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x =  -2; y = 1.5; z =  0.0; }; scale = { x = 0.003; y = 0.006; z = 0.003; }; material = "teal"; },
+        // col 3: rot X 45
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x =   2.0; y = 1.5; z =  0.0; }; scale = { x = 0.003; y = 0.003; z = 0.003; }; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x =   6.0; y = 1.5; z =  0.0; }; scale = { x = 0.003; y = 0.003; z = 0.003; }; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { path = "textures/obj/lowpolycat/cat.obj"; position = { x =  10.0; y = 1.5; z =  0.0; }; scale = { x = 0.003; y = 0.003; z = 0.003; }; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 1: Boxes  (z = -4.0)
+    // ─────────────────────────────────────────────────────
+    boxes = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -4.0; }; width = 1.2; height = 1.2; depth = 1.2; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; },
+
+        // floor platform
+        { position = { x = 0.0; y = -0.15; z = -12.0; }; width = 24.0; height = 0.3; depth = 32.0; material = "floor"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 2: Limited Cylinders  (z = -8.0)
+    // ─────────────────────────────────────────────────────
+    limited_cylinders = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -8.0; }; radius = 0.55; height = 1.2; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 3: Limited Cones  (z = -12.0)
+    // ─────────────────────────────────────────────────────
+    limited_cones = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -12.0; }; radius = 0.65; height = 1.4; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 4: Limited Hourglasses  (z = -16.0)
+    // ─────────────────────────────────────────────────────
+    limited_hourglasses = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -16.0; }; radius = 0.55; height = 1.2; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 5: Toruses  (z = -20.0)
+    // ─────────────────────────────────────────────────────
+    toruses = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -20.0; }; major_radius = 0.6; minor_radius = 0.2; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+
+    // ─────────────────────────────────────────────────────
+    // Row 6: Spheres  (z = -24.0)
+    // ─────────────────────────────────────────────────────
+    spheres = (
+        // col 0: no transform
+        { position = { x = -10.0; y = 1.5; z = -24.0; }; radius = 0.7; material = "teal"; },
+        // col 1: scale X*2
+        { position = { x =  -6.0; y = 1.5; z = -24.0; }; radius = 0.7; scale = { x = 2.0; y = 1.0; z = 1.0; }; material = "teal"; },
+        // col 2: scale Y*2
+        { position = { x =  -2.0; y = 1.5; z = -24.0; }; radius = 0.7; scale = { x = 1.0; y = 2.0; z = 1.0; }; material = "teal"; },
+        // col 3: rot X 45
+        { position = { x =   2.0; y = 1.5; z = -24.0; }; radius = 0.7; rotation = { x = 45.0; y = 0.0; z = 0.0; }; material = "teal"; },
+        // col 4: rot Y 45
+        { position = { x =   6.0; y = 1.5; z = -24.0; }; radius = 0.7; rotation = { x = 0.0; y = 45.0; z = 0.0; }; material = "teal"; },
+        // col 5: rot Z 45
+        { position = { x =  10.0; y = 1.5; z = -24.0; }; radius = 0.7; rotation = { x = 0.0; y = 0.0; z = 45.0; }; material = "teal"; }
+    );
+};
+
+lights:
+{
+    point = (
+        // main overhead light, centered over grid
+        { position = { x = 0.0; y = 22.0; z = -12.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 400.0; },
+        // front fill light (from camera side)
+        { position = { x = -8.0; y = 14.0; z = 12.0; }; color = { r = 255; g = 240; b = 210; }; intensity = 120.0; },
+        // back separation light
+        { position = { x =  8.0; y = 10.0; z = -28.0; }; color = { r = 180; g = 220; b = 255; }; intensity = 80.0; }
+    );
+};
