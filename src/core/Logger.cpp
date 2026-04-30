@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <thread>
 
 Logger::Logger() {
     std::filesystem::create_directories("logs");
@@ -54,6 +55,12 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
 
     _write("renderer", "output: " + rc.outputFile);
 
+    if (rc.multithreadingEnabled) {
+        _write("renderer", "multithreading: enabled (" + std::to_string(rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount) + " threads)");
+    } else {
+        _write("renderer", "multithreading: disabled");
+    }
+
     if (rc.aaEnabled && rc.aaSamples > 1) {
         _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
             + std::to_string(rc.aaSamples) + " samples)");
@@ -73,17 +80,6 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         std::ostringstream bg;
         bg << "background: " << rc.backgroundColor;
         _write("renderer", bg.str());
-    }
-
-    if (rc.multithreadingEnabled) {
-        std::ostringstream tEnabled;
-        tEnabled << "multithreading: " << "yes";
-        _write("renderer", tEnabled.str());
-        std::ostringstream tCount;
-        tCount << "multithreading:"<< " thread count: " << rc.threadCount;
-        _write("renderer", tCount.str());
-    } else {
-        _write("multithreading", "  off");
     }
 }
 
