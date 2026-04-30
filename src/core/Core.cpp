@@ -80,7 +80,7 @@ Image Core::_render()
         total_threads = rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount;
     }
 
-    int thread_rows= h / total_threads; 
+    int thread_rows = h / total_threads; 
 
     std::vector<std::thread> threads;
     std::unique_ptr<ProgressBar> progbar = nullptr;
