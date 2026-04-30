@@ -139,8 +139,14 @@ double PerlinNoise::trilinearInterp(const CubeVectors& c, double u, double v, do
     return accum;
 }
 
-extern "C" IMaterial* create(double r, double g, double b, double scale) {
-    return new PerlinNoise(Vec3(r, g, b), scale);
+extern "C" IMaterial* create(
+    Vec3C color,
+    double scale
+) {
+    return new PerlinNoise(
+        Vec3(color),
+        scale
+    );
 }
 
 extern "C" const PluginMetadata* metadata() {

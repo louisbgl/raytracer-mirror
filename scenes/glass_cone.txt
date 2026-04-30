@@ -1,0 +1,83 @@
+// Glass cone refraction showcase
+// Camera looks straight through a refractive cone at colorful spheres behind it
+
+renderer:
+{
+    antialiasing = {
+        enabled = false ;
+        samples = 8;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.05;
+        diffuseMultiplier = 0.95;
+    };
+
+    background = {
+        color = { r = 255; g = 182; b = 193; };        //pink
+    };
+};
+
+camera:
+{
+    resolution = { width = 1200; height = 800; };
+    position = { x = 0.0; y = 2.8; z = 10.0; };
+    look_at = { x = 0.0; y = 1.8; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 45.0;
+};
+
+materials:
+{
+    refractive = (
+        { name = "glass"; opacity = 0.15; refractiveIndex = 0.9; color = { r = 255; g = 255; b = 255; }; }
+    );
+
+    phong = (
+        { name = "red";    color = { r = 240; g = 50;  b = 50;  }; shininess = 64.0; },
+        { name = "blue";   color = { r = 50;  g = 100; b = 255; }; shininess = 64.0; },
+        { name = "yellow"; color = { r = 255; g = 210; b = 30;  }; shininess = 64.0; },
+        { name = "green";  color = { r = 50;  g = 210; b = 80;  }; shininess = 48.0; }
+    );
+
+    chessboard = (
+        { name = "checker"; color1 = { r = 240; g = 240; b = 240; }; color2 = { r = 40; g = 40; b = 50; }; scale = 2.0; }
+    );
+
+    coloreddiffuse = (
+        { name = "floor_mat"; color = { r = 180; g = 180; b = 185; }; }
+    );
+};
+
+shapes:
+{
+    // Glass cone — apex at y=3, base at y=0 (local: apex=0, base=-height → translate by y=3)
+    limited_cones = (
+        { position = { x = 0.0; y = 5.1; z = 0.0; }; radius = 0.65; height = 5.0; material = "glass"; }
+    );
+
+    // Single red sphere at bottom-left behind the cone
+    spheres = (
+        { position = { x = -1.0; y = 0.5; z = -1.5; }; radius = 1.5; material = "red"; }
+    );
+
+    // Back wall — vertical checker plane behind the spheres
+    planes = (
+        // { position = { x = 0.0; y = 0.0; z = -4.0; }; normal = { x = 0.0; y = 0.0; z = 1.0; }; material = "checker"; },
+        { position = { x = 0.0; y = 0.0; z =  0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor_mat"; }
+    );
+};
+
+lights:
+{
+    point = (
+        // Strong overhead light — casts through the glass
+        { position = { x =  0.0; y = 10.0; z =  2.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 20.0; },
+        // Front-left fill
+        { position = { x = -5.0; y =  5.0; z =  6.0; }; color = { r = 200; g = 220; b = 255; }; intensity = 60.0;  },
+        // Right rim
+        { position = { x =  5.0; y =  4.0; z =  3.0; }; color = { r = 255; g = 230; b = 180; }; intensity = 50.0;  }
+    );
+};

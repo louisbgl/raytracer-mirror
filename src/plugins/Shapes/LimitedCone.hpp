@@ -4,7 +4,7 @@
 
 class LimitedCone : public AShape {
 public:
-    LimitedCone(Vec3 rotation, Vec3 translation, double radius, double height, std::shared_ptr<IMaterial> material);
+    LimitedCone(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, double height, std::shared_ptr<IMaterial> material);
     ~LimitedCone() override = default;
 
     bool hitLocal(const Ray& ray, HitRecord& record) const override;

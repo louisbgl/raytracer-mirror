@@ -3,8 +3,8 @@
 #include "../../Math/Constants.hpp"
 #include <cmath>
 
-Box::Box(Vec3 rotation, Vec3 translation, double width, double height, double depth, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation), _width(width), _height(height), _depth(depth), _material(material) {}
+Box::Box(Vec3 rotation, Vec3 translation, Vec3 scale, double width, double height, double depth, std::shared_ptr<IMaterial> material)
+    : AShape(rotation, translation, scale), _width(width), _height(height), _depth(depth), _material(material) {}
 
 bool Box::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 min_corner(-_width / 2.0, -_height / 2.0, -_depth / 2.0);
@@ -90,8 +90,22 @@ AABB Box::computeLocalAABB() const {
     return AABB(min, max);
 }
 
-extern "C" IShape* create(double rx, double ry, double rz, double tx, double ty, double tz, double width, double height, double depth, std::shared_ptr<IMaterial>* material) {
-    return new Box(Vec3(rx, ry, rz), Vec3(tx, ty, tz), width, height, depth, *material);
+extern "C" IShape* create(
+    Vec3C rotation,
+    Vec3C translation,
+    Vec3C scale,
+    double width, double height,
+    double depth,
+    std::shared_ptr<IMaterial>* material
+) {
+    return new Box(
+        Vec3(rotation),
+        Vec3(translation),
+        Vec3(scale),
+        width, height,
+        depth,
+        *material
+    );
 }
 
 extern "C" PluginMetadata* metadata() {

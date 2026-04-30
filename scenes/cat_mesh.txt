@@ -1,6 +1,25 @@
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 4;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 30; g = 30; b = 40; };
+    };
+};
+
 camera:
 {
-    resolution = { width = 800; height = 800; };
+    resolution = { width = 2000; height = 2000; };
     position = { x = 750.0; y = 700.0; z = 650.0; };
     look_at = { x = -53.0; y = 172.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
@@ -10,14 +29,27 @@ camera:
 materials:
 {
     phong = (
-        { name = "grey"; color = { r = 180; g = 180; b = 180; }; shininess = 32.0; }
+        { name = "grey"; color = { r = 180; g = 180; b = 180; }; shininess = 32.0; },
+        { name = "orange"; color = { r = 220; g = 130; b = 60; }; shininess = 32.0; }
     );
 };
 
 shapes:
 {
     meshes = (
-        { path = "textures/obj/lowpolycat/cat.obj"; material = "grey"; }
+        {
+            path = "textures/obj/lowpolycat/cat.obj";
+            material = "grey";
+            position = { x = 0.0; y = 0.0; z = 0.0; };
+            scale = { x = 2.0; y = 1.0; z = 1.0; };
+        }
+        // {
+        //     path = "textures/obj/lowpolycat/cat.obj";
+        //     material = "orange";
+        //     position = { x = 300.0; y = 0.0; z = 0.0; };
+        //     scale = { x = 0.5; y = 1.0; z = 0.5; };
+        //     rotation = { x = 0.0; y = 45.0; z = 0.0; };
+        // }
     );
 };
 

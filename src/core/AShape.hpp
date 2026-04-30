@@ -2,6 +2,7 @@
 
 #include "../Interfaces/IBoundable.hpp"
 #include "../Math/AABB.hpp"
+#include "../Math/Matrix4x4.hpp"
 
 /**
  * @brief Abstract base class providing automatic transformation and AABB optimization for all shapes.
@@ -25,8 +26,9 @@ public:
     /**
      * @param rotation Euler angles in degrees (rx, ry, rz) - ZYX convention
      * @param translation Position in world space (x, y, z)
+     * @param scale Scale factors for each axis (x, y, z)
      */
-    AShape(Vec3 rotation, Vec3 translation);
+    AShape(Vec3 rotation, Vec3 translation, Vec3 scale);
 
     /**
      * @brief [FINAL] Full intersection pipeline: AABB check → transform to local → hitLocal() → transform to world → range check
@@ -48,16 +50,13 @@ protected:
     void updateWorldAABB();
 
 private:
-    Vec3 _rotation;             // Euler angles for rotation
-    Vec3 _translation;          // Translation offset
-    mutable AABB _worldAABB;    // Transformed bounding box in world space
+    Matrix4x4 _transform;           // World transformation matrix (rotation + translation)
+    Matrix4x4 _inverseTransform;    // Inverse of the world transformation (for ray conversion)
+    Matrix4x4 _normalTransform;     // Inverse transpose for transforming normals (if needed)
+    mutable AABB _worldAABB;        // Transformed bounding box in world space
     mutable bool _aabbNeedsUpdate;
 
     Ray worldToLocal(const Ray& ray) const;
     HitRecord localToWorld(const HitRecord& local, const Ray& worldRay) const;
     AABB transformAABB(const AABB& localAABB) const;
-
-    // Helper methods for 3D rotation math
-    Vec3 applyRotation(const Vec3& v, double rx, double ry, double rz) const;
-    Vec3 applyInverseRotation(const Vec3& v, double rx, double ry, double rz) const;
 };

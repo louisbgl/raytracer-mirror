@@ -110,6 +110,7 @@ add_executable(raytracer
     src/factories/LightFactory.cpp
     src/utils/HelpDisplay.cpp
     src/core/AShape.cpp
+    src/Math/Matrix4x4.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -202,40 +203,47 @@ function(add_raytracer_plugin PLUGIN_NAME PLUGIN_TYPE SOURCE_FILE)
     set(ALL_PLUGIN_TARGETS ${ALL_PLUGIN_TARGETS} ${PLUGIN_NAME} CACHE INTERNAL "List of all plugin targets")
 endfunction()
 
+function(add_ashape_plugin PLUGIN_NAME SOURCE_FILE)
+    add_raytracer_plugin(${PLUGIN_NAME} shapes ${SOURCE_FILE} ${ARGN} src/core/AShape.cpp src/Math/Matrix4x4.cpp)
+endfunction()
+
 # Disable deprecated K&R style warnings for Graphics Gems code
 set_source_files_properties(src/Math/Roots3And4.c PROPERTIES
     COMPILE_FLAGS "-Wno-deprecated-non-prototype"
 )
 
 # Shape plugins
-# Bounded shapes (inherit from AShape - need AShape.cpp linked)
-add_raytracer_plugin(sphere   shapes src/plugins/Shapes/Sphere.cpp src/core/AShape.cpp)
-add_raytracer_plugin(rectangle shapes src/plugins/Shapes/Rectangle.cpp src/core/AShape.cpp)
-add_raytracer_plugin(box      shapes src/plugins/Shapes/Box.cpp src/core/AShape.cpp)
-add_raytracer_plugin(limited_cylinder shapes src/plugins/Shapes/LimitedCylinder.cpp src/core/AShape.cpp)
-add_raytracer_plugin(tanglecube shapes src/plugins/Shapes/Tanglecube.cpp src/core/AShape.cpp src/Math/Roots3And4.c)
-add_raytracer_plugin(torus    shapes src/plugins/Shapes/Torus.cpp src/core/AShape.cpp src/Math/Roots3And4.c)
-add_raytracer_plugin(limited_cone    shapes src/plugins/Shapes/LimitedCone.cpp src/core/AShape.cpp)
-add_raytracer_plugin(limited_hourglass shapes src/plugins/Shapes/LimitedHourglass.cpp src/core/AShape.cpp)
+# Bounded shapes (inherit from AShape)
+add_ashape_plugin(sphere            src/plugins/Shapes/Sphere.cpp)
+add_ashape_plugin(box               src/plugins/Shapes/Box.cpp)
+add_ashape_plugin(rectangle         src/plugins/Shapes/Rectangle.cpp)
+add_ashape_plugin(triangle          src/plugins/Shapes/Triangle.cpp)
+add_ashape_plugin(limited_cylinder  src/plugins/Shapes/LimitedCylinder.cpp)
+add_ashape_plugin(limited_cone      src/plugins/Shapes/LimitedCone.cpp)
+add_ashape_plugin(limited_hourglass src/plugins/Shapes/LimitedHourglass.cpp)
+add_ashape_plugin(torus             src/plugins/Shapes/Torus.cpp            src/Math/Roots3And4.c)
+add_ashape_plugin(tanglecube        src/plugins/Shapes/Tanglecube.cpp       src/Math/Roots3And4.c)
+add_ashape_plugin(mesh
+    src/plugins/Shapes/Mesh.cpp
+    src/parsers/ObjParser.cpp
+    src/plugins/Shapes/MeshTriangle.cpp
+)
 
 # Infinite shapes (inherit directly from IShape - no AShape needed)
-add_raytracer_plugin(cylinder shapes src/plugins/Shapes/Cylinder.cpp)
-add_raytracer_plugin(plane    shapes src/plugins/Shapes/Plane.cpp)
-add_raytracer_plugin(cone    shapes src/plugins/Shapes/Cone.cpp)
-add_raytracer_plugin(hourglass    shapes src/plugins/Shapes/Hourglass.cpp)
-add_raytracer_plugin(triangle shapes src/plugins/Shapes/Triangle.cpp src/core/AShape.cpp)
-# mesh uses MeshTriangle (IBoundable, no AShape overhead) internally; Mesh itself is AShape
-add_raytracer_plugin(mesh shapes src/plugins/Shapes/Mesh.cpp src/parsers/ObjParser.cpp src/plugins/Shapes/MeshTriangle.cpp src/core/AShape.cpp)
+add_raytracer_plugin(cylinder  shapes src/plugins/Shapes/Cylinder.cpp)
+add_raytracer_plugin(plane     shapes src/plugins/Shapes/Plane.cpp)
+add_raytracer_plugin(cone      shapes src/plugins/Shapes/Cone.cpp)
+add_raytracer_plugin(hourglass shapes src/plugins/Shapes/Hourglass.cpp)
 
 # Material plugins
-add_raytracer_plugin(lambertian  materials src/plugins/Materials/Lambertian.cpp)
-add_raytracer_plugin(refractive materials src/plugins/Materials/Refractive.cpp)
-add_raytracer_plugin(reflective materials src/plugins/Materials/Reflective.cpp)
-add_raytracer_plugin(coloreddiffuse     materials src/plugins/Materials/ColoredDiffuse.cpp)
-add_raytracer_plugin(phong materials src/plugins/Materials/Phong.cpp)
-add_raytracer_plugin(chessboard materials src/plugins/Materials/Chessboard.cpp)
-add_raytracer_plugin(perlinnoise materials src/plugins/Materials/PerlinNoise.cpp)
-add_raytracer_plugin(image_texture materials src/plugins/Materials/ImageTexture.cpp)
+add_raytracer_plugin(lambertian     materials src/plugins/Materials/Lambertian.cpp)
+add_raytracer_plugin(refractive     materials src/plugins/Materials/Refractive.cpp)
+add_raytracer_plugin(reflective     materials src/plugins/Materials/Reflective.cpp)
+add_raytracer_plugin(coloreddiffuse materials src/plugins/Materials/ColoredDiffuse.cpp)
+add_raytracer_plugin(phong          materials src/plugins/Materials/Phong.cpp)
+add_raytracer_plugin(chessboard     materials src/plugins/Materials/Chessboard.cpp)
+add_raytracer_plugin(perlinnoise    materials src/plugins/Materials/PerlinNoise.cpp)
+add_raytracer_plugin(image_texture  materials src/plugins/Materials/ImageTexture.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)

@@ -4,7 +4,7 @@
 
 class Torus : public AShape {
 public:
-    Torus(Vec3 rotation, Vec3 translation, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material);
+    Torus(Vec3 rotation, Vec3 translation, Vec3 scale, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material);
     ~Torus() override = default;
 
     bool hitLocal(const Ray& ray, HitRecord& record) const override;
