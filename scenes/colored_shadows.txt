@@ -1,9 +1,9 @@
 camera:
 {
-    resolution = { width = 2000; height = 2000; };
-    position = { x = 0; y = -100; z = 35; };
-    look_at = { x = 0; y = 0; z = 5; };
-    up = { x = 0; y = 0; z = 1; };
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0; y = -35; z = -100; };
+    look_at = { x = 0; y = -5; z = 0; };
+    up = { x = 0; y = -1; z = 0; };
     fieldOfView = 50.0;
 };
 
@@ -11,8 +11,8 @@ renderer:
 {
     antialiasing = {
         enabled = true;
-        samples = 4;
         method = "ssaa";
+        samples = 4;
     };
 
     lighting = {
@@ -76,20 +76,20 @@ shapes:
 {
     planes = (
         {
-            position = { x = 0; y = 0; z = -2; };
-            normal = { x = 0; y = 0; z = 1; };
+            position = { x = 0; y = 2; z = 0; };
+            normal = { x = 0; y = -1; z = 0; };
             material = "white_floor";
         }
     );
 
     spheres = (
         {
-            position = { x = -25; y = -10; z = 8; };
+            position = { x = -25; y = -8; z = -10; };
             radius = 6;
             material = "red_glass";
         },
         {
-            position = { x = -12; y = 15; z = 7; };
+            position = { x = -12; y = -7; z = 15; };
             radius = 5;
             material = "opaque_gray";
         }
@@ -97,29 +97,29 @@ shapes:
 
     boxes = (
         {
-            position = { x = 0; y = -10; z = 8; };
+            position = { x = 0; y = -8; z = -10; };
             width = 10; height = 10; depth = 10;
             material = "blue_glass";
-            rotation = { x = 0; y = 0; z = 25; };
+            rotation = { x = 0; y = 20; z = 0; };
         }
     );
 
     limited_cylinders = (
         {
-            position = { x = 25; y = -10; z = 2; };
+            position = { x = 25; y = -3.1; z = -10; };
             radius = 5;
             height = 12;
             material = "yellow_glass";
+            rotation = { x = 90; y = 0; z = 0; };
         }
     );
 
     toruses = (
         {
-            position = { x = 12; y = 15; z = 7; };
+            position = { x = 12; y = -7; z = 15; };
             major_radius = 6;
             minor_radius = 2;
             material = "mirror";
-            rotation = { x = 90; y = 0; z = 0; };
         }
     );
 };
@@ -128,7 +128,7 @@ lights:
 {
     point = (
         {
-            position = { x = 0; y = 0; z = 50; };
+            position = { x = 0; y = -50; z = 0; };
             color = { r = 255; g = 255; b = 255; };
             intensity = 2000;
         }
