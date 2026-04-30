@@ -61,9 +61,12 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         _write("renderer", "multithreading: disabled");
     }
 
-    if (rc.aaEnabled && rc.aaSamples > 1) {
+    if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
+            _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
+                + std::to_string(rc.aaSamples) + " samples)");
+    } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
         _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
-            + std::to_string(rc.aaSamples) + " samples)");
+            + "threshold: " + fmt(rc.aaThreshold) + ")");
     } else {
         _write("renderer", "antialiasing: disabled");
     }
