@@ -19,14 +19,14 @@ struct Args {
 };
 
 static int parseArgs(int argc, char* argv[], Args& out) {
-    clap::App app("raytracer", "CPU raytracer — render scenes from .cfg files");
+    clap::App app("raytracer", "CPU raytracer — render scenes from .txt scene files");
 
     #ifdef WITH_UI
     auto& ui    = app.flag("--ui",    "Launch windowed UI mode");
     #endif
     auto& usage = app.flag("--usage", "Show detailed scene file format reference");
     auto& log   = app.flag("--log",   "Enable logging");
-    auto& scene = app.positional<std::string>("scene", "Scene config file (.cfg)");
+    auto& scene = app.positional<std::string>("scene", "Scene config file (.txt)");
 
     try {
         if (argc == 1) {
