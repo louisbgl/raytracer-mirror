@@ -17,6 +17,11 @@ renderer:
         image = "textures/space.ppm";
     };
 
+    multithreading = {
+        enabled = true;
+        threads = 0; // auto detect max
+    };
+
     output = "output.ppm";
 };
 
