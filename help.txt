@@ -48,7 +48,6 @@ Materials:
 	Phong (name, color (r, g, b), shininess)
 	Reflective (name, reflectivity, color (r, g, b))
 	Refractive (name, opacity, refractiveIndex, color (r, g, b))
-	Transparent (name, opacity, refractiveIndex, color (r, g, b))
 
 Lights:
 	DirectionalLight (direction (dx, dy, dz), color (r, g, b), intensity)
