@@ -2,7 +2,21 @@
 #include "utils/HelpDisplay.hpp"
 #include "core/PluginManager.hpp"
 
+#ifdef WITH_UI
+    #include "ui/UIApp.hpp"
+#endif
+
 int main(int argc, char* argv[]) {
+
+    #ifdef WITH_UI
+        for (int i = 1; i < argc; ++i) {
+            if (std::string(argv[i]) == "--ui") {
+                UIApp app;
+                return app.run();
+            }
+        }
+    #endif    
+
     if (argc < 2 || argc > 3) {
         HelpDisplay help;
         help.display();
