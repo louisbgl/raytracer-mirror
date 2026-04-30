@@ -113,6 +113,7 @@ void SceneParser::parseAntialiasing(const libconfig::Setting& renderer, Renderer
     if (aa.exists("enabled")) config.aaEnabled = aa["enabled"];
     if (aa.exists("samples")) config.aaSamples = validateAASamples(aa["samples"]);
     if (aa.exists("method")) config.aaMethod = validateAAMethod(aa["method"].c_str());
+    if (aa.exists("threshold")) config.aaThreshold = ConfigUtils::getNumber(aa["threshold"]);
 }
 
 void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
@@ -256,7 +257,8 @@ int SceneParser::validateAASamples(int samples) const {
 
 std::string SceneParser::validateAAMethod(const std::string& method) const {
     static const std::unordered_set<std::string> supportedMethods = {
-        "ssaa"
+        "ssaa",
+        "adaptive"
     };
 
     if (supportedMethods.find(method) != supportedMethods.end()) {
