@@ -132,6 +132,7 @@ add_executable(raytracer
     src/utils/HelpDisplay.cpp
     src/core/AShape.cpp
     src/Math/Matrix4x4.cpp
+    src/utils/clap/App.cpp
 )
 
 target_include_directories(raytracer PRIVATE
