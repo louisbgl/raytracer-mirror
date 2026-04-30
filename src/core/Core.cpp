@@ -6,11 +6,15 @@
 #include <functional>
 #include <random>
 #include <cmath>
+#include <thread>
+#include <vector>
 
 #include "../parsers/SceneParser.hpp"
 #include "../Math/Constants.hpp"
+#include "DataTypes/Vec3.hpp"
 #include "Logger.hpp"
 #include "ProgressBar.hpp"
+#include "core/Image.hpp"
 
 Core::Core(std::string inputFile, bool logging)
     : _inputFile(std::move(inputFile)), _logging(logging) {}
@@ -65,43 +69,64 @@ bool Core::_loadScene() {
     return true;
 }
 
-Image Core::_render() {
+Image Core::_render()
+{
     const auto& rc = _scene.rendererConfig();
-    int width  = _scene.camera().getWidth();
-    int height = _scene.camera().getHeight();
-    Image image(width, height);
 
-    // Choose pixel computation method once (extensible for future AA methods)
+    int h = _scene.camera().getHeight();
+    int w = _scene.camera().getWidth();
+    Image image(w, h);
+
+    int total_threads = 0;
+    if (rc.multithreadingEnabled) {
+        total_threads = rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount;
+    }
+    if (total_threads <= 0)
+        total_threads = 1;
+
+    int thread_rows = h / total_threads;
+
     std::function<Vec3(int, int)> computePixel;
     if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
-        computePixel = [this, width, height, samples = rc.aaSamples](int x, int y) {
-            return _computePixelColorSSAA(x, y, width, height, samples);
+        computePixel = [this, w, h, samples = rc.aaSamples](int x, int y) {
+            return _computePixelColorSSAA(x, y, w, h, samples);
         };
     } else {
-        computePixel = [this, width, height](int x, int y) {
-            return _computePixelColor(x, y, width, height);
+        computePixel = [this, w, h](int x, int y) {
+            return _computePixelColor(x, y, w, h);
         };
     }
 
-    std::unique_ptr<ProgressBar> pb;
+    std::vector<std::thread> threads;
+    std::unique_ptr<ProgressBar> progbar = nullptr;
     if (_logging)
-        pb = std::make_unique<ProgressBar>(height);
+        progbar = std::make_unique<ProgressBar>(h);
 
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            Vec3 color = computePixel(x, y);
-            image.setPixel(x, y, color);
-        }
-        if (_logging)
-            pb->update(y + 1);
+    for (int t = 0; t < total_threads; ++t) {
+        int first_row = t * thread_rows;
+        int last_row  = (t == total_threads - 1) ? h : (t + 1) * thread_rows;
+
+        threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
+            for (int y = first_row; y < last_row; ++y) {
+                for (int x = 0; x < w; ++x)
+                    image.setPixel(x, y, computePixel(x, y));
+                if (progbar)
+                    progbar->update(1);
+            }
+        });
     }
 
-    if (_logging) {
-        pb->finish();
+    for (auto& thrd : threads)
+        thrd.join();
+
+    if (_logging && progbar) {
+        progbar->finish();
         std::cout << "  Log: " << _logger->path() << std::endl;
     }
+
     return image;
 }
+
 
 Vec3 Core::_computePixelColor(int x, int y, int width, int height) {
     float u = static_cast<float>(x) / (width - 1);
@@ -110,9 +135,8 @@ Vec3 Core::_computePixelColor(int x, int y, int width, int height) {
 }
 
 Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int samples) {
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    static std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+    thread_local std::mt19937 gen(std::hash<std::thread::id>{}(std::this_thread::get_id()));
+    std::uniform_real_distribution<float> dist(0.0f, 1.0f);
 
     Vec3 pixelColor(0, 0, 0);
     float baseU = static_cast<float>(x) / (width - 1);

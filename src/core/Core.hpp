@@ -2,6 +2,7 @@
 
 #include "../src/DataTypes/Scene.hpp"
 #include "Image.hpp"
+#include "core/ProgressBar.hpp"
 #include <memory>
 #include <string>
 

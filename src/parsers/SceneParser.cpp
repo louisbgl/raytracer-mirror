@@ -59,6 +59,7 @@ void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
         parseLighting(renderer, rendererConfig);
         parseBackground(renderer, rendererConfig);
         parseAntialiasing(renderer, rendererConfig);
+        parseThreads(renderer, rendererConfig);
 
         if (renderer.exists("output")) {
             rendererConfig.outputFile = renderer["output"].c_str();
@@ -266,3 +267,19 @@ std::string SceneParser::validateAAMethod(const std::string& method) const {
     return "ssaa";
 }
 
+void SceneParser::parseThreads(const libconfig::Setting& renderer, RendererConfig& config)
+{
+    if (!renderer.exists("multithreading")) {
+        return;
+    }
+
+    const libconfig::Setting& mtRenderer = renderer["multithreading"];
+
+    if (mtRenderer.exists("enabled")) {
+        config.multithreadingEnabled = mtRenderer["enabled"];
+    }
+
+    if (mtRenderer.exists("threads")) {
+        config.threadCount = static_cast<int>(ConfigUtils::getNumber(mtRenderer["threads"]));
+    }
+}

@@ -1,4 +1,5 @@
 #include "Logger.hpp"
+#include <unistd.h>
 
 #include <chrono>
 #include <ctime>
@@ -6,6 +7,7 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <thread>
 
 Logger::Logger() {
     std::filesystem::create_directories("logs");
@@ -52,6 +54,12 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
     const auto& rc = scene.rendererConfig();
 
     _write("renderer", "output: " + rc.outputFile);
+
+    if (rc.multithreadingEnabled) {
+        _write("renderer", "multithreading: enabled (" + std::to_string(rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount) + " threads)");
+    } else {
+        _write("renderer", "multithreading: disabled");
+    }
 
     if (rc.aaEnabled && rc.aaSamples > 1) {
         _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "

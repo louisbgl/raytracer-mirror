@@ -16,4 +16,7 @@ struct RendererConfig {
     std::string backgroundImage = ""; // If set, this will override backgroundColor
 
     std::string outputFile = "output.ppm";
+
+    bool multithreadingEnabled = true;
+    int threadCount = 0;
 };
