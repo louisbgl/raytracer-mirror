@@ -1,5 +1,5 @@
 var Refractive_8cpp =
 [
-    [ "create", "Refractive_8cpp.html#a55e0f7f6b3a04f652e29b80d7946fee7", null ],
+    [ "create", "Refractive_8cpp.html#af0e5697a5b397c7942f057616b8f06b4", null ],
     [ "metadata", "Refractive_8cpp.html#ad904d62202d0d6477860ba913faadeed", null ]
 ];

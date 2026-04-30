@@ -30,6 +30,7 @@ var annotated_dup =
     [ "LimitedHourglass", "classLimitedHourglass.html", "classLimitedHourglass" ],
     [ "Logger", "classLogger.html", "classLogger" ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
+    [ "Matrix4x4", "classMatrix4x4.html", "classMatrix4x4" ],
     [ "Mesh", "classMesh.html", "classMesh" ],
     [ "MeshTriangle", "classMeshTriangle.html", "classMeshTriangle" ],
     [ "ObjParser", "classObjParser.html", "classObjParser" ],
@@ -59,5 +60,6 @@ var annotated_dup =
     [ "Triangle", "classTriangle.html", "classTriangle" ],
     [ "UV", "structUV.html", "structUV" ],
     [ "Vec3", "classVec3.html", "classVec3" ],
+    [ "Vec3C", "structVec3C.html", "structVec3C" ],
     [ "World", "classWorld.html", "classWorld" ]
 ];

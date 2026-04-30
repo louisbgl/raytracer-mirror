@@ -48,6 +48,7 @@ var hierarchy =
     [ "LightFactory", "classLightFactory.html", null ],
     [ "Logger", "classLogger.html", null ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
+    [ "Matrix4x4", "classMatrix4x4.html", null ],
     [ "ObjParser", "classObjParser.html", null ],
     [ "PluginLoader", "classPluginLoader.html", null ],
     [ "PluginManager", "classPluginManager.html", null ],
@@ -64,5 +65,6 @@ var hierarchy =
     [ "ShapeFactory", "classShapeFactory.html", null ],
     [ "UV", "structUV.html", null ],
     [ "Vec3", "classVec3.html", null ],
+    [ "Vec3C", "structVec3C.html", null ],
     [ "World", "classWorld.html", null ]
 ];

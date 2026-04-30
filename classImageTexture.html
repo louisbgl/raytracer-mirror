@@ -130,6 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6bf526a8cba453e80e12286be74bb1e0" id="r_a6bf526a8cba453e80e12286be74bb1e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImageTexture.html#a6bf526a8cba453e80e12286be74bb1e0">scatter</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray_in, const <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record, <a class="el" href="classVec3.html">Vec3</a> &amp;attenuation, <a class="el" href="classRay.html">Ray</a> &amp;scattered) const override</td></tr>
 <tr class="memdesc:a6bf526a8cba453e80e12286be74bb1e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Indirect Lighting] Determines if and how light bounces off the surface.  <br /></td></tr>
 <tr class="separator:a6bf526a8cba453e80e12286be74bb1e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb036423aee1a8b94b45e5cadd5b5fdf" id="r_afb036423aee1a8b94b45e5cadd5b5fdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImageTexture.html#afb036423aee1a8b94b45e5cadd5b5fdf">shadowTransmittance</a> () const override</td></tr>
+<tr class="memdesc:afb036423aee1a8b94b45e5cadd5b5fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how much light passes through this material for shadow calculations.  <br /></td></tr>
+<tr class="separator:afb036423aee1a8b94b45e5cadd5b5fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classIMaterial"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classIMaterial')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classIMaterial.html">IMaterial</a></td></tr>
 <tr class="memitem:a43ad960a33ef87b199c1d8b28c364130 inherit pub_methods_classIMaterial" id="r_a43ad960a33ef87b199c1d8b28c364130"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIMaterial.html#a43ad960a33ef87b199c1d8b28c364130">~IMaterial</a> ()=default</td></tr>
 <tr class="separator:a43ad960a33ef87b199c1d8b28c364130 inherit pub_methods_classIMaterial"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,6 +285,37 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="classVec3.html">Vec3</a> color contribution (how much this light brightens the pixel). </dd></dl>
 
 <p>Implements <a class="el" href="classIMaterial.html#a07663c1682f1af7d946b61b838de5be5">IMaterial</a>.</p>
+
+</div>
+</div>
+<a id="afb036423aee1a8b94b45e5cadd5b5fdf" name="afb036423aee1a8b94b45e5cadd5b5fdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb036423aee1a8b94b45e5cadd5b5fdf">&#9670;&#160;</a></span>shadowTransmittance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classVec3.html">Vec3</a> ImageTexture::shadowTransmittance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns how much light passes through this material for shadow calculations. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classVec3.html">Vec3</a> where (1,1,1) = fully transparent, (0,0,0) = fully opaque</dd></dl>
+<p>Used when tracing shadow rays. Allows colored shadows through tinted glass. </p>
+
+<p>Implements <a class="el" href="classIMaterial.html#ad06abb14ef7c825c09511e65fc6c577c">IMaterial</a>.</p>
 
 </div>
 </div>

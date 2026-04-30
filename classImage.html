@@ -120,9 +120,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa9c18658d00f5eaf2f110eb74a1b0f64" id="r_aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aa9c18658d00f5eaf2f110eb74a1b0f64">sample</a> (double u, double v) const</td></tr>
 <tr class="memdesc:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples the image using <a class="el" href="structUV.html">UV</a> coordinates.  <br /></td></tr>
 <tr class="separator:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b5dfdeafcd288d4117cddec4185c4ea" id="r_a9b5dfdeafcd288d4117cddec4185c4ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a9b5dfdeafcd288d4117cddec4185c4ea">writePPM</a> (const std::string &amp;filename) const</td></tr>
-<tr class="memdesc:a9b5dfdeafcd288d4117cddec4185c4ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the image to a file in PPM format.  <br /></td></tr>
-<tr class="separator:a9b5dfdeafcd288d4117cddec4185c4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57ae7ef06acc5d36fe9c8281cfb59a80" id="r_a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a57ae7ef06acc5d36fe9c8281cfb59a80">writePPM</a> (const std::string &amp;filename, bool binary=true) const</td></tr>
+<tr class="memdesc:a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the image to a file in PPM format.  <br /></td></tr>
+<tr class="separator:a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -398,8 +398,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9b5dfdeafcd288d4117cddec4185c4ea" name="a9b5dfdeafcd288d4117cddec4185c4ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b5dfdeafcd288d4117cddec4185c4ea">&#9670;&#160;</a></span>writePPM()</h2>
+<a id="a57ae7ef06acc5d36fe9c8281cfb59a80" name="a57ae7ef06acc5d36fe9c8281cfb59a80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57ae7ef06acc5d36fe9c8281cfb59a80">&#9670;&#160;</a></span>writePPM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -408,8 +408,18 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">void Image::writePPM </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>binary</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -418,6 +428,7 @@ Static Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The name of the file to write to. </td></tr>
+    <tr><td class="paramname">binary</td><td>Whether to write in binary (P6) or text (P3) format. </td></tr>
   </table>
   </dd>
 </dl>

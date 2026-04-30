@@ -6,5 +6,5 @@ var searchData=
   ['directionallight_2ecpp_3',['DirectionalLight.cpp',['../DirectionalLight_8cpp.html',1,'']]],
   ['directionallight_2ehpp_4',['DirectionalLight.hpp',['../DirectionalLight_8hpp.html',1,'']]],
   ['display_5',['display',['../classHelpDisplay.html#a085c8398d42f3a8d310070f279618c99',1,'HelpDisplay']]],
-  ['dot_6',['dot',['../Vec3_8hpp.html#a52b70fe96b8fd4b5ea43f8da373be5cc',1,'Vec3.hpp']]]
+  ['dot_6',['dot',['../Vec3_8hpp.html#a4eaf4b48059db930958884fbd633d6a0',1,'Vec3.hpp']]]
 ];

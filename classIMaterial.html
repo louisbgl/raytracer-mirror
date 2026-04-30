@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4ba0a086e2f22f83bc73aa54408e985" id="r_ab4ba0a086e2f22f83bc73aa54408e985"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIMaterial.html#ab4ba0a086e2f22f83bc73aa54408e985">scatter</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray_in, const <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record, <a class="el" href="classVec3.html">Vec3</a> &amp;attenuation, <a class="el" href="classRay.html">Ray</a> &amp;scattered) const =0</td></tr>
 <tr class="memdesc:ab4ba0a086e2f22f83bc73aa54408e985"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Indirect Lighting] Determines if and how light bounces off the surface.  <br /></td></tr>
 <tr class="separator:ab4ba0a086e2f22f83bc73aa54408e985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06abb14ef7c825c09511e65fc6c577c" id="r_ad06abb14ef7c825c09511e65fc6c577c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classIMaterial.html#ad06abb14ef7c825c09511e65fc6c577c">shadowTransmittance</a> () const =0</td></tr>
+<tr class="memdesc:ad06abb14ef7c825c09511e65fc6c577c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how much light passes through this material for shadow calculations.  <br /></td></tr>
+<tr class="separator:ad06abb14ef7c825c09511e65fc6c577c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for materials that define how rays interact with surfaces. </p>
@@ -287,6 +290,37 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="classVec3.html">Vec3</a> color contribution (how much this light brightens the pixel). </dd></dl>
 
 <p>Implemented in <a class="el" href="classChessboard.html#ab464ac05a8bab89c50e5104989a5d848">Chessboard</a>, <a class="el" href="classColoredDiffuse.html#a306de3aae50972245001ea0eda7639fe">ColoredDiffuse</a>, <a class="el" href="classImageTexture.html#a91b13a8e895d6330ddc9492ab9afe635">ImageTexture</a>, <a class="el" href="classLambertian.html#a4fb16563795e02a71fa74cb33efadb2a">Lambertian</a>, <a class="el" href="classPerlinNoise.html#a3d1ce58b69e6a71e6e4be8bcfcc0e709">PerlinNoise</a>, <a class="el" href="classPhong.html#a7e7c856a4711c81c30a3bf75b6f50d78">Phong</a>, <a class="el" href="classReflective.html#a4d0f802da3c3300123c1aa6d329b9aff">Reflective</a>, and <a class="el" href="classRefractive.html#af8b4fff6b4216f06d0a7993ffe158915">Refractive</a>.</p>
+
+</div>
+</div>
+<a id="ad06abb14ef7c825c09511e65fc6c577c" name="ad06abb14ef7c825c09511e65fc6c577c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad06abb14ef7c825c09511e65fc6c577c">&#9670;&#160;</a></span>shadowTransmittance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classVec3.html">Vec3</a> IMaterial::shadowTransmittance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns how much light passes through this material for shadow calculations. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classVec3.html">Vec3</a> where (1,1,1) = fully transparent, (0,0,0) = fully opaque</dd></dl>
+<p>Used when tracing shadow rays. Allows colored shadows through tinted glass. </p>
+
+<p>Implemented in <a class="el" href="classChessboard.html#aa86d389ac25d10856743ac2ad88b92c6">Chessboard</a>, <a class="el" href="classColoredDiffuse.html#a333977f85d491a4fe934cc857743d9e2">ColoredDiffuse</a>, <a class="el" href="classImageTexture.html#afb036423aee1a8b94b45e5cadd5b5fdf">ImageTexture</a>, <a class="el" href="classLambertian.html#a6f892c55842fa9456bace9da022ec702">Lambertian</a>, <a class="el" href="classPerlinNoise.html#af48b6962e376a5fe17e61bc87780a08b">PerlinNoise</a>, <a class="el" href="classPhong.html#a9800a62de5372eb8d1418a0385ce703d">Phong</a>, <a class="el" href="classReflective.html#a22c9d7447d41bc2b16c03560c95152ae">Reflective</a>, and <a class="el" href="classRefractive.html#a10f9ae16c758d2eca3a04d4f2f8d5a84">Refractive</a>.</p>
 
 </div>
 </div>

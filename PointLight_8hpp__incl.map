@@ -1,13 +1,15 @@
 <map id="src/plugins/Lights/PointLight.hpp" name="src/plugins/Lights/PointLight.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="65,5,200,45"/>
-<area shape="rect" id="Node000002" href="$ILight_8hpp.html" title=" " alt="" coords="43,93,222,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,46,135,79,130,79,130,46"/>
-<area shape="rect" id="Node000003" href="$Vec3_8hpp.html" title=" " alt="" coords="50,167,215,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="135,119,135,153,130,153,130,119"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="119,5,253,45"/>
+<area shape="rect" id="Node000002" href="$ILight_8hpp.html" title=" " alt="" coords="97,93,275,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,46,189,79,183,79,183,46"/>
+<area shape="rect" id="Node000003" href="$Vec3_8hpp.html" title=" " alt="" coords="103,167,269,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,119,189,153,183,153,183,119"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="5,240,68,265"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="119,194,65,234,62,229,116,190"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="163,194,75,236,72,232,161,190"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="93,240,173,265"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="135,192,135,226,130,226,130,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="179,194,152,231,147,228,175,191"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="197,240,284,265"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="151,190,213,230,210,235,149,194"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="197,191,226,228,221,231,193,194"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="309,240,378,265"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="212,190,306,232,304,237,210,194"/>
 </map>

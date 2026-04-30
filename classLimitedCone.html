@@ -130,8 +130,8 @@ Collaboration diagram for LimitedCone:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a803360643ea27624569b4472298b593a" id="r_a803360643ea27624569b4472298b593a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLimitedCone.html#a803360643ea27624569b4472298b593a">LimitedCone</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation, double radius, double height, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
-<tr class="separator:a803360643ea27624569b4472298b593a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a514717da21488b545ef049e36a8cc1ad" id="r_a514717da21488b545ef049e36a8cc1ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLimitedCone.html#a514717da21488b545ef049e36a8cc1ad">LimitedCone</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation, <a class="el" href="classVec3.html">Vec3</a> scale, double radius, double height, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
+<tr class="separator:a514717da21488b545ef049e36a8cc1ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e9152eeacf995563da8890691ef32ea" id="r_a1e9152eeacf995563da8890691ef32ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLimitedCone.html#a1e9152eeacf995563da8890691ef32ea">~LimitedCone</a> () override=default</td></tr>
 <tr class="separator:a1e9152eeacf995563da8890691ef32ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e9f3185345984cefd179b98fe579290" id="r_a0e9f3185345984cefd179b98fe579290"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classLimitedCone.html#a0e9f3185345984cefd179b98fe579290">hitLocal</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const override</td></tr>
@@ -141,8 +141,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6cfdd7ab5b0ff9f4879ab2bc361b273b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return axis-aligned bounding box for shape at origin (local space).  <br /></td></tr>
 <tr class="separator:a6cfdd7ab5b0ff9f4879ab2bc361b273b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classAShape"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classAShape')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classAShape.html">AShape</a></td></tr>
-<tr class="memitem:af3b7cab4e9cf252c189ea1f77af015ae inherit pub_methods_classAShape" id="r_af3b7cab4e9cf252c189ea1f77af015ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#af3b7cab4e9cf252c189ea1f77af015ae">AShape</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation)</td></tr>
-<tr class="separator:af3b7cab4e9cf252c189ea1f77af015ae inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b6e19e01a6ce0941cab90a0d5b3479 inherit pub_methods_classAShape" id="r_af9b6e19e01a6ce0941cab90a0d5b3479"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#af9b6e19e01a6ce0941cab90a0d5b3479">AShape</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation, <a class="el" href="classVec3.html">Vec3</a> scale)</td></tr>
+<tr class="separator:af9b6e19e01a6ce0941cab90a0d5b3479 inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape" id="r_afbff68d7a0a5fdc03eca3c610d3d740a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const final override</td></tr>
 <tr class="memdesc:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="mdescLeft">&#160;</td><td class="mdescRight">[FINAL] Full intersection pipeline: <a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> check → transform to local → <a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688" title="Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.">hitLocal()</a> → transform to world → range check  <br /></td></tr>
 <tr class="separator:afbff68d7a0a5fdc03eca3c610d3d740a inherit pub_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,8 +159,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:afac33774671e0b4aaf414b27f56f4237 inherit pro_methods_classAShape"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a803360643ea27624569b4472298b593a" name="a803360643ea27624569b4472298b593a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a803360643ea27624569b4472298b593a">&#9670;&#160;</a></span>LimitedCone()</h2>
+<a id="a514717da21488b545ef049e36a8cc1ad" name="a514717da21488b545ef049e36a8cc1ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a514717da21488b545ef049e36a8cc1ad">&#9670;&#160;</a></span>LimitedCone()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,6 +176,12 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
           <td class="paramname"><em>translation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classVec3.html">Vec3</a>&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

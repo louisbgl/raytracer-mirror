@@ -98,42 +98,50 @@ $(document).ready(function(){initNavTree('AShape_8hpp.html',''); initResizable()
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="IBoundable_8hpp_source.html">../Interfaces/IBoundable.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="AABB_8hpp_source.html">../Math/AABB.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Matrix4x4_8hpp_source.html">../Math/Matrix4x4.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for AShape.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="AShape_8hpp__incl.png" border="0" usemap="#asrc_2core_2AShape_8hpp" alt=""/></div>
 <map name="asrc_2core_2AShape_8hpp" id="asrc_2core_2AShape_8hpp">
-<area shape="rect" title=" " alt="" coords="385,5,540,31"/>
-<area shape="rect" href="IBoundable_8hpp.html" title=" " alt="" coords="291,79,495,104"/>
-<area shape="poly" title=" " alt="" coords="453,33,416,71,412,67,449,29"/>
-<area shape="rect" href="AABB_8hpp.html" title=" " alt="" coords="466,152,601,177"/>
-<area shape="poly" title=" " alt="" coords="475,29,492,51,509,77,522,108,530,138,525,139,517,110,504,80,488,54,471,32"/>
-<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="337,152,431,177"/>
-<area shape="poly" title=" " alt="" coords="394,105,390,139,385,138,389,104"/>
-<area shape="poly" title=" " alt="" coords="417,102,500,143,497,148,415,106"/>
-<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="229,372,387,397"/>
-<area shape="poly" title=" " alt="" coords="387,178,383,242,375,284,361,325,348,346,333,364,329,360,344,343,356,323,370,283,378,242,382,178"/>
-<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="141,225,339,251"/>
-<area shape="poly" title=" " alt="" coords="362,180,277,221,275,217,360,175"/>
-<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="267,445,349,471"/>
-<area shape="poly" title=" " alt="" coords="311,398,311,432,305,432,305,398"/>
-<area shape="rect" title=" " alt="" coords="181,519,243,544"/>
-<area shape="poly" title=" " alt="" coords="294,473,240,512,237,508,291,469"/>
-<area shape="rect" title=" " alt="" coords="268,519,348,544"/>
-<area shape="poly" title=" " alt="" coords="311,471,311,505,305,505,305,471"/>
-<area shape="rect" title=" " alt="" coords="373,519,459,544"/>
-<area shape="poly" title=" " alt="" coords="327,468,388,509,385,513,324,473"/>
-<area shape="poly" title=" " alt="" coords="243,251,248,284,260,323,272,343,288,361,284,364,268,346,255,325,242,285,238,251"/>
-<area shape="rect" title=" " alt="" coords="269,299,347,324"/>
-<area shape="poly" title=" " alt="" coords="253,249,289,287,285,290,249,253"/>
-<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="5,299,195,324"/>
-<area shape="poly" title=" " alt="" coords="219,253,136,295,134,290,216,248"/>
-<area shape="poly" title=" " alt="" coords="134,321,262,365,260,370,133,327"/>
-<area shape="poly" title=" " alt="" coords="117,322,219,395,280,436,277,440,216,400,114,326"/>
-<area shape="poly" title=" " alt="" coords="537,178,535,213,530,233,521,252,485,293,442,326,396,351,356,370,353,365,394,347,439,321,481,289,516,249,525,231,530,212,531,177"/>
-<area shape="poly" title=" " alt="" coords="540,177,548,211,548,231,544,252,527,286,506,317,481,345,453,371,396,412,346,441,343,437,393,408,449,367,477,342,502,314,523,283,539,250,543,231,542,211,535,178"/>
-<area shape="rect" title=" " alt="" coords="421,225,507,251"/>
-<area shape="poly" title=" " alt="" coords="524,180,487,217,483,214,520,176"/>
+<area shape="rect" title=" " alt="" coords="190,5,345,31"/>
+<area shape="rect" href="IBoundable_8hpp.html" title=" " alt="" coords="166,79,370,104"/>
+<area shape="poly" title=" " alt="" coords="270,31,270,65,265,65,265,31"/>
+<area shape="rect" href="AABB_8hpp.html" title=" " alt="" coords="32,152,167,177"/>
+<area shape="poly" title=" " alt="" coords="237,33,196,52,156,81,131,110,113,141,108,138,127,107,152,77,194,48,235,28"/>
+<area shape="rect" href="Matrix4x4_8hpp.html" title=" " alt="" coords="362,372,528,397"/>
+<area shape="poly" title=" " alt="" coords="320,28,371,45,423,73,445,90,463,111,475,136,480,163,480,239,471,305,456,360,451,358,466,304,474,239,474,164,470,137,459,114,441,94,420,77,369,50,318,33"/>
+<area shape="rect" href="IShape_8hpp.html" title=" " alt="" coords="227,152,322,177"/>
+<area shape="poly" title=" " alt="" coords="271,104,275,138,269,139,266,105"/>
+<area shape="poly" title=" " alt="" coords="242,106,141,149,139,144,240,102"/>
+<area shape="rect" href="Ray_8hpp.html" title=" " alt="" coords="180,372,337,397"/>
+<area shape="poly" title=" " alt="" coords="315,175,354,194,373,207,388,224,405,249,415,274,415,299,403,326,375,353,341,370,339,365,372,348,399,322,410,297,410,275,401,252,384,227,369,211,351,198,313,180"/>
+<area shape="rect" href="HitRecord_8hpp.html" title=" " alt="" coords="175,225,374,251"/>
+<area shape="poly" title=" " alt="" coords="277,178,277,212,272,212,272,178"/>
+<area shape="rect" href="Vec3_8hpp.html" title=" " alt="" coords="214,445,295,471"/>
+<area shape="poly" title=" " alt="" coords="260,398,258,432,253,432,255,398"/>
+<area shape="rect" title=" " alt="" coords="416,519,479,544"/>
+<area shape="poly" title=" " alt="" coords="286,468,404,511,402,516,284,473"/>
+<area shape="rect" title=" " alt="" coords="108,519,188,544"/>
+<area shape="poly" title=" " alt="" coords="239,473,178,513,175,509,236,468"/>
+<area shape="rect" title=" " alt="" coords="306,519,392,544"/>
+<area shape="poly" title=" " alt="" coords="271,469,324,508,321,512,268,473"/>
+<area shape="rect" title=" " alt="" coords="212,519,281,544"/>
+<area shape="poly" title=" " alt="" coords="256,471,252,505,246,505,250,471"/>
+<area shape="poly" title=" " alt="" coords="276,251,264,359,258,358,270,251"/>
+<area shape="rect" title=" " alt="" coords="312,299,389,324"/>
+<area shape="poly" title=" " alt="" coords="288,249,330,287,326,291,285,253"/>
+<area shape="rect" href="IMaterial_8hpp.html" title=" " alt="" coords="48,299,237,324"/>
+<area shape="poly" title=" " alt="" coords="254,253,177,294,174,290,252,248"/>
+<area shape="poly" title=" " alt="" coords="162,322,229,362,226,367,159,326"/>
+<area shape="poly" title=" " alt="" coords="146,324,153,358,160,378,170,396,192,419,218,437,216,441,189,423,165,399,155,380,147,359,141,325"/>
+<area shape="poly" title=" " alt="" coords="87,179,65,200,47,227,34,254,26,277,26,299,38,322,57,337,88,349,167,368,166,373,86,354,54,341,34,326,20,300,21,276,29,252,43,224,61,196,83,176"/>
+<area shape="poly" title=" " alt="" coords="80,180,53,199,30,227,16,253,9,275,10,297,21,323,37,346,57,366,104,400,154,425,201,441,199,446,152,429,101,405,53,370,33,349,16,325,5,299,4,275,12,251,25,224,49,195,77,175"/>
+<area shape="rect" title=" " alt="" coords="57,225,142,251"/>
+<area shape="poly" title=" " alt="" coords="102,178,102,212,97,212,97,178"/>
+<area shape="poly" title=" " alt="" coords="415,400,299,443,297,438,413,395"/>
+<area shape="poly" title=" " alt="" coords="448,398,450,505,444,505,442,398"/>
+<area shape="poly" title=" " alt="" coords="439,399,366,509,362,506,435,396"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">

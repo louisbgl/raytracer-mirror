@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['y',['../classVec3.html#a30e6c5f5f1b9028ff045f8a9d9ecb10c',1,'Vec3']]]
+  ['y_0',['y',['../classVec3.html#a36b44ad39a28bab8986d40b4ec3b8d85',1,'Vec3']]]
 ];

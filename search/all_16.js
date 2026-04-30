@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_0',['z',['../classVec3.html#a62db3f94d750b24233490a752eb52c87',1,'Vec3']]]
+  ['z_0',['z',['../structVec3C.html#a595306ddbef609d8dcf191fd71d1824d',1,'Vec3C::z'],['../classVec3.html#a817353d8a984cb7f85eafe80b7a801de',1,'Vec3::z()']]]
 ];

@@ -116,27 +116,28 @@ $(document).ready(function(){initNavTree('PerlinNoise_8hpp_source.html',''); ini
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>               <span class="keyword">const</span> <a class="code hl_class" href="classVec3.html">Vec3</a>&amp; viewDir) <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="classPerlinNoise.html#a70f550cb8c84ea04f9c85a5dec9e9041">scatter</a>([[maybe_unused]] <span class="keyword">const</span> <a class="code hl_class" href="classRay.html">Ray</a>&amp; ray_in, [[maybe_unused]] <span class="keyword">const</span> <a class="code hl_class" href="classHitRecord.html">HitRecord</a>&amp; record,</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                 [[maybe_unused]] <a class="code hl_class" href="classVec3.html">Vec3</a>&amp; attenuation, [[maybe_unused]] <a class="code hl_class" href="classRay.html">Ray</a>&amp; scattered) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classPerlinNoise.html#a3afba872c5c16f6febe91ab1e93239a2">fillArray</a>();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> POINT_COUNT = 256;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> HERMITE_CURVE = 3 - 2;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::array&lt;Vec3, POINT_COUNT&gt; _ranVec3;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    std::array&lt;int, POINT_COUNT&gt; _permX;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::array&lt;int, POINT_COUNT&gt; _permY;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::array&lt;int, POINT_COUNT&gt; _permZ;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    [[nodiscard]] <span class="keywordtype">double</span> noise(<span class="keyword">const</span> <a class="code hl_class" href="classVec3.html">Vec3</a>&amp; point) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> perlinGenPerm(std::array&lt;int, POINT_COUNT&gt;&amp; p);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">using </span>CubeVectors = std::array&lt;std::array&lt;std::array&lt;Vec3, 2&gt;, 2&gt;, 2&gt;;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">static</span> <span class="keywordtype">double</span> trilinearInterp(<span class="keyword">const</span> CubeVectors&amp; c, <span class="keywordtype">double</span> u, <span class="keywordtype">double</span> v, <span class="keywordtype">double</span> w);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">double</span> fractal_noise(<a class="code hl_class" href="classVec3.html">Vec3</a> p) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _albedo;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">double</span> _scale;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> <a class="code hl_function" href="classPerlinNoise.html#af48b6962e376a5fe17e61bc87780a08b">shadowTransmittance</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classPerlinNoise.html#a3afba872c5c16f6febe91ab1e93239a2">fillArray</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> POINT_COUNT = 256;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> HERMITE_CURVE = 3 - 2;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    std::array&lt;Vec3, POINT_COUNT&gt; _ranVec3;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::array&lt;int, POINT_COUNT&gt; _permX;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    std::array&lt;int, POINT_COUNT&gt; _permY;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::array&lt;int, POINT_COUNT&gt; _permZ;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    [[nodiscard]] <span class="keywordtype">double</span> noise(<span class="keyword">const</span> <a class="code hl_class" href="classVec3.html">Vec3</a>&amp; point) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> perlinGenPerm(std::array&lt;int, POINT_COUNT&gt;&amp; p);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">using </span>CubeVectors = std::array&lt;std::array&lt;std::array&lt;Vec3, 2&gt;, 2&gt;, 2&gt;;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> <span class="keywordtype">double</span> trilinearInterp(<span class="keyword">const</span> CubeVectors&amp; c, <span class="keywordtype">double</span> u, <span class="keywordtype">double</span> v, <span class="keywordtype">double</span> w);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">double</span> fractal_noise(<a class="code hl_class" href="classVec3.html">Vec3</a> p) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _albedo;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">double</span> _scale;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
 </div>
 <div class="ttc" id="aVec3_8hpp_html"><div class="ttname"><a href="Vec3_8hpp.html">Vec3.hpp</a></div></div>
 <div class="ttc" id="aclassHitRecord_html"><div class="ttname"><a href="classHitRecord.html">HitRecord</a></div><div class="ttdef"><b>Definition</b> HitRecord.hpp:7</div></div>
@@ -145,8 +146,9 @@ $(document).ready(function(){initNavTree('PerlinNoise_8hpp_source.html',''); ini
 <div class="ttc" id="aclassPerlinNoise_html_a3afba872c5c16f6febe91ab1e93239a2"><div class="ttname"><a href="classPerlinNoise.html#a3afba872c5c16f6febe91ab1e93239a2">PerlinNoise::fillArray</a></div><div class="ttdeci">void fillArray()</div><div class="ttdef"><b>Definition</b> PerlinNoise.cpp:19</div></div>
 <div class="ttc" id="aclassPerlinNoise_html_a3d1ce58b69e6a71e6e4be8bcfcc0e709"><div class="ttname"><a href="classPerlinNoise.html#a3d1ce58b69e6a71e6e4be8bcfcc0e709">PerlinNoise::shade</a></div><div class="ttdeci">Vec3 shade(const HitRecord &amp;record, const Vec3 &amp;lightDir, const Vec3 &amp;lightColor, const Vec3 &amp;viewDir) const override</div><div class="ttdoc">[Direct Lighting] Determines how the surface reacts to a specific light source.</div><div class="ttdef"><b>Definition</b> PerlinNoise.cpp:56</div></div>
 <div class="ttc" id="aclassPerlinNoise_html_a70f550cb8c84ea04f9c85a5dec9e9041"><div class="ttname"><a href="classPerlinNoise.html#a70f550cb8c84ea04f9c85a5dec9e9041">PerlinNoise::scatter</a></div><div class="ttdeci">bool scatter(const Ray &amp;ray_in, const HitRecord &amp;record, Vec3 &amp;attenuation, Ray &amp;scattered) const override</div><div class="ttdoc">[Indirect Lighting] Determines if and how light bounces off the surface.</div><div class="ttdef"><b>Definition</b> PerlinNoise.cpp:50</div></div>
+<div class="ttc" id="aclassPerlinNoise_html_af48b6962e376a5fe17e61bc87780a08b"><div class="ttname"><a href="classPerlinNoise.html#af48b6962e376a5fe17e61bc87780a08b">PerlinNoise::shadowTransmittance</a></div><div class="ttdeci">Vec3 shadowTransmittance() const override</div><div class="ttdoc">Returns how much light passes through this material for shadow calculations.</div><div class="ttdef"><b>Definition</b> PerlinNoise.cpp:74</div></div>
 <div class="ttc" id="aclassRay_html"><div class="ttname"><a href="classRay.html">Ray</a></div><div class="ttdoc">Represents a ray in 3D space, defined by an origin and a direction.</div><div class="ttdef"><b>Definition</b> Ray.hpp:9</div></div>
-<div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:7</div></div>
+<div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

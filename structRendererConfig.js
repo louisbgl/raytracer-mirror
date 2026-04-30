@@ -8,5 +8,7 @@ var structRendererConfig =
     [ "backgroundColor", "structRendererConfig.html#ae95f9de4c2b7af0f58bb7f311ca46a5f", null ],
     [ "backgroundImage", "structRendererConfig.html#a9a63ceb632cb094fe8605b65a011c78c", null ],
     [ "diffuseMultiplier", "structRendererConfig.html#a0b13454499673dfb9c81c5dfee0528ba", null ],
-    [ "outputFile", "structRendererConfig.html#a6665cb8247bb04e59f054dadc1df09c4", null ]
+    [ "multithreadingEnabled", "structRendererConfig.html#aebd853b2a081935ddc7be7d6979f0cdd", null ],
+    [ "outputFile", "structRendererConfig.html#a6665cb8247bb04e59f054dadc1df09c4", null ],
+    [ "threadCount", "structRendererConfig.html#a8e3af03c7feb1f555aa54659ac0606cc", null ]
 ];
