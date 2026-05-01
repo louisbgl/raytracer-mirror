@@ -1,0 +1,56 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 10; y = -1; z = -30; };
+    look_at = { x = 0; y = 0; z = 0; };
+    up = { x = 0; y = 1; z = 0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    phong = (
+        {
+            name = "cat_fur";
+            color = { r = 180; g = 140; b = 100; };
+            shininess = 8.0;
+        },
+        {
+            name = "red";
+            color = { r = 255; g = 0; b = 0; };
+            shininess = 32.0;
+        }
+    );
+};
+
+shapes:
+{
+    meshes = (
+        {
+            path = "textures/obj/lowpolycat/cat.obj";
+            material = "cat_fur";
+            position = { x = 0.0; y = -10.0; z = 0.0; };
+            scale = { x = 0.045; y = 0.045; z = 0.045; };
+            rotation = { x = 0.0; y = 90.0; z = 0.0; };
+        }
+    );
+
+    spheres = (
+        {
+            position = { x = 0; y = -7; z = -10; };
+            radius = 2;
+            material = "red";
+        }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 0; y = 15; z = -40; };
+            color = { r = 255; g = 255; b = 255; };
+            intensity = 1500;
+        }
+    );
+};
