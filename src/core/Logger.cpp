@@ -101,6 +101,39 @@ void Logger::_logAO(const RendererConfig& rc) {
     }
 }
 
+void Logger::logStats(const RenderStats& stats, const RendererConfig& rc) {
+    auto pct = [](long long a, long long b) -> std::string {
+        if (b == 0) return "0%";
+        return std::to_string(static_cast<int>(100.0 * a / b)) + "%";
+    };
+
+    if (rc.aoEnabled) {
+        long long cast = stats.aoRaysCast.load();
+        long long hit  = stats.aoRaysHit.load();
+        _write("stats", "ao rays: " + _fmtNum(cast)
+            + "   hits: " + _fmtNum(hit) + " (" + pct(hit, cast) + ")");
+    }
+
+    if (rc.aaEnabled && rc.aaMethod == "ssaa") {
+        _write("stats", "ssaa samples: " + _fmtNum(stats.ssaaSamples.load()));
+    }
+
+    if (rc.aaEnabled && rc.aaMethod == "adaptive") {
+        long long taken = stats.adaptiveSamples.load();
+        long long maxS  = stats.adaptiveMaxSamples.load();
+        long long saved = maxS - taken;
+        _write("stats", "adaptive samples: " + _fmtNum(taken) + " / " + _fmtNum(maxS)
+            + "   saved: " + _fmtNum(saved) + " (" + pct(saved, maxS) + ")");
+    }
+
+    long long shadowCast = stats.shadowRaysCast.load();
+    long long shadowHit  = stats.shadowRaysHit.load();
+    _write("stats", "shadow rays: " + _fmtNum(shadowCast)
+        + "   fully occluded: " + _fmtNum(shadowHit) + " (" + pct(shadowHit, shadowCast) + ")");
+
+    _write("stats", "scatter bounces: " + _fmtNum(stats.scatterBounces.load()));
+}
+
 void Logger::logTiming(double parseS, double renderS, double writeS, long long pixelCount) {
     double totalS = parseS + renderS + writeS;
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../DataTypes/Scene.hpp"
+#include "../DataTypes/RenderStats.hpp"
 
 class Logger {
 public:
@@ -14,6 +15,7 @@ public:
 
     void logScene(const std::string& scenePath, const Scene& scene);
     void logTiming(double parseS, double renderS, double writeS, long long pixelCount);
+    void logStats(const RenderStats& stats, const RendererConfig& rc);
     void warn(const std::string& message);
 
 private:
