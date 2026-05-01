@@ -147,7 +147,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
     if(TEST_SOURCES)
         add_executable(run_tests EXCLUDE_FROM_ALL
             ${TEST_SOURCES}
-            src/Math/Roots3And4.c
+            src/external/Roots3And4.c
             src/parsers/ObjParser.cpp
             src/plugins/Shapes/MeshTriangle.cpp
         )
@@ -210,7 +210,7 @@ function(add_ashape_plugin PLUGIN_NAME SOURCE_FILE)
 endfunction()
 
 # Disable deprecated K&R style warnings for Graphics Gems code
-set_source_files_properties(src/Math/Roots3And4.c PROPERTIES
+set_source_files_properties(src/external/Roots3And4.c PROPERTIES
     COMPILE_FLAGS "-Wno-deprecated-non-prototype"
 )
 
@@ -227,8 +227,8 @@ add_ashape_plugin(triangle          src/plugins/Shapes/Triangle.cpp)
 add_ashape_plugin(limited_cylinder  src/plugins/Shapes/LimitedCylinder.cpp)
 add_ashape_plugin(limited_cone      src/plugins/Shapes/LimitedCone.cpp)
 add_ashape_plugin(limited_hourglass src/plugins/Shapes/LimitedHourglass.cpp)
-add_ashape_plugin(torus             src/plugins/Shapes/Torus.cpp            src/Math/Roots3And4.c)
-add_ashape_plugin(tanglecube        src/plugins/Shapes/Tanglecube.cpp       src/Math/Roots3And4.c)
+add_ashape_plugin(torus             src/plugins/Shapes/Torus.cpp            src/external/Roots3And4.c)
+add_ashape_plugin(tanglecube        src/plugins/Shapes/Tanglecube.cpp       src/external/Roots3And4.c)
 add_ashape_plugin(mesh
     src/plugins/Shapes/Mesh.cpp
     src/parsers/ObjParser.cpp
