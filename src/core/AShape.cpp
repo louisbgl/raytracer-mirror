@@ -11,6 +11,13 @@ AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale) {
     _aabbNeedsUpdate = true;
 }
 
+AShape::AShape(const Matrix4x4& transform) {
+    _transform = transform;
+    _inverseTransform = _transform.inverse();
+    _normalTransform = _inverseTransform.transposed();
+    _aabbNeedsUpdate = true;
+}
+
 bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
     // Lazy AABB update on first hit call
     if (_aabbNeedsUpdate) {

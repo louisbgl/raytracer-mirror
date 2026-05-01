@@ -24,11 +24,18 @@
 class AShape : public IBoundable {
 public:
     /**
+     * @brief Constructor for specifying rotation, translation, and scale separately.
      * @param rotation Euler angles in degrees (rx, ry, rz) - ZYX convention
      * @param translation Position in world space (x, y, z)
      * @param scale Scale factors for each axis (x, y, z)
      */
     AShape(Vec3 rotation, Vec3 translation, Vec3 scale);
+
+    /**
+     * @brief Constructor for directly providing a transformation matrix.
+     * @param transform The world transformation matrix to apply to the shape.
+     */
+    AShape(const Matrix4x4& transform);
 
     /**
      * @brief [FINAL] Full intersection pipeline: AABB check → transform to local → hitLocal() → transform to world → range check
