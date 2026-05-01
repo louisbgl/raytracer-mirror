@@ -101,6 +101,7 @@ add_executable(raytracer
     src/core/Image.cpp
     src/core/Core.cpp
     src/core/RenderSampler.cpp
+    src/external/stb.cpp
     src/core/PluginLoader.cpp
     src/core/PluginManager.cpp
     src/core/ProgressBar.cpp
@@ -213,6 +214,10 @@ set_source_files_properties(src/Math/Roots3And4.c PROPERTIES
     COMPILE_FLAGS "-Wno-deprecated-non-prototype"
 )
 
+set_source_files_properties(src/external/stb.cpp PROPERTIES
+    COMPILE_FLAGS "-Wno-missing-field-initializers"
+)
+
 # Shape plugins
 # Bounded shapes (inherit from AShape)
 add_ashape_plugin(sphere            src/plugins/Shapes/Sphere.cpp)
@@ -313,53 +318,3 @@ add_custom_target(help_txt ALL
 # Make raytracer depend on help_txt so help.txt is always up-to-date
 add_dependencies(raytracer help_txt)
 
-# ── Texture Conversion ─────────────────────────────────────────────────────────
-# Try to find ImageMagick (magick or convert command)
-find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
-
-if(NOT IMAGEMAGICK_CONVERT)
-    # Try to install via package manager as fallback
-    message(STATUS "ImageMagick not found in system, attempting to install...")
-
-    include(ExternalProject)
-
-    if(APPLE)
-        # Use brew on macOS
-        execute_process(
-            COMMAND brew install imagemagick
-            RESULT_VARIABLE BREW_RESULT
-            OUTPUT_QUIET ERROR_QUIET
-        )
-        find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
-    else()
-        # Use apt on Linux
-        execute_process(
-            COMMAND sudo apt-get update
-            RESULT_VARIABLE APT_UPDATE_RESULT
-            OUTPUT_QUIET ERROR_QUIET
-        )
-        execute_process(
-            COMMAND sudo apt-get install -y imagemagick
-            RESULT_VARIABLE APT_RESULT
-            OUTPUT_QUIET ERROR_QUIET
-        )
-        find_program(IMAGEMAGICK_CONVERT NAMES magick convert)
-    endif()
-endif()
-
-if(IMAGEMAGICK_CONVERT)
-    message(STATUS "Found ImageMagick: ${IMAGEMAGICK_CONVERT}")
-
-    if(EXISTS ${PROJECT_SOURCE_DIR}/textures/convert_images.sh)
-        add_custom_target(convert_textures
-            COMMAND ${CMAKE_COMMAND} -E env PATH=$ENV{PATH}:/usr/bin:/usr/local/bin ${CMAKE_COMMAND} -E chdir ${PROJECT_SOURCE_DIR}/textures ./convert_images.sh
-            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-            COMMENT "Converting texture images to PPM format"
-        )
-
-        # Run texture conversion before building raytracer
-        add_dependencies(raytracer convert_textures)
-    endif()
-else()
-    message(WARNING "ImageMagick could not be found or installed - texture conversion disabled.")
-endif()
