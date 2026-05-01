@@ -2,6 +2,7 @@
 
 #include "../Interfaces/IShape.hpp"
 #include "../core/PluginLoader.hpp"
+#include "../Math/Matrix4x4.hpp"
 #include <libconfig.h++>
 #include <memory>
 #include <string>
@@ -22,8 +23,17 @@ public:
         std::shared_ptr<IMaterial> material
     );
 
+    static std::shared_ptr<IShape> create(
+        const std::string& type,
+        const libconfig::Setting& config,
+        std::shared_ptr<IMaterial> material,
+        const Matrix4x4& transform
+    );
+
 private:
     using ShapeCreator = std::shared_ptr<IShape>(*)(const libconfig::Setting&, std::shared_ptr<IMaterial>);
+
+    static std::unordered_map<std::string, ShapeCreator> creators;
 
     static Vec3 _getRotation(const libconfig::Setting& config);
     static Vec3 _getScale(const libconfig::Setting& config);
