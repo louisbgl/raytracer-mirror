@@ -28,18 +28,18 @@ public:
 private:
     std::string _currentFile;  // Temporary for error messages
 
-    void parseRenderer(libconfig::Config& config, Scene& scene);
-    void parseCamera(libconfig::Config& config, Scene& scene);
-    void parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap);
-    void parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world);
-    void parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights);
+    void _parseRenderer(libconfig::Config& config, Scene& scene);
+    void _parseCamera(libconfig::Config& config, Scene& scene);
+    void _parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap);
+    void _parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world);
+    void _parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights);
 
-    int validateAASamples(int samples) const;
-    int validateAOSamples(int samples) const;
-    std::string validateAAMethod(const std::string& method) const;
+    int _validateAASamples(int samples) const;
+    int _validateAOSamples(int samples) const;
+    std::string _validateAAMethod(const std::string& method) const;
 
-    void parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
-    void parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
-    void parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
-    void parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
+    void _parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
+    void _parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
+    void _parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
+    void _parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
 };

@@ -29,17 +29,17 @@ Scene SceneParser::parse(const std::string& filename) {
 
     Scene scene;
 
-    parseRenderer(config, scene);
-    parseCamera(config, scene);
+    _parseRenderer(config, scene);
+    _parseCamera(config, scene);
 
     std::unordered_map<std::string, std::shared_ptr<IMaterial>> materialMap;
-    parseMaterials(config, materialMap);
+    _parseMaterials(config, materialMap);
 
     World world;
-    parseShapes(config, materialMap, world);
+    _parseShapes(config, materialMap, world);
 
     std::vector<std::shared_ptr<ILight>> lights;
-    parseLights(config, lights);
+    _parseLights(config, lights);
 
     scene.set_world(world);
     for (auto& light : lights) {
@@ -50,16 +50,16 @@ Scene SceneParser::parse(const std::string& filename) {
     return scene;
 }
 
-void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
+void SceneParser::_parseRenderer(libconfig::Config& config, Scene& scene) {
     RendererConfig rendererConfig;
 
     try {
         const libconfig::Setting& renderer = config.lookup("renderer");
 
-        parseLighting(renderer, rendererConfig);
-        parseBackground(renderer, rendererConfig);
-        parseAntialiasing(renderer, rendererConfig);
-        parseThreads(renderer, rendererConfig);
+        _parseLighting(renderer, rendererConfig);
+        _parseBackground(renderer, rendererConfig);
+        _parseAntialiasing(renderer, rendererConfig);
+        _parseThreads(renderer, rendererConfig);
 
         if (renderer.exists("output")) {
             rendererConfig.outputFile = renderer["output"].c_str();
@@ -72,7 +72,7 @@ void SceneParser::parseRenderer(libconfig::Config& config, Scene& scene) {
     scene.setRendererConfig(rendererConfig);
 }
 
-void SceneParser::parseLighting(const libconfig::Setting& renderer, RendererConfig& config) {
+void SceneParser::_parseLighting(const libconfig::Setting& renderer, RendererConfig& config) {
     if (!renderer.exists("lighting")) return;
 
     const libconfig::Setting& lighting = renderer["lighting"];
@@ -95,7 +95,7 @@ void SceneParser::parseLighting(const libconfig::Setting& renderer, RendererConf
         config.aoEnabled = ao["enabled"];
     }
     if (ao.exists("samples")) {
-        config.aoSamples = validateAOSamples(ao["samples"]);
+        config.aoSamples = _validateAOSamples(ao["samples"]);
     }
     if (ao.exists("radius")) {
         config.aoRadius = ConfigUtils::getNumber(ao["radius"]);
@@ -103,7 +103,7 @@ void SceneParser::parseLighting(const libconfig::Setting& renderer, RendererConf
 
 }
 
-void SceneParser::parseBackground(const libconfig::Setting& renderer, RendererConfig& config) {
+void SceneParser::_parseBackground(const libconfig::Setting& renderer, RendererConfig& config) {
     if (!renderer.exists("background")) return;
 
     const libconfig::Setting& bg = renderer["background"];
@@ -120,18 +120,18 @@ void SceneParser::parseBackground(const libconfig::Setting& renderer, RendererCo
     }
 }
 
-void SceneParser::parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config) {
+void SceneParser::_parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config) {
     if (!renderer.exists("antialiasing")) return;
 
     const libconfig::Setting& aa = renderer["antialiasing"];
 
     if (aa.exists("enabled")) config.aaEnabled = aa["enabled"];
-    if (aa.exists("samples")) config.aaSamples = validateAASamples(aa["samples"]);
-    if (aa.exists("method")) config.aaMethod = validateAAMethod(aa["method"].c_str());
+    if (aa.exists("samples")) config.aaSamples = _validateAASamples(aa["samples"]);
+    if (aa.exists("method")) config.aaMethod = _validateAAMethod(aa["method"].c_str());
     if (aa.exists("threshold")) config.aaThreshold = ConfigUtils::getNumber(aa["threshold"]);
 }
 
-void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
+void SceneParser::_parseCamera(libconfig::Config& config, Scene& scene) {
     try {
         int height = ConfigUtils::getNumber(config.lookup("camera.resolution.height"));
         int width = ConfigUtils::getNumber(config.lookup("camera.resolution.width"));
@@ -161,7 +161,7 @@ void SceneParser::parseCamera(libconfig::Config& config, Scene& scene) {
     }
 }
 
-void SceneParser::parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap) {
+void SceneParser::_parseMaterials(libconfig::Config& config, std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap) {
     try {
         const libconfig::Setting& materials = config.lookup("materials");
 
@@ -190,7 +190,7 @@ void SceneParser::parseMaterials(libconfig::Config& config, std::unordered_map<s
     }
 }
 
-void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world) {
+void SceneParser::_parseShapes(libconfig::Config& config, const std::unordered_map<std::string, std::shared_ptr<IMaterial>>& materialMap, World& world) {
     try {
         const libconfig::Setting& shapes = config.lookup("shapes");
 
@@ -229,7 +229,7 @@ void SceneParser::parseShapes(libconfig::Config& config, const std::unordered_ma
     }
 }
 
-void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights) {
+void SceneParser::_parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights) {
     try {
         const libconfig::Setting& lightSettings = config.lookup("lights");
 
@@ -259,7 +259,7 @@ void SceneParser::parseLights(libconfig::Config& config, std::vector<std::shared
     }
 }
 
-int SceneParser::validateAASamples(int samples) const {
+int SceneParser::_validateAASamples(int samples) const {
     if (samples < 1) {
         std::cerr << "Warning: AntiAliasing samples must be >= 1, using 1" << std::endl;
         return 1;
@@ -270,7 +270,7 @@ int SceneParser::validateAASamples(int samples) const {
     return samples;
 }
 
-int SceneParser::validateAOSamples(int samples) const {
+int SceneParser::_validateAOSamples(int samples) const {
     if (samples < 1) {
         std::cerr << "Warning: Ambient Occlusion samples must be >= 1, using 1" << std::endl;
         return 1;
@@ -281,7 +281,7 @@ int SceneParser::validateAOSamples(int samples) const {
     return samples;
 }
 
-std::string SceneParser::validateAAMethod(const std::string& method) const {
+std::string SceneParser::_validateAAMethod(const std::string& method) const {
     static const std::unordered_set<std::string> supportedMethods = {
         "ssaa",
         "adaptive"
@@ -295,7 +295,7 @@ std::string SceneParser::validateAAMethod(const std::string& method) const {
     return "ssaa";
 }
 
-void SceneParser::parseThreads(const libconfig::Setting& renderer, RendererConfig& config)
+void SceneParser::_parseThreads(const libconfig::Setting& renderer, RendererConfig& config)
 {
     if (!renderer.exists("multithreading")) {
         return;
