@@ -10,17 +10,17 @@ camera:
 materials:
 {
     image_texture = (
-        { name = "sun";     path = "textures/sun.ppm"; },
-        { name = "mercury"; path = "textures/mercury.ppm"; },
-        { name = "venus";   path = "textures/venus.ppm"; },
-        { name = "earth";   path = "textures/earth.ppm"; },
-        { name = "moon";    path = "textures/moon.ppm"; },
-        { name = "mars";    path = "textures/mars.ppm"; },
-        { name = "jupiter"; path = "textures/jupiter.ppm"; },
-        { name = "saturn";  path = "textures/saturn.ppm"; },
-        { name = "uranus";  path = "textures/uranus.ppm"; },
-        { name = "neptune"; path = "textures/neptune.ppm"; },
-        { name = "pluto";   path = "textures/pluto.ppm"; }
+        { name = "sun";     path = "textures/sun.jpg"; },
+        { name = "mercury"; path = "textures/mercury.jpg"; },
+        { name = "venus";   path = "textures/venus.jpg"; },
+        { name = "earth";   path = "textures/earth.jpg"; },
+        { name = "moon";    path = "textures/moon.jpg"; },
+        { name = "mars";    path = "textures/mars.jpg"; },
+        { name = "jupiter"; path = "textures/jupiter.jpg"; },
+        { name = "saturn";  path = "textures/saturn.jpg"; },
+        { name = "uranus";  path = "textures/uranus.jpg"; },
+        { name = "neptune"; path = "textures/neptune.jpg"; },
+        { name = "pluto";   path = "textures/pluto.jpg"; }
     );
 
     perlinnoise = (

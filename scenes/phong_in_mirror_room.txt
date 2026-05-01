@@ -15,7 +15,7 @@ renderer:
 
     background = {
         color = { r = 20; g = 20; b = 25; };
-        image = "textures/space.ppm";
+        image = "textures/space.png";
     };
 
     output = "output.ppm";
