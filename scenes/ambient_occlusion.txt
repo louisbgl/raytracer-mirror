@@ -21,7 +21,7 @@ renderer:
 
         ambientOcclusion = {
             enabled = true;
-            samples = 16;
+            samples = 4;
             radius = 4.0;
         };
     };
