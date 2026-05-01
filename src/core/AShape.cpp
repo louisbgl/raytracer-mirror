@@ -18,6 +18,13 @@ AShape::AShape(const Matrix4x4& transform) {
     _aabbNeedsUpdate = true;
 }
 
+void AShape::applyParentTransform(const Matrix4x4& parent) {
+    _transform = parent * _transform;
+    _inverseTransform = _transform.inverse();
+    _normalTransform = _inverseTransform.transposed();
+    _aabbNeedsUpdate = true;
+}
+
 bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const {
     // Lazy AABB update on first hit call
     if (_aabbNeedsUpdate) {

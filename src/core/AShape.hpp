@@ -42,6 +42,7 @@ public:
      */
     bool hit(const Ray& ray, double t_min, double t_max, HitRecord& record) const final override;
     AABB boundingBox() const override;
+    void applyParentTransform(const Matrix4x4& parent);
 
     /**
      * @brief Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.
