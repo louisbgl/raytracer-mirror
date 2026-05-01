@@ -14,7 +14,7 @@ renderer:
 
     background = {
         color = { r = 135; g = 206; b = 235; }; # Pink
-        image = "textures/space.ppm";
+        image = "textures/space.png";
     };
 
     multithreading = {
@@ -63,7 +63,7 @@ materials:
     );
 
     image_texture = (
-        { name = "mat7"; path = "textures/earth.ppm"; }
+        { name = "mat7"; path = "textures/earth.jpg"; }
     );
 };
 

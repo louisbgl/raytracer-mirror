@@ -16,7 +16,7 @@ materials:
     );
 
     image_texture = (
-        { name = "minecraft_empty"; path = "textures/minecraft_empty.ppm"; }
+        { name = "minecraft_empty"; path = "textures/minecraft_empty.png"; }
     );
 
     coloreddiffuse = (

@@ -6,7 +6,7 @@
 #include <cmath>
 
 ImageTexture::ImageTexture(const std::string& filename) {
-    _image = Image::readPPM(filename);
+    _image = Image::readFile(filename);
     if (!_image)
         throw std::runtime_error("ImageTexture: cannot load " + filename);
 }

@@ -14,7 +14,7 @@
  *   - Repository: https://github.com/erich666/GraphicsGems
  *   - License: Public Domain / Graphics Gems License (permissive)
  *
- * The original C code is preserved in src/Math/Roots3And4.c without modification.
+ * The original C code is preserved in src/external/Roots3And4.c without modification.
  * This header provides only a modern C++ interface wrapper for type safety and
  * convenience. All credit for the solving algorithms goes to Jochen Schwarze.
  *
