@@ -35,7 +35,6 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     _writeOutput(image);
-    std::cout << "Output image saved to " << _scene.rendererConfig().outputFile << std::endl;
 
     auto t3 = Clock::now();
     if (_logging) {
@@ -58,7 +57,7 @@ bool Core::_loadScene() {
 
     const auto& bgImage = _scene.rendererConfig().backgroundImage;
     if (!bgImage.empty()) {
-        _backgroundImage = Image::readPPM(bgImage);
+        _backgroundImage = Image::readFile(bgImage);
         if (!_backgroundImage) {
             std::cerr << "Warning: Failed to load background image, using solid color" << std::endl;
         }
@@ -115,7 +114,7 @@ Image Core::_render()
 }
 
 void Core::_writeOutput(Image& image) {
-    image.writePPM(_scene.rendererConfig().outputFile);
+    image.writeFile(_scene.rendererConfig().outputFile);
 }
 
 Vec3 Core::_computePixelColor(int x, int y, int width, int height) const {
