@@ -22,7 +22,7 @@ renderer:
         ambientOcclusion = {
             enabled = true;
             samples = 16;
-            radius = 8.0;
+            radius = 4.0;
         };
     };
 
@@ -40,8 +40,7 @@ materials:
         { name = "wall_back";   color = { r = 80;  g = 110; b = 160; }; },
         { name = "wall_left";   color = { r = 160; g = 80;  b = 80;  }; },
         { name = "tall_box";    color = { r = 240; g = 200; b = 80;  }; },
-        { name = "small_box";   color = { r = 60;  g = 180; b = 120; }; },
-        { name = "blue";        color = { r = 80;  g = 60;  b = 220; }; }
+        { name = "small_box";   color = { r = 60;  g = 180; b = 120; }; }
     );
 
     reflective = (
@@ -52,12 +51,11 @@ materials:
         }
     );
 
-    refractive = (
+    phong = (
         {
-            name = "glass_ball";
-            opacity = 0.1;
-            refractiveIndex = 1.3;
-            color = { r = 180; g = 230; b = 255; };
+            name = "cat_fur";
+            color = { r = 180; g = 140; b = 100; };
+            shininess = 8.0;
         }
     );
 };
@@ -99,17 +97,22 @@ shapes:
         }
     );
 
-    // Sphere close to box and floor — crevice between sphere+floor = strong AO
+    // Cat: raw size ~762x331x144, scale 0.045 → ~34x15x6.5 units, sits on floor y=-10
+    meshes = (
+        {
+            path = "textures/obj/lowpolycat/cat.obj";
+            material = "cat_fur";
+            position = { x = -5.0; y = -10.3; z = -5.0; };
+            scale = { x = 0.045; y = 0.045; z = 0.045; };
+            rotation = { x = 0.0; y = 90.0; z = 0.0; };
+        }
+    );
+
     spheres = (
         {
             position = { x = 12; y = -4; z = 12; };
             radius = 6;
             material = "mirror_ball";
-        },
-        {
-            position = { x = -5; y = -5; z = -5; };
-            radius = 3;
-            material = "glass_ball";
         }
     );
 };
