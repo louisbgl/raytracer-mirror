@@ -17,6 +17,9 @@ public:
     // Composition
     Matrix4x4 operator*(const Matrix4x4& other) const;
 
+    bool operator==(const Matrix4x4& other) const;
+    bool operator!=(const Matrix4x4& other) const;
+
     Vec3 transformPoint(const Vec3& p) const;     // w=1: translation applies
     Vec3 transformDirection(const Vec3& d) const; // w=0: translation ignored
 
