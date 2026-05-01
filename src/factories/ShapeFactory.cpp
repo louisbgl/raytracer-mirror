@@ -43,7 +43,7 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
         aShape->applyParentTransform(parentTransform);
     } else {
         static std::unordered_set<std::string> warned;
-        if (warned.insert(type).second)
+        if (warned.insert(type).second && parentTransform != Matrix4x4::identity())
             std::cerr << "Warning: '" << type << "' does not support subscene transforms. Object placed at original position." << std::endl;
     }
 
