@@ -161,9 +161,22 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) con
 }
 
 Vec3 Core::_computeAmbient(const HitRecord& record) const {
-    (void)record;
     const auto& rc = _scene.rendererConfig();
-    return rc.ambientColor * rc.ambientMultiplier;
+
+    double occlusion = 1.0;
+    if (rc.aoEnabled) {
+        int hits = 0;
+        for (int i = 0; i < rc.aoSamples; ++i) {
+            Vec3 aoDir = RenderSampler::randomHemisphere(record.normal);
+            Ray aoRay(record.point + record.normal * 1e-4, aoDir);
+            HitRecord aoRecord;
+            if (_scene.world().get_closest_hit(aoRay, _t_min, rc.aoRadius, aoRecord))
+                ++hits;
+        }
+        occlusion = 1.0 - static_cast<double>(hits) / rc.aoSamples;
+    }
+
+    return rc.ambientColor * rc.ambientMultiplier * occlusion;
 }
 
 Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
