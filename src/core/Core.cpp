@@ -38,9 +38,11 @@ bool Core::simulate() {
     std::cout << "Output image saved to " << _scene.rendererConfig().outputFile << std::endl;
 
     auto t3 = Clock::now();
-    if (_logging)
+    if (_logging) {
         _logger->logTiming(elapsed(t0, t1), elapsed(t1, t2), elapsed(t2, t3),
             static_cast<long long>(_scene.camera().getWidth()) * _scene.camera().getHeight());
+        _logger->logStats(_stats, _scene.rendererConfig());
+    }
 
     return true;
 }
@@ -135,6 +137,7 @@ Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int sampl
         float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
         pixelColor = pixelColor + _trace(_scene.camera().getRay(u, v), _maxRayBounces, baseU, baseV);
     }
+    _stats.ssaaSamples += samples;
 
     return pixelColor / static_cast<double>(samples);
 }
@@ -154,8 +157,10 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) con
 
     Vec3 attenuation;
     Ray scattered;
-    if (record.material->scatter(ray, record, attenuation, scattered))
+    if (record.material->scatter(ray, record, attenuation, scattered)) {
+        _stats.scatterBounces++;
         color += attenuation * _trace(scattered, depth - 1, screenU, screenV);
+    }
 
     return color;
 }
@@ -173,6 +178,8 @@ Vec3 Core::_computeAmbient(const HitRecord& record) const {
             if (_scene.world().get_closest_hit(aoRay, _t_min, rc.aoRadius, aoRecord))
                 ++hits;
         }
+        _stats.aoRaysCast += rc.aoSamples;
+        _stats.aoRaysHit  += hits;
         occlusion = 1.0 - static_cast<double>(hits) / rc.aoSamples;
     }
 
@@ -195,7 +202,9 @@ Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
         Vec3 transmittance(1, 1, 1);
         static constexpr double epsilon = 1e-4;
 
+        bool fullyOccluded = false;
         while (t < lightDistance) {
+            _stats.shadowRaysCast++;
             if (!_scene.world().get_closest_hit(shadowRay, t, lightDistance, shadowRecord))
                 break;
 
@@ -203,11 +212,14 @@ Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
 
             if (length(transmittance) < epsilon) {
                 transmittance = Vec3(0, 0, 0);
+                fullyOccluded = true;
                 break;
             }
 
             t = shadowRecord.t + epsilon;
         }
+        if (fullyOccluded)
+            _stats.shadowRaysHit++;
 
         color += record.material->shade(record, lightDir, lightColor, viewDir) * rc.diffuseMultiplier * transmittance;
     }
@@ -237,8 +249,11 @@ Vec3 Core::_adaptiveSubdivide(int x, int y, double offX, double offY, double siz
         _sampleSubPixel(x, y, offX + size,   offY + size, width, height),
     };
 
-    if (depth >= _maxSubdivDepth || RenderSampler::computeVariance(corners) <= threshold)
+    if (depth >= _maxSubdivDepth || RenderSampler::computeVariance(corners) <= threshold) {
+        _stats.adaptiveSamples    += 4;
+        _stats.adaptiveMaxSamples += 4 * (1LL << (2 * (_maxSubdivDepth - depth)));
         return (corners[0] + corners[1] + corners[2] + corners[3]) / 4.0;
+    }
 
     return (
         _adaptiveSubdivide(x, y, offX,        offY,        half, width, height, threshold, depth + 1) +

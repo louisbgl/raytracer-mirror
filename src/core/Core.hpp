@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../src/DataTypes/Scene.hpp"
+#include "../src/DataTypes/RenderStats.hpp"
 #include "Image.hpp"
 #include "RenderSampler.hpp"
 #include "core/ProgressBar.hpp"
@@ -31,10 +32,11 @@ private:
     Scene _scene;
     std::unique_ptr<Image> _backgroundImage;
     std::unique_ptr<Logger> _logger;
+    mutable RenderStats _stats;
     double _t_min = 0.001;
     double _t_max = 1e6;
     int _maxRayBounces = 50;
-    int _maxSubdivDepth = 3;
+    int _maxSubdivDepth = 2;
 
     bool  _loadScene();
     Image _render();
