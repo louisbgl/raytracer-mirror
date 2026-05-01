@@ -35,6 +35,7 @@ private:
     void parseLights(libconfig::Config& config, std::vector<std::shared_ptr<ILight>>& lights);
 
     int validateAASamples(int samples) const;
+    int validateAOSamples(int samples) const;
     std::string validateAAMethod(const std::string& method) const;
 
     void parseLighting(const libconfig::Setting& renderer, RendererConfig& config);
