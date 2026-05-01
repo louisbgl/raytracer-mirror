@@ -100,6 +100,7 @@ add_executable(raytracer
     src/main.cpp
     src/core/Image.cpp
     src/core/Core.cpp
+    src/core/RenderSampler.cpp
     src/core/PluginLoader.cpp
     src/core/PluginManager.cpp
     src/core/ProgressBar.cpp

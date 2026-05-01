@@ -86,6 +86,21 @@ void SceneParser::parseLighting(const libconfig::Setting& renderer, RendererConf
     if (lighting.exists("diffuseMultiplier")) {
         config.diffuseMultiplier = ConfigUtils::getNumber(lighting["diffuseMultiplier"]);
     }
+
+    if (!lighting.exists("ambientOcclusion")) return;
+
+    const libconfig::Setting& ao = lighting["ambientOcclusion"];
+
+    if (ao.exists("enabled")) {
+        config.aoEnabled = ao["enabled"];
+    }
+    if (ao.exists("samples")) {
+        config.aoSamples = validateAOSamples(ao["samples"]);
+    }
+    if (ao.exists("radius")) {
+        config.aoRadius = ConfigUtils::getNumber(ao["radius"]);
+    }
+
 }
 
 void SceneParser::parseBackground(const libconfig::Setting& renderer, RendererConfig& config) {
@@ -251,6 +266,17 @@ int SceneParser::validateAASamples(int samples) const {
     }
     if (samples > 64) {
         std::cerr << "Warning: AntiAliasing samples > 64 may be very slow" << std::endl;
+    }
+    return samples;
+}
+
+int SceneParser::validateAOSamples(int samples) const {
+    if (samples < 1) {
+        std::cerr << "Warning: Ambient Occlusion samples must be >= 1, using 1" << std::endl;
+        return 1;
+    }
+    if (samples > 128) {
+        std::cerr << "Warning: Ambient Occlusion samples > 128 may be very slow" << std::endl;
     }
     return samples;
 }

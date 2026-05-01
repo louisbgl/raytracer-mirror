@@ -1,9 +1,9 @@
 #include "Core.hpp"
+#include "RenderSampler.hpp"
 
 #include <chrono>
 #include <iostream>
 #include <memory>
-#include <functional>
 #include <random>
 #include <cmath>
 #include <thread>
@@ -38,9 +38,11 @@ bool Core::simulate() {
     std::cout << "Output image saved to " << _scene.rendererConfig().outputFile << std::endl;
 
     auto t3 = Clock::now();
-    if (_logging)
+    if (_logging) {
         _logger->logTiming(elapsed(t0, t1), elapsed(t1, t2), elapsed(t2, t3),
             static_cast<long long>(_scene.camera().getWidth()) * _scene.camera().getHeight());
+        _logger->logStats(_stats, _scene.rendererConfig());
+    }
 
     return true;
 }
@@ -71,35 +73,16 @@ bool Core::_loadScene() {
 
 Image Core::_render()
 {
-    const auto& rc = _scene.rendererConfig();
+    const RendererConfig rc = _scene.rendererConfig();
 
     int h = _scene.camera().getHeight();
     int w = _scene.camera().getWidth();
     Image image(w, h);
 
-    int total_threads = 0;
-    if (rc.multithreadingEnabled) {
-        total_threads = rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount;
-    }
-    if (total_threads <= 0)
-        total_threads = 1;
-
+    int total_threads = _getTotalThreads(rc);
     int thread_rows = h / total_threads;
 
-    std::function<Vec3(int, int)> computePixel;
-    if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
-        computePixel = [this, w, h, samples = rc.aaSamples](int x, int y) {
-            return _computePixelColorSSAA(x, y, w, h, samples);
-        };
-    } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
-        computePixel = [this, w, h, threshold = rc.aaThreshold](int x, int y) {
-            return _computePixelColorAdaptiveSSAA(x, y, w, h, threshold);
-        };
-    } else {
-        computePixel = [this, w, h](int x, int y) {
-            return _computePixelColor(x, y, w, h);
-        };
-    }
+    std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
 
     std::vector<std::thread> threads;
     std::unique_ptr<ProgressBar> progbar = nullptr;
@@ -154,6 +137,7 @@ Vec3 Core::_computePixelColorSSAA(int x, int y, int width, int height, int sampl
         float v = 1.0f - (static_cast<float>(y) + dist(gen)) / height;
         pixelColor = pixelColor + _trace(_scene.camera().getRay(u, v), _maxRayBounces, baseU, baseV);
     }
+    _stats.ssaaSamples += samples;
 
     return pixelColor / static_cast<double>(samples);
 }
@@ -166,47 +150,81 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) con
     if (depth <= 0) return _sampleBackground(screenU, screenV);
 
     HitRecord record;
-    if (_scene.world().get_closest_hit(ray, _t_min, _t_max, record)) {
-        Vec3 color = _scene.rendererConfig().ambientColor * _scene.rendererConfig().ambientMultiplier;
+    if (!_scene.world().get_closest_hit(ray, _t_min, _t_max, record))
+        return _sampleBackground(screenU, screenV);
 
-        for (const auto& light : _scene.lights()) {
-            Vec3 lightDir, lightColor;
-            double lightDistance = light->get_light_data(record.point, lightDir, lightColor);
+    Vec3 color = _computeAmbient(record) + _computeLighting(ray, record);
 
-            Ray shadowRay(record.point + record.normal * 1e-4, lightDir);
-            HitRecord shadowRecord;
+    Vec3 attenuation;
+    Ray scattered;
+    if (record.material->scatter(ray, record, attenuation, scattered)) {
+        _stats.scatterBounces++;
+        color += attenuation * _trace(scattered, depth - 1, screenU, screenV);
+    }
 
-            double t = _t_min;
-            Vec3 transmittance(1, 1, 1);
+    return color;
+}
 
-            Vec3 viewDir = -ray.direction();
-            while (t < lightDistance) {
-                static double epsilon = 1e-4;
-                if (!_scene.world().get_closest_hit(shadowRay, t, lightDistance, shadowRecord)) {
-                    break;
-                }
-                
-                transmittance *= shadowRecord.material->shadowTransmittance();
+Vec3 Core::_computeAmbient(const HitRecord& record) const {
+    const auto& rc = _scene.rendererConfig();
 
-                if (length(transmittance) < epsilon) {
-                    transmittance = Vec3(0, 0, 0);
-                    break;
-                }
+    double occlusion = 1.0;
+    if (rc.aoEnabled) {
+        int hits = 0;
+        for (int i = 0; i < rc.aoSamples; ++i) {
+            Vec3 aoDir = RenderSampler::randomHemisphere(record.normal);
+            Ray aoRay(record.point + record.normal * 1e-4, aoDir);
+            HitRecord aoRecord;
+            if (_scene.world().get_closest_hit(aoRay, _t_min, rc.aoRadius, aoRecord))
+                ++hits;
+        }
+        _stats.aoRaysCast += rc.aoSamples;
+        _stats.aoRaysHit  += hits;
+        occlusion = 1.0 - static_cast<double>(hits) / rc.aoSamples;
+    }
 
-                t = shadowRecord.t + epsilon;
+    return rc.ambientColor * rc.ambientMultiplier * occlusion;
+}
+
+Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
+    const auto& rc = _scene.rendererConfig();
+    Vec3 color(0, 0, 0);
+    Vec3 viewDir = -ray.direction();
+
+    for (const auto& light : _scene.lights()) {
+        Vec3 lightDir, lightColor;
+        double lightDistance = light->get_light_data(record.point, lightDir, lightColor);
+
+        Ray shadowRay(record.point + record.normal * 1e-4, lightDir);
+        HitRecord shadowRecord;
+
+        double t = _t_min;
+        Vec3 transmittance(1, 1, 1);
+        static constexpr double epsilon = 1e-4;
+
+        bool fullyOccluded = false;
+        while (t < lightDistance) {
+            _stats.shadowRaysCast++;
+            if (!_scene.world().get_closest_hit(shadowRay, t, lightDistance, shadowRecord))
+                break;
+
+            transmittance *= shadowRecord.material->shadowTransmittance();
+
+            if (length(transmittance) < epsilon) {
+                transmittance = Vec3(0, 0, 0);
+                fullyOccluded = true;
+                break;
             }
 
-            color += record.material->shade(record, lightDir, lightColor, viewDir) *_scene.rendererConfig().diffuseMultiplier * transmittance;
+            t = shadowRecord.t + epsilon;
         }
+        if (fullyOccluded)
+            _stats.shadowRaysHit++;
 
-        Vec3 attenuation;
-        Ray scattered;
-        if (record.material->scatter(ray, record, attenuation, scattered))
-            color += attenuation * _trace(scattered, depth - 1, screenU, screenV);
-
-        return color;
+        color += record.material->shade(record, lightDir, lightColor, viewDir) * rc.diffuseMultiplier * transmittance;
     }
-    return _sampleBackground(screenU, screenV);
+
+    return color;
 }
 
 Vec3 Core::_sampleBackground(double screenU, double screenV) const {
@@ -231,8 +249,11 @@ Vec3 Core::_adaptiveSubdivide(int x, int y, double offX, double offY, double siz
         _sampleSubPixel(x, y, offX + size,   offY + size, width, height),
     };
 
-    if (depth >= _maxSubdivDepth || _computeVariance(corners) <= threshold)
+    if (depth >= _maxSubdivDepth || RenderSampler::computeVariance(corners) <= threshold) {
+        _stats.adaptiveSamples    += 4;
+        _stats.adaptiveMaxSamples += 4 * (1LL << (2 * (_maxSubdivDepth - depth)));
         return (corners[0] + corners[1] + corners[2] + corners[3]) / 4.0;
+    }
 
     return (
         _adaptiveSubdivide(x, y, offX,        offY,        half, width, height, threshold, depth + 1) +
@@ -242,16 +263,29 @@ Vec3 Core::_adaptiveSubdivide(int x, int y, double offX, double offY, double siz
     ) / 4.0;
 }
 
-double Core::_computeVariance(std::span<const Vec3> colors) const {
-    Vec3 mean(0, 0, 0);
-    for (const auto& c : colors)
-        mean += c;
-    mean /= static_cast<double>(colors.size());
+int Core::_getTotalThreads(const RendererConfig& rc) const {
+    if (!rc.multithreadingEnabled)
+        return 1;
+    int maxThreads = std::thread::hardware_concurrency();
+    if (rc.threadCount < 0)
+        return maxThreads;
+    if (rc.threadCount > maxThreads)
+        return maxThreads;
+    return rc.threadCount == 0 ? maxThreads : rc.threadCount;
+}
 
-    double variance = 0.0;
-    for (const auto& c : colors) {
-        Vec3 diff = c - mean;
-        variance += dot(diff, diff);
+std::function<Vec3(int, int)> Core::_getComputePixelLambda(const RendererConfig& rc, int width, int height) const {
+    if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
+        return [this, w = width, h = height, samples = rc.aaSamples](int x, int y) {
+            return _computePixelColorSSAA(x, y, w, h, samples);
+        };
+    } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
+        return [this, w = width, h = height, threshold = rc.aaThreshold](int x, int y) {
+            return _computePixelColorAdaptiveSSAA(x, y, w, h, threshold);
+        };
+    } else {
+        return [this, w = width, h = height](int x, int y) {
+            return _computePixelColor(x, y, w, h);
+        };
     }
-    return variance / colors.size();
 }

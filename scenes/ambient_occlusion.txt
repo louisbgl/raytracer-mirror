@@ -1,0 +1,134 @@
+camera:
+{
+    resolution = { width = 2000; height = 2000; };
+    position = { x = 40; y = 30; z = -80; };
+    look_at = { x = 0; y = 0; z = 0; };
+    up = { x = 0; y = 1; z = 0; };
+    fieldOfView = 45.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        method = "ssaa";
+        samples = 4;
+    };
+
+    lighting = {
+        ambientMultiplier = 0.4;
+        diffuseMultiplier = 0.7;
+
+        ambientOcclusion = {
+            enabled = true;
+            samples = 4;
+            radius = 4.0;
+        };
+    };
+
+    background = {
+        color = { r = 15; g = 15; b = 25; };
+    };
+
+    output = "output.ppm";
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "floor";       color = { r = 180; g = 160; b = 120; }; },
+        { name = "wall_back";   color = { r = 80;  g = 110; b = 160; }; },
+        { name = "wall_left";   color = { r = 160; g = 80;  b = 80;  }; },
+        { name = "tall_box";    color = { r = 240; g = 200; b = 80;  }; },
+        { name = "small_box";   color = { r = 60;  g = 180; b = 120; }; }
+    );
+
+    reflective = (
+        {
+            name = "mirror_ball";
+            reflectivity = 0.95;
+            color = { r = 255; g = 220; b = 180; };
+        }
+    );
+
+    phong = (
+        {
+            name = "cat_fur";
+            color = { r = 180; g = 140; b = 100; };
+            shininess = 8.0;
+        }
+    );
+};
+
+shapes:
+{
+    // Floor
+    planes = (
+        {
+            position = { x = 0; y = -10; z = 0; };
+            normal = { x = 0; y = 1; z = 0; };
+            material = "floor";
+        },
+        {
+            position = { x = 0; y = 0; z = 20; };
+            normal = { x = 0; y = 0; z = -1; };
+            material = "wall_back";
+        },
+        {
+            position = { x = -30; y = 0; z = 0; };
+            normal = { x = 1; y = 0; z = 0; };
+            material = "wall_left";
+        }
+    );
+
+    // Box sitting on floor — contact shadow underneath showcases AO
+    boxes = (
+        {
+            position = { x = -8; y = -2; z = 12; };
+            width = 14; height = 16; depth = 14;
+            material = "tall_box";
+            rotation = { x = 0; y = 20; z = 0; };
+        },
+        {
+            position = { x = 10; y = -6; z = -2; };
+            width = 8; height = 8; depth = 8;
+            material = "small_box";
+            rotation = { x = 0; y = -15; z = 0; };
+        }
+    );
+
+    // Cat: raw size ~762x331x144, scale 0.045 → ~34x15x6.5 units, sits on floor y=-10
+    meshes = (
+        {
+            path = "textures/obj/lowpolycat/cat.obj";
+            material = "cat_fur";
+            position = { x = -5.0; y = -10.3; z = -5.0; };
+            scale = { x = 0.045; y = 0.045; z = 0.045; };
+            rotation = { x = 0.0; y = 90.0; z = 0.0; };
+        }
+    );
+
+    spheres = (
+        {
+            position = { x = 12; y = -4; z = 12; };
+            radius = 6;
+            material = "mirror_ball";
+        }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 10; y = 40; z = -40; };
+            color = { r = 255; g = 245; b = 220; };
+            intensity = 2800;
+        },
+        {
+            position = { x = -40; y = 20; z = -20; };
+            color = { r = 100; g = 140; b = 255; };
+            intensity = 1300;
+        }
+    );
+};
