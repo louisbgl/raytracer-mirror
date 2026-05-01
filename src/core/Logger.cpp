@@ -30,52 +30,39 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
     const Camera& cam = scene.camera();
     long long pixels = static_cast<long long>(cam.getWidth()) * static_cast<long long>(cam.getHeight());
 
-    _write("scene",  "file: " + scenePath);
-    _write("scene",  "resolution: "
+    _write("scene", "file: " + scenePath);
+    _write("scene", "resolution: "
         + std::to_string(static_cast<int>(cam.getWidth()))
         + " x "
         + std::to_string(static_cast<int>(cam.getHeight()))
         + "  (" + _fmtNum(pixels) + " pixels)");
-    _write("scene",  "shapes: "    + std::to_string(scene.world().objects().size())
-        + "   lights: "   + std::to_string(scene.lights().size())
+    _write("scene", "shapes: " + std::to_string(scene.world().objects().size())
+        + "   lights: " + std::to_string(scene.lights().size())
         + "   materials: " + std::to_string(scene.materialCount()));
 
-    auto fmt = [](double v) {
-        std::ostringstream ss;
-        ss << std::fixed << std::setprecision(2) << v;
-        return ss.str();
-    };
+    _logCamera(scene.camera());
+    _logRenderer(scene.rendererConfig());
+}
+
+void Logger::_logCamera(const Camera& cam) {
     Vec3 pos = cam.getPosition();
     Vec3 at  = cam.getLookAt();
-    _write("camera", "position: (" + fmt(pos.x()) + ", " + fmt(pos.y()) + ", " + fmt(pos.z()) + ")");
-    _write("camera", "look_at:  (" + fmt(at.x())  + ", " + fmt(at.y())  + ", " + fmt(at.z())  + ")"
-        + "   fov: " + fmt(cam.getFov()) + "\xc2\xb0");
+    _write("camera", "position: (" + _fmtDouble(pos.x()) + ", " + _fmtDouble(pos.y()) + ", " + _fmtDouble(pos.z()) + ")");
+    _write("camera", "look_at:  (" + _fmtDouble(at.x())  + ", " + _fmtDouble(at.y())  + ", " + _fmtDouble(at.z())  + ")"
+        + "   fov: " + _fmtDouble(cam.getFov()) + "\xc2\xb0");
+}
 
-    const auto& rc = scene.rendererConfig();
-
+void Logger::_logRenderer(const RendererConfig& rc) {
     _write("renderer", "output: " + rc.outputFile);
 
-    if (rc.multithreadingEnabled) {
-        _write("renderer", "multithreading: enabled (" + std::to_string(rc.threadCount == 0 ? std::thread::hardware_concurrency() : rc.threadCount) + " threads)");
-    } else {
-        _write("renderer", "multithreading: disabled");
-    }
-
-    if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
-            _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
-                + std::to_string(rc.aaSamples) + " samples)");
-    } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
-        _write("renderer", "antialiasing: enabled (" + rc.aaMethod + ", "
-            + "threshold: " + fmt(rc.aaThreshold) + ")");
-    } else {
-        _write("renderer", "antialiasing: disabled");
-    }
+    _logMultithreading(rc);
+    _logAA(rc);
+    _logAO(rc);
 
     std::ostringstream ambient;
-    ambient << "ambient: " << rc.ambientColor << "  multiplier: " << fmt(rc.ambientMultiplier);
+    ambient << "ambient: " << rc.ambientColor << "  multiplier: " << _fmtDouble(rc.ambientMultiplier);
     _write("renderer", ambient.str());
-
-    _write("renderer", "diffuse multiplier: " + fmt(rc.diffuseMultiplier));
+    _write("renderer", "diffuse multiplier: " + _fmtDouble(rc.diffuseMultiplier));
 
     if (!rc.backgroundImage.empty()) {
         _write("renderer", "background: image (" + rc.backgroundImage + ")");
@@ -83,6 +70,34 @@ void Logger::logScene(const std::string& scenePath, const Scene& scene) {
         std::ostringstream bg;
         bg << "background: " << rc.backgroundColor;
         _write("renderer", bg.str());
+    }
+}
+
+void Logger::_logMultithreading(const RendererConfig& rc) {
+    if (rc.multithreadingEnabled) {
+        int threads = rc.threadCount == 0 ? static_cast<int>(std::thread::hardware_concurrency()) : rc.threadCount;
+        _write("renderer", "multithreading: enabled (" + std::to_string(threads) + " threads)");
+    } else {
+        _write("renderer", "multithreading: disabled");
+    }
+}
+
+void Logger::_logAA(const RendererConfig& rc) {
+    if (!rc.aaEnabled) {
+        _write("renderer", "antialiasing: disabled");
+    } else if (rc.aaMethod == "ssaa") {
+        _write("renderer", "antialiasing: enabled (ssaa, " + std::to_string(rc.aaSamples) + " samples)");
+    } else if (rc.aaMethod == "adaptive") {
+        _write("renderer", "antialiasing: enabled (adaptive, threshold: " + _fmtDouble(rc.aaThreshold) + ")");
+    }
+}
+
+void Logger::_logAO(const RendererConfig& rc) {
+    if (rc.aoEnabled) {
+        _write("renderer", "ambient occlusion: enabled (" + std::to_string(rc.aoSamples)
+            + " samples, radius: " + _fmtDouble(rc.aoRadius) + ")");
+    } else {
+        _write("renderer", "ambient occlusion: disabled");
     }
 }
 
@@ -131,6 +146,12 @@ std::string Logger::_fmtTime(double s) {
     else
         ss << static_cast<int>(s) / 60 << "m"
            << std::fixed << std::setprecision(1) << std::fmod(s, 60.0) << "s";
+    return ss.str();
+}
+
+std::string Logger::_fmtDouble(double v) {
+    std::ostringstream ss;
+    ss << std::fixed << std::setprecision(2) << v;
     return ss.str();
 }
 
