@@ -1,0 +1,90 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 20; y = -80; z = -30; };
+    look_at = { x = 0; y = 10; z = 0; };
+    up = { x = 0; y = 0; z = -1; };
+    fieldOfView = 50.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = false;
+    };
+
+    lighting = {
+        ambientColor = { r = 200; g = 200; b = 200; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.8;
+    };
+
+    background = {
+        color = { r = 60; g = 90; b = 140; };
+    };
+
+    output = "output.ppm";
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "floor";        color = { r = 160; g = 150; b = 130; }; }
+    );
+
+    reflective = (
+        {
+            name = "mirror_ball";
+            reflectivity = 0.95;
+            color = { r = 220; g = 220; b = 220; };
+        }
+    );
+};
+
+shapes:
+{
+    planes = (
+        {
+            position = { x = 0; y = 0; z = 5; };
+            normal = { x = 0; y = 0; z = 1; };
+            material = "floor";
+        }
+    );
+
+    spheres = (
+        {
+            position = { x = 0; y = 25; z = -5; };
+            radius = 5;
+            material = "mirror_ball";
+        }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 30; y = -20; z = -40; };
+            color = { r = 255; g = 245; b = 220; };
+            intensity = 600;
+        },
+        {
+            position = { x = -30; y = -20; z = -30; };
+            color = { r = 100; g = 150; b = 255; };
+            intensity = 250;
+        }
+    );
+};
+
+scenes = (
+    {
+        path = "scenes/scene_in_scene.txt";
+        position = { x = -20; y = 0; z = 6; };
+        rotation = { x = 0; y = 0; z = 10; };
+    },
+    {
+        path = "scenes/cat_subscene.txt";
+        position = { x = 20; y = 0; z = -5; };
+        rotation = { x = -90; y = 25; z = 0; };
+    }
+);

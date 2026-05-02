@@ -10,18 +10,28 @@ Camera:
 	fieldOfView = <float>;
 
 Renderer (optional):
-	outputFile = <string> (default: "output.ppm")
+	output = <string> (default: "output.ppm") — supports .ppm, .png, .jpg
 	antialiasing:
 		enabled = <bool> (default: false)
-		method = <string> ("ssaa") (default: "ssaa")
-		samples = <int> (default: 1)
+		method = <string> ("ssaa" | "adaptive") (default: "ssaa")
+		samples = <int> — ssaa only (default: 1)
+		threshold = <float> — adaptive only (default: 0.1)
 	lighting:
 		ambientColor = { r = <int>; g = <int>; b = <int>; } (default: 25, 25, 38)
 		ambientMultiplier = <float> (default: 0.4)
 		diffuseMultiplier = <float> (default: 0.6)
+		ambientOcclusion:
+			enabled = <bool> (default: false)
+			samples = <int> (default: 16)
+			radius = <float> (default: 5.0)
 	background:
 		color = { r = <int>; g = <int>; b = <int>; } (default: 135, 206, 235)
-		image = <string> (optional PPM file path)
+		image = <string> (optional — supports .ppm, .png, .jpg)
+
+Scene Composition:
+	scenes = ( { path = <string>; position = {x,y,z}; [rotation = {x,y,z}]; [scale = {x,y,z}]; } );
+	Subscenes merge materials, shapes, lights into root. renderer/camera ignored.
+	Transforms compose down the hierarchy. Cycle detection included.
 
 Shapes:
 	Box (position (x, y, z), width, height, depth, material, [rotation (x, y, z)])

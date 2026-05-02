@@ -1,0 +1,64 @@
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 20; y = -50; z = -30; };
+    look_at = { x = 0; y = 10; z = 0; };
+    up = { x = 0; y = 0; z = -1; };
+    fieldOfView = 45.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = false;
+    };
+
+    lighting = {
+        ambientColor = { r = 200; g = 200; b = 200; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.8;
+    };
+
+    background = {
+        color = { r = 80; g = 120; b = 180; };
+    };
+
+    output = "output.ppm";
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "box_top"; color = { r = 180; g = 130; b = 80; }; }
+    );
+};
+
+shapes:
+{
+    boxes = (
+        {
+            position = { x = 0; y = 0; z = -3; };
+            width = 30; height = 30; depth = 4;
+            material = "box_top";
+        }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 30; y = -20; z = -40; };
+            color = { r = 255; g = 245; b = 220; };
+            intensity = 300;
+        }
+    );
+};
+
+scenes = (
+    {
+        path = "scenes/cat_subscene.txt";
+        position = { x = 0; y = 0; z = -15; };
+        rotation = { x = -90; y = 0; z = 0; };
+    }
+);
