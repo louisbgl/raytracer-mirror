@@ -14,7 +14,7 @@ Main → Core → {SceneParser, Image, PluginManager}
 
 **Core Components:**
 - `Core`: Orchestrates rendering, trace() recursion, SSAA/Adaptive-SSAA, AO, shadow rays, background sampling. Tracks `RenderStats` (AO rays, shadow rays, bounces, samples)
-- `RenderSampler`: Static helpers — `computeVariance()`, `randomHemisphere()` (used by adaptive SSAA + AO)
+- `RenderSampler`: Static helpers — `computeVariance()`, `randomHemisphere()` (used by adaptive SSAA + AO), `toneMapACES()` (luminance-preserving ACES filmic)
 - `PluginManager`: Singleton, scans plugins/ dirs, caches create()/metadata() functions
 - `AShape`: Template method pattern - handles world↔local transforms via `Matrix4x4`, AABB culling. `applyParentTransform()` for scene-in-scene composition. Subclasses implement hitLocal() + computeLocalAABB()
 - `SceneParser`: libconfig++ parser, materials→map first, shapes reference by name. Recursive `_parseSubscenes()` with cycle detection and transform composition
@@ -89,6 +89,8 @@ struct {
     Vec3 ambientColor, backgroundColor;
     string backgroundImage, outputFile;
     bool multithreadingEnabled; int threadCount;
+    bool   toneMappingEnabled  = true;  // toneMapping.enabled
+    double toneMappingStrength = 0.8;   // toneMapping.strength [0-1]
 };
 ```
 
@@ -143,7 +145,7 @@ cmake --build build
 ## Scene Config (libconfig++)
 
 ```
-renderer: { antialiasing{enabled,samples,method,threshold}, lighting{ambientColor,ambientMult,diffuseMult,ambientOcclusion{enabled,samples,radius}}, background{color,image}, output }
+renderer: { antialiasing{enabled,samples,method,threshold}, lighting{ambientColor,ambientMult,diffuseMult,ambientOcclusion{enabled,samples,radius}}, background{color,image}, output, toneMapping{enabled,strength} }
 camera: { resolution{w,h}, position{x,y,z}, look_at{x,y,z}, up{x,y,z}, fieldOfView }
 materials: { <type> = ( {name, ...params} ) }  # Define once, reference by name
 shapes: { <plural> = ( {position/params, material, [rotation], [scale]} ) }

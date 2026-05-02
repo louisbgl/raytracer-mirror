@@ -274,17 +274,20 @@ int Core::_getTotalThreads(const RendererConfig& rc) const {
 }
 
 std::function<Vec3(int, int)> Core::_getComputePixelLambda(const RendererConfig& rc, int width, int height) const {
+    auto toneMap = [tmEnabled = rc.toneMappingEnabled, tmStrength = rc.toneMappingStrength](Vec3 c) -> Vec3 {
+        return tmEnabled ? RenderSampler::toneMapACES(c, tmStrength) : c;
+    };
     if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
-        return [this, w = width, h = height, samples = rc.aaSamples](int x, int y) {
-            return _computePixelColorSSAA(x, y, w, h, samples);
+        return [this, w = width, h = height, samples = rc.aaSamples, toneMap](int x, int y) {
+            return toneMap(_computePixelColorSSAA(x, y, w, h, samples));
         };
     } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
-        return [this, w = width, h = height, threshold = rc.aaThreshold](int x, int y) {
-            return _computePixelColorAdaptiveSSAA(x, y, w, h, threshold);
+        return [this, w = width, h = height, threshold = rc.aaThreshold, toneMap](int x, int y) {
+            return toneMap(_computePixelColorAdaptiveSSAA(x, y, w, h, threshold));
         };
     } else {
-        return [this, w = width, h = height](int x, int y) {
-            return _computePixelColor(x, y, w, h);
+        return [this, w = width, h = height, toneMap](int x, int y) {
+            return toneMap(_computePixelColor(x, y, w, h));
         };
     }
 }
