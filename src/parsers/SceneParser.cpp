@@ -7,6 +7,7 @@
 #include "../DataTypes/RendererConfig.hpp"
 #include "../Math/Matrix4x4.hpp"
 #include <libconfig.h++>
+#include <algorithm>
 #include <iostream>
 #include <set>
 #include <string>
@@ -73,9 +74,7 @@ void SceneParser::_parseRenderer(libconfig::Config& config, Scene& scene) {
         if (renderer.exists("output")) {
             rendererConfig.outputFile = renderer["output"].c_str();
         }
-        if (renderer.exists("toneMapping")) {
-            rendererConfig.toneMappingEnabled = renderer["toneMapping"];
-        }
+        _parseToneMapping(renderer, rendererConfig);
     } catch (const libconfig::SettingNotFoundException& nfex) {
     } catch (const libconfig::SettingTypeException& tex) {
         std::cerr << "Renderer configuration type error at: " << tex.getPath() << std::endl;
@@ -364,4 +363,14 @@ void SceneParser::_parseThreads(const libconfig::Setting& renderer, RendererConf
     if (mtRenderer.exists("threads")) {
         config.threadCount = static_cast<int>(ConfigUtils::getNumber(mtRenderer["threads"]));
     }
+}
+
+void SceneParser::_parseToneMapping(const libconfig::Setting& renderer, RendererConfig& config) {
+    if (!renderer.exists("toneMapping"))
+        return;
+    const libconfig::Setting& tm = renderer["toneMapping"];
+    if (tm.exists("enabled"))
+        config.toneMappingEnabled = tm["enabled"];
+    if (tm.exists("strength"))
+        config.toneMappingStrength = std::clamp(ConfigUtils::getNumber(tm["strength"]), 0.0, 1.0);
 }

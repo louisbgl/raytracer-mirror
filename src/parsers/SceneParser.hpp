@@ -75,4 +75,5 @@ private:
     void _parseBackground(const libconfig::Setting& renderer, RendererConfig& config);
     void _parseAntialiasing(const libconfig::Setting& renderer, RendererConfig& config);
     void _parseThreads(const libconfig::Setting& renderer, RendererConfig& config);
+    void _parseToneMapping(const libconfig::Setting& renderer, RendererConfig& config);
 };
