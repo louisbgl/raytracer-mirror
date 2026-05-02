@@ -44,16 +44,7 @@ shapes:
     );
 };
 
-lights:
-{
-    point = (
-        {
-            position = { x = 30; y = -20; z = -40; };
-            color = { r = 255; g = 245; b = 220; };
-            intensity = 300;
-        }
-    );
-};
+lights: {};
 
 scenes = (
     {
