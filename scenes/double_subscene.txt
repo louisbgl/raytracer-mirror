@@ -23,6 +23,11 @@ renderer:
         color = { r = 60; g = 90; b = 140; };
     };
 
+    toneMapping = {
+        enabled = true;
+        strength = 0.9;
+    };
+
     output = "output.ppm";
 };
 
