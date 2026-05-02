@@ -24,4 +24,6 @@ struct RendererConfig {
 
     bool multithreadingEnabled = true;
     int  threadCount = 0; // 0 means auto-detect based on hardware concurrency
+
+    bool toneMappingEnabled = true;
 };
