@@ -27,6 +27,9 @@ Renderer (optional):
 	background:
 		color = { r = <int>; g = <int>; b = <int>; } (default: 135, 206, 235)
 		image = <string> (optional — supports .ppm, .png, .jpg)
+	toneMapping:
+		enabled = <bool> (default: true) — ACES filmic, luminance-preserving
+		strength = <float> [0.0-1.0] (default: 0.8) — blend between original and mapped
 
 Scene Composition:
 	scenes = ( { path = <string>; position = {x,y,z}; [rotation = {x,y,z}]; [scale = {x,y,z}]; } );

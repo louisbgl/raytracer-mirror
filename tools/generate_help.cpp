@@ -43,7 +43,10 @@ int main() {
         out << "\t\t\tradius = <float> (default: 5.0)\n";
         out << "\tbackground:\n";
         out << "\t\tcolor = { r = <int>; g = <int>; b = <int>; } (default: 135, 206, 235)\n";
-        out << "\t\timage = <string> (optional — supports .ppm, .png, .jpg)\n\n";
+        out << "\t\timage = <string> (optional — supports .ppm, .png, .jpg)\n";
+        out << "\ttoneMapping:\n";
+        out << "\t\tenabled = <bool> (default: true) — ACES filmic, luminance-preserving\n";
+        out << "\t\tstrength = <float> [0.0-1.0] (default: 0.8) — blend between original and mapped\n\n";
 
         out << "Scene Composition:\n";
         out << "\tscenes = ( { path = <string>; position = {x,y,z}; [rotation = {x,y,z}]; [scale = {x,y,z}]; } );\n";
