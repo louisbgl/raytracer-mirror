@@ -58,6 +58,10 @@ void Logger::_logRenderer(const RendererConfig& rc) {
     _logMultithreading(rc);
     _logAA(rc);
     _logAO(rc);
+    if (rc.toneMappingEnabled)
+        _write("renderer", "tone mapping: enabled (ACES luminance, strength: " + _fmtDouble(rc.toneMappingStrength) + ")");
+    else
+        _write("renderer", "tone mapping: disabled");
 
     std::ostringstream ambient;
     ambient << "ambient: " << rc.ambientColor << "  multiplier: " << _fmtDouble(rc.ambientMultiplier);
