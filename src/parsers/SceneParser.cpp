@@ -73,6 +73,9 @@ void SceneParser::_parseRenderer(libconfig::Config& config, Scene& scene) {
         if (renderer.exists("output")) {
             rendererConfig.outputFile = renderer["output"].c_str();
         }
+        if (renderer.exists("toneMapping")) {
+            rendererConfig.toneMappingEnabled = renderer["toneMapping"];
+        }
     } catch (const libconfig::SettingNotFoundException& nfex) {
     } catch (const libconfig::SettingTypeException& tex) {
         std::cerr << "Renderer configuration type error at: " << tex.getPath() << std::endl;
