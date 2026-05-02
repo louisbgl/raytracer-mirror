@@ -10,7 +10,7 @@ camera:
 materials:
 {
     image_texture = (
-        { name = "earth"; path = "textures/earth.ppm"; }
+        { name = "earth"; path = "textures/earth.jpg"; }
     );
 };
 

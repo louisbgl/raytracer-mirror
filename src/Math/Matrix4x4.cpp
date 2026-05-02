@@ -68,6 +68,18 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const {
     return result;
 }
 
+bool Matrix4x4::operator==(const Matrix4x4& other) const {
+    for (int i = 0; i < 4; ++i)
+        for (int j = 0; j < 4; ++j)
+            if (std::abs(_m[i][j] - other._m[i][j]) > 1e-10)
+                return false;
+    return true;
+}
+
+bool Matrix4x4::operator!=(const Matrix4x4& other) const {
+    return !(*this == other);
+}
+
 Vec3 Matrix4x4::transformPoint(const Vec3& p) const {
     double x = _m[0][0] * p.x() + _m[0][1] * p.y() + _m[0][2] * p.z() + _m[0][3];
     double y = _m[1][0] * p.x() + _m[1][1] * p.y() + _m[1][2] * p.z() + _m[1][3];

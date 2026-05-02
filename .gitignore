@@ -2,7 +2,6 @@ build/
 *.so
 *.dylib
 raytracer
-*.ppm
 logs/
 generate_help
 
@@ -13,3 +12,9 @@ run_tests
 tests/results/
 
 .vscode/
+
+*.ppm
+*.png
+*.jpg
+*.jpeg
+!textures/**

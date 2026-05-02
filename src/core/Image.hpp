@@ -38,25 +38,32 @@ public:
     Vec3 sample(double u, double v) const;
 
     /**
-     * @brief Writes the image to a file in PPM format.
+     * @brief Writes the image to a file with the specified filename.
      * @param filename The name of the file to write to.
-     * @param binary Whether to write in binary (P6) or text (P3) format.
+     * @note Tries to follow the extension given in the filename,
+     * but defaults to binary PPM (P6) if the extension is not recognized.
      */
-    void writePPM(const std::string& filename, bool binary = true) const;
+    void writeFile(const std::string& filename) const;
 
     /**
-     * @brief Reads an image from a PPM file.
+     * @brief Reads an image from a file.
      * @param filename The name of the file to read from.
      * @return The loaded image, or nullptr if loading failed.
+     * @note Tries to follow the extension given in the filename,
+     * will fail on unsupported formats.
      */
-    static std::unique_ptr<Image> readPPM(const std::string& filename);
+    static std::unique_ptr<Image> readFile(const std::string& filename);
 
 private:
     int _width, _height;
     std::vector<Vec3> _pixels;
 
-    void _writePPMp3(const std::string& filename) const;
+    std::vector<unsigned char> _getPixelBuffer() const;
+
+    void _writePPMp3(const std::string& filename) const; // Unused, replaced by _writePPMp6
     void _writePPMp6(const std::string& filename) const;
+    void _writePPM(const std::string& filename, bool binary) const;
     static void _readPPMp3(int width, int height, std::ifstream& file, std::unique_ptr<Image>& image);
     static void _readPPMp6(int width, int height, std::ifstream& file, std::unique_ptr<Image>& image);
+    static std::unique_ptr<Image> _readPPM(const std::string& filename);
 };

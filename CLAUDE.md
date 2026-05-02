@@ -1,34 +1,36 @@
 # Raytracer - Technical Reference
 
-C++20 CPU raytracer, plugin-based, PPM output. 13 shapes, 8 materials, 2 lights.
+C++20 CPU raytracer, plugin-based, PNG/JPG/PPM output. 13 shapes, 8 materials, 2 lights.
 
 ## Architecture Flow
 
 ```
 Main → Core → {SceneParser, Image, PluginManager}
          ↓
-    trace() → AABB culling → hit detection → lighting/materials → recursive scatter
+    trace() → AABB culling → hit detection → AO + lighting/materials → recursive scatter
          ↓
-    ProgressBar, Logger, SSAA antialiasing
+    ProgressBar, Logger, SSAA/Adaptive-SSAA antialiasing, RenderStats
 ```
 
 **Core Components:**
-- `Core`: Orchestrates rendering, trace() recursion, SSAA, shadow rays, background sampling
+- `Core`: Orchestrates rendering, trace() recursion, SSAA/Adaptive-SSAA, AO, shadow rays, background sampling. Tracks `RenderStats` (AO rays, shadow rays, bounces, samples)
+- `RenderSampler`: Static helpers — `computeVariance()`, `randomHemisphere()` (used by adaptive SSAA + AO)
 - `PluginManager`: Singleton, scans plugins/ dirs, caches create()/metadata() functions
-- `AShape`: Template method pattern - handles world↔local transforms, AABB culling, rotation (Euler ZYX). Subclasses implement hitLocal() + computeLocalAABB()
-- `SceneParser`: libconfig++ parser, materials→map first, shapes reference by name
-- `Image`: Pixel buffer, PPM I/O, bilinear texture sampling
-- `Logger`: Timestamped logs, timing stats
+- `AShape`: Template method pattern - handles world↔local transforms via `Matrix4x4`, AABB culling. `applyParentTransform()` for scene-in-scene composition. Subclasses implement hitLocal() + computeLocalAABB()
+- `SceneParser`: libconfig++ parser, materials→map first, shapes reference by name. Recursive `_parseSubscenes()` with cycle detection and transform composition
+- `Image`: Pixel buffer, PNG/JPG/PPM read+write via stb_image. `readFile()`/`writeFile()` dispatch by extension
+- `Logger`: Timestamped logs, timing stats, render stats (AO/SSAA/shadow/bounce counters)
 - `ProgressBar`: Real-time render feedback
 
 ## Directory Structure
 
 ```
 src/
-├── core/          Core, Image, PluginLoader, PluginManager, AShape, Logger, ProgressBar
+├── core/          Core, Image, RenderSampler, PluginLoader, PluginManager, AShape, Logger, ProgressBar
+├── external/      stb_image.h, stb_image_write.h, stb.cpp (impl), Roots3And4.c
 ├── Interfaces/    IShape, IMaterial, ILight
-├── DataTypes/     Vec3, Ray, HitRecord, Camera, World, Scene, RendererConfig
-├── Math/          AABB, QuadraticSolver, CubicSolver, QuarticSolver, Roots3And4.c
+├── DataTypes/     Vec3, Ray, HitRecord, Camera, World, Scene, RendererConfig, RenderStats
+├── Math/          AABB, Matrix4x4, QuadraticSolver, CubicSolver, QuarticSolver
 ├── factories/     ShapeFactory, MaterialFactory, LightFactory
 ├── parsers/       SceneParser
 ├── utils/         ConfigUtils, HelpDisplay
@@ -54,7 +56,7 @@ struct { const char *pluginName, *pluralForm, *helpText, *category; };
 
 **Available Plugins:**
 - **Shapes (13):** Sphere, Box, Rectangle, Torus, Tanglecube, LimitedCylinder, LimitedCone, LimitedHourglass, Triangle (AShape-based, rotation support) | Plane, Cylinder, Cone, Hourglass (IShape, custom orientation)
-- **Materials (8):** Lambertian, ColoredDiffuse, Phong (shininess), Reflective (reflectivity), Refractive (opacity, refractiveIndex), Chessboard (colors, scale), PerlinNoise (color, scale), ImageTexture (PPM path)
+- **Materials (8):** Lambertian, ColoredDiffuse, Phong (shininess), Reflective (reflectivity), Refractive (opacity, refractiveIndex), Chessboard (colors, scale), PerlinNoise (color, scale), ImageTexture (PNG/JPG/PPM path)
 - **Lights (2):** PointLight (pos, color, intensity), DirectionalLight (dir, color, intensity)
 
 **Adding Plugin:**
@@ -80,12 +82,17 @@ struct { const char *pluginName, *pluralForm, *helpText, *category; };
 **RendererConfig:**
 ```cpp
 struct {
-    bool aaEnabled; int aaSamples; string aaMethod; // "ssaa"
+    bool aaEnabled; int aaSamples; string aaMethod; // "ssaa" | "adaptive"
+    double aaThreshold;
+    bool aoEnabled; int aoSamples; double aoRadius;
     double ambientMultiplier, diffuseMultiplier;
     Vec3 ambientColor, backgroundColor;
     string backgroundImage, outputFile;
+    bool multithreadingEnabled; int threadCount;
 };
 ```
+
+**RenderStats:** Atomic counters — `aoRaysCast/Hit`, `ssaaSamples`, `adaptiveSamples/MaxSamples`, `shadowRaysCast/Hit`, `scatterBounces`. Logged via `Logger::logStats()` when `--log` active.
 
 **AABB:** Axis-aligned bounding box, slab method for fast ray culling before expensive intersection
 
@@ -105,6 +112,10 @@ trace(ray, depth, u, v):
 ```
 
 **SSAA:** Jittered grid sampling, averages N samples/pixel
+
+**Adaptive SSAA:** Recursive subdivision per pixel — samples 4 corners, checks variance against threshold. Subdivides high-variance regions up to `_maxSubdivDepth=2`. Tracks samples taken vs max possible in `RenderStats`.
+
+**Ambient Occlusion:** Per-hit hemisphere sampling via `RenderSampler::randomHemisphere()`. `aoSamples` rays cast within `aoRadius`. Occlusion factor multiplies ambient term. Controlled by `RendererConfig.aoEnabled/aoSamples/aoRadius`.
 
 ## Build System
 
@@ -132,21 +143,25 @@ cmake --build build
 ## Scene Config (libconfig++)
 
 ```
-renderer: { antialiasing{enabled,samples,method}, lighting{ambientColor,ambientMult,diffuseMult}, background{color,image}, output }
+renderer: { antialiasing{enabled,samples,method,threshold}, lighting{ambientColor,ambientMult,diffuseMult,ambientOcclusion{enabled,samples,radius}}, background{color,image}, output }
 camera: { resolution{w,h}, position{x,y,z}, look_at{x,y,z}, up{x,y,z}, fieldOfView }
 materials: { <type> = ( {name, ...params} ) }  # Define once, reference by name
-shapes: { <plural> = ( {position/params, material, [rotation]} ) }
+shapes: { <plural> = ( {position/params, material, [rotation], [scale]} ) }
 lights: { <plural> = ( {params} ) }
+scenes: ( {path, position{x,y,z}, [rotation{x,y,z}], [scale{x,y,z}]} )  # Scene composition
 ```
 
 **Parser Flow:**
 1. PluginManager.initialize() → scan/load all plugins
 2. Parse renderer → RendererConfig (optional, defaults)
 3. Parse materials → unordered_map<string, shared_ptr<IMaterial>>
-4. Parse shapes → lookup material by name, create with optional rotation
+4. Parse shapes → lookup material by name, create with optional rotation/scale
 5. Parse lights → create light objects
 6. Parse camera → setup view
-7. Load background image if specified
+7. Parse subscenes → recursive, cycle detection via loading stack, transforms compose
+8. Load background image if specified
+
+**Scene Composition:** `scenes` section loads subscene files recursively. Each subscene has `position`/`rotation`/`scale` applied as parent transform. `renderer` and `camera` sections in subscenes are ignored. Materials merge into root map globally. AShape-based shapes get full transform composition; IShape-only shapes (Plane, Cylinder, Cone, Hourglass) get translation only with a warning.
 
 ## Design Patterns
 
@@ -178,12 +193,13 @@ lights: { <plural> = ( {params} ) }
 
 **Help:** Metadata-driven, auto-generated from plugin metadata, displays all params
 
-**Logging:** `--log` creates timestamped log with scene details, timing (parse/render/write), warnings
+**Logging:** `--log` creates timestamped log with scene details, timing (parse/render/write), render stats (AO/SSAA/shadow/bounce counters), warnings
 
 ## Performance
 
 **Release mode:** 5-10x faster, use for final renders
-**AA:** samples=1 (fast), 4 (balanced), 8-16 (slow HQ)
+**AA:** ssaa samples=1 (fast), 4 (balanced), 8-16 (slow HQ) | adaptive threshold=0.2 (loose), 0.05 (tight)
+**AO:** samples=4 (fast, open scenes), 16 (balanced), 32+ (smooth, dense scenes). radius=2-4 (tight contact), 8+ (broad shadowing). Check `--log` stats: low hit% = reduce samples
 **AABB culling:** Automatic for AShape shapes
 **Limit recursion depth:** Avoid stack overflow with many reflective surfaces
 
@@ -196,72 +212,5 @@ lights: { <plural> = ( {params} ) }
 - Common causes: degenerate geometry, parallel camera vectors, accumulated floating-point error
 - Debug builds enable assertions that catch divide-by-zero and invalid vector operations
 
-## Adding OBJ File Support (Implementation Guide)
 
-**New Plugin: Mesh (shape)**
-
-1. **Create Mesh shape:**
-   - `src/plugins/Shapes/Mesh.{hpp,cpp}`
-   - Inherits AShape (rotation/translation/AABB support)
-   - Stores vector<Triangle> (reuse existing Triangle intersection)
-   - hitLocal(): test ray against all triangles, return closest
-   - computeLocalAABB(): bbox encompassing all vertices
-
-2. **OBJ Parser:**
-   - `src/utils/ObjParser.{hpp,cpp}`
-   - Parse v/vt/vn/f lines
-   - Return vertices[], uvs[], normals[], faces[] (indices)
-   - Handle triangulation (quads → 2 triangles)
-
-3. **Mesh implementation:**
-```cpp
-class Mesh : public AShape {
-    vector<Triangle> _triangles;
-    AABB _localAABB;
-public:
-    Mesh(Vec3 rot, Vec3 trans, string objPath, shared_ptr<IMaterial> mat);
-    bool hitLocal(const Ray& ray, HitRecord& rec) const override {
-        // Test all triangles, keep closest hit
-    }
-    AABB computeLocalAABB() const override { return _localAABB; }
-};
-
-extern "C" IShape* create(double rx, ry, rz, tx, ty, tz,
-                          const char* path, shared_ptr<IMaterial>* mat) {
-    return new Mesh(Vec3(rx,ry,rz), Vec3(tx,ty,tz), path, *mat);
-}
-
-extern "C" PluginMetadata* metadata() {
-    static PluginMetadata meta = {
-        .pluginName = "mesh",
-        .pluralForm = "meshes",
-        .helpText = "Mesh (position, objPath, material, [rotation])",
-        .category = "shape"
-    };
-    return &meta;
-}
-```
-
-4. **Config syntax:**
-```
-meshes = (
-    { position = {x,y,z}; path = "models/bunny.obj"; material = "red"; rotation = {0,45,0}; }
-);
-```
-
-5. **Optimization:**
-   - BVH tree for meshes with many triangles (>1000)
-   - Shared vertices (indexed geometry)
-   - Normal interpolation for smooth shading
-
-6. **CMakeLists.txt:**
-```cmake
-add_raytracer_plugin(mesh shapes src/plugins/Shapes/Mesh.cpp src/utils/ObjParser.cpp)
-add_custom_target(shapes DEPENDS sphere box mesh ...)
-```
-
-7. **Factory handler:** Add _createMesh() to ShapeFactory.cpp, parse path param
-
----
-
-*Stats: ~10k LOC, 23 plugins, 363+ commits, Jan-Apr 2026, C++20, Linux/macOS*
+*Stats: ~12k LOC, 23 plugins, 400+ commits, Jan-May 2026, C++20, Linux/macOS*

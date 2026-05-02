@@ -1,35 +1,53 @@
 #include "ShapeFactory.hpp"
 #include "../utils/ConfigUtils.hpp"
 #include "Interfaces/IShape.hpp"
+#include "core/AShape.hpp"
 #include "../core/PluginManager.hpp"
 #include <memory>
+#include <iostream>
+#include <unordered_set>
 
+std::unordered_map<std::string, ShapeFactory::ShapeCreator> ShapeFactory::creators = {
+    // Bounded shapes
+    {"sphere", _createSphere},
+    {"limited_cylinder", _createLimitedCylinder},
+    {"limited_cone", _createLimitedCone},
+    {"limited_hourglass", _createLimitedHourglass},
+    {"rectangle", _createRectangle},
+    {"triangle", _createTriangle},
+    {"mesh", _createMesh},
+    {"box", _createBox},
+    {"torus", _createTorus},
+    {"tanglecube", _createTanglecube},
+
+    // Infinite shapes
+    {"plane", _createPlane},
+    {"cylinder", _createCylinder},
+    {"cone", _createCone},
+    {"hourglass", _createHourglass},
+};
 
 std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
-    static std::unordered_map<std::string, ShapeCreator> creators = {
-        // Bounded shapes
-        {"sphere", _createSphere},
-        {"limited_cylinder", _createLimitedCylinder},
-        {"limited_cone", _createLimitedCone},
-        {"limited_hourglass", _createLimitedHourglass},
-        {"rectangle", _createRectangle},
-        {"triangle", _createTriangle},
-        {"mesh", _createMesh},
-        {"box", _createBox},
-        {"torus", _createTorus},
-        {"tanglecube", _createTanglecube},
-        // Infinite shapes
-        {"plane", _createPlane},
-        {"cylinder", _createCylinder},
-        {"cone", _createCone},
-        {"hourglass", _createHourglass},
-    };
-
     auto it = creators.find(type);
     if (it != creators.end()) {
         return it->second(config, material);
     }
     return nullptr;
+}
+
+std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libconfig::Setting& config, std::shared_ptr<IMaterial> material, const Matrix4x4& parentTransform) {
+    auto shape = create(type, config, material);
+    if (!shape) return nullptr;
+
+    if (auto aShape = dynamic_cast<AShape*>(shape.get())) {
+        aShape->applyParentTransform(parentTransform);
+    } else {
+        static std::unordered_set<std::string> warned;
+        if (warned.insert(type).second && parentTransform != Matrix4x4::identity())
+            std::cerr << "Warning: '" << type << "' does not support subscene transforms. Object placed at original position." << std::endl;
+    }
+
+    return shape;
 }
 
 Vec3 ShapeFactory::_getRotation(const libconfig::Setting& config) {
