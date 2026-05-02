@@ -11,5 +11,6 @@ var searchData=
   ['load_8',['load',['../classPluginLoader.html#a31b2abcb056bba54cc040554102781c8',1,'PluginLoader']]],
   ['logger_9',['Logger',['../classLogger.html#abc41bfb031d896170c7675fa96a6b30c',1,'Logger']]],
   ['logscene_10',['logScene',['../classLogger.html#a36e3d5569ae4ca4c8a0128f9ea1907ba',1,'Logger']]],
-  ['logtiming_11',['logTiming',['../classLogger.html#aa90cc94e74d1855da1bca33a9f6a28ab',1,'Logger']]]
+  ['logstats_11',['logStats',['../classLogger.html#a644805e8b4b5119fef0718a413e59773',1,'Logger']]],
+  ['logtiming_12',['logTiming',['../classLogger.html#aa90cc94e74d1855da1bca33a9f6a28ab',1,'Logger']]]
 ];

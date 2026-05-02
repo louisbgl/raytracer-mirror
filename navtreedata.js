@@ -47,6 +47,9 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Enumerator", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
@@ -56,8 +59,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AABB_8hpp.html",
-"classCamera.html#a1e6f2044fa0777281cce45d573e2eed4",
-"classWorld.html#a591951377ceef7b8cdc72e50ff6e8e41"
+"classBox.html",
+"classVec3.html#a36b44ad39a28bab8986d40b4ec3b8d85"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

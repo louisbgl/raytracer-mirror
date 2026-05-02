@@ -120,15 +120,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa9c18658d00f5eaf2f110eb74a1b0f64" id="r_aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classVec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aa9c18658d00f5eaf2f110eb74a1b0f64">sample</a> (double u, double v) const</td></tr>
 <tr class="memdesc:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Samples the image using <a class="el" href="structUV.html">UV</a> coordinates.  <br /></td></tr>
 <tr class="separator:aa9c18658d00f5eaf2f110eb74a1b0f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57ae7ef06acc5d36fe9c8281cfb59a80" id="r_a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a57ae7ef06acc5d36fe9c8281cfb59a80">writePPM</a> (const std::string &amp;filename, bool binary=true) const</td></tr>
-<tr class="memdesc:a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the image to a file in PPM format.  <br /></td></tr>
-<tr class="separator:a57ae7ef06acc5d36fe9c8281cfb59a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec719c93f965a7a60ad2ddff92ce0200" id="r_aec719c93f965a7a60ad2ddff92ce0200"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#aec719c93f965a7a60ad2ddff92ce0200">writeFile</a> (const std::string &amp;filename) const</td></tr>
+<tr class="memdesc:aec719c93f965a7a60ad2ddff92ce0200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the image to a file with the specified filename.  <br /></td></tr>
+<tr class="separator:aec719c93f965a7a60ad2ddff92ce0200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a91bd82ab24b3bc112662e3b09ef0589c" id="r_a91bd82ab24b3bc112662e3b09ef0589c"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a91bd82ab24b3bc112662e3b09ef0589c">readPPM</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a91bd82ab24b3bc112662e3b09ef0589c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an image from a PPM file.  <br /></td></tr>
-<tr class="separator:a91bd82ab24b3bc112662e3b09ef0589c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac489834cf3588321482d81ff14e48d7b" id="r_ac489834cf3588321482d81ff14e48d7b"><td class="memItemLeft" align="right" valign="top">static std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ac489834cf3588321482d81ff14e48d7b">readFile</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:ac489834cf3588321482d81ff14e48d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an image from a file.  <br /></td></tr>
+<tr class="separator:ac489834cf3588321482d81ff14e48d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afb0339b802ed560e69eb07358d30198f" name="afb0339b802ed560e69eb07358d30198f"></a>
@@ -256,8 +256,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a91bd82ab24b3bc112662e3b09ef0589c" name="a91bd82ab24b3bc112662e3b09ef0589c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91bd82ab24b3bc112662e3b09ef0589c">&#9670;&#160;</a></span>readPPM()</h2>
+<a id="ac489834cf3588321482d81ff14e48d7b" name="ac489834cf3588321482d81ff14e48d7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac489834cf3588321482d81ff14e48d7b">&#9670;&#160;</a></span>readFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +266,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt; Image::readPPM </td>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classImage.html">Image</a> &gt; Image::readFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>filename</em></td><td>)</td>
@@ -280,7 +280,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reads an image from a PPM file. </p>
+<p>Reads an image from a file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The name of the file to read from. </td></tr>
@@ -288,6 +288,7 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The loaded image, or nullptr if loading failed. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Tries to follow the extension given in the filename, will fail on unsupported formats. </dd></dl>
 
 </div>
 </div>
@@ -398,40 +399,30 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a57ae7ef06acc5d36fe9c8281cfb59a80" name="a57ae7ef06acc5d36fe9c8281cfb59a80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57ae7ef06acc5d36fe9c8281cfb59a80">&#9670;&#160;</a></span>writePPM()</h2>
+<a id="aec719c93f965a7a60ad2ddff92ce0200" name="aec719c93f965a7a60ad2ddff92ce0200"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec719c93f965a7a60ad2ddff92ce0200">&#9670;&#160;</a></span>writeFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Image::writePPM </td>
+          <td class="memname">void Image::writeFile </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>binary</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Writes the image to a file in PPM format. </p>
+<p>Writes the image to a file with the specified filename. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>The name of the file to write to. </td></tr>
-    <tr><td class="paramname">binary</td><td>Whether to write in binary (P6) or text (P3) format. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Tries to follow the extension given in the filename, but defaults to binary PPM (P6) if the extension is not recognized. </dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,12 @@
+<map id="src/external/stb.cpp" name="src/external/stb.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="55,5,205,31"/>
+<area shape="rect" id="Node000002" href="$stb__image_8h.html" title=" " alt="" coords="5,79,108,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,33,80,71,77,67,116,29"/>
+<area shape="rect" id="Node000005" href="$stb__image__write_8h.html" title=" " alt="" coords="132,79,275,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="144,29,183,67,180,71,140,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,152,90,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="59,104,59,138,54,138,54,104"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="141,152,212,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="77,102,146,142,144,147,75,106"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="201,105,188,140,183,138,196,103"/>
+</map>

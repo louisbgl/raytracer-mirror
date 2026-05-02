@@ -1,5 +1,24 @@
 var searchData=
 [
-  ['normal_0',['normal',['../classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684',1,'HitRecord']]],
-  ['normalize_1',['normalize',['../Vec3_8hpp.html#a2a4bb35c173c23041dd50c2252417ca1',1,'Vec3.hpp']]]
+  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_2ecpp_1',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['material_2',['material',['../classHitRecord.html#a35b119aaf1cf369dd0edc79a53ca4329',1,'HitRecord']]],
+  ['materialcount_3',['materialCount',['../classScene.html#a7bf5e912d5716ee0571d245e7a5af29a',1,'Scene']]],
+  ['materialfactory_4',['MaterialFactory',['../classMaterialFactory.html',1,'']]],
+  ['materialfactory_2ecpp_5',['MaterialFactory.cpp',['../MaterialFactory_8cpp.html',1,'']]],
+  ['materialfactory_2ehpp_6',['MaterialFactory.hpp',['../MaterialFactory_8hpp.html',1,'']]],
+  ['math_7',['Math',['../namespaceMath.html',1,'']]],
+  ['matrix4x4_8',['matrix4x4',['../classMatrix4x4.html',1,'Matrix4x4'],['../classMatrix4x4.html#a714a467ba7f85f88ebe3897b5e3580be',1,'Matrix4x4::Matrix4x4()']]],
+  ['matrix4x4_2ecpp_9',['Matrix4x4.cpp',['../Matrix4x4_8cpp.html',1,'']]],
+  ['matrix4x4_2ehpp_10',['Matrix4x4.hpp',['../Matrix4x4_8hpp.html',1,'']]],
+  ['max_11',['max',['../classAABB.html#a259336628a35a719359b7f450d12d2a2',1,'AABB']]],
+  ['mesh_12',['mesh',['../classMesh.html#a64caa19d595fd9fe88b01d342025afca',1,'Mesh::Mesh()'],['../classMesh.html',1,'Mesh']]],
+  ['mesh_2ecpp_13',['Mesh.cpp',['../Mesh_8cpp.html',1,'']]],
+  ['mesh_2ehpp_14',['Mesh.hpp',['../Mesh_8hpp.html',1,'']]],
+  ['meshtriangle_15',['meshtriangle',['../classMeshTriangle.html#ab3029ef830ec1a353fb5b94d551f9212',1,'MeshTriangle::MeshTriangle()'],['../classMeshTriangle.html',1,'MeshTriangle']]],
+  ['meshtriangle_2ecpp_16',['MeshTriangle.cpp',['../MeshTriangle_8cpp.html',1,'']]],
+  ['meshtriangle_2ehpp_17',['MeshTriangle.hpp',['../MeshTriangle_8hpp.html',1,'']]],
+  ['metadata_18',['metadata',['../Cone_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Cone.cpp'],['../Cylinder_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Cylinder.cpp'],['../Hourglass_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Hourglass.cpp'],['../LimitedCone_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedCone.cpp'],['../LimitedCylinder_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedCylinder.cpp'],['../LimitedHourglass_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedHourglass.cpp'],['../Mesh_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Mesh.cpp'],['../Plane_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Plane.cpp'],['../Rectangle_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Rectangle.cpp'],['../Sphere_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Sphere.cpp'],['../Tanglecube_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Tanglecube.cpp'],['../Torus_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Torus.cpp'],['../Triangle_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Triangle.cpp'],['../Box_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Box.cpp'],['../Refractive_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Refractive.cpp'],['../Reflective_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Reflective.cpp'],['../Phong_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Phong.cpp'],['../PerlinNoise_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;PerlinNoise.cpp'],['../Lambertian_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Lambertian.cpp'],['../ImageTexture_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;ImageTexture.cpp'],['../ColoredDiffuse_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;ColoredDiffuse.cpp'],['../Chessboard_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Chessboard.cpp'],['../PointLight_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;PointLight.cpp'],['../DirectionalLight_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;DirectionalLight.cpp']]],
+  ['min_19',['min',['../classAABB.html#a7f48f1d50f3adb2c1beb8d13d8e35902',1,'AABB']]],
+  ['multithreadingenabled_20',['multithreadingEnabled',['../structRendererConfig.html#aebd853b2a081935ddc7be7d6979f0cdd',1,'RendererConfig']]]
 ];

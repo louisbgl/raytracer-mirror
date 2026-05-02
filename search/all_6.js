@@ -1,18 +1,17 @@
 var searchData=
 [
-  ['has_5flight_0',['has_light',['../classScene.html#a211d85855212d81bd98d4eacc824c2ef',1,'Scene']]],
-  ['has_5fobject_1',['has_object',['../classWorld.html#a591951377ceef7b8cdc72e50ff6e8e41',1,'World']]],
-  ['hasroots_2',['hasroots',['../structQuarticRoots.html#a7465faee2787e01ed5a50cda95e26798',1,'QuarticRoots::hasRoots()'],['../structQuadraticRoots.html#a80fb79948ef29f0aefea06763fae8f2a',1,'QuadraticRoots::hasRoots()'],['../structCubicRoots.html#afe779392a46c1ffb1320f1076fd15475',1,'CubicRoots::hasRoots()']]],
-  ['height_3',['height',['../classImage.html#a000645ffdca3b8260ddda3932b56b9d4',1,'Image']]],
-  ['helpdisplay_4',['helpdisplay',['../classHelpDisplay.html',1,'HelpDisplay'],['../classHelpDisplay.html#abbc91e84af2337783d14a83dafadf5b9',1,'HelpDisplay::HelpDisplay()']]],
-  ['helpdisplay_2ecpp_5',['HelpDisplay.cpp',['../HelpDisplay_8cpp.html',1,'']]],
-  ['helpdisplay_2ehpp_6',['HelpDisplay.hpp',['../HelpDisplay_8hpp.html',1,'']]],
-  ['helptext_7',['helpText',['../structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e',1,'PluginMetadata']]],
-  ['hit_8',['hit',['../classCylinder.html#ac0deb86d8a6b091570e296462c399e1d',1,'Cylinder::hit()'],['../classHourglass.html#a905a3e860f0b4248b2de824689e253b5',1,'Hourglass::hit()'],['../classMeshTriangle.html#aa58eec20c9acc5e996710517b36f2db7',1,'MeshTriangle::hit()'],['../classPlane.html#a22421ec855feeb8229102efd2a318fc5',1,'Plane::hit()'],['../classIShape.html#ad1dcefec640ab739b0944a20ba5de6d4',1,'IShape::hit()'],['../classCone.html#a88be79b3ec956669ab28c60de1c751cb',1,'Cone::hit()'],['../classBVHNode.html#a972bfe81eda02fa831f561bd4f7b7b44',1,'BVHNode::hit()'],['../classAABB.html#a358244fa3b071294dd3adbe3b74398d5',1,'AABB::hit()'],['../classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a',1,'AShape::hit()']]],
-  ['hitlocal_9',['hitlocal',['../classTorus.html#a882023d86f38f0c6d4aea93c5dcc3758',1,'Torus::hitLocal()'],['../classTriangle.html#a406e2db3b32e78a80d6e1a241d501e91',1,'Triangle::hitLocal()'],['../classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688',1,'AShape::hitLocal()'],['../classBox.html#aae38fbcd8b6c2660403c9645c43cf4d5',1,'Box::hitLocal()'],['../classLimitedCone.html#a0e9f3185345984cefd179b98fe579290',1,'LimitedCone::hitLocal()'],['../classLimitedCylinder.html#a02f33b0a24bc4a86b7037db188b17d79',1,'LimitedCylinder::hitLocal()'],['../classLimitedHourglass.html#a1a0ecce80feb6a7b4c9ef5b4d2685bda',1,'LimitedHourglass::hitLocal()'],['../classMesh.html#abfdd453ea4588ec53e1bf70c13c7a898',1,'Mesh::hitLocal()'],['../classRectangle.html#aaa8fd8dac6ed4699147d0a47f43dd437',1,'Rectangle::hitLocal()'],['../classSphere.html#a753cced4b9650753bf1849a23b2c190d',1,'Sphere::hitLocal()'],['../classTanglecube.html#ad8d4fbc64bcd7fe2b21397daeca01922',1,'Tanglecube::hitLocal()']]],
-  ['hitrecord_10',['hitrecord',['../classHitRecord.html',1,'HitRecord'],['../classHitRecord.html#acf32f3a919243a802bddc27ad6fdb03f',1,'HitRecord::HitRecord()=default'],['../classHitRecord.html#aad40a1a59645cfde140eb066ffa8d7f7',1,'HitRecord::HitRecord(Vec3 point, Vec3 normal, double t, bool front_face, std::shared_ptr&lt; IMaterial &gt; material)']]],
-  ['hitrecord_2ehpp_11',['HitRecord.hpp',['../HitRecord_8hpp.html',1,'']]],
-  ['hourglass_12',['hourglass',['../classHourglass.html',1,'Hourglass'],['../classHourglass.html#aa06e49cb6b27e4d9e692b86ec7ddc281',1,'Hourglass::Hourglass()']]],
-  ['hourglass_2ecpp_13',['Hourglass.cpp',['../Hourglass_8cpp.html',1,'']]],
-  ['hourglass_2ehpp_14',['Hourglass.hpp',['../Hourglass_8hpp.html',1,'']]]
+  ['get_5fclosest_5fhit_0',['get_closest_hit',['../classWorld.html#a422e2ae317862b6e0d4b2721daca82ee',1,'World']]],
+  ['get_5flight_5fdata_1',['get_light_data',['../classILight.html#ae7e0f7fe7bddce119e751abf47099fd5',1,'ILight::get_light_data()'],['../classDirectionalLight.html#af7f43c28e9534c82df185f6dd35f04db',1,'DirectionalLight::get_light_data()'],['../classPointLight.html#afb5dba947446082458d752b276b5a780',1,'PointLight::get_light_data()']]],
+  ['getcreatefunction_2',['getCreateFunction',['../classPluginManager.html#a2da3471bc179647a26229da8b6d48b59',1,'PluginManager']]],
+  ['getfov_3',['getFov',['../classCamera.html#a1e6f2044fa0777281cce45d573e2eed4',1,'Camera']]],
+  ['getheight_4',['getHeight',['../classCamera.html#a577faefd32dd6e66ee35311419ea9741',1,'Camera']]],
+  ['getlookat_5',['getLookAt',['../classCamera.html#a28bc509b13325d90d21a32fe686784d5',1,'Camera']]],
+  ['getnumber_6',['getNumber',['../classConfigUtils.html#abc44477aaf252a6bb09b5296c4a856f5',1,'ConfigUtils']]],
+  ['getpixel_7',['getPixel',['../classImage.html#a4e42747a00227551466626bf22e56fd5',1,'Image']]],
+  ['getpluginsbycategory_8',['getPluginsByCategory',['../classPluginManager.html#a1984f3b9481dd56b4b8b1e081625a6ea',1,'PluginManager']]],
+  ['getposition_9',['getPosition',['../classCamera.html#a79d8e301befc88644679d1c841d185d3',1,'Camera']]],
+  ['getray_10',['getRay',['../classCamera.html#a3c8c3f666985ddf4f86925973606f582',1,'Camera']]],
+  ['getsingular_11',['getSingular',['../classPluginManager.html#acfb38b0b66aabe6f7cd0d0f74197aef0',1,'PluginManager']]],
+  ['getsymbol_12',['getSymbol',['../classPluginLoader.html#a7cef554d556aa21be315a4ee76cd9b37',1,'PluginLoader']]],
+  ['getwidth_13',['getWidth',['../classCamera.html#a4403375c8460a9beda32662685372968',1,'Camera']]]
 ];

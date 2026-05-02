@@ -105,10 +105,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a13e4ff1e1910c3055227e8d287a602b2" id="r_a13e4ff1e1910c3055227e8d287a602b2"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classIShape.html">IShape</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classShapeFactory.html#a13e4ff1e1910c3055227e8d287a602b2">create</a> (const std::string &amp;type, const libconfig::Setting &amp;config, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material)</td></tr>
 <tr class="memdesc:a13e4ff1e1910c3055227e8d287a602b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a shape based on type and configuration.  <br /></td></tr>
 <tr class="separator:a13e4ff1e1910c3055227e8d287a602b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4135cc8585e1a0ed10043e86166ce958" id="r_a4135cc8585e1a0ed10043e86166ce958"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="classIShape.html">IShape</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classShapeFactory.html#a4135cc8585e1a0ed10043e86166ce958">create</a> (const std::string &amp;type, const libconfig::Setting &amp;config, std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt; material, const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;transform)</td></tr>
+<tr class="separator:a4135cc8585e1a0ed10043e86166ce958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a13e4ff1e1910c3055227e8d287a602b2" name="a13e4ff1e1910c3055227e8d287a602b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13e4ff1e1910c3055227e8d287a602b2">&#9670;&#160;</a></span>create()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13e4ff1e1910c3055227e8d287a602b2">&#9670;&#160;</a></span>create() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,6 +159,54 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A shared pointer to the created shape, or nullptr if type is unknown. </dd></dl>
+
+</div>
+</div>
+<a id="a4135cc8585e1a0ed10043e86166ce958" name="a4135cc8585e1a0ed10043e86166ce958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4135cc8585e1a0ed10043e86166ce958">&#9670;&#160;</a></span>create() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classIShape.html">IShape</a> &gt; ShapeFactory::create </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const libconfig::Setting &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classIMaterial.html">IMaterial</a> &gt;&#160;</td>
+          <td class="paramname"><em>material</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -151,12 +151,18 @@ Collaboration diagram for AShape:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af9b6e19e01a6ce0941cab90a0d5b3479" id="r_af9b6e19e01a6ce0941cab90a0d5b3479"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#af9b6e19e01a6ce0941cab90a0d5b3479">AShape</a> (<a class="el" href="classVec3.html">Vec3</a> rotation, <a class="el" href="classVec3.html">Vec3</a> translation, <a class="el" href="classVec3.html">Vec3</a> scale)</td></tr>
+<tr class="memdesc:af9b6e19e01a6ce0941cab90a0d5b3479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for specifying rotation, translation, and scale separately.  <br /></td></tr>
 <tr class="separator:af9b6e19e01a6ce0941cab90a0d5b3479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add9e956901546f50206e36e869b19213" id="r_add9e956901546f50206e36e869b19213"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#add9e956901546f50206e36e869b19213">AShape</a> (const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;transform)</td></tr>
+<tr class="memdesc:add9e956901546f50206e36e869b19213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for directly providing a transformation matrix.  <br /></td></tr>
+<tr class="separator:add9e956901546f50206e36e869b19213"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbff68d7a0a5fdc03eca3c610d3d740a" id="r_afbff68d7a0a5fdc03eca3c610d3d740a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a">hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const final override</td></tr>
 <tr class="memdesc:afbff68d7a0a5fdc03eca3c610d3d740a"><td class="mdescLeft">&#160;</td><td class="mdescRight">[FINAL] Full intersection pipeline: <a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> check → transform to local → <a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688" title="Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.">hitLocal()</a> → transform to world → range check  <br /></td></tr>
 <tr class="separator:afbff68d7a0a5fdc03eca3c610d3d740a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b463f5454e822579671c73d2984051c" id="r_a2b463f5454e822579671c73d2984051c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classAABB.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#a2b463f5454e822579671c73d2984051c">boundingBox</a> () const override</td></tr>
 <tr class="separator:a2b463f5454e822579671c73d2984051c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd3cd099b010008e75a2091520fca53" id="r_acbd3cd099b010008e75a2091520fca53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#acbd3cd099b010008e75a2091520fca53">applyParentTransform</a> (const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;parent)</td></tr>
+<tr class="separator:acbd3cd099b010008e75a2091520fca53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcae5bb9f9414ff50b4eed6df9ae8688" id="r_abcae5bb9f9414ff50b4eed6df9ae8688"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688">hitLocal</a> (const <a class="el" href="classRay.html">Ray</a> &amp;localRay, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;record) const =0</td></tr>
 <tr class="memdesc:abcae5bb9f9414ff50b4eed6df9ae8688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.  <br /></td></tr>
 <tr class="separator:abcae5bb9f9414ff50b4eed6df9ae8688"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,7 +196,7 @@ Protected Member Functions</h2></td></tr>
 </ul>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af9b6e19e01a6ce0941cab90a0d5b3479" name="af9b6e19e01a6ce0941cab90a0d5b3479"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9b6e19e01a6ce0941cab90a0d5b3479">&#9670;&#160;</a></span>AShape()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af9b6e19e01a6ce0941cab90a0d5b3479">&#9670;&#160;</a></span>AShape() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,6 +226,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor for specifying rotation, translation, and scale separately. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">rotation</td><td>Euler angles in degrees (rx, ry, rz) - ZYX convention </td></tr>
@@ -231,7 +239,51 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="add9e956901546f50206e36e869b19213" name="add9e956901546f50206e36e869b19213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add9e956901546f50206e36e869b19213">&#9670;&#160;</a></span>AShape() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AShape::AShape </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;&#160;</td>
+          <td class="paramname"><em>transform</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor for directly providing a transformation matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transform</td><td>The world transformation matrix to apply to the shape. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="acbd3cd099b010008e75a2091520fca53" name="acbd3cd099b010008e75a2091520fca53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd3cd099b010008e75a2091520fca53">&#9670;&#160;</a></span>applyParentTransform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AShape::applyParentTransform </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classMatrix4x4.html">Matrix4x4</a> &amp;&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2b463f5454e822579671c73d2984051c" name="a2b463f5454e822579671c73d2984051c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b463f5454e822579671c73d2984051c">&#9670;&#160;</a></span>boundingBox()</h2>
 

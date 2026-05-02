@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['warn_0',['warn',['../classLogger.html#a24b519e0f53e73937f93edd2da37ea76',1,'Logger']]],
-  ['width_1',['width',['../classImage.html#ae533bfa2a8ddf6719e227c68bfcaa42e',1,'Image']]],
-  ['world_2',['world',['../classWorld.html',1,'World'],['../classWorld.html#a1fc6067fe31da6405bece93c9dbb61ac',1,'World::World()=default'],['../classWorld.html#a626968f1cc28615f2ef570644855e16e',1,'World::World(std::vector&lt; std::shared_ptr&lt; IShape &gt; &gt; objects)'],['../classScene.html#a6f63649b97d2de845d8ed3ca46fa3ff8',1,'Scene::world() const'],['../classScene.html#afe699281c0f4454c65ba3e1d8ff33195',1,'Scene::world()']]],
-  ['world_2ehpp_3',['World.hpp',['../World_8hpp.html',1,'']]],
-  ['writeppm_4',['writePPM',['../classImage.html#a57ae7ef06acc5d36fe9c8281cfb59a80',1,'Image']]]
+  ['v_0',['v',['../classHitRecord.html#ae3d8102ff4d8edb190dbf57d7acffdab',1,'HitRecord::v'],['../structUV.html#a4497249ea776b75c4154e37ded5f4dc0',1,'UV::v']]],
+  ['vec3_1',['vec3',['../classVec3.html',1,'Vec3'],['../classVec3.html#abbb966e5e5877b8ad39de761cf2b42ce',1,'Vec3::Vec3() noexcept'],['../classVec3.html#a9fd3f44c643820155d19d2581e13e7c9',1,'Vec3::Vec3(double x, double y, double z) noexcept'],['../classVec3.html#ab3c0083bdc38045673e09f2803a95051',1,'Vec3::Vec3(const Vec3C &amp;c) noexcept']]],
+  ['vec3_2ehpp_2',['Vec3.hpp',['../Vec3_8hpp.html',1,'']]],
+  ['vec3c_3',['Vec3C',['../structVec3C.html',1,'']]]
 ];

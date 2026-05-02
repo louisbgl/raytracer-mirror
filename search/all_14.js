@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['x_0',['x',['../structVec3C.html#a9c7decdd3778172f046cba2045bd8512',1,'Vec3C::x'],['../classVec3.html#a19247f27a71b7441b0b1eb1cf9400d05',1,'Vec3::x()']]]
+  ['warn_0',['warn',['../classLogger.html#a24b519e0f53e73937f93edd2da37ea76',1,'Logger']]],
+  ['width_1',['width',['../classImage.html#ae533bfa2a8ddf6719e227c68bfcaa42e',1,'Image']]],
+  ['world_2',['world',['../classWorld.html',1,'World'],['../classWorld.html#a1fc6067fe31da6405bece93c9dbb61ac',1,'World::World()=default'],['../classWorld.html#a626968f1cc28615f2ef570644855e16e',1,'World::World(std::vector&lt; std::shared_ptr&lt; IShape &gt; &gt; objects)'],['../classScene.html#a6f63649b97d2de845d8ed3ca46fa3ff8',1,'Scene::world() const'],['../classScene.html#afe699281c0f4454c65ba3e1d8ff33195',1,'Scene::world()']]],
+  ['world_2ehpp_3',['World.hpp',['../World_8hpp.html',1,'']]],
+  ['writefile_4',['writeFile',['../classImage.html#aec719c93f965a7a60ad2ddff92ce0200',1,'Image']]]
 ];
