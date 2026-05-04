@@ -34,7 +34,9 @@ bool Core::simulate() {
     Image image = _render();
 
     auto t2 = Clock::now();
-    _writeOutput(image);
+    bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
+    if (!cancelled)
+        _writeOutput(image);
 
     auto t3 = Clock::now();
     if (_logging) {
@@ -78,7 +80,9 @@ Image Core::_render()
     int w = _scene.camera().getWidth();
     Image image(w, h);
 
-    int total_threads = _getTotalThreads(rc);
+    int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
+    if (_progressTotal) _progressTotal->store(h);
+
     int thread_rows = h / total_threads;
 
     std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
@@ -94,8 +98,12 @@ Image Core::_render()
 
         threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
             for (int y = first_row; y < last_row; ++y) {
+                if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
+                    return;
                 for (int x = 0; x < w; ++x)
                     image.setPixel(x, y, computePixel(x, y));
+                if (_progressRows)
+                    _progressRows->fetch_add(1, std::memory_order_relaxed);
                 if (progbar)
                     progbar->update(1);
             }

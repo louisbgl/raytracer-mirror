@@ -43,6 +43,25 @@ include(FetchContent)
 # FetchContent-built libraries land in lib/deps/
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib/deps)
 
+# ── SFML ───────────────────────────────────────────────────────────────────────
+# optional -WITH_UI=ON/OFF to enable/disable SFML dependency
+option(WITH_UI "Build with SFML support for UI features" OFF)
+
+if (WITH_UI)
+    find_package(SFML 2.6 COMPONENTS graphics window system QUIET)
+    if (NOT SFML_FOUND)
+        message(STATUS "SFML not found in system, downloading with FetchContent...")
+        FetchContent_Declare(SFML
+            GIT_REPOSITORY https://github.com/SFML/SFML.git
+            GIT_TAG 2.6.1)
+        set(SFML_BUILD_AUDIO   OFF CACHE BOOL "" FORCE)
+        set(SFML_BUILD_NETWORK OFF CACHE BOOL "" FORCE)
+        FetchContent_MakeAvailable(SFML)
+    else()
+        message(STATUS "Found system SFML ${SFML_VERSION}")
+    endif()
+endif()
+
 # ── libconfig++ ────────────────────────────────────────────────────────────────
 # Try system package first (fast path), fallback to FetchContent
 find_package(PkgConfig QUIET)
@@ -113,6 +132,7 @@ add_executable(raytracer
     src/utils/HelpDisplay.cpp
     src/core/AShape.cpp
     src/Math/Matrix4x4.cpp
+    src/utils/clap/App.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -126,6 +146,17 @@ target_link_libraries(raytracer PRIVATE
     raytracer_flags
     ${LIBCONFIG++_LIBRARIES}
 )
+
+if (WITH_UI)
+    target_sources(raytracer PRIVATE
+        src/ui/UIApp.cpp
+        src/ui/SceneBrowser.cpp
+        src/ui/RenderPanel.cpp
+        src/ui/PixelBuffer.cpp
+    )
+    target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
+    target_compile_definitions(raytracer PRIVATE WITH_UI)
+endif()
 
 # Link libdl on Linux (not needed on macOS)
 if(NOT APPLE)
