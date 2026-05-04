@@ -60,7 +60,7 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
         for (size_t i = 0; i < _scenes.size(); ++i) {
             float y = lo.listTop + static_cast<float>(i) * lo.itemH - _scroll;
             if (y + lo.itemH < lo.listTop || y > lo.listTop + lo.listH) continue;
-            if (sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
+            if (my < lo.footerY && sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
                 _hoveredIdx = static_cast<int>(i);
                 break;
             }
@@ -75,7 +75,7 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
         for (size_t i = 0; i < _scenes.size(); ++i) {
             float y = lo.listTop + static_cast<float>(i) * lo.itemH - _scroll;
             if (y + lo.itemH < lo.listTop || y > lo.listTop + lo.listH) continue;
-            if (sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
+            if (my < lo.footerY && sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
                 _selectedIdx = static_cast<int>(i);
                 _selected    = _scenes[_selectedIdx];
                 hitItem      = true;
