@@ -34,7 +34,9 @@ bool Core::simulate() {
     Image image = _render();
 
     auto t2 = Clock::now();
-    _writeOutput(image);
+    bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
+    if (!cancelled)
+        _writeOutput(image);
 
     auto t3 = Clock::now();
     if (_logging) {
@@ -78,7 +80,9 @@ Image Core::_render()
     int w = _scene.camera().getWidth();
     Image image(w, h);
 
-    int total_threads = _getTotalThreads(rc);
+    int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
+    if (_progressTotal) _progressTotal->store(h);
+
     int thread_rows = h / total_threads;
 
     std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
@@ -94,8 +98,12 @@ Image Core::_render()
 
         threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
             for (int y = first_row; y < last_row; ++y) {
+                if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
+                    return;
                 for (int x = 0; x < w; ++x)
                     image.setPixel(x, y, computePixel(x, y));
+                if (_progressRows)
+                    _progressRows->fetch_add(1, std::memory_order_relaxed);
                 if (progbar)
                     progbar->update(1);
             }
@@ -274,17 +282,20 @@ int Core::_getTotalThreads(const RendererConfig& rc) const {
 }
 
 std::function<Vec3(int, int)> Core::_getComputePixelLambda(const RendererConfig& rc, int width, int height) const {
+    auto toneMap = [tmEnabled = rc.toneMappingEnabled, tmStrength = rc.toneMappingStrength](Vec3 c) -> Vec3 {
+        return tmEnabled ? RenderSampler::toneMapACES(c, tmStrength) : c;
+    };
     if (rc.aaEnabled && rc.aaSamples > 1 && rc.aaMethod == "ssaa") {
-        return [this, w = width, h = height, samples = rc.aaSamples](int x, int y) {
-            return _computePixelColorSSAA(x, y, w, h, samples);
+        return [this, w = width, h = height, samples = rc.aaSamples, toneMap](int x, int y) {
+            return toneMap(_computePixelColorSSAA(x, y, w, h, samples));
         };
     } else if (rc.aaEnabled && rc.aaMethod == "adaptive") {
-        return [this, w = width, h = height, threshold = rc.aaThreshold](int x, int y) {
-            return _computePixelColorAdaptiveSSAA(x, y, w, h, threshold);
+        return [this, w = width, h = height, threshold = rc.aaThreshold, toneMap](int x, int y) {
+            return toneMap(_computePixelColorAdaptiveSSAA(x, y, w, h, threshold));
         };
     } else {
-        return [this, w = width, h = height](int x, int y) {
-            return _computePixelColor(x, y, w, h);
+        return [this, w = width, h = height, toneMap](int x, int y) {
+            return toneMap(_computePixelColor(x, y, w, h));
         };
     }
 }

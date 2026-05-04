@@ -23,6 +23,11 @@ renderer:
         color = { r = 60; g = 90; b = 140; };
     };
 
+    toneMapping = {
+        enabled = true;
+        strength = 0.9;
+    };
+
     output = "output.ppm";
 };
 
@@ -60,21 +65,7 @@ shapes:
     );
 };
 
-lights:
-{
-    point = (
-        {
-            position = { x = 30; y = -20; z = -40; };
-            color = { r = 255; g = 245; b = 220; };
-            intensity = 600;
-        },
-        {
-            position = { x = -30; y = -20; z = -30; };
-            color = { r = 100; g = 150; b = 255; };
-            intensity = 250;
-        }
-    );
-};
+lights: {};
 
 scenes = (
     {

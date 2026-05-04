@@ -1,5 +1,6 @@
 #include "RenderSampler.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <thread>
 #include <functional>
@@ -40,4 +41,18 @@ Vec3 RenderSampler::randomHemisphere(const Vec3& normal) {
     Vec3 bitangent = cross(normal, tangent);
 
     return normalize(tangent * x + bitangent * y + normal * z);
+}
+
+Vec3 RenderSampler::toneMapACES(Vec3 c, double strength) {
+    Vec3 orig = c;
+    c = c * (1.0 / 255.0);
+    double luma = 0.2126 * c.x() + 0.7152 * c.y() + 0.0722 * c.z();
+    double num = luma * (2.51 * luma + 0.03);
+    double den = luma * (2.43 * luma + 0.59) + 0.14;
+    double mappedLuma = (den > 0.0) ? std::clamp(num / den, 0.0, 1.0) : 0.0;
+    double scale = (luma > 0.0) ? mappedLuma / luma : 0.0;
+    Vec3 mapped = Vec3(std::clamp(c.x() * scale, 0.0, 1.0),
+                       std::clamp(c.y() * scale, 0.0, 1.0),
+                       std::clamp(c.z() * scale, 0.0, 1.0)) * 255.0;
+    return orig * (1.0 - strength) + mapped * strength;
 }
