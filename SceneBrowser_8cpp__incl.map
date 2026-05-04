@@ -1,0 +1,17 @@
+<map id="src/ui/SceneBrowser.cpp" name="src/ui/SceneBrowser.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="304,5,483,31"/>
+<area shape="rect" id="Node000002" href="$SceneBrowser_8hpp.html" title=" " alt="" coords="185,79,327,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="372,33,292,75,289,70,370,28"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="351,79,436,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="396,31,396,65,391,65,391,31"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="460,79,551,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="413,28,477,69,474,73,410,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,152,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="228,106,121,149,119,144,227,102"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="176,152,235,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="250,106,224,142,219,139,245,103"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="259,152,357,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="267,103,294,139,289,142,262,106"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="381,152,443,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="282,102,375,144,373,149,280,106"/>
+</map>

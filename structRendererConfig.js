@@ -14,5 +14,7 @@ var structRendererConfig =
     [ "diffuseMultiplier", "structRendererConfig.html#a0b13454499673dfb9c81c5dfee0528ba", null ],
     [ "multithreadingEnabled", "structRendererConfig.html#aebd853b2a081935ddc7be7d6979f0cdd", null ],
     [ "outputFile", "structRendererConfig.html#a6665cb8247bb04e59f054dadc1df09c4", null ],
-    [ "threadCount", "structRendererConfig.html#a8e3af03c7feb1f555aa54659ac0606cc", null ]
+    [ "threadCount", "structRendererConfig.html#a8e3af03c7feb1f555aa54659ac0606cc", null ],
+    [ "toneMappingEnabled", "structRendererConfig.html#acc58906b582106b87c1d355084ed937b", null ],
+    [ "toneMappingStrength", "structRendererConfig.html#ac294921b7d6d33ef5a5ef8eb932e429c", null ]
 ];

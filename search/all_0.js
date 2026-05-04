@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['aabb_0',['aabb',['../classAABB.html',1,'AABB'],['../classAABB.html#a66add0564807b5af7c6a492ae270a0d9',1,'AABB::AABB()=default'],['../classAABB.html#a1413f2fad3a5621303ccd313b79c6676',1,'AABB::AABB(const Vec3 &amp;a, const Vec3 &amp;b)']]],
+  ['aabb_0',['aabb',['../classAABB.html',1,'AABB'],['../classAABB.html#a1413f2fad3a5621303ccd313b79c6676',1,'AABB::AABB(const Vec3 &amp;a, const Vec3 &amp;b)'],['../classAABB.html#a66add0564807b5af7c6a492ae270a0d9',1,'AABB::AABB()=default']]],
   ['aabb_2ehpp_1',['AABB.hpp',['../AABB_8hpp.html',1,'']]],
   ['aaenabled_2',['aaEnabled',['../structRendererConfig.html#a4fd184d2f253b41381c65c88587214b4',1,'RendererConfig']]],
   ['aamethod_3',['aaMethod',['../structRendererConfig.html#ad0ab41b5de2d028230a22f406536e2d3',1,'RendererConfig']]],
@@ -17,9 +17,13 @@ var searchData=
   ['aorayscast_14',['aoRaysCast',['../structRenderStats.html#ad11dd33e9b29473cc06f5e21c3797624',1,'RenderStats']]],
   ['aorayshit_15',['aoRaysHit',['../structRenderStats.html#a9ddbbe847710283adc9ee14389e75fa4',1,'RenderStats']]],
   ['aosamples_16',['aoSamples',['../structRendererConfig.html#a0481b27effd6689a2d214a0835be83ea',1,'RendererConfig']]],
-  ['applyparenttransform_17',['applyParentTransform',['../classAShape.html#acbd3cd099b010008e75a2091520fca53',1,'AShape']]],
-  ['ashape_18',['ashape',['../classAShape.html#af9b6e19e01a6ce0941cab90a0d5b3479',1,'AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale)'],['../classAShape.html#add9e956901546f50206e36e869b19213',1,'AShape::AShape(const Matrix4x4 &amp;transform)'],['../classAShape.html',1,'AShape']]],
-  ['ashape_2ecpp_19',['AShape.cpp',['../AShape_8cpp.html',1,'']]],
-  ['ashape_2ehpp_20',['AShape.hpp',['../AShape_8hpp.html',1,'']]],
-  ['at_21',['at',['../classRay.html#ac382a485d82d206c88a949b1aff8b9e9',1,'Ray']]]
+  ['app_17',['app',['../classclap_1_1App.html',1,'clap::App'],['../classclap_1_1App.html#aa1025c80a3fee0f883d18a3e26926a17',1,'clap::App::App()']]],
+  ['app_2ecpp_18',['App.cpp',['../App_8cpp.html',1,'']]],
+  ['app_2ehpp_19',['App.hpp',['../App_8hpp.html',1,'']]],
+  ['applyparenttransform_20',['applyParentTransform',['../classAShape.html#acbd3cd099b010008e75a2091520fca53',1,'AShape']]],
+  ['args_21',['Args',['../structArgs.html',1,'']]],
+  ['ashape_22',['ashape',['../classAShape.html',1,'AShape'],['../classAShape.html#af9b6e19e01a6ce0941cab90a0d5b3479',1,'AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale)'],['../classAShape.html#add9e956901546f50206e36e869b19213',1,'AShape::AShape(const Matrix4x4 &amp;transform)']]],
+  ['ashape_2ecpp_23',['AShape.cpp',['../AShape_8cpp.html',1,'']]],
+  ['ashape_2ehpp_24',['AShape.hpp',['../AShape_8hpp.html',1,'']]],
+  ['at_25',['at',['../classRay.html#ac382a485d82d206c88a949b1aff8b9e9',1,'Ray']]]
 ];

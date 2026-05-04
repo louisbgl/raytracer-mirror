@@ -1,0 +1,22 @@
+<map id="src/ui/RenderPanel.cpp" name="src/ui/RenderPanel.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="187,5,357,31"/>
+<area shape="rect" id="Node000002" href="$RenderPanel_8hpp.html" title=" " alt="" coords="80,79,211,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,33,179,74,177,69,250,28"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="235,79,309,104"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="275,31,275,65,269,65,269,31"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="333,79,408,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="289,29,345,68,342,73,286,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,152,251"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,106,106,153,95,184,86,213,81,211,89,182,102,151,133,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="116,152,175,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="148,104,148,138,143,138,143,104"/>
+<area shape="rect" id="Node000005" href="$PixelBuffer_8hpp.html" title=" " alt="" coords="199,152,318,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="165,102,230,142,227,147,162,106"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="231,180,122,223,120,218,229,175"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="176,225,243,251"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="253,179,227,216,223,213,248,176"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="267,225,331,251"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="268,176,288,212,283,215,263,179"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="355,225,418,251"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="281,175,355,216,352,221,278,180"/>
+</map>

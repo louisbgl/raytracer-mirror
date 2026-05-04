@@ -6,6 +6,7 @@ var searchData=
   ['box_3',['box',['../classBox.html',1,'Box'],['../classBox.html#a3e50011c8689677dc1f71ae744f0f1b8',1,'Box::Box()']]],
   ['box_2ecpp_4',['Box.cpp',['../Box_8cpp.html',1,'']]],
   ['box_2ehpp_5',['Box.hpp',['../Box_8hpp.html',1,'']]],
-  ['bvhnode_6',['bvhnode',['../classBVHNode.html',1,'BVHNode'],['../classBVHNode.html#adfbdf9feb28b9d0371a75f089934f161',1,'BVHNode::BVHNode()']]],
-  ['bvhnode_2ehpp_7',['BVHNode.hpp',['../BVHNode_8hpp.html',1,'']]]
+  ['browser_6',['Browser',['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344aef15fd2f45e6bb5ce57587895ba64f93',1,'UIApp.hpp']]],
+  ['bvhnode_7',['bvhnode',['../classBVHNode.html',1,'BVHNode'],['../classBVHNode.html#adfbdf9feb28b9d0371a75f089934f161',1,'BVHNode::BVHNode()']]],
+  ['bvhnode_2ehpp_8',['BVHNode.hpp',['../BVHNode_8hpp.html',1,'']]]
 ];

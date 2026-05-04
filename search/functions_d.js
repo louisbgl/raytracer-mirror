@@ -6,10 +6,15 @@ var searchData=
   ['rectangle_3',['Rectangle',['../classRectangle.html#af2637c860d0ee3eaafc48e701fc52390',1,'Rectangle']]],
   ['reflective_4',['Reflective',['../classReflective.html#ac2637ed8046f6435e80db48c6d1e8830',1,'Reflective']]],
   ['refractive_5',['Refractive',['../classRefractive.html#ade479be9ae15d0ee478350d8d2f1ba54',1,'Refractive']]],
-  ['remove_5flight_6',['remove_light',['../classScene.html#a58f3fafd83a1c1cab8cd6b7a84c539b9',1,'Scene']]],
-  ['remove_5fobject_7',['remove_object',['../classWorld.html#a0032897025891533938f74b9080b86d7',1,'World']]],
-  ['rendererconfig_8',['rendererConfig',['../classScene.html#ac40cae00236b4729aad51c31ae0cd265',1,'Scene']]],
-  ['rendersampler_9',['RenderSampler',['../classRenderSampler.html#a8cdc699d2cc28c4426c5f9333a826587',1,'RenderSampler']]],
-  ['renderstats_10',['renderstats',['../structRenderStats.html#a2d7d368af115c4ceb05677f9eb4c9383',1,'RenderStats::RenderStats()=default'],['../structRenderStats.html#afc31b939a977622640ffd21224ff3565',1,'RenderStats::RenderStats(const RenderStats &amp;)=delete']]],
-  ['rotate_11',['rotate',['../classMatrix4x4.html#a085388fd283078debce737548c35112d',1,'Matrix4x4']]]
+  ['refresh_6',['refresh',['../classSceneBrowser.html#ae9189d5018c75a41595a0b5cb6610c5a',1,'SceneBrowser']]],
+  ['remove_5flight_7',['remove_light',['../classScene.html#a58f3fafd83a1c1cab8cd6b7a84c539b9',1,'Scene']]],
+  ['remove_5fobject_8',['remove_object',['../classWorld.html#a0032897025891533938f74b9080b86d7',1,'World']]],
+  ['rendererconfig_9',['rendererConfig',['../classScene.html#ac40cae00236b4729aad51c31ae0cd265',1,'Scene']]],
+  ['renderpanel_10',['RenderPanel',['../classRenderPanel.html#a28cc9ad854c98f8e6c74a6441017976d',1,'RenderPanel']]],
+  ['rendersampler_11',['RenderSampler',['../classRenderSampler.html#a8cdc699d2cc28c4426c5f9333a826587',1,'RenderSampler']]],
+  ['renderstats_12',['renderstats',['../structRenderStats.html#a2d7d368af115c4ceb05677f9eb4c9383',1,'RenderStats::RenderStats()=default'],['../structRenderStats.html#afc31b939a977622640ffd21224ff3565',1,'RenderStats::RenderStats(const RenderStats &amp;)=delete']]],
+  ['required_13',['required',['../classclap_1_1Option.html#a0b33a9f3cb6cb041b69b8134bfa012b9',1,'clap::Option']]],
+  ['reset_14',['reset',['../structPixelBuffer.html#a2817c04a5dde3f5103fd67dff298dfdc',1,'PixelBuffer']]],
+  ['rotate_15',['rotate',['../classMatrix4x4.html#a085388fd283078debce737548c35112d',1,'Matrix4x4']]],
+  ['run_16',['run',['../classUIApp.html#abab64ddebde101d7a4d2e50af94a4849',1,'UIApp']]]
 ];

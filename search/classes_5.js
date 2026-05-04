@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['iboundable_0',['IBoundable',['../classIBoundable.html',1,'']]],
-  ['ilight_1',['ILight',['../classILight.html',1,'']]],
-  ['image_2',['Image',['../classImage.html',1,'']]],
-  ['imagetexture_3',['ImageTexture',['../classImageTexture.html',1,'']]],
-  ['imaterial_4',['IMaterial',['../classIMaterial.html',1,'']]],
-  ['ishape_5',['IShape',['../classIShape.html',1,'']]]
+  ['helpdisplay_0',['HelpDisplay',['../classHelpDisplay.html',1,'']]],
+  ['helprequested_1',['HelpRequested',['../classclap_1_1HelpRequested.html',1,'clap']]],
+  ['hitrecord_2',['HitRecord',['../classHitRecord.html',1,'']]],
+  ['hourglass_3',['Hourglass',['../classHourglass.html',1,'']]]
 ];

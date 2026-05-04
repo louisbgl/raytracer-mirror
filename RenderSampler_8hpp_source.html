@@ -112,16 +112,18 @@ $(document).ready(function(){initNavTree('RenderSampler_8hpp_source.html',''); i
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">static</span> <span class="keywordtype">double</span> <a class="code hl_function" href="classRenderSampler.html#aa80d10dc83942bd029c201632701f2ed">computeVariance</a>(std::span&lt;const Vec3&gt; colors);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">static</span> <a class="code hl_class" href="classVec3.html">Vec3</a>   <a class="code hl_function" href="classRenderSampler.html#ab9c9d1abf44298c42ce925b0982e6a41">randomHemisphere</a>(<span class="keyword">const</span> <a class="code hl_class" href="classVec3.html">Vec3</a>&amp; normal);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">thread_local</span> <span class="keyword">static</span> std::mt19937 _gen;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">static</span> <a class="code hl_class" href="classVec3.html">Vec3</a>   <a class="code hl_function" href="classRenderSampler.html#a672ddc00ef263b333d068691db18b896">toneMapACES</a>(<a class="code hl_class" href="classVec3.html">Vec3</a> color, <span class="keywordtype">double</span> strength = 1.0);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">thread_local</span> <span class="keyword">static</span> std::mt19937 _gen;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>};</div>
 </div>
 <div class="ttc" id="aVec3_8hpp_html"><div class="ttname"><a href="Vec3_8hpp.html">Vec3.hpp</a></div></div>
 <div class="ttc" id="aclassRenderSampler_html"><div class="ttname"><a href="classRenderSampler.html">RenderSampler</a></div><div class="ttdef"><b>Definition</b> RenderSampler.hpp:7</div></div>
+<div class="ttc" id="aclassRenderSampler_html_a672ddc00ef263b333d068691db18b896"><div class="ttname"><a href="classRenderSampler.html#a672ddc00ef263b333d068691db18b896">RenderSampler::toneMapACES</a></div><div class="ttdeci">static Vec3 toneMapACES(Vec3 color, double strength=1.0)</div><div class="ttdef"><b>Definition</b> RenderSampler.cpp:46</div></div>
 <div class="ttc" id="aclassRenderSampler_html_a8cdc699d2cc28c4426c5f9333a826587"><div class="ttname"><a href="classRenderSampler.html#a8cdc699d2cc28c4426c5f9333a826587">RenderSampler::RenderSampler</a></div><div class="ttdeci">RenderSampler()=delete</div></div>
-<div class="ttc" id="aclassRenderSampler_html_aa80d10dc83942bd029c201632701f2ed"><div class="ttname"><a href="classRenderSampler.html#aa80d10dc83942bd029c201632701f2ed">RenderSampler::computeVariance</a></div><div class="ttdeci">static double computeVariance(std::span&lt; const Vec3 &gt; colors)</div><div class="ttdef"><b>Definition</b> RenderSampler.cpp:11</div></div>
-<div class="ttc" id="aclassRenderSampler_html_ab9c9d1abf44298c42ce925b0982e6a41"><div class="ttname"><a href="classRenderSampler.html#ab9c9d1abf44298c42ce925b0982e6a41">RenderSampler::randomHemisphere</a></div><div class="ttdeci">static Vec3 randomHemisphere(const Vec3 &amp;normal)</div><div class="ttdef"><b>Definition</b> RenderSampler.cpp:25</div></div>
+<div class="ttc" id="aclassRenderSampler_html_aa80d10dc83942bd029c201632701f2ed"><div class="ttname"><a href="classRenderSampler.html#aa80d10dc83942bd029c201632701f2ed">RenderSampler::computeVariance</a></div><div class="ttdeci">static double computeVariance(std::span&lt; const Vec3 &gt; colors)</div><div class="ttdef"><b>Definition</b> RenderSampler.cpp:12</div></div>
+<div class="ttc" id="aclassRenderSampler_html_ab9c9d1abf44298c42ce925b0982e6a41"><div class="ttname"><a href="classRenderSampler.html#ab9c9d1abf44298c42ce925b0982e6a41">RenderSampler::randomHemisphere</a></div><div class="ttdeci">static Vec3 randomHemisphere(const Vec3 &amp;normal)</div><div class="ttdef"><b>Definition</b> RenderSampler.cpp:26</div></div>
 <div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

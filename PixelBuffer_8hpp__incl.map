@@ -1,0 +1,11 @@
+<map id="src/ui/PixelBuffer.hpp" name="src/ui/PixelBuffer.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="174,5,333,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,152,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,33,121,76,119,71,224,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="176,79,243,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="248,32,226,68,221,66,244,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="267,79,331,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="263,30,286,66,282,69,259,32"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="355,79,418,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="276,28,354,70,352,74,274,33"/>
+</map>

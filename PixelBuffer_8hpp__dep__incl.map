@@ -1,0 +1,14 @@
+<map id="src/ui/PixelBuffer.hpp" name="src/ui/PixelBuffer.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="193,5,351,31"/>
+<area shape="rect" id="Node000002" href="$PixelBuffer_8cpp.html" title=" " alt="" coords="5,79,163,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,38,116,81,114,76,228,33"/>
+<area shape="rect" id="Node000003" href="$RenderPanel_8hpp.html" title=" " alt="" coords="187,79,357,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,44,275,79,269,79,269,44"/>
+<area shape="rect" id="Node000005" href="$UIApp_8hpp.html" title=" " alt="" coords="331,152,459,177"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="316,34,345,52,371,77,383,96,390,116,396,151,391,152,385,118,378,98,367,80,342,56,313,39"/>
+<area shape="rect" id="Node000004" href="$RenderPanel_8cpp.html" title=" " alt="" coords="137,152,306,177"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="258,117,232,153,227,150,253,114"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="305,108,376,149,373,154,302,113"/>
+<area shape="rect" id="Node000006" href="$UIApp_8cpp.html" title=" " alt="" coords="331,225,458,251"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="397,191,397,225,392,225,392,191"/>
+</map>

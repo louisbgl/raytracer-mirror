@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['read_0',['read',['../structstbi__io__callbacks.html#a623e46b3a2a019611601409926283a88',1,'stbi_io_callbacks']]],
-  ['roots_1',['roots',['../structCubicRoots.html#a4ee555f71f46ed4ad31009264e0f070d',1,'CubicRoots::roots'],['../structQuarticRoots.html#aaa0c74fa3c618679ee7140f282ab496a',1,'QuarticRoots::roots']]]
+  ['pi_0',['PI',['../namespaceMath.html#acfc7ead6b66a7dce80f1a510df01845c',1,'Math']]],
+  ['pluginname_1',['pluginName',['../structPluginMetadata.html#a0c471c018f4199c4f15f13ef91bde706',1,'PluginMetadata']]],
+  ['pluralform_2',['pluralForm',['../structPluginMetadata.html#a72171c805a5d8b9f6a18923ab92b5dff',1,'PluginMetadata']]],
+  ['point_3',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]]
 ];

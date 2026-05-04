@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['outputfile_0',['outputFile',['../structRendererConfig.html#a6665cb8247bb04e59f054dadc1df09c4',1,'RendererConfig']]]
+  ['normal_0',['normal',['../classHitRecord.html#a59eac6b0a45071147d4c6bd18bc53684',1,'HitRecord']]]
 ];

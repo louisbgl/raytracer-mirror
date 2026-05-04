@@ -1,0 +1,16 @@
+<map id="src/ui/RenderPanel.hpp" name="src/ui/RenderPanel.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="60,5,231,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,152,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,32,106,80,95,110,86,139,81,138,89,108,102,77,133,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="116,79,175,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,31,148,65,143,65,143,31"/>
+<area shape="rect" id="Node000004" href="$PixelBuffer_8hpp.html" title=" " alt="" coords="199,79,318,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,28,230,69,227,74,162,33"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="231,107,122,149,120,144,229,102"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="176,152,243,177"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="253,106,227,142,223,139,248,103"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="267,152,331,177"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="268,103,288,139,283,141,263,106"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="355,152,418,177"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="281,102,355,143,352,147,278,106"/>
+</map>

@@ -109,6 +109,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a3573a4c87c2e5cb7530df125385eca" id="r_a8a3573a4c87c2e5cb7530df125385eca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">simulate</a> ()</td></tr>
 <tr class="memdesc:a8a3573a4c87c2e5cb7530df125385eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates the ray tracing process and renders the scene. It first load the scene from the input file then it performs ray tracing.  <br /></td></tr>
 <tr class="separator:a8a3573a4c87c2e5cb7530df125385eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b2d1225cb6ad8aab8d61cb90f739b0" id="r_a50b2d1225cb6ad8aab8d61cb90f739b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a50b2d1225cb6ad8aab8d61cb90f739b0">setCancelFlag</a> (std::atomic&lt; bool &gt; *flag)</td></tr>
+<tr class="separator:a50b2d1225cb6ad8aab8d61cb90f739b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6b0fc9a0980fdd7e82d6f5f307196d2" id="r_ae6b0fc9a0980fdd7e82d6f5f307196d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#ae6b0fc9a0980fdd7e82d6f5f307196d2">setThreadOverride</a> (int n)</td></tr>
+<tr class="separator:ae6b0fc9a0980fdd7e82d6f5f307196d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947f2620a9872fbffb28de91c3377e4e" id="r_a947f2620a9872fbffb28de91c3377e4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a947f2620a9872fbffb28de91c3377e4e">setProgressTarget</a> (std::atomic&lt; int &gt; *rows, std::atomic&lt; int &gt; *total)</td></tr>
+<tr class="separator:a947f2620a9872fbffb28de91c3377e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0982ecf166664b2968032586c827525c" name="a0982ecf166664b2968032586c827525c"></a>
@@ -165,6 +171,94 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a50b2d1225cb6ad8aab8d61cb90f739b0" name="a50b2d1225cb6ad8aab8d61cb90f739b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b2d1225cb6ad8aab8d61cb90f739b0">&#9670;&#160;</a></span>setCancelFlag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setCancelFlag </td>
+          <td>(</td>
+          <td class="paramtype">std::atomic&lt; bool &gt; *&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a947f2620a9872fbffb28de91c3377e4e" name="a947f2620a9872fbffb28de91c3377e4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947f2620a9872fbffb28de91c3377e4e">&#9670;&#160;</a></span>setProgressTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setProgressTarget </td>
+          <td>(</td>
+          <td class="paramtype">std::atomic&lt; int &gt; *&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::atomic&lt; int &gt; *&#160;</td>
+          <td class="paramname"><em>total</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6b0fc9a0980fdd7e82d6f5f307196d2" name="ae6b0fc9a0980fdd7e82d6f5f307196d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6b0fc9a0980fdd7e82d6f5f307196d2">&#9670;&#160;</a></span>setThreadOverride()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setThreadOverride </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8a3573a4c87c2e5cb7530df125385eca" name="a8a3573a4c87c2e5cb7530df125385eca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a3573a4c87c2e5cb7530df125385eca">&#9670;&#160;</a></span>simulate()</h2>
 

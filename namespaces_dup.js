@@ -1,5 +1,6 @@
 var namespaces_dup =
 [
+    [ "clap", "namespaceclap.html", "namespaceclap" ],
     [ "Math", "namespaceMath.html", [
       [ "INV_PI", "namespaceMath.html#adef241e1d1a1487cb652498422c50d1c", null ],
       [ "INV_TWO_PI", "namespaceMath.html#aa16f27b7c5fb4757023f8ad29352f068", null ],
