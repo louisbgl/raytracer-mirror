@@ -150,6 +150,9 @@ target_link_libraries(raytracer PRIVATE
 if (WITH_UI)
     target_sources(raytracer PRIVATE
         src/ui/UIApp.cpp
+        src/ui/SceneBrowser.cpp
+        src/ui/RenderPanel.cpp
+        src/ui/PixelBuffer.cpp
     )
     target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
     target_compile_definitions(raytracer PRIVATE WITH_UI)
