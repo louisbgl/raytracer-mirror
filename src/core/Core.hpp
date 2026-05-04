@@ -5,7 +5,7 @@
 #include "Image.hpp"
 #include "RenderSampler.hpp"
 #include "core/ProgressBar.hpp"
-
+#include <atomic>
 #include <functional>
 #include <memory>
 #include <string>
@@ -26,6 +26,14 @@ public:
      */
     bool simulate();
 
+    // UI mode hooks — set before simulate(), no-op in CLI mode
+    void setCancelFlag(std::atomic<bool>* flag)  { _cancelFlag = flag; }
+    void setThreadOverride(int n)                { _threadOverride = n; }
+    void setProgressTarget(std::atomic<int>* rows, std::atomic<int>* total) {
+        _progressRows  = rows;
+        _progressTotal = total;
+    }
+
 private:
     std::string _inputFile;
     bool _logging;
@@ -37,6 +45,12 @@ private:
     double _t_max = 1e6;
     int _maxRayBounces = 50;
     int _maxSubdivDepth = 2;
+
+    // UI hooks (all null in CLI mode)
+    std::atomic<bool>* _cancelFlag     = nullptr;
+    std::atomic<int>*  _progressRows   = nullptr;
+    std::atomic<int>*  _progressTotal  = nullptr;
+    int                _threadOverride = 0;
 
     bool  _loadScene();
     Image _render();
