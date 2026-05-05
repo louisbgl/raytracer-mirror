@@ -132,8 +132,9 @@ std::shared_ptr<IMaterial> MaterialFactory::_createImageTexture(const libconfig:
 
 std::shared_ptr<IMaterial> MaterialFactory::_createNormalMapped(const libconfig::Setting& config) {
     std::string path = config["path"].c_str();
+    Vec3 albedo = config.exists("color") ? ConfigUtils::parseColor(config) : Vec3(255, 255, 255);
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("normalmapped");
 
-    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(rawCreateFunc);
-    return std::shared_ptr<IMaterial>(createFunc(path.c_str()));
+    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*, Vec3C)>(rawCreateFunc);
+    return std::shared_ptr<IMaterial>(createFunc(path.c_str(), albedo.toCStruct()));
 }

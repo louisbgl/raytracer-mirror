@@ -6,7 +6,7 @@
 
 class NormalMapped : public IMaterial {
 public:
-    explicit NormalMapped(const std::string& path);
+    NormalMapped(const std::string& path, Vec3 albedo);
 
     Vec3 shade(const HitRecord& record, const Vec3& lightDir, const Vec3& lightColor,
                const Vec3& viewDir) const override;
@@ -16,4 +16,5 @@ public:
 
 private:
     std::unique_ptr<Image> _normalMap;
+    Vec3 _albedo;
 };

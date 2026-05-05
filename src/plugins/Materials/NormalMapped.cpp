@@ -3,7 +3,8 @@
 #include "../../DataTypes/HitRecord.hpp"
 #include <stdexcept>
 
-NormalMapped::NormalMapped(const std::string& path)
+NormalMapped::NormalMapped(const std::string& path, Vec3 albedo)
+    : _albedo(albedo / 255.0)
 {
     _normalMap = Image::readFile(path);
     if (!_normalMap)
@@ -38,12 +39,12 @@ Vec3 NormalMapped::shade(const HitRecord& record, const Vec3& lightDir, const Ve
     );
 
     double brightness = std::max(0.0, dot(perturbedNormal, lightDir));
-    return (lightColor / 255.0) * brightness * 255.0;
+    return (_albedo * (lightColor / 255.0)) * brightness * 255.0;
 }
 
-extern "C" IMaterial* create(const char* path)
+extern "C" IMaterial* create(const char* path, Vec3C albedo)
 {
-    return new NormalMapped(std::string(path));
+    return new NormalMapped(std::string(path), Vec3(albedo));
 }
 
 extern "C" const PluginMetadata* metadata()
