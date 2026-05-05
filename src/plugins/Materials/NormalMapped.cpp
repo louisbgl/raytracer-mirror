@@ -31,6 +31,28 @@ Vec3 NormalMapped::shade(const HitRecord& record, const Vec3& lightDir, const Ve
     Vec3 tangent = normalize(up - n * dot(up, n));
     Vec3 bitangent = cross(n, tangent);
 
-    // TODO
-    return Vec3(0, 0, 0);
+    Vec3 perturbedNormal = normalize(
+        tangent * tangentNormal.x() +
+        bitangent * tangentNormal.y() +
+        n * tangentNormal.z()
+    );
+
+    double brightness = std::max(0.0, dot(perturbedNormal, lightDir));
+    return (lightColor / 255.0) * brightness * 255.0;
+}
+
+extern "C" IMaterial* create(const char* path)
+{
+    return new NormalMapped(std::string(path));
+}
+
+extern "C" const PluginMetadata* metadata()
+{
+    static PluginMetadata meta = {
+        .pluginName = "normalmapped",
+        .pluralForm = "normalmapped",
+        .helpText = "NormalMapped (name, path)",
+        .category = "material"
+    };
+    return &meta;
 }
