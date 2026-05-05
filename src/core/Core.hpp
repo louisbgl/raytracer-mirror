@@ -61,7 +61,7 @@ private:
     Vec3 _computePixelColorAdaptiveSSAA(int x, int y, int width, int height, double threshold) const;
 
     Vec3 _trace(const Ray& ray, int depth, double screenU, double screenV) const;
-    Vec3 _computeAmbient(const HitRecord& record) const;
+    Vec3 _computeAmbient(const Ray& ray, const HitRecord& record) const;
     Vec3 _computeLighting(const Ray& ray, const HitRecord& record) const;
 
     Vec3 _sampleBackground(double screenU, double screenV) const;
