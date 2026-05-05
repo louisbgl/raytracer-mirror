@@ -17,6 +17,9 @@ public:
 
     void drawRendering(sf::RenderWindow& window);
     void drawDone(sf::RenderWindow& window);
+    
+    /// Set whether reload indicator should be shown
+    void setShowReloadIndicator(bool show) { _showReloadIndicator = show; }
 
     // check after handleEvent, cleared by UIApp
     bool wantsCancel() const { return _sigCancel; }
@@ -27,6 +30,8 @@ private:
     void drawButton(sf::RenderWindow& window, sf::FloatRect rect,
                     const std::string& label, sf::Color bg);
     void drawHeader(sf::RenderWindow& window, float ww, float headerH);
+    
+    void drawReloadIndicator(sf::RenderWindow& window, float ww, float wh);
 
     bool wasClicked(const sf::Event& event, const sf::RenderWindow& window,
                     sf::FloatRect rect) const;
@@ -37,6 +42,7 @@ private:
     int         _total = 0;
     bool        _sigCancel = false;
     bool        _sigBack   = false;
+    bool        _showReloadIndicator = false;
 
     sf::FloatRect _cancelRect = {};
     sf::FloatRect _backRect   = {};

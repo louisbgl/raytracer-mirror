@@ -114,6 +114,9 @@ void RenderPanel::drawRendering(sf::RenderWindow& window) {
     float btnH = std::max(42.f, wh * 0.057f);
     _cancelRect = {cx - btnW / 2.f, wh * 0.74f, btnW, btnH};
     drawButton(window, _cancelRect, "Cancel", COL_CANCEL);
+    
+    // reload indicator
+    drawReloadIndicator(window, ww, wh);
 }
 
 void RenderPanel::drawDone(sf::RenderWindow& window) {
@@ -180,4 +183,24 @@ bool RenderPanel::wasClicked(const sf::Event& event, const sf::RenderWindow& win
     if (event.type != sf::Event::MouseButtonPressed) return false;
     sf::Vector2f pos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
     return rect.contains(pos);
+}
+
+void RenderPanel::drawReloadIndicator(sf::RenderWindow& window, float ww, float wh) {
+    if (!_showReloadIndicator) return;
+    
+    // Draw a pulsing indicator at the top-right corner
+    float indicatorSize = std::clamp(wh * 0.025f, 12.f, 20.f);
+    sf::CircleShape indicator(indicatorSize);
+    indicator.setFillColor(sf::Color::Yellow);
+    indicator.setPosition(ww - indicatorSize * 3.f, indicatorSize);
+    window.draw(indicator);
+    
+    // Label next to indicator
+    unsigned labelSz = static_cast<unsigned>(std::clamp(wh * 0.018f, 11.f, 16.f));
+    sf::Text label("RELOADING", _font, labelSz);
+    label.setFillColor(sf::Color::Yellow);
+    sf::FloatRect lb = label.getLocalBounds();
+    label.setOrigin(lb.left + lb.width, lb.top + lb.height / 2.f);
+    label.setPosition(ww - indicatorSize * 5.5f, indicatorSize * 2.f);
+    window.draw(label);
 }

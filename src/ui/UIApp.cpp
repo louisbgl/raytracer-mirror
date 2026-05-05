@@ -53,6 +53,8 @@ void UIApp::update() {
 
         case UIState::Rendering:
             _panel.update(_pixelBuffer);
+            checkSceneFileWatch();
+            
             if (_doneFlag.load()) {
                 joinRenderThread();
                 toDone();
@@ -76,6 +78,11 @@ void UIApp::update() {
 void UIApp::draw() {
     _window.clear(sf::Color(22, 22, 30));
 
+    // Update reload indicator for rendering state
+    if (_state == UIState::Rendering) {
+        _panel.setShowReloadIndicator(_showReloadIndicator);
+    }
+
     switch (_state) {
         case UIState::Browser:   _browser.draw(_window);        break;
         case UIState::Rendering: _panel.drawRendering(_window); break;
@@ -91,6 +98,17 @@ void UIApp::toRendering(const std::string& scenePath) {
     _pixelBuffer.init(0, 0);
     _cancelFlag.store(false);
     _doneFlag.store(false);
+    
+    _fileWatcher = std::make_unique<FileWatcher>();
+    try {
+        _fileWatcher->addTargetPath(scenePath);
+        _lastWatchCheck = std::chrono::steady_clock::now();
+        _lastReloadTime = std::chrono::steady_clock::now();
+        _showReloadIndicator = false;
+    } catch (const std::exception& e) {
+        _fileWatcher = nullptr;
+    }
+    
     _state = UIState::Rendering;
     spawnRenderThread();
 }
@@ -118,4 +136,40 @@ void UIApp::spawnRenderThread() {
 void UIApp::joinRenderThread() {
     if (_renderThread.joinable())
         _renderThread.join();
+}
+
+void UIApp::checkSceneFileWatch() {
+    if (!_fileWatcher) return;
+    
+    auto now = std::chrono::steady_clock::now();
+    if (now - _lastWatchCheck < WATCH_THROTTLE) {
+        if (_showReloadIndicator && (now - _lastReloadTime > std::chrono::milliseconds(500))) {
+            _showReloadIndicator = false;
+        }
+        return;
+    }
+    
+    _lastWatchCheck = now;
+    
+    if (!_fileWatcher->watchFileEvents()) { return; }
+    
+    // Debounce: ignore if last reload was too recent (< 500ms)
+    if (now - _lastReloadTime < RELOAD_DEBOUNCE) {
+        _fileWatcher->clearChangeFlag();
+        return;
+    }
+    
+    _lastReloadTime = now;
+    _showReloadIndicator = true;
+    
+    _cancelFlag.store(true);
+    joinRenderThread();
+    
+    // Reset state and restart render
+    _pixelBuffer.init(0, 0);
+    _cancelFlag.store(false);
+    _doneFlag.store(false);
+    _fileWatcher->clearChangeFlag();
+    
+    spawnRenderThread();
 }
