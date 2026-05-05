@@ -153,6 +153,7 @@ if (WITH_UI)
         src/ui/SceneBrowser.cpp
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
+        src/watcher/FileWatcher.cpp
     )
     target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
     target_compile_definitions(raytracer PRIVATE WITH_UI)
@@ -181,6 +182,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
             src/external/Roots3And4.c
             src/parsers/ObjParser.cpp
             src/plugins/Shapes/MeshTriangle.cpp
+            src/watcher/FileWatcher.cpp
         )
 
         target_include_directories(run_tests PRIVATE
