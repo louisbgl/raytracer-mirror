@@ -1,0 +1,76 @@
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        samples = 4;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.2;
+        diffuseMultiplier = 0.9;
+    };
+
+    background = {
+        color = { r = 135; g = 185; b = 220; };
+    };
+
+    output = "bird.png";
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = -10.0; y = 5.0; z = -45.0; };
+    look_at = { x = 0.0; y = 2.0; z = 5.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 40.0;
+};
+
+materials:
+{
+    image_texture = (
+        { name = "bird_tex"; path = "textures/obj/bird.jpg"; }
+    );
+
+    phong = (
+        { name = "ground_dirt"; color = { r = 90; g = 65; b = 40; }; shininess = 4.0; }
+    );
+
+    reflective = (
+        { name = "mirror_sphere"; color = { r = 220; g = 230; b = 255; }; reflectivity = 0.85; }
+    );
+};
+
+shapes:
+{
+    meshes = (
+        {
+            path = "textures/obj/bird.obj";
+            material = "bird_tex";
+            position = { x = 0.0; y = -7.0; z = 0.0; };
+            rotation = { x = -90.0; y = 0.0; z = -135.0; };
+            scale = { x = 0.3; y = 0.3; z = 0.3; };
+        }
+    );
+
+    planes = (
+        {
+            position = { x = 0.0; y = -7.0; z = 0.0; };
+            normal = { x = 0.0; y = 1.0; z = 0.0; };
+            material = "ground_dirt";
+        }
+    );
+
+    spheres = (
+        { position = { x = 18.0; y = 2.0; z = 12.0; }; radius = 6.0; material = "mirror_sphere"; }
+    );
+};
+
+lights:
+{
+    point = (
+        { position = { x = 5.0; y = 15.0; z = -40.0; }; color = { r = 200; g = 220; b = 255; }; intensity = 1200.0; }
+    );
+};
