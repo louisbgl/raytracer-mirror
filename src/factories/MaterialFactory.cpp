@@ -13,7 +13,8 @@ std::shared_ptr<IMaterial> MaterialFactory::create(const std::string& type, cons
         {"phong", _createPhong},
         {"perlinnoise", _createPerlinNoise},
         {"chessboard", _createChessboard},
-        {"image_texture", _createImageTexture}
+        {"image_texture", _createImageTexture},
+        {"normalmapped", _createNormalMapped}
     };
 
     auto it = creators.find(type);
@@ -124,7 +125,16 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPerlinNoise(const libconfig::
 std::shared_ptr<IMaterial> MaterialFactory::_createImageTexture(const libconfig::Setting& config) {
     std::string path = config["path"].c_str();
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("image_texture");
-    
+
     auto createFunc = reinterpret_cast<IMaterial* (*)(const char*)>(rawCreateFunc);
     return std::shared_ptr<IMaterial>(createFunc(path.c_str()));
+}
+
+std::shared_ptr<IMaterial> MaterialFactory::_createNormalMapped(const libconfig::Setting& config) {
+    std::string path = config["path"].c_str();
+    Vec3 albedo = config.exists("color") ? ConfigUtils::parseColor(config) : Vec3(255, 255, 255);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("normalmapped");
+
+    auto createFunc = reinterpret_cast<IMaterial* (*)(const char*, Vec3C)>(rawCreateFunc);
+    return std::shared_ptr<IMaterial>(createFunc(path.c_str(), albedo.toCStruct()));
 }
