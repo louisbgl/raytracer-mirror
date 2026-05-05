@@ -1,0 +1,59 @@
+camera:
+{
+    resolution = { width = 2400; height = 1600; };
+    position = { x = 0.0; y = 4.0; z = 14.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 55.0;
+};
+
+materials:
+{
+    normalmapped = (
+        { name = "brick"; path = "textures/normal_maps/bricks.jpg"; color = { r = 180; g = 100; b = 60; }; },
+        { name = "metal"; path = "textures/normal_maps/metals.jpg"; color = { r = 180; g = 190; b = 200; }; },
+        { name = "wood";  path = "textures/normal_maps/wood.jpg";   color = { r = 160; g = 100; b = 50; }; },
+        { name = "earth"; path = "textures/normal_maps/earth.jpg"; color = { r = 60; g = 120; b = 200; }; } );
+
+    coloreddiffuse = (
+        { name = "floor"; color = { r = 160; g = 160; b = 160; }; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "floor"; }
+    );
+
+    spheres = (
+        { position = { x = -4.0; y = 1.5; z = 0.0; }; radius = 1.5; material = "brick"; },
+        { position = { x = 0.0;  y = 1.5; z = 0.0; }; radius = 1.5; material = "metal"; },
+        { position = { x = 4.0;  y = 1.5; z = 0.0; }; radius = 1.5; material = "wood"; },
+        { position = { x = 0.0;  y = 1.5; z = -6.0; }; radius = 4.0; material = "earth"; }
+    );
+
+    boxes = (
+        { position = { x = -4.0; y = 0.75; z = 3.5; }; width = 1.5; height = 1.5; depth = 1.5; material = "metal"; rotation = { x = 0.0; y = 25.0; z = 0.0; }; },
+        { position = { x = 4.0;  y = 0.75; z = 3.5; }; width = 1.5; height = 1.5; depth = 1.5; material = "wood";  rotation = { x = 0.0; y = -25.0; z = 0.0; }; }
+    );
+
+    rectangles = (
+        { position = { x = 0.0; y = 2.5; z = -3.0; }; width = 6.0; height = 4.0; material = "brick"; }
+    );
+};
+
+lights:
+{
+    ambient = 0.15;
+    diffuse = 0.85;
+
+    point = (
+        { position = { x = -3.0; y = 8.0; z = 8.0; }; color = { r = 255; g = 245; b = 220; }; intensity = 60.0; },
+        { position = { x = 4.0;  y = 4.0; z = 6.0; }; color = { r = 220; g = 230; b = 255; }; intensity = 30.0; }
+    );
+
+    directional = (
+        { direction = { x = 0.3; y = -1.0; z = 0.5; }; color = { r = 255; g = 230; b = 200; }; intensity = 0.3; }
+    );
+};
