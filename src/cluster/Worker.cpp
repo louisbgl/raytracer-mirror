@@ -64,15 +64,16 @@ void Worker::run()
         return;
     }
 
+    // send pixels row by row to avoid huge memory allocation
     std::cout << "Render done, sending pixels...\n";
-    std::vector<Vec3> pixels;
-    pixels.reserve(chunk.width * (chunk.lastRow - chunk.firstRow));
     for (int y = chunk.firstRow; y < chunk.lastRow; ++y) {
+        std::vector<Vec3> row;
+        row.reserve(chunk.width);
         for (int x = 0; x < chunk.width; ++x) {
-            pixels.push_back(result->getPixel(x, y));
+            row.push_back(result->getPixel(x, y));
         }
+        sock.send(Message::makePixels(row));
     }
-    sock.send(Message::makePixels(pixels));
 
     Message ack = sock.receive();
     if (ack.type == MessageType::ACK)

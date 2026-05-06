@@ -61,7 +61,7 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, false});
+            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false});
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
                       << " — " << (_workers.size() + 1) << " nodes total (coordinator + "
                       << _workers.size() << " workers)\n";
@@ -159,23 +159,21 @@ void Coordinator::_monitorAndCollect(Image& image)
                           << ") — " << percent << "% done\n";
 
             } else if (msg.type == MessageType::PIXELS) {
-                std::vector<Vec3> pixels = msg.parsePixels();
-                int x = 0;
-                int y = _workers[i].firstRow;
-                for (const Vec3& pixel : pixels) {
-                    image.setPixel(x, y, pixel);
-                    x++;
-                    if (x >= _imageWidth) {
-                        x = 0;
-                        y++;
-                    }
+                std::vector<Vec3> row = msg.parsePixels();
+                int y = _workers[i].firstRow + _workers[i].rowsReceived;
+                for (int x = 0; x < static_cast<int>(row.size()); ++x) {
+                    image.setPixel(x, y, row[x]);
                 }
-                _workers[i].socket->send(Message::makeAck());
-                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") — done, pixels received\n";
-                _workers[i].done = true;
-                pfds[i].fd = -1;
-                doneCount++;
+                _workers[i].rowsReceived++;
+
+                if (_workers[i].rowsReceived >= (_workers[i].lastRow - _workers[i].firstRow)) {
+                    _workers[i].socket->send(Message::makeAck());
+                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                              << ") — done, all rows received\n";
+                    _workers[i].done = true;
+                    pfds[i].fd = -1;
+                    doneCount++;
+                }
 
             } else if (msg.type == MessageType::ABORT) {
                 std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
