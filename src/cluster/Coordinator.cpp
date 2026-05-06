@@ -77,7 +77,7 @@ void Coordinator::_distributeWork()
 
     for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
         int first = i * rowsPerNode;
-        int last  = (i == totalNodes - 2) ? (_imageHeight - rowsPerNode) : (i + 1) * rowsPerNode;
+        int last  = (i + 1) * rowsPerNode;
 
         _workers[i].firstRow = first;
         _workers[i].lastRow  = last;
@@ -89,7 +89,7 @@ void Coordinator::_distributeWork()
                   << " to worker " << (i + 1) << " (" << _workers[i].ip << ")\n";
     }
 
-    int coordFirst = (_imageHeight / totalNodes) * static_cast<int>(_workers.size());
+    int coordFirst = rowsPerNode * static_cast<int>(_workers.size());
     int coordLast  = _imageHeight;
     std::cout << "  > Rendering rows " << coordFirst << "-" << coordLast << " locally\n";
 }
