@@ -25,6 +25,7 @@ public:
      * @note The output image is saved as "output.ppm".
      */
     bool simulate();
+    Image renderSlice(int firstRow, int lastRow);
 
     // UI mode hooks — set before simulate(), no-op in CLI mode
     void setCancelFlag(std::atomic<bool>* flag)  { _cancelFlag = flag; }
@@ -54,6 +55,7 @@ private:
 
     bool  _loadScene();
     Image _render();
+    void  _renderRows(Image& image, int firstRow, int lastRow);
     void  _writeOutput(Image& image);
 
     Vec3 _computePixelColor(int x, int y, int width, int height) const;

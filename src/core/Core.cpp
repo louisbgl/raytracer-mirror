@@ -72,32 +72,31 @@ bool Core::_loadScene() {
     return true;
 }
 
-Image Core::_render()
+void Core::_renderRows(Image& image, int firstRow, int lastRow)
 {
     const RendererConfig rc = _scene.rendererConfig();
-
-    int h = _scene.camera().getHeight();
     int w = _scene.camera().getWidth();
-    Image image(w, h);
+    int h = _scene.camera().getHeight();
+    int rowCount = lastRow - firstRow;
 
     int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
-    if (_progressTotal) _progressTotal->store(h);
+    if (_progressTotal) _progressTotal->store(rowCount);
 
-    int thread_rows = h / total_threads;
+    int thread_rows = rowCount / total_threads;
 
     std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
 
     std::vector<std::thread> threads;
     std::unique_ptr<ProgressBar> progbar = nullptr;
     if (_logging)
-        progbar = std::make_unique<ProgressBar>(h);
+        progbar = std::make_unique<ProgressBar>(rowCount);
 
     for (int t = 0; t < total_threads; ++t) {
-        int first_row = t * thread_rows;
-        int last_row  = (t == total_threads - 1) ? h : (t + 1) * thread_rows;
+        int first = firstRow + t * thread_rows;
+        int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
 
-        threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
-            for (int y = first_row; y < last_row; ++y) {
+        threads.emplace_back([this, &image, &computePixel, first, last, w, progbar = progbar.get()]() {
+            for (int y = first; y < last; ++y) {
                 if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
                     return;
                 for (int x = 0; x < w; ++x)
@@ -117,7 +116,26 @@ Image Core::_render()
         progbar->finish();
         std::cout << "  Log: " << _logger->path() << std::endl;
     }
+}
 
+Image Core::_render()
+{
+    int h = _scene.camera().getHeight();
+    int w = _scene.camera().getWidth();
+    Image image(w, h);
+    _renderRows(image, 0, h);
+    return image;
+}
+
+Image Core::renderSlice(int firstRow, int lastRow)
+{
+    if (!_loadScene())
+        throw std::runtime_error("renderSlice: failed to load scene");
+
+    int w = _scene.camera().getWidth();
+    int h = _scene.camera().getHeight();
+    Image image(w, h);
+    _renderRows(image, firstRow, lastRow);
     return image;
 }
 
