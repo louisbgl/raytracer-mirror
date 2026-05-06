@@ -76,8 +76,9 @@ void Worker::run()
         return;
     }
 
-    // send pixels row by row to avoid huge memory allocation
+    // send pixels row by row, sending a heartbeat every 100 rows to stay alive
     std::cout << "Render done, sending pixels...\n";
+    int totalRows = chunk.lastRow - chunk.firstRow;
     for (int y = chunk.firstRow; y < chunk.lastRow; ++y) {
         std::vector<Vec3> row;
         row.reserve(chunk.width);
@@ -85,6 +86,12 @@ void Worker::run()
             row.push_back(result->getPixel(x, y));
         }
         sock.send(Message::makePixels(row));
+
+        int rowsSent = y - chunk.firstRow + 1;
+        if (rowsSent % 100 == 0) {
+            int percent = totalRows > 0 ? (rowsSent * 100 / totalRows) : 100;
+            sock.send(Message::makeHeartbeat(percent));
+        }
     }
 
     Message ack = sock.receive();

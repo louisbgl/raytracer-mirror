@@ -171,6 +171,7 @@ void Coordinator::_monitorAndCollect(Image& image)
                           << ") — " << percent << "% done\n";
 
             } else if (msg.type == MessageType::PIXELS) {
+                _workers[i].missedHeartbeats = 0;
                 std::vector<Vec3> row = msg.parsePixels();
                 int y = _workers[i].firstRow + _workers[i].rowsReceived;
                 for (int x = 0; x < static_cast<int>(row.size()); ++x) {
