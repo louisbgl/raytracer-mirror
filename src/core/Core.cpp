@@ -48,6 +48,11 @@ bool Core::simulate() {
     return true;
 }
 
+bool Core::loadScene() { return _loadScene(); }
+
+int Core::sceneWidth()  const { return _scene.camera().getWidth(); }
+int Core::sceneHeight() const { return _scene.camera().getHeight(); }
+
 bool Core::_loadScene() {
     try {
         SceneParser parser;
