@@ -29,7 +29,11 @@ void Coordinator::run()
         _renderLocalChunk(image, coordFirst, _imageHeight);
     });
 
-    _monitorAndCollect(image);
+    try {
+        _monitorAndCollect(image);
+    } catch (const std::exception& e) {
+        std::cerr << "Monitor error: " << e.what() << "\n";
+    }
     localThread.join();
 
     std::cout << "Assembling final image...\n";
@@ -124,7 +128,7 @@ void Coordinator::_distributeWork()
 
 void Coordinator::_monitorAndCollect(Image& image)
 {
-    static constexpr int HEARTBEAT_TIMEOUT_MS = 12000; // 2 missed heartbeats at 5s each
+    static constexpr int HEARTBEAT_TIMEOUT_MS = 30000; // 30s timeout per heartbeat window
 
     int workerCount = static_cast<int>(_workers.size());
     if (workerCount == 0)

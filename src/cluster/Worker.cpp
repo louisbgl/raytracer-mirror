@@ -88,7 +88,7 @@ void Worker::run()
         sock.send(Message::makePixels(row));
 
         int rowsSent = y - chunk.firstRow + 1;
-        if (rowsSent % 100 == 0) {
+        if (rowsSent % 10 == 0) {
             int percent = chunkRows > 0 ? (rowsSent * 100 / chunkRows) : 100;
             sock.send(Message::makeHeartbeat(percent));
         }
