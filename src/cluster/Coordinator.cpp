@@ -14,7 +14,19 @@ void Coordinator::run()
 {
     _waitForWorkers();
     _distributeWork();
-    // phases 3, 4 will follow
+
+    Image image(_imageWidth, _imageHeight);
+
+    int totalNodes  = static_cast<int>(_workers.size()) + 1;
+    int rowsPerNode = _imageHeight / totalNodes;
+    int coordFirst  = rowsPerNode * static_cast<int>(_workers.size());
+
+    _monitorAndCollect(image);
+    _renderLocalChunk(image, coordFirst, _imageHeight);
+
+    std::cout << "Assembling final image...\n";
+    image.writeFile("output.ppm");
+    std::cout << "Image saved to output.ppm\n";
 }
 
 void Coordinator::_waitForWorkers()
@@ -92,4 +104,101 @@ void Coordinator::_distributeWork()
     int coordFirst = rowsPerNode * static_cast<int>(_workers.size());
     int coordLast  = _imageHeight;
     std::cout << "  > Rendering rows " << coordFirst << "-" << coordLast << " locally\n";
+}
+
+void Coordinator::_monitorAndCollect(Image& image)
+{
+    static constexpr int HEARTBEAT_TIMEOUT_MS = 12000; // 2 missed heartbeats at 5s each
+
+    int workerCount = static_cast<int>(_workers.size());
+    if (workerCount == 0)
+        return;
+
+    std::vector<struct pollfd> pfds(workerCount);
+    for (int i = 0; i < workerCount; ++i) {
+        pfds[i].fd     = _workers[i].socket->fd();
+        pfds[i].events = POLLIN;
+    }
+
+    int doneCount = 0;
+    while (doneCount < workerCount) {
+        int ready = ::poll(pfds.data(), workerCount, HEARTBEAT_TIMEOUT_MS);
+
+        if (ready == 0) {
+            // timeout — check missed heartbeats
+            for (int i = 0; i < workerCount; ++i) {
+                if (_workers[i].done)
+                    continue;
+                _workers[i].missedHeartbeats++;
+                if (_workers[i].missedHeartbeats >= 2) {
+                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                              << ") presumed dead — reassigning chunk\n";
+                    _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                    _workers[i].done = true;
+                    pfds[i].fd = -1; // stop polling this socket
+                    doneCount++;
+                }
+            }
+            continue;
+        }
+
+        for (int i = 0; i < workerCount; ++i) {
+            if (_workers[i].done || !(pfds[i].revents & POLLIN))
+                continue;
+
+            Message msg = _workers[i].socket->receive();
+
+            if (msg.type == MessageType::HEARTBEAT) {
+                int percent = msg.parseHeartbeat();
+                _workers[i].missedHeartbeats = 0;
+                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                          << ") — " << percent << "% done\n";
+
+            } else if (msg.type == MessageType::PIXELS) {
+                std::vector<Vec3> pixels = msg.parsePixels();
+                int x = 0;
+                int y = _workers[i].firstRow;
+                for (const Vec3& pixel : pixels) {
+                    image.setPixel(x, y, pixel);
+                    x++;
+                    if (x >= _imageWidth) {
+                        x = 0;
+                        y++;
+                    }
+                }
+                _workers[i].socket->send(Message::makeAck());
+                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                          << ") — done, pixels received\n";
+                _workers[i].done = true;
+                pfds[i].fd = -1;
+                doneCount++;
+
+            } else if (msg.type == MessageType::ABORT) {
+                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                          << ") reported error — reassigning chunk\n";
+                _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                _workers[i].done = true;
+                pfds[i].fd = -1;
+                doneCount++;
+            }
+        }
+    }
+}
+
+void Coordinator::_renderLocalChunk(Image& image, int firstRow, int lastRow)
+{
+    Core core(_sceneFile);
+    Image slice = core.renderSlice(firstRow, lastRow);
+    for (int y = firstRow; y < lastRow; ++y) {
+        for (int x = 0; x < _imageWidth; ++x) {
+            image.setPixel(x, y, slice.getPixel(x, y));
+        }
+    }
+    std::cout << "Local render done\n";
+}
+
+void Coordinator::_reassignChunk(Image& image, int firstRow, int lastRow)
+{
+    std::cout << "Rendering reassigned chunk (rows " << firstRow << "-" << lastRow << ") locally\n";
+    _renderLocalChunk(image, firstRow, lastRow);
 }
