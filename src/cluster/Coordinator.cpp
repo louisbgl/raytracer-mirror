@@ -13,7 +13,8 @@ Coordinator::Coordinator(const std::string& sceneFile)
 void Coordinator::run()
 {
     _waitForWorkers();
-    // phases 2, 3, 4 will follow
+    _distributeWork();
+    // phases 3, 4 will follow
 }
 
 void Coordinator::_waitForWorkers()
@@ -59,4 +60,39 @@ void Coordinator::_waitForWorkers()
 
     std::cout << "Starting render with " << (_workers.size() + 1) << " nodes ("
               << _workers.size() << " workers + coordinator)\n";
+}
+
+void Coordinator::_distributeWork()
+{
+    // load scene to get image dimensions
+    Core core(_sceneFile);
+    if (!core.loadScene())
+        throw std::runtime_error("Coordinator: failed to load scene");
+    _imageWidth  = core.sceneWidth();
+    _imageHeight = core.sceneHeight();
+
+    int totalNodes = static_cast<int>(_workers.size()) + 1;
+    int rowsPerNode = _imageHeight / totalNodes;
+
+    std::cout << "Dividing " << _imageHeight << " rows across " << totalNodes << " nodes...\n";
+
+    // assign chunks to workers
+    for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
+        int first = i * rowsPerNode;
+        int last  = (i == totalNodes - 2) ? (_imageHeight - rowsPerNode) : (i + 1) * rowsPerNode;
+
+        _workers[i].firstRow = first;
+        _workers[i].lastRow  = last;
+
+        AssignPayload payload{_sceneFile, first, last, _imageWidth, _imageHeight};
+        _workers[i].socket->send(Message::makeAssign(payload));
+
+        std::cout << "  > Assigned rows " << first << "-" << last
+                  << " to worker " << (i + 1) << " (" << _workers[i].ip << ")\n";
+    }
+
+    // coordinator takes the last chunk
+    int coordFirst = (_imageHeight / totalNodes) * static_cast<int>(_workers.size());
+    int coordLast  = _imageHeight;
+    std::cout << "  > Rendering rows " << coordFirst << "-" << coordLast << " locally\n";
 }
