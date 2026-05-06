@@ -16,6 +16,7 @@ public:
     void close();
 
     bool isOpen() const { return _fd >= 0; }
+    int fd() const { return _fd; }
     std::string peerAddress() const;
 
 private:
