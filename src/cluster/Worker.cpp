@@ -78,7 +78,7 @@ void Worker::run()
 
     // send pixels row by row, sending a heartbeat every 100 rows to stay alive
     std::cout << "Render done, sending pixels...\n";
-    int totalRows = chunk.lastRow - chunk.firstRow;
+    int chunkRows = chunk.lastRow - chunk.firstRow;
     for (int y = chunk.firstRow; y < chunk.lastRow; ++y) {
         std::vector<Vec3> row;
         row.reserve(chunk.width);
@@ -89,7 +89,7 @@ void Worker::run()
 
         int rowsSent = y - chunk.firstRow + 1;
         if (rowsSent % 100 == 0) {
-            int percent = totalRows > 0 ? (rowsSent * 100 / totalRows) : 100;
+            int percent = chunkRows > 0 ? (rowsSent * 100 / chunkRows) : 100;
             sock.send(Message::makeHeartbeat(percent));
         }
     }
