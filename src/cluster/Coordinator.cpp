@@ -21,8 +21,12 @@ void Coordinator::run()
     int rowsPerNode = _imageHeight / totalNodes;
     int coordFirst  = rowsPerNode * static_cast<int>(_workers.size());
 
+    std::thread localThread([&]() {
+        _renderLocalChunk(image, coordFirst, _imageHeight);
+    });
+
     _monitorAndCollect(image);
-    _renderLocalChunk(image, coordFirst, _imageHeight);
+    localThread.join();
 
     std::cout << "Assembling final image...\n";
     image.writeFile("output.ppm");
