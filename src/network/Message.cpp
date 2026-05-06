@@ -49,8 +49,8 @@ Message Message::makeAssign(const AssignPayload& data)
     writeInt(payload, data.lastRow);
     writeInt(payload, data.width);
     writeInt(payload, data.height);
-    writeInt(payload, static_cast<int>(data.scenePath.size()));
-    for (char c : data.scenePath)
+    writeInt(payload, static_cast<int>(data.sceneContent.size()));
+    for (char c : data.sceneContent)
         payload.push_back(static_cast<uint8_t>(c));
     return {MessageType::ASSIGN, payload};
 }
@@ -117,10 +117,10 @@ AssignPayload Message::parseAssign() const
     data.lastRow   = readInt(payload.data() + 4);
     data.width     = readInt(payload.data() + 8);
     data.height    = readInt(payload.data() + 12);
-    int pathLen    = readInt(payload.data() + 16);
-    if (static_cast<int>(payload.size()) < 20 + pathLen)
-        throw std::runtime_error("parseAssign: scene path truncated");
-    data.scenePath.assign(payload.begin() + 20, payload.begin() + 20 + pathLen);
+    int contentLen = readInt(payload.data() + 16);
+    if (static_cast<int>(payload.size()) < 20 + contentLen)
+        throw std::runtime_error("parseAssign: scene content truncated");
+    data.sceneContent.assign(payload.begin() + 20, payload.begin() + 20 + contentLen);
     return data;
 }
 

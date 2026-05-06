@@ -2,10 +2,14 @@
 #include "../network/Message.hpp"
 #include "../core/Core.hpp"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <poll.h>
 #include <unistd.h>
 #include <stdexcept>
 #include <thread>
+#include <chrono>
+#include <atomic>
 
 Coordinator::Coordinator(const std::string& sceneFile)
     : _sceneFile(sceneFile) {}
@@ -86,6 +90,14 @@ void Coordinator::_distributeWork()
     _imageWidth  = core.sceneWidth();
     _imageHeight = core.sceneHeight();
 
+    // read scene file content to send to workers
+    std::ifstream file(_sceneFile);
+    if (!file.is_open())
+        throw std::runtime_error("Coordinator: cannot read scene file " + _sceneFile);
+    std::ostringstream ss;
+    ss << file.rdbuf();
+    std::string sceneContent = ss.str();
+
     int totalNodes = static_cast<int>(_workers.size()) + 1;
     int rowsPerNode = _imageHeight / totalNodes;
 
@@ -98,7 +110,7 @@ void Coordinator::_distributeWork()
         _workers[i].firstRow = first;
         _workers[i].lastRow  = last;
 
-        AssignPayload payload{_sceneFile, first, last, _imageWidth, _imageHeight};
+        AssignPayload payload{sceneContent, first, last, _imageWidth, _imageHeight};
         _workers[i].socket->send(Message::makeAssign(payload));
 
         std::cout << "  > Assigned rows " << first << "-" << last
@@ -189,14 +201,32 @@ void Coordinator::_monitorAndCollect(Image& image)
 
 void Coordinator::_renderLocalChunk(Image& image, int firstRow, int lastRow)
 {
+    std::atomic<int> progress{0};
+    std::atomic<bool> done{false};
+    int totalRows = lastRow - firstRow;
+
+    std::thread progressThread([&]() {
+        while (!done.load()) {
+            std::this_thread::sleep_for(std::chrono::seconds(5));
+            if (done.load())
+                break;
+            int percent = totalRows > 0 ? (progress.load() * 100 / totalRows) : 0;
+            std::cout << "Local — " << percent << "% done\n";
+        }
+    });
+
     Core core(_sceneFile);
+    core.setProgressTarget(&progress, nullptr);
     Image slice = core.renderSlice(firstRow, lastRow);
+    done = true;
+    progressThread.join();
+
     for (int y = firstRow; y < lastRow; ++y) {
         for (int x = 0; x < _imageWidth; ++x) {
             image.setPixel(x, y, slice.getPixel(x, y));
         }
     }
-    std::cout << "Local render done\n";
+    std::cout << "Local — 100% done\n";
 }
 
 void Coordinator::_reassignChunk(Image& image, int firstRow, int lastRow)

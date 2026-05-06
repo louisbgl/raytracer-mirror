@@ -15,7 +15,7 @@ enum class MessageType : uint8_t {
 };
 
 struct AssignPayload {
-    std::string scenePath;
+    std::string sceneContent;
     int firstRow;
     int lastRow;
     int width;

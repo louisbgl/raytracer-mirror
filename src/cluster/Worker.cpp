@@ -4,9 +4,11 @@
 #include "../core/Core.hpp"
 #include "../core/Image.hpp"
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include <chrono>
 #include <stdexcept>
+#include <unistd.h>
 
 Worker::Worker(const std::string& host, int port)
     : _host(host), _port(port) {}
@@ -29,8 +31,17 @@ void Worker::run()
         throw std::runtime_error("Worker: unexpected message, expected ASSIGN");
 
     AssignPayload chunk = msg.parseAssign();
-    std::cout << "Received chunk: rows " << chunk.firstRow << " to " << chunk.lastRow
-              << " of scene " << chunk.scenePath << "\n";
+    std::cout << "Received chunk: rows " << chunk.firstRow << " to " << chunk.lastRow << "\n";
+
+    // write scene content to a temp file
+    std::string tempPath = "/tmp/raytracer_worker_" + std::to_string(::getpid()) + ".txt";
+    {
+        std::ofstream tmpFile(tempPath);
+        if (!tmpFile.is_open())
+            throw std::runtime_error("Worker: cannot create temp scene file");
+        tmpFile << chunk.sceneContent;
+    }
+    std::cout << "Scene written to " << tempPath << "\n";
 
     std::atomic<bool> done{false};
     std::atomic<bool> renderError{false};
@@ -38,7 +49,7 @@ void Worker::run()
 
     std::thread renderThread([&]() {
         try {
-            Core core(chunk.scenePath);
+            Core core(tempPath);
             core.setProgressTarget(&_progress, nullptr);
             result = std::make_unique<Image>(core.renderSlice(chunk.firstRow, chunk.lastRow));
         } catch (const std::exception& e) {
@@ -58,6 +69,7 @@ void Worker::run()
     }
 
     renderThread.join();
+    ::unlink(tempPath.c_str());
 
     if (renderError) {
         sock.send(Message::makeAbort());
