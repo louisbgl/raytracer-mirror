@@ -24,9 +24,9 @@ void Coordinator::_waitForWorkers()
     std::cout << "Waiting for workers... (press Enter to start)\n";
 
     struct pollfd pfds[2];
-    pfds[0].fd     = server.fd();   // watch for new worker connections
+    pfds[0].fd     = server.fd();
     pfds[0].events = POLLIN;
-    pfds[1].fd     = STDIN_FILENO;  // watch for Enter key
+    pfds[1].fd     = STDIN_FILENO;
     pfds[1].events = POLLIN;
 
     bool started = false;
@@ -64,7 +64,6 @@ void Coordinator::_waitForWorkers()
 
 void Coordinator::_distributeWork()
 {
-    // load scene to get image dimensions
     Core core(_sceneFile);
     if (!core.loadScene())
         throw std::runtime_error("Coordinator: failed to load scene");
@@ -76,7 +75,6 @@ void Coordinator::_distributeWork()
 
     std::cout << "Dividing " << _imageHeight << " rows across " << totalNodes << " nodes...\n";
 
-    // assign chunks to workers
     for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
         int first = i * rowsPerNode;
         int last  = (i == totalNodes - 2) ? (_imageHeight - rowsPerNode) : (i + 1) * rowsPerNode;
@@ -91,7 +89,6 @@ void Coordinator::_distributeWork()
                   << " to worker " << (i + 1) << " (" << _workers[i].ip << ")\n";
     }
 
-    // coordinator takes the last chunk
     int coordFirst = (_imageHeight / totalNodes) * static_cast<int>(_workers.size());
     int coordLast  = _imageHeight;
     std::cout << "  > Rendering rows " << coordFirst << "-" << coordLast << " locally\n";
