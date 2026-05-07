@@ -76,20 +76,29 @@ void Worker::run()
         return;
     }
 
-    // send pixels row by row, sending a heartbeat every 100 rows to stay alive
+    // send pixels in chunks of MAX_PIXELS_PER_MSG to keep packets small
+    static constexpr int MAX_PIXELS_PER_MSG = 1000;
     std::cout << "Render done, sending pixels...\n";
     int chunkRows = chunk.lastRow - chunk.firstRow;
+    int totalPixels = chunkRows * chunk.width;
+    int pixelsSent = 0;
+
     for (int y = chunk.firstRow; y < chunk.lastRow; ++y) {
-        std::vector<Vec3> row;
-        row.reserve(chunk.width);
-        for (int x = 0; x < chunk.width; ++x) {
-            row.push_back(result->getPixel(x, y));
+        int xStart = 0;
+        while (xStart < chunk.width) {
+            int xEnd = std::min(xStart + MAX_PIXELS_PER_MSG, chunk.width);
+            std::vector<Vec3> pixels;
+            pixels.reserve(xEnd - xStart);
+            for (int x = xStart; x < xEnd; ++x)
+                pixels.push_back(result->getPixel(x, y));
+            sock.send(Message::makePixels(pixels));
+            pixelsSent += xEnd - xStart;
+            xStart = xEnd;
         }
-        sock.send(Message::makePixels(row));
 
         int rowsSent = y - chunk.firstRow + 1;
         if (rowsSent % 10 == 0) {
-            int percent = chunkRows > 0 ? (rowsSent * 100 / chunkRows) : 100;
+            int percent = totalPixels > 0 ? (pixelsSent * 100 / totalPixels) : 100;
             sock.send(Message::makeHeartbeat(percent));
         }
     }

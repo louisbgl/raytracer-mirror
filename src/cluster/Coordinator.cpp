@@ -69,7 +69,7 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false});
+            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false}); // pixelsReceived=0
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
                       << " — " << (_workers.size() + 1) << " nodes total (coordinator + "
                       << _workers.size() << " workers)\n";
@@ -187,19 +187,25 @@ void Coordinator::_monitorAndCollect(Image& image)
 
             } else if (msg.type == MessageType::PIXELS) {
                 _workers[i].missedHeartbeats = 0;
-                std::vector<Vec3> row = msg.parsePixels();
-                int y = _workers[i].firstRow + _workers[i].rowsReceived;
-                for (int x = 0; x < static_cast<int>(row.size()); ++x) {
-                    image.setPixel(x, y, row[x]);
+                std::vector<Vec3> chunk = msg.parsePixels();
+                int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
+
+                for (int k = 0; k < static_cast<int>(chunk.size()); ++k) {
+                    int pixelIdx = _workers[i].pixelsReceived + k;
+                    int y = _workers[i].firstRow + pixelIdx / _imageWidth;
+                    int x = pixelIdx % _imageWidth;
+                    if (y < _workers[i].lastRow)
+                        image.setPixel(x, y, chunk[k]);
                 }
-                _workers[i].rowsReceived++;
+                _workers[i].pixelsReceived += static_cast<int>(chunk.size());
 
-                if (_workers[i].rowsReceived % 1000 == 0)
+                int rowsReceived = _workers[i].pixelsReceived / _imageWidth;
+                int totalRows = _workers[i].lastRow - _workers[i].firstRow;
+                if (rowsReceived % 1000 == 0 && rowsReceived > 0)
                     std::cout << "Worker " << (i + 1) << " — rows received: "
-                              << _workers[i].rowsReceived << "/"
-                              << (_workers[i].lastRow - _workers[i].firstRow) << "\n";
+                              << rowsReceived << "/" << totalRows << "\n";
 
-                if (_workers[i].rowsReceived >= (_workers[i].lastRow - _workers[i].firstRow)) {
+                if (_workers[i].pixelsReceived >= totalChunkPixels) {
                     _workers[i].socket->send(Message::makeAck());
                     std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
                               << ") — done, all rows received\n";

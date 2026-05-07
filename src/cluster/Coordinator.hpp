@@ -15,7 +15,7 @@ struct WorkerInfo {
     int firstRow;
     int lastRow;
     int missedHeartbeats;
-    int rowsReceived;
+    int pixelsReceived;
     bool done;
 };
 
