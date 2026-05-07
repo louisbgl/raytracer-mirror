@@ -188,7 +188,6 @@ void Coordinator::_monitorAndCollect(Image& image)
             } else if (msg.type == MessageType::PIXELS) {
                 _workers[i].missedHeartbeats = 0;
                 std::vector<Vec3> chunk = msg.parsePixels();
-                int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
 
                 for (int k = 0; k < static_cast<int>(chunk.size()); ++k) {
                     int pixelIdx = _workers[i].pixelsReceived + k;
@@ -200,19 +199,20 @@ void Coordinator::_monitorAndCollect(Image& image)
                 _workers[i].pixelsReceived += static_cast<int>(chunk.size());
 
                 int rowsReceived = _workers[i].pixelsReceived / _imageWidth;
-                int totalRows = _workers[i].lastRow - _workers[i].firstRow;
-                if (rowsReceived % 1000 == 0 && rowsReceived > 0)
+                if (rowsReceived > 0 && rowsReceived % 1000 == 0)
                     std::cout << "Worker " << (i + 1) << " — rows received: "
-                              << rowsReceived << "/" << totalRows << "\n";
+                              << rowsReceived << "/"
+                              << (_workers[i].lastRow - _workers[i].firstRow) << "\n";
 
-                if (_workers[i].pixelsReceived >= totalChunkPixels) {
-                    _workers[i].socket->send(Message::makeAck());
-                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                              << ") — done, all rows received\n";
-                    _workers[i].done = true;
-                    pfds[i].fd = -1;
-                    doneCount++;
-                }
+            } else if (msg.type == MessageType::DONE) {
+                int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
+                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                          << ") — done, " << _workers[i].pixelsReceived
+                          << "/" << totalChunkPixels << " pixels received\n";
+                _workers[i].socket->send(Message::makeAck());
+                _workers[i].done = true;
+                pfds[i].fd = -1;
+                doneCount++;
 
             } else if (msg.type == MessageType::ABORT) {
                 std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip

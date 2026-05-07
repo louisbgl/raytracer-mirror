@@ -83,6 +83,11 @@ Message Message::makeAbort()
     return {MessageType::ABORT, {}};
 }
 
+Message Message::makeDone()
+{
+    return {MessageType::DONE, {}};
+}
+
 // wire format: [type: 1 byte][length: 4 bytes][payload: N bytes]
 std::vector<uint8_t> Message::serialize() const
 {

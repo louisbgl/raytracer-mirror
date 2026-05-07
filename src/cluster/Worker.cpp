@@ -103,9 +103,12 @@ void Worker::run()
         }
     }
 
+    sock.send(Message::makeDone());
+    std::cout << "All pixels sent, waiting for ACK...\n";
+
     Message ack = sock.receive();
     if (ack.type == MessageType::ACK)
         std::cout << "Chunk acknowledged, disconnecting...\n";
     else
-        std::cerr << "Worker: unexpected response after PIXELS\n";
+        std::cerr << "Worker: unexpected response after DONE\n";
 }

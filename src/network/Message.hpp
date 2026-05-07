@@ -11,7 +11,8 @@ enum class MessageType : uint8_t {
     HEARTBEAT = 0x03,
     PIXELS    = 0x04,
     ACK       = 0x05,
-    ABORT     = 0x06
+    ABORT     = 0x06,
+    DONE      = 0x07
 };
 
 struct AssignPayload {
@@ -32,6 +33,7 @@ struct Message {
     static Message makePixels(const std::vector<Vec3>& pixels);
     static Message makeAck();
     static Message makeAbort();
+    static Message makeDone();
 
     std::vector<uint8_t> serialize() const;
     static Message deserialize(const std::vector<uint8_t>& data);
