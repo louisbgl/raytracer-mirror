@@ -1,7 +1,6 @@
 #include "Message.hpp"
 #include <cstring>
 #include <stdexcept>
-
 // helpers to write/read integers into byte buffers
 static void writeInt(std::vector<uint8_t>& buf, int value)
 {

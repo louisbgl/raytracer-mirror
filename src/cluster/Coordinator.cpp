@@ -166,7 +166,18 @@ void Coordinator::_monitorAndCollect(Image& image)
             if (_workers[i].done || !(pfds[i].revents & POLLIN))
                 continue;
 
-            Message msg = _workers[i].socket->receive();
+            Message msg;
+            try {
+                msg = _workers[i].socket->receive();
+            } catch (const std::exception& e) {
+                std::cerr << "Worker " << (i + 1) << " (" << _workers[i].ip
+                          << ") connection lost: " << e.what() << "\n";
+                _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                _workers[i].done = true;
+                pfds[i].fd = -1;
+                doneCount++;
+                continue;
+            }
 
             if (msg.type == MessageType::HEARTBEAT) {
                 int percent = msg.parseHeartbeat();
@@ -182,6 +193,11 @@ void Coordinator::_monitorAndCollect(Image& image)
                     image.setPixel(x, y, row[x]);
                 }
                 _workers[i].rowsReceived++;
+
+                if (_workers[i].rowsReceived % 1000 == 0)
+                    std::cout << "Worker " << (i + 1) << " — rows received: "
+                              << _workers[i].rowsReceived << "/"
+                              << (_workers[i].lastRow - _workers[i].firstRow) << "\n";
 
                 if (_workers[i].rowsReceived >= (_workers[i].lastRow - _workers[i].firstRow)) {
                     _workers[i].socket->send(Message::makeAck());

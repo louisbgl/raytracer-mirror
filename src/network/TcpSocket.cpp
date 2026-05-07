@@ -4,8 +4,13 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <csignal>
 
-TcpSocket::TcpSocket(int fd) : _fd(fd) {}
+TcpSocket::TcpSocket(int fd) : _fd(fd)
+{
+    // ignore SIGPIPE so send() returns EPIPE instead of killing the process
+    ::signal(SIGPIPE, SIG_IGN);
+}
 
 TcpSocket::~TcpSocket()
 {
