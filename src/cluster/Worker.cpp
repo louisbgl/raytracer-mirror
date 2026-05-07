@@ -90,7 +90,7 @@ void Worker::run()
             std::vector<Vec3> pixels;
             pixels.reserve(xEnd - xStart);
             for (int x = xStart; x < xEnd; ++x)
-                pixels.push_back(result->getPixel(x, y));
+                pixels.push_back(result->getPixel(x, y - chunk.firstRow));
             sock.send(Message::makePixels(pixels));
             pixelsSent += xEnd - xStart;
             xStart = xEnd;

@@ -250,7 +250,7 @@ void Coordinator::_renderLocalChunk(Image& image, int firstRow, int lastRow)
 
     for (int y = firstRow; y < lastRow; ++y) {
         for (int x = 0; x < _imageWidth; ++x) {
-            image.setPixel(x, y, slice.getPixel(x, y));
+            image.setPixel(x, y, slice.getPixel(x, y - firstRow));
         }
     }
     std::cout << "Local — 100% done\n";

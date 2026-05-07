@@ -77,7 +77,7 @@ bool Core::_loadScene() {
     return true;
 }
 
-void Core::_renderRows(Image& image, int firstRow, int lastRow)
+void Core::_renderRows(Image& image, int firstRow, int lastRow, int rowOffset)
 {
     const RendererConfig rc = _scene.rendererConfig();
     int w = _scene.camera().getWidth();
@@ -100,12 +100,12 @@ void Core::_renderRows(Image& image, int firstRow, int lastRow)
         int first = firstRow + t * thread_rows;
         int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
 
-        threads.emplace_back([this, &image, &computePixel, first, last, w, progbar = progbar.get()]() {
+        threads.emplace_back([this, &image, &computePixel, first, last, w, rowOffset, progbar = progbar.get()]() {
             for (int y = first; y < last; ++y) {
                 if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
                     return;
                 for (int x = 0; x < w; ++x)
-                    image.setPixel(x, y, computePixel(x, y));
+                    image.setPixel(x, y - rowOffset, computePixel(x, y));
                 if (_progressRows)
                     _progressRows->fetch_add(1, std::memory_order_relaxed);
                 if (progbar)
@@ -138,10 +138,10 @@ Image Core::renderSlice(int firstRow, int lastRow)
         throw std::runtime_error("renderSlice: failed to load scene");
 
     int w = _scene.camera().getWidth();
-    int h = _scene.camera().getHeight();
-    Image image(w, h);
-    _renderRows(image, firstRow, lastRow);
-    return image;
+    // Allocate only the rows we need — pixels stored at y=0..(lastRow-firstRow-1)
+    Image slice(w, lastRow - firstRow);
+    _renderRows(slice, firstRow, lastRow, firstRow);
+    return slice;
 }
 
 void Core::_writeOutput(Image& image) {
