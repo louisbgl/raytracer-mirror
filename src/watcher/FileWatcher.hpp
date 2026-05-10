@@ -1,10 +1,16 @@
 
 #pragma once
 
-#include <map>
-#include <string>
-#include <atomic>
+#include <sys/inotify.h>
+#include <sys/types.h>
+#include "./InotifyWrapper/InotifyInstance.hpp"
+#include "./InotifyWrapper/InotifyWatch.hpp"
+#include "./InotifyWrapper/InotifyEventReader.hpp"
 
+#include <cstdint>
+#include <string>
+#include <vector>
+#include <string_view>
 
 
 
@@ -12,24 +18,17 @@ class FileWatcher
 {
     public:
         FileWatcher();
-        ~FileWatcher();
+        ~FileWatcher() = default;
         
-        void addTargetPath(const std::string& scene_path);
-        
-        /// Check for file change events. Returns true if file was modified.
-        /// Non-blocking inotify read with IN_NONBLOCK mode
-        bool watchFileEvents();
-        
-        /// Clear the change flag (call after handling the change)
+        void addTargetPath(std::string_view scene_path, uint32_t mask = IN_CLOSE_WRITE | IN_MODIFY);
         void clearChangeFlag() { _fileChanged = false; }
-        
-        /// Get the watched file path
+        bool watchFileEvents();
         std::string getWatchedPath() const { return _watchedPath; }
 
     private:
-        int _iFd;
-        int _wd;
-        std::map<int, std::string> _watchedFiles;
         std::string _watchedPath;
-        std::atomic<bool> _fileChanged{false};
+        InotifyInstance _inotify_instance;
+        InotifyEventReader _inotify_reader;
+        std::vector<InotifyWatch> _inotify_watcher;
+        bool _fileChanged = false;
 };
