@@ -154,6 +154,7 @@ if (WITH_UI)
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
         src/watcher/FileWatcher.cpp
+        src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )
     target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
     target_compile_definitions(raytracer PRIVATE WITH_UI)
@@ -183,6 +184,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
             src/parsers/ObjParser.cpp
             src/plugins/Shapes/MeshTriangle.cpp
             src/watcher/FileWatcher.cpp
+            src/watcher/InotifyWrapper/InotifyEventReader.cpp
         )
 
         target_include_directories(run_tests PRIVATE
