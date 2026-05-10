@@ -1,15 +1,8 @@
 
 #include "./FileWatcher.hpp"
 
-#include <linux/limits.h>
-#include <sys/inotify.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <cerrno>
 #include <cstdint>
-#include <cstring>
-#include <climits>
-
+#include <iostream>
 
 
 FileWatcher::FileWatcher(): _inotify_instance(), _inotify_reader(_inotify_instance)

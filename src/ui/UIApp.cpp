@@ -8,6 +8,7 @@ UIApp::UIApp()
     : _window(sf::VideoMode(WIN_W, WIN_H), "Raytracer - Scene Browser", sf::Style::Titlebar | sf::Style::Close)
     , _browser(_font)
     , _panel(_font)
+    , _toastManager(_font)
 {
     _window.setFramerateLimit(60);
     if (!_font.loadFromFile("assets/fonts/arial.ttf"))
@@ -21,8 +22,13 @@ UIApp::~UIApp() {
 
 int UIApp::run() {
     while (_window.isOpen()) {
+        auto now = std::chrono::steady_clock::now();
+        std::chrono::duration<float> delta = now - _lastFrameTime;
+        _lastFrameTime = now;
+
         handleEvents();
         update();
+        _toastManager.update(delta.count());
         draw();
     }
     return 0;
@@ -57,11 +63,13 @@ void UIApp::update() {
             
             if (_doneFlag.load()) {
                 joinRenderThread();
+                pushToast("Render complete.", ToastType::Success);
                 toDone();
             } else if (_panel.wantsCancel()) {
                 _cancelFlag.store(true);
                 joinRenderThread();
                 _panel.clearSignals();
+                pushToast("Render cancelled.", ToastType::Warning);
                 toBrowser();
             }
             break;
@@ -89,6 +97,7 @@ void UIApp::draw() {
         case UIState::Done:      _panel.drawDone(_window);      break;
     }
 
+    _toastManager.draw(_window);
     _window.display();
 }
 
@@ -120,6 +129,14 @@ void UIApp::toBrowser() {
 
 void UIApp::toDone() {
     _state = UIState::Done;
+}
+
+void UIApp::pushToast(const std::string& message, ToastType type) {
+    ToastConfig config;
+    config.msg = message;
+    config.type = type;
+    config.duration = 3.0F;
+    _toastManager.push(config);
 }
 
 void UIApp::spawnRenderThread() {
@@ -161,11 +178,11 @@ void UIApp::checkSceneFileWatch() {
     
     _lastReloadTime = now;
     _showReloadIndicator = true;
+    pushToast("Scene reloaded.", ToastType::Info);
     
     _cancelFlag.store(true);
     joinRenderThread();
     
-    // Reset state and restart render
     _pixelBuffer.init(0, 0);
     _cancelFlag.store(false);
     _doneFlag.store(false);
