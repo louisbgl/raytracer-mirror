@@ -153,6 +153,7 @@ if (WITH_UI)
         src/ui/SceneBrowser.cpp
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
+        src/ui/ToastManager.cpp
         src/watcher/FileWatcher.cpp
         src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )
