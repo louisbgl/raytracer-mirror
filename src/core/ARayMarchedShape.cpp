@@ -12,12 +12,12 @@ Vec3 ARayMarchedShape::computeNormal(const Vec3& point) const {
 }
 
 bool ARayMarchedShape::hitLocal(const Ray& ray, HitRecord& record) const {
-    double t = 0.0;
+    double t = _epsilon * 2.0;
     for (int i = 0; i < _maxSteps; ++i) {
         Vec3 point = ray.at(t);
         double dist = distanceEstimator(point);
 
-        if (dist < _epsilon) {
+        if (std::abs(dist) < _epsilon) {
             record.t = t;
             record.point = point;
             record.normal = computeNormal(point);
@@ -28,8 +28,8 @@ bool ARayMarchedShape::hitLocal(const Ray& ray, HitRecord& record) const {
 
         t += dist;
 
-        if (t >= _maxDist) return false;
+        if (t >= _maxDist || t < 0.0) return false;
     }
-    
+
     return false;
 }
