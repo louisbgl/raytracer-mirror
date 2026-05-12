@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Interfaces/IBoundable.hpp"
+#include "../Interfaces/IMaterial.hpp"
 #include "../Math/AABB.hpp"
 #include "../Math/Matrix4x4.hpp"
 
@@ -12,6 +13,7 @@
  *   - AABB-based early ray rejection
  *   - Range validation (t_min/t_max)
  *   - Ray space conversions (world ↔ local)
+ *   - Have a protected std::shared_ptr<IMaterial> _material
  *
  * What you implement:
  *   - hitLocal(): Ray intersection assuming shape is at origin (0,0,0) and axis-aligned
@@ -28,14 +30,16 @@ public:
      * @param rotation Euler angles in degrees (rx, ry, rz) - ZYX convention
      * @param translation Position in world space (x, y, z)
      * @param scale Scale factors for each axis (x, y, z)
+     * @param material The material for the shape.
      */
-    AShape(Vec3 rotation, Vec3 translation, Vec3 scale);
+    AShape(Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material);
 
     /**
      * @brief Constructor for directly providing a transformation matrix.
      * @param transform The world transformation matrix to apply to the shape.
+     * @param material The material for the shape.
      */
-    AShape(const Matrix4x4& transform);
+    AShape(const Matrix4x4& transform, std::shared_ptr<IMaterial> material);
 
     /**
      * @brief [FINAL] Full intersection pipeline: AABB check → transform to local → hitLocal() → transform to world → range check
@@ -55,6 +59,8 @@ public:
     virtual AABB computeLocalAABB() const = 0;
 
 protected:
+    std::shared_ptr<IMaterial> _material;
+
     void updateWorldAABB();
 
 private:
