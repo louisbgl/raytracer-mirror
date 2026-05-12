@@ -4,7 +4,7 @@
 #include <cmath>
 
 Box::Box(Vec3 rotation, Vec3 translation, Vec3 scale, double width, double height, double depth, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale), _width(width), _height(height), _depth(depth), _material(material) {}
+    : AShape(rotation, translation, scale, material), _width(width), _height(height), _depth(depth) {}
 
 bool Box::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 min_corner(-_width / 2.0, -_height / 2.0, -_depth / 2.0);
