@@ -6,6 +6,7 @@
 #include "RenderSampler.hpp"
 #include "core/ProgressBar.hpp"
 #include <atomic>
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
@@ -34,6 +35,18 @@ public:
         _progressTotal = total;
     }
 
+    void setPreviewMode(float resScale = 0.25f, int maxBounces = 3) {
+        _previewMode = true;
+        _previewResScale = resScale;
+        _previewMaxBounces = maxBounces;
+    }
+    void setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb) {
+        _rowCallback = std::move(cb);
+    }
+    void setDimensionsCallback(std::function<void(int w, int h)> cb) {
+        _dimensionsCallback = std::move(cb);
+    }
+
 private:
     std::string _inputFile;
     bool _logging;
@@ -51,6 +64,13 @@ private:
     std::atomic<int>*  _progressRows   = nullptr;
     std::atomic<int>*  _progressTotal  = nullptr;
     int                _threadOverride = 0;
+
+    // Preview mode
+    bool _previewMode = false;
+    float _previewResScale = 0.25f;
+    int _previewMaxBounces = 3;
+    std::function<void(int y, const uint8_t* rgba, int width)> _rowCallback;
+    std::function<void(int w, int h)> _dimensionsCallback;
 
     bool  _loadScene();
     Image _render();
