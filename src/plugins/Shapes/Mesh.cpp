@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 Mesh::Mesh(const std::string& filename, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale)
+    : AShape(rotation, translation, scale, material)
 {
     ObjParser parser;
     auto shapes = parser.parse(filename, material);

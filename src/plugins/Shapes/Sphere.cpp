@@ -6,7 +6,7 @@
 #include <algorithm>
 
 Sphere::Sphere(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale), _radius(radius), _material(material) {}
+    : AShape(rotation, translation, scale, material), _radius(radius) {}
 
 bool Sphere::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 oc = ray.origin();

@@ -13,5 +13,4 @@ public:
 private:
     double _width;
     double _height;
-    std::shared_ptr<IMaterial> _material;
 };
