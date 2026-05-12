@@ -28,6 +28,8 @@ private:
         float margin;
         float headerH, footerH;
         float listLeft, listTop, listW, listH, itemH;
+        float dividerX;
+        float previewLeft, previewW;
         float footerY;
         float launchW, launchH, launchLeft, launchTop;
     };
@@ -41,6 +43,7 @@ private:
     void drawList(sf::RenderWindow& window, const Layout& lo);
     void drawItem(sf::RenderWindow& window, const std::string& path,
                   int idx, float y, const Layout& lo);
+    void drawPreviewPane(sf::RenderWindow& window, const Layout& lo);
     void drawFooter(sf::RenderWindow& window, const Layout& lo);
 
     sf::Font&                _font;
