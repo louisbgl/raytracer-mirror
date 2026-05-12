@@ -160,7 +160,7 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) con
     if (!_scene.world().get_closest_hit(ray, _t_min, _t_max, record))
         return _sampleBackground(screenU, screenV);
 
-    Vec3 color = _computeAmbient(record) + _computeLighting(ray, record);
+    Vec3 color = _computeAmbient(ray, record) + _computeLighting(ray, record);
 
     Vec3 attenuation;
     Ray scattered;
@@ -172,7 +172,7 @@ Vec3 Core::_trace(const Ray& ray, int depth, double screenU, double screenV) con
     return color;
 }
 
-Vec3 Core::_computeAmbient(const HitRecord& record) const {
+Vec3 Core::_computeAmbient(const Ray& ray, const HitRecord& record) const {
     const auto& rc = _scene.rendererConfig();
 
     double occlusion = 1.0;
@@ -190,7 +190,8 @@ Vec3 Core::_computeAmbient(const HitRecord& record) const {
         occlusion = 1.0 - static_cast<double>(hits) / rc.aoSamples;
     }
 
-    return rc.ambientColor * rc.ambientMultiplier * occlusion;
+    Vec3 viewDir = normalize(-ray.direction());
+    return record.material->shade(record, record.normal, rc.ambientColor * rc.ambientMultiplier, viewDir) * occlusion;
 }
 
 Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {

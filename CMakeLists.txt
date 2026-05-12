@@ -153,6 +153,9 @@ if (WITH_UI)
         src/ui/SceneBrowser.cpp
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
+        src/ui/ToastManager.cpp
+        src/watcher/FileWatcher.cpp
+        src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )
     target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
     target_compile_definitions(raytracer PRIVATE WITH_UI)
@@ -181,6 +184,8 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
             src/external/Roots3And4.c
             src/parsers/ObjParser.cpp
             src/plugins/Shapes/MeshTriangle.cpp
+            src/watcher/FileWatcher.cpp
+            src/watcher/InotifyWrapper/InotifyEventReader.cpp
         )
 
         target_include_directories(run_tests PRIVATE
@@ -242,7 +247,7 @@ endfunction()
 
 # Disable deprecated K&R style warnings for Graphics Gems code
 set_source_files_properties(src/external/Roots3And4.c PROPERTIES
-    COMPILE_FLAGS "-Wno-deprecated-non-prototype"
+    COMPILE_FLAGS "-Wno-deprecated-non-prototype -Wno-old-style-definition"
 )
 
 set_source_files_properties(src/external/stb.cpp PROPERTIES
@@ -281,6 +286,7 @@ add_raytracer_plugin(phong          materials src/plugins/Materials/Phong.cpp)
 add_raytracer_plugin(chessboard     materials src/plugins/Materials/Chessboard.cpp)
 add_raytracer_plugin(perlinnoise    materials src/plugins/Materials/PerlinNoise.cpp)
 add_raytracer_plugin(image_texture  materials src/plugins/Materials/ImageTexture.cpp)
+add_raytracer_plugin(normalmapped   materials src/plugins/Materials/NormalMapped.cpp)
 
 # Light plugins
 add_raytracer_plugin(pointlight       lights src/plugins/Lights/PointLight.cpp)
@@ -300,7 +306,7 @@ add_custom_target(shapes
 )
 
 add_custom_target(materials
-    DEPENDS lambertian refractive reflective coloreddiffuse phong chessboard perlinnoise image_texture
+    DEPENDS lambertian refractive reflective coloreddiffuse phong chessboard perlinnoise image_texture normalmapped
     COMMENT "Building all material plugins..."
 )
 

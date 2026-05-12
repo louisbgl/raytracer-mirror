@@ -57,6 +57,7 @@ Materials:
 	ColoredDiffuse (name, color (r, g, b))
 	ImageTexture (name, path)
 	Lambertian (name, color (r, g, b))
+	NormalMapped (name, path)
 	PerlinNoise (name, color (r, g, b), scale)
 	Phong (name, color (r, g, b), shininess)
 	Reflective (name, reflectivity, color (r, g, b))

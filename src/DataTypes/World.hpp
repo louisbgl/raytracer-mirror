@@ -3,6 +3,8 @@
 #include "Vec3.hpp"
 #include "HitRecord.hpp"
 #include "../Interfaces/IShape.hpp"
+#include "../Interfaces/IBoundable.hpp"
+#include "../Math/BVHNode.hpp"
 #include <vector>
 
 class World {
@@ -54,6 +56,28 @@ public:
     }
 
     /**
+     * @brief Builds the BVH over all IBoundable shapes. Call once after all shapes are added.
+     *        Unbounded shapes (Plane, Cylinder, Cone, Hourglass) stay in a linear fallback list.
+     */
+    void build() {
+        std::vector<std::shared_ptr<IBoundable>> bounded;
+        _unbounded.clear();
+
+        for (const auto& obj : _objects) {
+            auto b = std::dynamic_pointer_cast<IBoundable>(obj);
+            if (b)
+                bounded.push_back(b);
+            else
+                _unbounded.push_back(obj);
+        }
+
+        if (!bounded.empty())
+            _bvh = std::make_shared<BVHNode>(bounded, 0, bounded.size());
+        else
+            _bvh = nullptr;
+    }
+
+    /**
      * @brief Gets the closest hit for a given ray.
      * @param ray The ray to check.
      * @param t_min The minimum distance to consider.
@@ -66,8 +90,14 @@ public:
         bool hit_anything = false;
         double closest_so_far = t_max;
 
-        for (const auto& object : _objects) {
-            if (object->hit(ray, t_min, closest_so_far, temp_hit)) {
+        if (_bvh && _bvh->hit(ray, t_min, closest_so_far, temp_hit)) {
+            hit_anything = true;
+            closest_so_far = temp_hit.t;
+            hit = temp_hit;
+        }
+
+        for (const auto& obj : _unbounded) {
+            if (obj->hit(ray, t_min, closest_so_far, temp_hit)) {
                 hit_anything = true;
                 closest_so_far = temp_hit.t;
                 hit = temp_hit;
@@ -79,4 +109,6 @@ public:
 
 private:
     std::vector<std::shared_ptr<IShape>> _objects;
+    std::vector<std::shared_ptr<IShape>> _unbounded;
+    std::shared_ptr<BVHNode> _bvh;
 };
