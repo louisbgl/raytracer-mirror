@@ -12,5 +12,4 @@ public:
 
 private:
     double _radius;
-    std::shared_ptr<IMaterial> _material;
 };
