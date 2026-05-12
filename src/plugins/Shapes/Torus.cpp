@@ -6,7 +6,7 @@
 #include <cmath>
 
 Torus::Torus(Vec3 rotation, Vec3 translation, Vec3 scale, double majorRadius, double minorRadius, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale), _majorRadius(majorRadius), _minorRadius(minorRadius), _material(material) {}
+    : AShape(rotation, translation, scale, material), _majorRadius(majorRadius), _minorRadius(minorRadius) {}
 
 bool Torus::hitLocal(const Ray& ray, HitRecord& record) const {
     Vec3 oc = ray.origin();
