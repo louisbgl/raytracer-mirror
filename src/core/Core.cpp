@@ -35,7 +35,7 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
-    if (!cancelled)
+    if (!cancelled && !_previewMode)
         _writeOutput(image);
 
     auto t3 = Clock::now();
@@ -56,6 +56,30 @@ bool Core::_loadScene() {
         std::cerr << "Failed to load scene: " << e.what() << std::endl;
         return false;
     }
+
+    if (_previewMode) {
+        static constexpr int PREVIEW_MAX_DIM = 480;
+        auto& cam = _scene.camera();
+        int pw = std::max(1, static_cast<int>(cam.getWidth()  * _previewResScale));
+        int ph = std::max(1, static_cast<int>(cam.getHeight() * _previewResScale));
+        int longest = std::max(pw, ph);
+        if (longest > PREVIEW_MAX_DIM) {
+            float cap = static_cast<float>(PREVIEW_MAX_DIM) / static_cast<float>(longest);
+            pw = std::max(1, static_cast<int>(pw * cap));
+            ph = std::max(1, static_cast<int>(ph * cap));
+        }
+        cam.setWidth(pw);
+        cam.setHeight(ph);
+        _maxRayBounces = _previewMaxBounces;
+        auto cfg = _scene.rendererConfig();
+        cfg.aaEnabled = false;
+        cfg.aoEnabled = false;
+        _scene.setRendererConfig(cfg);
+    }
+
+    if (_dimensionsCallback)
+        _dimensionsCallback(static_cast<int>(_scene.camera().getWidth()),
+                            static_cast<int>(_scene.camera().getHeight()));
 
     const auto& bgImage = _scene.rendererConfig().backgroundImage;
     if (!bgImage.empty()) {
@@ -97,11 +121,23 @@ Image Core::_render()
         int last_row  = (t == total_threads - 1) ? h : (t + 1) * thread_rows;
 
         threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
+            thread_local std::vector<uint8_t> rowBuf;
             for (int y = first_row; y < last_row; ++y) {
                 if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
                     return;
                 for (int x = 0; x < w; ++x)
                     image.setPixel(x, y, computePixel(x, y));
+                if (_rowCallback) {
+                    rowBuf.resize(w * 4);
+                    for (int x = 0; x < w; ++x) {
+                        Vec3 c = image.getPixel(x, y);
+                        rowBuf[x * 4 + 0] = static_cast<uint8_t>(std::clamp(c.x(), 0.0, 255.0));
+                        rowBuf[x * 4 + 1] = static_cast<uint8_t>(std::clamp(c.y(), 0.0, 255.0));
+                        rowBuf[x * 4 + 2] = static_cast<uint8_t>(std::clamp(c.z(), 0.0, 255.0));
+                        rowBuf[x * 4 + 3] = 255;
+                    }
+                    _rowCallback(y, rowBuf.data(), w);
+                }
                 if (_progressRows)
                     _progressRows->fetch_add(1, std::memory_order_relaxed);
                 if (progbar)
