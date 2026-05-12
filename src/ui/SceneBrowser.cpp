@@ -81,9 +81,13 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
             float y = lo.listTop + static_cast<float>(i) * lo.itemH - _scroll;
             if (y + lo.itemH < lo.listTop || y > lo.listTop + lo.listH) continue;
             if (my < lo.footerY && sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
-                _selectedIdx = static_cast<int>(i);
-                _selected    = _scenes[_selectedIdx];
-                hitItem      = true;
+                int newIdx = static_cast<int>(i);
+                if (newIdx != _selectedIdx) {
+                    _selectedIdx = newIdx;
+                    _selected    = _scenes[_selectedIdx];
+                    _sigSelectionChanged = true;
+                }
+                hitItem = true;
                 break;
             }
         }
@@ -92,11 +96,11 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
     }
 }
 
-void SceneBrowser::draw(sf::RenderWindow& window) {
+void SceneBrowser::draw(sf::RenderWindow& window, const PixelBuffer* previewBuf) {
     const auto lo = computeLayout(window);
     drawHeader(window, lo);
     drawList(window, lo);
-    drawPreviewPane(window, lo);
+    drawPreviewPane(window, lo, previewBuf);
     drawFooter(window, lo);
 }
 
@@ -201,7 +205,7 @@ void SceneBrowser::drawItem(sf::RenderWindow& window, const std::string& path,
     window.draw(text);
 }
 
-void SceneBrowser::drawPreviewPane(sf::RenderWindow& window, const Layout& lo) {
+void SceneBrowser::drawPreviewPane(sf::RenderWindow& window, const Layout& lo, const PixelBuffer* previewBuf) {
     // vertical divider
     sf::RectangleShape divider({1.f, lo.listH});
     divider.setPosition(lo.dividerX, lo.listTop);
@@ -228,7 +232,7 @@ void SceneBrowser::drawPreviewPane(sf::RenderWindow& window, const Layout& lo) {
         return;
     }
 
-    // scene name
+    // scene name header
     float namePad = std::max(16.f, lo.listH * 0.04f);
     unsigned nameSz = static_cast<unsigned>(std::clamp(lo.listH * 0.05f, 15.f, 22.f));
     std::string label = std::filesystem::path(_selected).stem().string();
@@ -240,27 +244,56 @@ void SceneBrowser::drawPreviewPane(sf::RenderWindow& window, const Layout& lo) {
     name.setPosition(cx, lo.listTop + namePad);
     window.draw(name);
 
-    // placeholder image frame
+    // image frame bounds
     float frameMargin = std::max(24.f, lo.previewW * 0.08f);
     float frameTop    = lo.listTop + namePad + nameSz + namePad;
     float frameBot    = lo.listTop + lo.listH - frameMargin;
     float frameW      = lo.previewW - 2.f * frameMargin;
     float frameH      = frameBot - frameTop;
+    if (frameH <= 20.f) return;
 
-    if (frameH > 20.f) {
+    float frameX = lo.previewLeft + frameMargin;
+
+    // try to upload + draw preview pixels
+    bool hasPixels = false;
+    if (previewBuf && previewBuf->totalRows.load() > 0) {
+        std::lock_guard<std::mutex> lock(const_cast<std::mutex&>(previewBuf->mutex));
+        int pw = previewBuf->width;
+        int ph = previewBuf->height;
+        if (pw > 0 && ph > 0 && static_cast<int>(previewBuf->rgba.size()) == pw * ph * 4) {
+            if (_previewTex.getSize().x != static_cast<unsigned>(pw) ||
+                _previewTex.getSize().y != static_cast<unsigned>(ph))
+                _previewTex.create(pw, ph);
+            _previewTex.update(previewBuf->rgba.data());
+
+            float scaleX = frameW / static_cast<float>(pw);
+            float scaleY = frameH / static_cast<float>(ph);
+            float scale  = std::min(scaleX, scaleY);
+            float imgW   = pw * scale;
+            float imgH   = ph * scale;
+
+            sf::Sprite sprite(_previewTex);
+            sprite.setScale(scale, scale);
+            sprite.setPosition(frameX + (frameW - imgW) / 2.f, frameTop + (frameH - imgH) / 2.f);
+            window.draw(sprite);
+            hasPixels = true;
+        }
+    }
+
+    if (!hasPixels) {
         sf::RectangleShape frame({frameW, frameH});
-        frame.setPosition(lo.previewLeft + frameMargin, frameTop);
+        frame.setPosition(frameX, frameTop);
         frame.setFillColor({26, 28, 40});
         frame.setOutlineThickness(1.f);
         frame.setOutlineColor(COL_BORDER);
         window.draw(frame);
 
         unsigned hintSz = static_cast<unsigned>(std::clamp(frameH * 0.07f, 12.f, 16.f));
-        sf::Text ph("preview will appear here", _font, hintSz);
+        sf::Text ph("rendering preview...", _font, hintSz);
         ph.setFillColor({60, 60, 80});
         sf::FloatRect pb = ph.getLocalBounds();
         ph.setOrigin(pb.left + pb.width / 2.f, pb.top + pb.height / 2.f);
-        ph.setPosition(lo.previewLeft + frameMargin + frameW / 2.f, frameTop + frameH / 2.f);
+        ph.setPosition(frameX + frameW / 2.f, frameTop + frameH / 2.f);
         window.draw(ph);
     }
 }
