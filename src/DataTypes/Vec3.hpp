@@ -111,6 +111,22 @@ private:
     return vec / len;
 }
 
+[[nodiscard]] inline constexpr Vec3 abs(const Vec3& vec) noexcept {
+    return Vec3(std::abs(vec.x()), std::abs(vec.y()), std::abs(vec.z()));
+}
+
+[[nodiscard]] inline constexpr Vec3 fmod(const Vec3& vec, double divisor) noexcept {
+    return Vec3(std::fmod(vec.x(), divisor), std::fmod(vec.y(), divisor), std::fmod(vec.z(), divisor));
+}
+
+[[nodiscard]] inline constexpr Vec3 max(const Vec3& vec, double scalar) noexcept {
+    return Vec3(std::max(vec.x(), scalar), std::max(vec.y(), scalar), std::max(vec.z(), scalar));
+}
+
+[[nodiscard]] inline constexpr double max_component(const Vec3& vec) noexcept {
+    return std::max(vec.x(), std::max(vec.y(), vec.z()));
+}
+
 inline std::ostream& operator<<(std::ostream& os, const Vec3& vec) {
     os << "Vec3(" << vec.x() << ", " << vec.y() << ", " << vec.z() << ")";
     return os;
