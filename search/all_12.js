@@ -6,9 +6,9 @@ var searchData=
   ['uiapp_2ecpp_3',['UIApp.cpp',['../UIApp_8cpp.html',1,'']]],
   ['uiapp_2ehpp_4',['UIApp.hpp',['../UIApp_8hpp.html',1,'']]],
   ['uistate_5',['UIState',['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344',1,'UIApp.hpp']]],
-  ['unknownargument_6',['unknownargument',['../classclap_1_1UnknownArgument.html',1,'clap::UnknownArgument'],['../classclap_1_1UnknownArgument.html#a1d2e092cf9a83797e731d044d79059b1',1,'clap::UnknownArgument::UnknownArgument()']]],
+  ['unknownargument_6',['unknownargument',['../classclap_1_1UnknownArgument.html#a1d2e092cf9a83797e731d044d79059b1',1,'clap::UnknownArgument::UnknownArgument()'],['../classclap_1_1UnknownArgument.html',1,'clap::UnknownArgument']]],
   ['unload_7',['unload',['../classPluginLoader.html#ae548588a3694793656e5a27716b17242',1,'PluginLoader']]],
-  ['update_8',['update',['../classProgressBar.html#a22ec617caf41d4caf9d1f761c72f4220',1,'ProgressBar::update()'],['../classRenderPanel.html#a87c09916dba8a2e2336f337468a9d510',1,'RenderPanel::update()']]],
+  ['update_8',['update',['../classProgressBar.html#a22ec617caf41d4caf9d1f761c72f4220',1,'ProgressBar::update()'],['../classRenderPanel.html#a87c09916dba8a2e2336f337468a9d510',1,'RenderPanel::update()'],['../classToastManager.html#a8e7a892f4971ed6e1488501109d9e8c4',1,'ToastManager::update()']]],
   ['updateworldaabb_9',['updateWorldAABB',['../classAShape.html#afac33774671e0b4aaf414b27f56f4237',1,'AShape']]],
   ['usage_10',['usage',['../structArgs.html#a8ec009f4461a96cf46d580a7f4b5c6b6',1,'Args']]],
   ['uv_11',['UV',['../structUV.html',1,'']]]

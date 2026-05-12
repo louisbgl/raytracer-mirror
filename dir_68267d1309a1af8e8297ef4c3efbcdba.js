@@ -10,5 +10,6 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "plugins", "dir_7020b8b7abcceffa3f9f7a2d24718f16.html", "dir_7020b8b7abcceffa3f9f7a2d24718f16" ],
     [ "ui", "dir_da5c6b39c0a2f54e57df6799511cd3ab.html", "dir_da5c6b39c0a2f54e57df6799511cd3ab" ],
     [ "utils", "dir_313caf1132e152dd9b58bea13a4052ca.html", "dir_313caf1132e152dd9b58bea13a4052ca" ],
+    [ "watcher", "dir_a0e215a65efa46f71fb1b59f1d6ea35a.html", "dir_a0e215a65efa46f71fb1b59f1d6ea35a" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ]
 ];

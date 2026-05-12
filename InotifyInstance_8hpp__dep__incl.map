@@ -1,0 +1,20 @@
+<map id="src/watcher/InotifyWrapper/InotifyInstance.hpp" name="src/watcher/InotifyWrapper/InotifyInstance.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,5,373,45"/>
+<area shape="rect" id="Node000002" href="$FileWatcher_8hpp.html" title=" " alt="" coords="62,277,266,302"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,54,185,72,166,95,156,118,150,144,148,196,155,243,163,276,158,277,150,244,143,196,145,143,151,117,162,92,182,68,207,50"/>
+<area shape="rect" id="Node000006" href="$InotifyEventReader_8hpp.html" title=" " alt="" coords="275,181,472,221"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="342,50,368,68,388,92,395,115,395,140,384,182,379,181,390,139,390,116,383,95,364,72,339,54"/>
+<area shape="rect" id="Node000008" href="$InotifyWatch_8hpp.html" title=" " alt="" coords="176,93,373,133"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="277,59,277,93,272,93,272,59"/>
+<area shape="rect" id="Node000003" href="$UIApp_8hpp.html" title=" " alt="" coords="5,357,133,383"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="141,313,85,359,82,355,138,309"/>
+<area shape="rect" id="Node000005" href="$FileWatcher_8cpp.html" title=" " alt="" coords="157,357,360,383"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="190,309,246,355,243,359,187,313"/>
+<area shape="rect" id="Node000004" href="$UIApp_8cpp.html" title=" " alt="" coords="6,431,133,456"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="72,396,72,431,67,431,67,396"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="316,229,193,279,191,274,314,224"/>
+<area shape="rect" id="Node000007" href="$InotifyEventReader_8cpp.html" title=" " alt="" coords="291,269,488,309"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="382,234,388,269,383,270,377,235"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="257,147,174,278,169,275,253,144"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="308,140,353,179,350,183,305,144"/>
+</map>

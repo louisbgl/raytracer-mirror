@@ -18,6 +18,7 @@ var hierarchy =
         [ "clap::UnknownArgument", "classclap_1_1UnknownArgument.html", null ]
       ] ]
     ] ],
+    [ "FileWatcher", "classFileWatcher.html", null ],
     [ "HelpDisplay", "classHelpDisplay.html", null ],
     [ "HitRecord", "classHitRecord.html", null ],
     [ "clap::IArgument", "classclap_1_1IArgument.html", [
@@ -35,11 +36,16 @@ var hierarchy =
       [ "ColoredDiffuse", "classColoredDiffuse.html", null ],
       [ "ImageTexture", "classImageTexture.html", null ],
       [ "Lambertian", "classLambertian.html", null ],
+      [ "NormalMapped", "classNormalMapped.html", null ],
       [ "PerlinNoise", "classPerlinNoise.html", null ],
       [ "Phong", "classPhong.html", null ],
       [ "Reflective", "classReflective.html", null ],
       [ "Refractive", "classRefractive.html", null ]
     ] ],
+    [ "InotifyEvent", "classInotifyEvent.html", null ],
+    [ "InotifyEventReader", "classInotifyEventReader.html", null ],
+    [ "InotifyInstance", "classInotifyInstance.html", null ],
+    [ "InotifyWatch", "classInotifyWatch.html", null ],
     [ "IShape", "classIShape.html", [
       [ "Cone", "classCone.html", null ],
       [ "Cylinder", "classCylinder.html", null ],
@@ -62,6 +68,7 @@ var hierarchy =
       ] ],
       [ "Plane", "classPlane.html", null ]
     ] ],
+    [ "InotifyEventReader::Iterator", "structInotifyEventReader_1_1Iterator.html", null ],
     [ "LightFactory", "classLightFactory.html", null ],
     [ "Logger", "classLogger.html", null ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
@@ -87,6 +94,11 @@ var hierarchy =
     [ "SceneParser", "classSceneParser.html", null ],
     [ "ShapeFactory", "classShapeFactory.html", null ],
     [ "stbi_io_callbacks", "structstbi__io__callbacks.html", null ],
+    [ "std::system_error", null, [
+      [ "InotifyException", "classInotifyException.html", null ]
+    ] ],
+    [ "ToastConfig", "structToastConfig.html", null ],
+    [ "ToastManager", "classToastManager.html", null ],
     [ "clap::TypeName< T >", "structclap_1_1TypeName.html", null ],
     [ "clap::TypeName< bool >", "structclap_1_1TypeName_3_01bool_01_4.html", null ],
     [ "clap::TypeName< double >", "structclap_1_1TypeName_3_01double_01_4.html", null ],

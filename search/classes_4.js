@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['flag_0',['Flag',['../classclap_1_1Flag.html',1,'clap']]]
+  ['filewatcher_0',['FileWatcher',['../classFileWatcher.html',1,'']]],
+  ['flag_1',['Flag',['../classclap_1_1Flag.html',1,'clap']]]
 ];

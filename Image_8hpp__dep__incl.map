@@ -1,13 +1,15 @@
 <map id="src/core/Image.hpp" name="src/core/Image.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="207,5,354,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="290,5,437,31"/>
 <area shape="rect" id="Node000002" href="$Core_8cpp.html" title=" " alt="" coords="5,174,140,199"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,37,160,54,121,81,103,103,90,129,77,174,72,173,86,127,99,100,118,77,157,49,202,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="277,24,237,31,196,41,156,58,121,81,102,102,90,128,77,174,72,173,85,126,98,100,118,77,154,53,194,36,236,25,276,19"/>
 <area shape="rect" id="Node000003" href="$Core_8hpp.html" title=" " alt="" coords="132,86,267,111"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,42,213,88,210,84,257,38"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="328,39,224,88,222,84,326,34"/>
 <area shape="rect" id="Node000006" href="$Image_8cpp.html" title=" " alt="" coords="291,86,436,111"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="305,38,353,84,349,88,301,42"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="366,44,366,86,361,86,361,44"/>
 <area shape="rect" id="Node000007" href="$ImageTexture_8hpp.html" title=" " alt="" coords="461,79,618,119"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="332,32,478,76,476,81,330,37"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="403,34,498,76,496,81,400,39"/>
+<area shape="rect" id="Node000009" href="$NormalMapped_8hpp.html" title=" " alt="" coords="642,79,799,119"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="429,31,642,78,641,83,428,36"/>
 <area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="172,121,91,176,88,172,169,117"/>
 <area shape="rect" id="Node000004" href="$main_8cpp.html" title=" " alt="" coords="164,174,269,199"/>
 <area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="207,124,217,173,212,174,202,125"/>
@@ -15,4 +17,6 @@
 <area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="234,116,337,171,334,176,231,120"/>
 <area shape="rect" id="Node000008" href="$ImageTexture_8cpp.html" title=" " alt="" coords="461,167,618,207"/>
 <area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="542,133,542,166,537,166,537,133"/>
+<area shape="rect" id="Node000010" href="$NormalMapped_8cpp.html" title=" " alt="" coords="642,167,799,207"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="723,133,723,166,718,166,718,133"/>
 </map>

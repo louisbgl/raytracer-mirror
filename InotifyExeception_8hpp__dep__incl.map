@@ -1,0 +1,23 @@
+<map id="src/watcher/InotifyWrapper/InotifyExeception.hpp" name="src/watcher/InotifyWrapper/InotifyExeception.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="228,5,425,45"/>
+<area shape="rect" id="Node000002" href="$InotifyInstance_8hpp.html" title=" " alt="" coords="160,93,357,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,58,276,95,272,91,301,55"/>
+<area shape="rect" id="Node000009" href="$InotifyWatch_8hpp.html" title=" " alt="" coords="296,181,493,221"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="351,55,372,92,387,140,395,181,390,182,382,141,367,94,347,58"/>
+<area shape="rect" id="Node000003" href="$FileWatcher_8hpp.html" title=" " alt="" coords="227,365,431,390"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,146,287,221,328,364,323,365,281,222,263,148"/>
+<area shape="rect" id="Node000007" href="$InotifyEventReader_8hpp.html" title=" " alt="" coords="24,269,221,309"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="238,146,140,271,135,267,233,143"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="302,139,366,179,363,184,299,143"/>
+<area shape="rect" id="Node000004" href="$UIApp_8hpp.html" title=" " alt="" coords="171,445,299,471"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="306,401,250,447,247,443,303,397"/>
+<area shape="rect" id="Node000006" href="$FileWatcher_8cpp.html" title=" " alt="" coords="323,445,525,471"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="356,397,412,443,408,447,352,401"/>
+<area shape="rect" id="Node000005" href="$UIApp_8cpp.html" title=" " alt="" coords="171,519,298,544"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="237,484,237,519,232,519,232,484"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="181,312,303,362,301,367,179,317"/>
+<area shape="rect" id="Node000008" href="$InotifyEventReader_8cpp.html" title=" " alt="" coords="5,357,203,397"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="118,323,111,358,106,357,113,322"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="385,235,336,365,331,363,380,233"/>
+<area shape="poly" id="edge11_Node000009_Node000007" title=" " alt="" coords="323,228,183,272,181,267,321,223"/>
+</map>

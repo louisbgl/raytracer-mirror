@@ -118,6 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0032897025891533938f74b9080b86d7" id="r_a0032897025891533938f74b9080b86d7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWorld.html#a0032897025891533938f74b9080b86d7">remove_object</a> (std::shared_ptr&lt; <a class="el" href="classIShape.html">IShape</a> &gt; object)</td></tr>
 <tr class="memdesc:a0032897025891533938f74b9080b86d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an object from the world.  <br /></td></tr>
 <tr class="separator:a0032897025891533938f74b9080b86d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a748e24c7951e21562bec33be4ea311b5" id="r_a748e24c7951e21562bec33be4ea311b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWorld.html#a748e24c7951e21562bec33be4ea311b5">build</a> ()</td></tr>
+<tr class="memdesc:a748e24c7951e21562bec33be4ea311b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the BVH over all <a class="el" href="classIBoundable.html" title="Opt-in interface for shapes that have a real axis-aligned bounding box. Only finite shapes implement ...">IBoundable</a> shapes. Call once after all shapes are added. Unbounded shapes (<a class="el" href="classPlane.html">Plane</a>, <a class="el" href="classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer.">Cylinder</a>, <a class="el" href="classCone.html">Cone</a>, <a class="el" href="classHourglass.html">Hourglass</a>) stay in a linear fallback list.  <br /></td></tr>
+<tr class="separator:a748e24c7951e21562bec33be4ea311b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a422e2ae317862b6e0d4b2721daca82ee" id="r_a422e2ae317862b6e0d4b2721daca82ee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classWorld.html#a422e2ae317862b6e0d4b2721daca82ee">get_closest_hit</a> (const <a class="el" href="classRay.html">Ray</a> &amp;ray, double t_min, double t_max, <a class="el" href="classHitRecord.html">HitRecord</a> &amp;hit) const</td></tr>
 <tr class="memdesc:a422e2ae317862b6e0d4b2721daca82ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the closest hit for a given ray.  <br /></td></tr>
 <tr class="separator:a422e2ae317862b6e0d4b2721daca82ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,6 +209,33 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a748e24c7951e21562bec33be4ea311b5" name="a748e24c7951e21562bec33be4ea311b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a748e24c7951e21562bec33be4ea311b5">&#9670;&#160;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void World::build </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Builds the BVH over all <a class="el" href="classIBoundable.html" title="Opt-in interface for shapes that have a real axis-aligned bounding box. Only finite shapes implement ...">IBoundable</a> shapes. Call once after all shapes are added. Unbounded shapes (<a class="el" href="classPlane.html">Plane</a>, <a class="el" href="classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer.">Cylinder</a>, <a class="el" href="classCone.html">Cone</a>, <a class="el" href="classHourglass.html">Hourglass</a>) stay in a linear fallback list. </p>
 
 </div>
 </div>

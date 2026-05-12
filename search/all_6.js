@@ -14,5 +14,6 @@ var searchData=
   ['getray_11',['getRay',['../classCamera.html#a3c8c3f666985ddf4f86925973606f582',1,'Camera']]],
   ['getsingular_12',['getSingular',['../classPluginManager.html#acfb38b0b66aabe6f7cd0d0f74197aef0',1,'PluginManager']]],
   ['getsymbol_13',['getSymbol',['../classPluginLoader.html#a7cef554d556aa21be315a4ee76cd9b37',1,'PluginLoader']]],
-  ['getwidth_14',['getWidth',['../classCamera.html#a4403375c8460a9beda32662685372968',1,'Camera']]]
+  ['getwatchedpath_14',['getWatchedPath',['../classFileWatcher.html#a75f2d80b261587a9e398573f3cb303cd',1,'FileWatcher']]],
+  ['getwidth_15',['getWidth',['../classCamera.html#a4403375c8460a9beda32662685372968',1,'Camera']]]
 ];

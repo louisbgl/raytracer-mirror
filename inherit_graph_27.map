@@ -1,3 +1,39 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structPixelBuffer.html" title=" " alt="" coords="5,5,97,31"/>
+<area shape="rect" id="Node000000" href="$classIShape.html" title="Interface for shapes that can be hit by rays." alt="" coords="5,228,72,253"/>
+<area shape="rect" id="Node000001" href="$classCone.html" title=" " alt="" coords="140,129,195,155"/>
+<area shape="poly" id="edge15_Node000000_Node000001" title=" " alt="" coords="59,216,86,190,118,164,139,152,141,156,122,168,90,194,63,220"/>
+<area shape="rect" id="Node000002" href="$classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer." alt="" coords="129,179,205,204"/>
+<area shape="poly" id="edge16_Node000000_Node000002" title=" " alt="" coords="84,220,132,202,134,207,86,225"/>
+<area shape="rect" id="Node000003" href="$classHourglass.html" title=" " alt="" coords="124,228,211,253"/>
+<area shape="poly" id="edge17_Node000000_Node000003" title=" " alt="" coords="86,238,124,238,124,243,86,243"/>
+<area shape="rect" id="Node000004" href="$classIBoundable.html" title="Opt&#45;in interface for shapes that have a real axis&#45;aligned bounding box. Only finite shapes implement ..." alt="" coords="120,277,215,303"/>
+<area shape="poly" id="edge18_Node000000_Node000004" title=" " alt="" coords="86,256,134,275,132,280,84,261"/>
+<area shape="rect" id="Node000018" href="$classPlane.html" title=" " alt="" coords="138,327,197,352"/>
+<area shape="poly" id="edge32_Node000000_Node000018" title=" " alt="" coords="64,261,122,312,141,324,139,329,118,316,60,265"/>
+<area shape="rect" id="Node000005" href="$classAShape.html" title="Abstract base class providing automatic transformation and AABB optimization for all shapes." alt="" coords="281,228,352,253"/>
+<area shape="poly" id="edge19_Node000004_Node000005" title=" " alt="" coords="219,270,280,250,282,255,220,275"/>
+<area shape="rect" id="Node000016" href="$classBVHNode.html" title=" " alt="" coords="275,277,359,303"/>
+<area shape="poly" id="edge30_Node000004_Node000016" title=" " alt="" coords="228,287,274,287,274,293,228,293"/>
+<area shape="rect" id="Node000017" href="$classMeshTriangle.html" title=" " alt="" coords="263,327,371,352"/>
+<area shape="poly" id="edge31_Node000004_Node000017" title=" " alt="" coords="220,304,278,324,276,329,218,310"/>
+<area shape="rect" id="Node000006" href="$classBox.html" title=" " alt="" coords="463,5,510,31"/>
+<area shape="poly" id="edge20_Node000005_Node000006" title=" " alt="" coords="322,214,334,176,353,129,381,82,417,40,439,27,462,19,464,24,441,31,420,44,385,85,358,132,339,178,327,216"/>
+<area shape="rect" id="Node000007" href="$classLimitedCone.html" title=" " alt="" coords="435,55,539,80"/>
+<area shape="poly" id="edge21_Node000005_Node000007" title=" " alt="" coords="327,214,361,152,387,118,417,89,437,78,440,82,420,93,391,122,366,155,331,217"/>
+<area shape="rect" id="Node000008" href="$classLimitedCylinder.html" title="Represents a finite cylinder shape in the ray tracer." alt="" coords="424,104,549,129"/>
+<area shape="poly" id="edge22_Node000005_Node000008" title=" " alt="" coords="334,215,370,176,417,138,440,127,443,132,420,143,374,180,338,219"/>
+<area shape="rect" id="Node000009" href="$classLimitedHourglass.html" title=" " alt="" coords="419,153,555,179"/>
+<area shape="poly" id="edge23_Node000005_Node000009" title=" " alt="" coords="352,219,418,188,447,176,449,181,420,192,355,224"/>
+<area shape="rect" id="Node000010" href="$classMesh.html" title=" " alt="" coords="458,203,515,228"/>
+<area shape="poly" id="edge24_Node000005_Node000010" title=" " alt="" coords="365,231,457,217,458,222,366,236"/>
+<area shape="rect" id="Node000011" href="$classRectangle.html" title=" " alt="" coords="443,252,530,277"/>
+<area shape="poly" id="edge25_Node000005_Node000011" title=" " alt="" coords="366,245,443,256,442,261,365,250"/>
+<area shape="rect" id="Node000012" href="$classSphere.html" title=" " alt="" coords="453,301,520,327"/>
+<area shape="poly" id="edge26_Node000005_Node000012" title=" " alt="" coords="360,257,372,262,420,286,454,300,452,305,418,291,370,267,358,262"/>
+<area shape="rect" id="Node000013" href="$classTanglecube.html" title=" " alt="" coords="439,351,534,376"/>
+<area shape="poly" id="edge27_Node000005_Node000013" title=" " alt="" coords="366,258,373,263,389,282,397,301,405,318,420,336,442,348,439,353,417,340,400,321,392,303,384,285,369,267,362,262"/>
+<area shape="rect" id="Node000014" href="$classTorus.html" title=" " alt="" coords="459,400,515,425"/>
+<area shape="poly" id="edge28_Node000005_Node000014" title=" " alt="" coords="366,257,373,263,385,279,392,295,397,326,402,356,409,371,420,385,439,398,459,405,458,410,436,403,417,389,404,373,397,358,392,327,387,297,380,282,369,266,362,261"/>
+<area shape="rect" id="Node000015" href="$classTriangle.html" title=" " alt="" coords="450,449,523,475"/>
+<area shape="poly" id="edge29_Node000005_Node000015" title=" " alt="" coords="366,256,373,263,388,286,395,308,397,351,398,393,406,414,421,435,434,446,451,453,449,458,432,450,417,439,401,416,393,394,391,351,390,309,383,288,369,266,362,260"/>
 </map>

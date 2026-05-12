@@ -8,6 +8,8 @@ var dir_14f312320580c20f9b5aca035d3d1616 =
     [ "ImageTexture.hpp", "ImageTexture_8hpp.html", "ImageTexture_8hpp" ],
     [ "Lambertian.cpp", "Lambertian_8cpp.html", "Lambertian_8cpp" ],
     [ "Lambertian.hpp", "Lambertian_8hpp.html", "Lambertian_8hpp" ],
+    [ "NormalMapped.cpp", "NormalMapped_8cpp.html", "NormalMapped_8cpp" ],
+    [ "NormalMapped.hpp", "NormalMapped_8hpp.html", "NormalMapped_8hpp" ],
     [ "PerlinNoise.cpp", "PerlinNoise_8cpp.html", "PerlinNoise_8cpp" ],
     [ "PerlinNoise.hpp", "PerlinNoise_8hpp.html", "PerlinNoise_8hpp" ],
     [ "Phong.cpp", "Phong_8cpp.html", "Phong_8cpp" ],
