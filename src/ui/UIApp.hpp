@@ -28,8 +28,8 @@ public:
 
     int run();
 
-    static constexpr unsigned int WIN_W = 800;
-    static constexpr unsigned int WIN_H = 600;
+    static constexpr unsigned int WIN_W = 1000;
+    static constexpr unsigned int WIN_H = 750;
 
 private:
     void handleEvents();
