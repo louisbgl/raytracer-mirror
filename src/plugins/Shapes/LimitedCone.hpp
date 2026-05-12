@@ -15,5 +15,4 @@ private:
 
     double _radius;
     double _height;
-    std::shared_ptr<IMaterial> _material;
 };
