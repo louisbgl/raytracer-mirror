@@ -12,7 +12,6 @@ public:
 
 private:
     double _scale;
-    std::shared_ptr<IMaterial> _material;
 
     double evaluate(double x, double y, double z) const;
     Vec3 gradient(double x, double y, double z) const;
