@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['cancel_0',['cancel',['../structPixelBuffer.html#ae8cb93759e47ea12fded6ca140cc0ed4',1,'PixelBuffer']]],
-  ['category_1',['category',['../structPluginMetadata.html#adc7df144bd36a9ee4cd37b3c528649c6',1,'PluginMetadata']]],
-  ['count_2',['count',['../structCubicRoots.html#adcf1dc174ebb72ea3c9e7888ea4524fa',1,'CubicRoots::count'],['../structQuadraticRoots.html#ace8dce3ce544c32d9a624645a54403fa',1,'QuadraticRoots::count'],['../structQuarticRoots.html#a0ef27df97a75e5fa69175e05e226c6f7',1,'QuarticRoots::count']]]
+  ['backgroundcolor_0',['backgroundColor',['../structRendererConfig.html#ae95f9de4c2b7af0f58bb7f311ca46a5f',1,'RendererConfig']]],
+  ['backgroundimage_1',['backgroundImage',['../structRendererConfig.html#a9a63ceb632cb094fe8605b65a011c78c',1,'RendererConfig']]],
+  ['bgcolour_2',['bgColour',['../structToastConfig.html#a221b86eb882532d45d3deca586308822',1,'ToastConfig']]]
 ];

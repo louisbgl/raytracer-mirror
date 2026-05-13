@@ -107,8 +107,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a895d8b602f8d5294d6750b2b80ba476d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a195035666ff50fdedd2ebf6b29529bbb" id="r_a195035666ff50fdedd2ebf6b29529bbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#a195035666ff50fdedd2ebf6b29529bbb">handleEvent</a> (const sf::Event &amp;event, const sf::RenderWindow &amp;window)</td></tr>
 <tr class="separator:a195035666ff50fdedd2ebf6b29529bbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae009948f8d27f0ebcd89cdc1fa5a1144" id="r_ae009948f8d27f0ebcd89cdc1fa5a1144"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#ae009948f8d27f0ebcd89cdc1fa5a1144">draw</a> (sf::RenderWindow &amp;window)</td></tr>
-<tr class="separator:ae009948f8d27f0ebcd89cdc1fa5a1144"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78f5a823d59896739991d8245bea390c" id="r_a78f5a823d59896739991d8245bea390c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#a78f5a823d59896739991d8245bea390c">draw</a> (sf::RenderWindow &amp;window, const <a class="el" href="structPixelBuffer.html">PixelBuffer</a> *previewBuf=nullptr)</td></tr>
+<tr class="separator:a78f5a823d59896739991d8245bea390c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aceb1e5503c3c789f11b9c87b622c9e4e" id="r_aceb1e5503c3c789f11b9c87b622c9e4e"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#aceb1e5503c3c789f11b9c87b622c9e4e">selected</a> () const</td></tr>
 <tr class="separator:aceb1e5503c3c789f11b9c87b622c9e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca739232f955cf83981f214c3836237b" id="r_aca739232f955cf83981f214c3836237b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#aca739232f955cf83981f214c3836237b">hasSelection</a> () const</td></tr>
@@ -119,6 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae9189d5018c75a41595a0b5cb6610c5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a218a2a8c889d5d7e7a9d9edced4997ce" id="r_a218a2a8c889d5d7e7a9d9edced4997ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#a218a2a8c889d5d7e7a9d9edced4997ce">wantsLaunch</a> () const</td></tr>
 <tr class="separator:a218a2a8c889d5d7e7a9d9edced4997ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c867668f028abf02a26d43b778dac3" id="r_a40c867668f028abf02a26d43b778dac3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#a40c867668f028abf02a26d43b778dac3">selectionChanged</a> () const</td></tr>
+<tr class="separator:a40c867668f028abf02a26d43b778dac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5fa939cf4a34de673b5f222fd90bd5e" id="r_ab5fa939cf4a34de673b5f222fd90bd5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSceneBrowser.html#ab5fa939cf4a34de673b5f222fd90bd5e">clearSignals</a> ()</td></tr>
 <tr class="separator:ab5fa939cf4a34de673b5f222fd90bd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -192,8 +194,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae009948f8d27f0ebcd89cdc1fa5a1144" name="ae009948f8d27f0ebcd89cdc1fa5a1144"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae009948f8d27f0ebcd89cdc1fa5a1144">&#9670;&#160;</a></span>draw()</h2>
+<a id="a78f5a823d59896739991d8245bea390c" name="a78f5a823d59896739991d8245bea390c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f5a823d59896739991d8245bea390c">&#9670;&#160;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,8 +204,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void SceneBrowser::draw </td>
           <td>(</td>
           <td class="paramtype">sf::RenderWindow &amp;&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="structPixelBuffer.html">PixelBuffer</a> *&#160;</td>
+          <td class="paramname"><em>previewBuf</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -291,6 +303,31 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const std::string &amp; SceneBrowser::selected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40c867668f028abf02a26d43b778dac3" name="a40c867668f028abf02a26d43b778dac3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c867668f028abf02a26d43b778dac3">&#9670;&#160;</a></span>selectionChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SceneBrowser::selectionChanged </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

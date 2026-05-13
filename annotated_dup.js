@@ -22,6 +22,7 @@ var annotated_dup =
       [ "UnknownArgument", "classclap_1_1UnknownArgument.html", "classclap_1_1UnknownArgument" ]
     ] ],
     [ "AABB", "classAABB.html", "classAABB" ],
+    [ "ARayMarchedShape", "classARayMarchedShape.html", "classARayMarchedShape" ],
     [ "Args", "structArgs.html", "structArgs" ],
     [ "AShape", "classAShape.html", "classAShape" ],
     [ "Box", "classBox.html", "classBox" ],
@@ -59,6 +60,7 @@ var annotated_dup =
     [ "Logger", "classLogger.html", "classLogger" ],
     [ "MaterialFactory", "classMaterialFactory.html", null ],
     [ "Matrix4x4", "classMatrix4x4.html", "classMatrix4x4" ],
+    [ "MengerSponge", "classMengerSponge.html", "classMengerSponge" ],
     [ "Mesh", "classMesh.html", "classMesh" ],
     [ "MeshTriangle", "classMeshTriangle.html", "classMeshTriangle" ],
     [ "NormalMapped", "classNormalMapped.html", "classNormalMapped" ],

@@ -61,10 +61,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AABB_8hpp.html",
-"ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978a0eaadb4fcb48a0a0ed7bc9868be9fbaa",
-"classPhong.html",
-"classclap_1_1Positional.html#a41819f0605faa04ec3c6197244bd81b3",
-"structRendererConfig.html#a8e3af03c7feb1f555aa54659ac0606cc"
+"Tanglecube_8cpp.html",
+"classMatrix4x4.html#a76a41615d1de48989018a70017b8dda5",
+"classclap_1_1IArgument.html#aefa9739d5e5691da9ee742702ce49010",
+"structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

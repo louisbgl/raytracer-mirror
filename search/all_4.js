@@ -1,6 +1,19 @@
 var searchData=
 [
-  ['eof_0',['eof',['../structstbi__io__callbacks.html#a319639db2f76e715eed7a7a974136832',1,'stbi_io_callbacks']]],
-  ['error_1',['error',['../main_8cpp.html#a3dfe11cf1a3a8121f6cd7fec4bf5947ea902b0d55fddef6f8d651fe1035b7d4bd',1,'Error:&#160;main.cpp'],['../ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978a902b0d55fddef6f8d651fe1035b7d4bd',1,'Error:&#160;ToastManager.hpp']]],
-  ['eventrange_2',['EventRange',['../classInotifyEventReader.html#ab9f0a74c01fca771c1aac0636a433823',1,'InotifyEventReader']]]
+  ['default_5fvalue_0',['default_value',['../classclap_1_1Option.html#a8a1d76efaabb1a2ef0aa23530046a9a0',1,'clap::Option']]],
+  ['description_1',['description',['../classclap_1_1IArgument.html#aefa9739d5e5691da9ee742702ce49010',1,'clap::IArgument']]],
+  ['dif_5ftype_2',['dif_type',['../structInotifyEventReader_1_1Iterator.html#a0664403edf789bec88bd2667a476dd34',1,'InotifyEventReader::Iterator']]],
+  ['diffusemultiplier_3',['diffuseMultiplier',['../structRendererConfig.html#a0b13454499673dfb9c81c5dfee0528ba',1,'RendererConfig']]],
+  ['direction_4',['direction',['../classRay.html#a0a1c356397d4cfde34f4eeb0e27a191d',1,'Ray']]],
+  ['directionallight_5',['directionallight',['../classDirectionalLight.html#a9c76ff87fe121d77b8058ff13e8b1b2a',1,'DirectionalLight::DirectionalLight()'],['../classDirectionalLight.html',1,'DirectionalLight']]],
+  ['directionallight_2ecpp_6',['DirectionalLight.cpp',['../DirectionalLight_8cpp.html',1,'']]],
+  ['directionallight_2ehpp_7',['DirectionalLight.hpp',['../DirectionalLight_8hpp.html',1,'']]],
+  ['display_8',['display',['../classHelpDisplay.html#a085c8398d42f3a8d310070f279618c99',1,'HelpDisplay']]],
+  ['distanceestimator_9',['distanceEstimator',['../classARayMarchedShape.html#a9a6a4ce86af7a6cdbe56608c80756ab6',1,'ARayMarchedShape']]],
+  ['done_10',['done',['../structPixelBuffer.html#a7557a824c9fed1d51dcea48ed0dda956',1,'PixelBuffer::done'],['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344af92965e2c8a7afb3c1b9a5c09a263636',1,'Done:&#160;UIApp.hpp']]],
+  ['dot_11',['dot',['../Vec3_8hpp.html#a4eaf4b48059db930958884fbd633d6a0',1,'Vec3.hpp']]],
+  ['draw_12',['draw',['../classSceneBrowser.html#a78f5a823d59896739991d8245bea390c',1,'SceneBrowser::draw()'],['../classToastManager.html#afdd8eef466b0ec3e36ce0349a81f0481',1,'ToastManager::draw()']]],
+  ['drawdone_13',['drawDone',['../classRenderPanel.html#a9bf4fdc79d7aa4926da793536db003cd',1,'RenderPanel']]],
+  ['drawrendering_14',['drawRendering',['../classRenderPanel.html#a6e21b690330d9a7bbcab53cff0cefc7d',1,'RenderPanel']]],
+  ['duration_15',['duration',['../structToastConfig.html#a1b03c81f6689b85a6e9eebee0590721f',1,'ToastConfig']]]
 ];

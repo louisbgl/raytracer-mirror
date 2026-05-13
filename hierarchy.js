@@ -52,6 +52,9 @@ var hierarchy =
       [ "Hourglass", "classHourglass.html", null ],
       [ "IBoundable", "classIBoundable.html", [
         [ "AShape", "classAShape.html", [
+          [ "ARayMarchedShape", "classARayMarchedShape.html", [
+            [ "MengerSponge", "classMengerSponge.html", null ]
+          ] ],
           [ "Box", "classBox.html", null ],
           [ "LimitedCone", "classLimitedCone.html", null ],
           [ "LimitedCylinder", "classLimitedCylinder.html", null ],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['log_0',['log',['../structArgs.html#aad390f7c26d65f34e91aab76f7dfa48b',1,'Args']]]
+  ['inv_5fpi_0',['INV_PI',['../namespaceMath.html#adef241e1d1a1487cb652498422c50d1c',1,'Math']]],
+  ['inv_5ftwo_5fpi_1',['INV_TWO_PI',['../namespaceMath.html#aa16f27b7c5fb4757023f8ad29352f068',1,'Math']]]
 ];

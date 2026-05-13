@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['inv_5fpi_0',['INV_PI',['../namespaceMath.html#adef241e1d1a1487cb652498422c50d1c',1,'Math']]],
-  ['inv_5ftwo_5fpi_1',['INV_TWO_PI',['../namespaceMath.html#aa16f27b7c5fb4757023f8ad29352f068',1,'Math']]]
+  ['height_0',['height',['../structPixelBuffer.html#abd9307aede7aa417f0e0d2a0158a9e86',1,'PixelBuffer']]],
+  ['helptext_1',['helpText',['../structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e',1,'PluginMetadata']]]
 ];

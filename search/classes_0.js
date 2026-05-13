@@ -2,6 +2,7 @@ var searchData=
 [
   ['aabb_0',['AABB',['../classAABB.html',1,'']]],
   ['app_1',['App',['../classclap_1_1App.html',1,'clap']]],
-  ['args_2',['Args',['../structArgs.html',1,'']]],
-  ['ashape_3',['AShape',['../classAShape.html',1,'']]]
+  ['araymarchedshape_2',['ARayMarchedShape',['../classARayMarchedShape.html',1,'']]],
+  ['args_3',['Args',['../structArgs.html',1,'']]],
+  ['ashape_4',['AShape',['../classAShape.html',1,'']]]
 ];

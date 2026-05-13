@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['v_0',['v',['../classHitRecord.html#ae3d8102ff4d8edb190dbf57d7acffdab',1,'HitRecord::v'],['../structUV.html#a4497249ea776b75c4154e37ded5f4dc0',1,'UV::v']]],
-  ['value_1',['value',['../structclap_1_1TypeName.html#afb05b90eeae8fc3c1d9af6339d577eef',1,'clap::TypeName::value'],['../structclap_1_1TypeName_3_01int_01_4.html#a0dac96688fc082841e1dd3c27fda3881',1,'clap::TypeName&lt; int &gt;::value'],['../structclap_1_1TypeName_3_01float_01_4.html#a57b036913e59cf311b94e77c679ccf4b',1,'clap::TypeName&lt; float &gt;::value'],['../structclap_1_1TypeName_3_01double_01_4.html#a46809fb6ee1602d0ba6bf68ee005c17e',1,'clap::TypeName&lt; double &gt;::value'],['../structclap_1_1TypeName_3_01bool_01_4.html#a924d4bddcca808ad582da758323c3e0d',1,'clap::TypeName&lt; bool &gt;::value'],['../structclap_1_1TypeName_3_01std_1_1string_01_4.html#a54b9d4199a1bd1695077ee8b29cd1c3c',1,'clap::TypeName&lt; std::string &gt;::value']]]
+  ['u_0',['u',['../classHitRecord.html#acc1de3002c22fa21aa3ce2aa1fa6a4ef',1,'HitRecord::u'],['../structUV.html#a380d41f5ed2a938b395a523919e1c639',1,'UV::u']]],
+  ['ui_1',['ui',['../structArgs.html#a273c545b6c19dd91569c85ce8396aeb5',1,'Args']]],
+  ['usage_2',['usage',['../structArgs.html#a8ec009f4461a96cf46d580a7f4b5c6b6',1,'Args']]]
 ];

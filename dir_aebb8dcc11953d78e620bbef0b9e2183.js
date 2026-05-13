@@ -1,5 +1,7 @@
 var dir_aebb8dcc11953d78e620bbef0b9e2183 =
 [
+    [ "ARayMarchedShape.cpp", "ARayMarchedShape_8cpp.html", null ],
+    [ "ARayMarchedShape.hpp", "ARayMarchedShape_8hpp.html", "ARayMarchedShape_8hpp" ],
     [ "AShape.cpp", "AShape_8cpp.html", null ],
     [ "AShape.hpp", "AShape_8hpp.html", "AShape_8hpp" ],
     [ "Core.cpp", "Core_8cpp.html", null ],

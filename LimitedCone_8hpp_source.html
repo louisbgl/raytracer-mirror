@@ -117,11 +117,10 @@ $(document).ready(function(){initNavTree('LimitedCone_8hpp_source.html',''); ini
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordtype">double</span> _radius;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">double</span> _height;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::shared_ptr&lt;IMaterial&gt; _material;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
 </div>
 <div class="ttc" id="aclassAABB_html"><div class="ttname"><a href="classAABB.html">AABB</a></div><div class="ttdoc">Axis-Aligned Bounding Box for fast ray intersection tests.</div><div class="ttdef"><b>Definition</b> AABB.hpp:10</div></div>
-<div class="ttc" id="aclassAShape_html"><div class="ttname"><a href="classAShape.html">AShape</a></div><div class="ttdoc">Abstract base class providing automatic transformation and AABB optimization for all shapes.</div><div class="ttdef"><b>Definition</b> AShape.hpp:24</div></div>
+<div class="ttc" id="aclassAShape_html"><div class="ttname"><a href="classAShape.html">AShape</a></div><div class="ttdoc">Abstract base class providing automatic transformation and AABB optimization for all shapes.</div><div class="ttdef"><b>Definition</b> AShape.hpp:26</div></div>
 <div class="ttc" id="aclassHitRecord_html"><div class="ttname"><a href="classHitRecord.html">HitRecord</a></div><div class="ttdef"><b>Definition</b> HitRecord.hpp:7</div></div>
 <div class="ttc" id="aclassLimitedCone_html"><div class="ttname"><a href="classLimitedCone.html">LimitedCone</a></div><div class="ttdef"><b>Definition</b> LimitedCone.hpp:5</div></div>
 <div class="ttc" id="aclassLimitedCone_html_a0e9f3185345984cefd179b98fe579290"><div class="ttname"><a href="classLimitedCone.html#a0e9f3185345984cefd179b98fe579290">LimitedCone::hitLocal</a></div><div class="ttdeci">bool hitLocal(const Ray &amp;ray, HitRecord &amp;record) const override</div><div class="ttdoc">Intersection test in local space (shape at origin, axis-aligned). No need to check t_min/t_max.</div><div class="ttdef"><b>Definition</b> LimitedCone.cpp:11</div></div>

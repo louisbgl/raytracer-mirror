@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['height_0',['height',['../structPixelBuffer.html#abd9307aede7aa417f0e0d2a0158a9e86',1,'PixelBuffer']]],
-  ['helptext_1',['helpText',['../structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e',1,'PluginMetadata']]]
+  ['front_5fface_0',['front_face',['../classHitRecord.html#a95d5e41521e7dd017ec39d583602c745',1,'HitRecord']]]
 ];

@@ -115,6 +115,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae6b0fc9a0980fdd7e82d6f5f307196d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a947f2620a9872fbffb28de91c3377e4e" id="r_a947f2620a9872fbffb28de91c3377e4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a947f2620a9872fbffb28de91c3377e4e">setProgressTarget</a> (std::atomic&lt; int &gt; *rows, std::atomic&lt; int &gt; *total)</td></tr>
 <tr class="separator:a947f2620a9872fbffb28de91c3377e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a668a41106425b31971f33a3e62af721f" id="r_a668a41106425b31971f33a3e62af721f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a668a41106425b31971f33a3e62af721f">setPreviewMode</a> (float resScale=0.25f, int maxBounces=3)</td></tr>
+<tr class="separator:a668a41106425b31971f33a3e62af721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ba1e54e9920e4c8573672d17ddaed73" id="r_a9ba1e54e9920e4c8573672d17ddaed73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a9ba1e54e9920e4c8573672d17ddaed73">setRowCallback</a> (std::function&lt; void(int y, const uint8_t *rgba, int width)&gt; cb)</td></tr>
+<tr class="separator:a9ba1e54e9920e4c8573672d17ddaed73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a2b1ee11e5f944649ae57096d513a7f" id="r_a7a2b1ee11e5f944649ae57096d513a7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a7a2b1ee11e5f944649ae57096d513a7f">setDimensionsCallback</a> (std::function&lt; void(int w, int h)&gt; cb)</td></tr>
+<tr class="separator:a7a2b1ee11e5f944649ae57096d513a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0982ecf166664b2968032586c827525c" name="a0982ecf166664b2968032586c827525c"></a>
@@ -197,6 +203,68 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7a2b1ee11e5f944649ae57096d513a7f" name="a7a2b1ee11e5f944649ae57096d513a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a2b1ee11e5f944649ae57096d513a7f">&#9670;&#160;</a></span>setDimensionsCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setDimensionsCallback </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(int w, int h)&gt;&#160;</td>
+          <td class="paramname"><em>cb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a668a41106425b31971f33a3e62af721f" name="a668a41106425b31971f33a3e62af721f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a668a41106425b31971f33a3e62af721f">&#9670;&#160;</a></span>setPreviewMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setPreviewMode </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>resScale</em> = <code>0.25f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxBounces</em> = <code>3</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a947f2620a9872fbffb28de91c3377e4e" name="a947f2620a9872fbffb28de91c3377e4e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a947f2620a9872fbffb28de91c3377e4e">&#9670;&#160;</a></span>setProgressTarget()</h2>
 
@@ -222,6 +290,32 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9ba1e54e9920e4c8573672d17ddaed73" name="a9ba1e54e9920e4c8573672d17ddaed73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ba1e54e9920e4c8573672d17ddaed73">&#9670;&#160;</a></span>setRowCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setRowCallback </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; void(int y, const uint8_t *rgba, int width)&gt;&#160;</td>
+          <td class="paramname"><em>cb</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>

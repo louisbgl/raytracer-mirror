@@ -143,19 +143,23 @@ $(document).ready(function(){initNavTree('Camera_8hpp_source.html',''); initResi
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="classCamera.html#a1e6f2044fa0777281cce45d573e2eed4">   64</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="classCamera.html#a1e6f2044fa0777281cce45d573e2eed4">getFov</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _fov; }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">int</span> _height;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">int</span> _width;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _position;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _look_at;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _up;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">float</span> _fov;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classCamera.html#aa140e95a1443bd99debb1933590815f5">   70</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#aa140e95a1443bd99debb1933590815f5">setWidth</a>(<span class="keywordtype">int</span> width) { _width = width; }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classCamera.html#ac44b2db3dcf62ef42076741f2a55cd78">   76</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classCamera.html#ac44b2db3dcf62ef42076741f2a55cd78">setHeight</a>(<span class="keywordtype">int</span> height) { _height = height; }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">int</span> _height;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordtype">int</span> _width;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _position;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _look_at;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_class" href="classVec3.html">Vec3</a> _up;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">float</span> _fov;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>};</div>
 </div>
 <div class="ttc" id="aRay_8hpp_html"><div class="ttname"><a href="Ray_8hpp.html">Ray.hpp</a></div></div>
 <div class="ttc" id="aVec3_8hpp_html"><div class="ttname"><a href="Vec3_8hpp.html">Vec3.hpp</a></div></div>
-<div class="ttc" id="aVec3_8hpp_html_a2a4bb35c173c23041dd50c2252417ca1"><div class="ttname"><a href="Vec3_8hpp.html#a2a4bb35c173c23041dd50c2252417ca1">normalize</a></div><div class="ttdeci">Vec3 normalize(const Vec3 &amp;vec) noexcept</div><div class="ttdef"><b>Definition</b> Vec3.hpp:108</div></div>
-<div class="ttc" id="aVec3_8hpp_html_aed02839c9f9bdf0e4ad1167797b21671"><div class="ttname"><a href="Vec3_8hpp.html#aed02839c9f9bdf0e4ad1167797b21671">cross</a></div><div class="ttdeci">constexpr Vec3 cross(const Vec3 &amp;left, const Vec3 &amp;right) noexcept</div><div class="ttdef"><b>Definition</b> Vec3.hpp:100</div></div>
+<div class="ttc" id="aVec3_8hpp_html_a2a4bb35c173c23041dd50c2252417ca1"><div class="ttname"><a href="Vec3_8hpp.html#a2a4bb35c173c23041dd50c2252417ca1">normalize</a></div><div class="ttdeci">Vec3 normalize(const Vec3 &amp;vec) noexcept</div><div class="ttdef"><b>Definition</b> Vec3.hpp:120</div></div>
+<div class="ttc" id="aVec3_8hpp_html_aed02839c9f9bdf0e4ad1167797b21671"><div class="ttname"><a href="Vec3_8hpp.html#aed02839c9f9bdf0e4ad1167797b21671">cross</a></div><div class="ttdeci">constexpr Vec3 cross(const Vec3 &amp;left, const Vec3 &amp;right) noexcept</div><div class="ttdef"><b>Definition</b> Vec3.hpp:112</div></div>
 <div class="ttc" id="aclassCamera_html"><div class="ttname"><a href="classCamera.html">Camera</a></div><div class="ttdef"><b>Definition</b> Camera.hpp:6</div></div>
 <div class="ttc" id="aclassCamera_html_a01f94c3543f56ede7af49dc778f19331"><div class="ttname"><a href="classCamera.html#a01f94c3543f56ede7af49dc778f19331">Camera::Camera</a></div><div class="ttdeci">Camera()</div><div class="ttdef"><b>Definition</b> Camera.hpp:8</div></div>
 <div class="ttc" id="aclassCamera_html_a1e6f2044fa0777281cce45d573e2eed4"><div class="ttname"><a href="classCamera.html#a1e6f2044fa0777281cce45d573e2eed4">Camera::getFov</a></div><div class="ttdeci">float getFov() const</div><div class="ttdoc">Gets the field of view of the camera.</div><div class="ttdef"><b>Definition</b> Camera.hpp:64</div></div>
@@ -165,6 +169,8 @@ $(document).ready(function(){initNavTree('Camera_8hpp_source.html',''); initResi
 <div class="ttc" id="aclassCamera_html_a51e9b97b427f10b15e7c03e22ce64d7f"><div class="ttname"><a href="classCamera.html#a51e9b97b427f10b15e7c03e22ce64d7f">Camera::Camera</a></div><div class="ttdeci">Camera(int height, int width, Vec3 position, Vec3 look_at, Vec3 up, float fov)</div><div class="ttdef"><b>Definition</b> Camera.hpp:9</div></div>
 <div class="ttc" id="aclassCamera_html_a577faefd32dd6e66ee35311419ea9741"><div class="ttname"><a href="classCamera.html#a577faefd32dd6e66ee35311419ea9741">Camera::getHeight</a></div><div class="ttdeci">double getHeight() const</div><div class="ttdoc">Gets the height of the camera resolution.</div><div class="ttdef"><b>Definition</b> Camera.hpp:40</div></div>
 <div class="ttc" id="aclassCamera_html_a79d8e301befc88644679d1c841d185d3"><div class="ttname"><a href="classCamera.html#a79d8e301befc88644679d1c841d185d3">Camera::getPosition</a></div><div class="ttdeci">Vec3 getPosition() const</div><div class="ttdoc">Gets the position of the camera in world space.</div><div class="ttdef"><b>Definition</b> Camera.hpp:52</div></div>
+<div class="ttc" id="aclassCamera_html_aa140e95a1443bd99debb1933590815f5"><div class="ttname"><a href="classCamera.html#aa140e95a1443bd99debb1933590815f5">Camera::setWidth</a></div><div class="ttdeci">void setWidth(int width)</div><div class="ttdoc">Sets the width of the camera resolution.</div><div class="ttdef"><b>Definition</b> Camera.hpp:70</div></div>
+<div class="ttc" id="aclassCamera_html_ac44b2db3dcf62ef42076741f2a55cd78"><div class="ttname"><a href="classCamera.html#ac44b2db3dcf62ef42076741f2a55cd78">Camera::setHeight</a></div><div class="ttdeci">void setHeight(int height)</div><div class="ttdoc">Sets the height of the camera resolution.</div><div class="ttdef"><b>Definition</b> Camera.hpp:76</div></div>
 <div class="ttc" id="aclassRay_html"><div class="ttname"><a href="classRay.html">Ray</a></div><div class="ttdoc">Represents a ray in 3D space, defined by an origin and a direction.</div><div class="ttdef"><b>Definition</b> Ray.hpp:9</div></div>
 <div class="ttc" id="aclassVec3_html"><div class="ttname"><a href="classVec3.html">Vec3</a></div><div class="ttdef"><b>Definition</b> Vec3.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['read_0',['read',['../structstbi__io__callbacks.html#a623e46b3a2a019611601409926283a88',1,'stbi_io_callbacks']]],
-  ['rgba_1',['rgba',['../structPixelBuffer.html#ae3cf6d087eebab3e3297455b0bdaf1be',1,'PixelBuffer']]],
-  ['roots_2',['roots',['../structCubicRoots.html#a4ee555f71f46ed4ad31009264e0f070d',1,'CubicRoots::roots'],['../structQuarticRoots.html#aaa0c74fa3c618679ee7140f282ab496a',1,'QuarticRoots::roots']]],
-  ['rowscomplete_3',['rowsComplete',['../structPixelBuffer.html#a1df70fa4af8ce7b5c146d8f3b28a28ed',1,'PixelBuffer']]]
+  ['pi_0',['PI',['../namespaceMath.html#acfc7ead6b66a7dce80f1a510df01845c',1,'Math']]],
+  ['pluginname_1',['pluginName',['../structPluginMetadata.html#a0c471c018f4199c4f15f13ef91bde706',1,'PluginMetadata']]],
+  ['pluralform_2',['pluralForm',['../structPluginMetadata.html#a72171c805a5d8b9f6a18923ab92b5dff',1,'PluginMetadata']]],
+  ['point_3',['point',['../classHitRecord.html#abbb67a52465d0287d8de618bb2c6f8f2',1,'HitRecord']]],
+  ['ptr_4',['ptr',['../structInotifyEventReader_1_1Iterator.html#a4ff60b975b1ea4cf1a01ec213bf3158f',1,'InotifyEventReader::Iterator']]]
 ];
