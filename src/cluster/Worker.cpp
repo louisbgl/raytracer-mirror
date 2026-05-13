@@ -33,7 +33,6 @@ void Worker::run()
     AssignPayload chunk = msg.parseAssign();
     std::cout << "Received chunk: rows " << chunk.firstRow << " to " << chunk.lastRow << "\n";
 
-    // write scene content to a temp file
     std::string tempPath = "/tmp/raytracer_worker_" + std::to_string(::getpid()) + ".txt";
     {
         std::ofstream tmpFile(tempPath);
@@ -76,7 +75,6 @@ void Worker::run()
         return;
     }
 
-    // send pixels in chunks of MAX_PIXELS_PER_MSG to keep packets small
     static constexpr int MAX_PIXELS_PER_MSG = 1000;
     std::cout << "Render done, sending pixels...\n";
     int chunkRows = chunk.lastRow - chunk.firstRow;
@@ -103,12 +101,9 @@ void Worker::run()
         }
     }
 
-    sock.send(Message::makeDone());
-    std::cout << "All pixels sent, waiting for ACK...\n";
-
     Message ack = sock.receive();
     if (ack.type == MessageType::ACK)
         std::cout << "Chunk acknowledged, disconnecting...\n";
     else
-        std::cerr << "Worker: unexpected response after DONE\n";
+        std::cerr << "Worker: unexpected response after PIXELS\n";
 }

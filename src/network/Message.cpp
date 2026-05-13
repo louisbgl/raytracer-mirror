@@ -1,6 +1,7 @@
 #include "Message.hpp"
 #include <cstring>
 #include <stdexcept>
+
 // helpers to write/read integers into byte buffers
 static void writeInt(std::vector<uint8_t>& buf, int value)
 {
@@ -81,11 +82,6 @@ Message Message::makeAck()
 Message Message::makeAbort()
 {
     return {MessageType::ABORT, {}};
-}
-
-Message Message::makeDone()
-{
-    return {MessageType::DONE, {}};
 }
 
 // wire format: [type: 1 byte][length: 4 bytes][payload: N bytes]

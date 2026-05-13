@@ -69,7 +69,7 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false}); // pixelsReceived=0
+            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false});
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
                       << " — " << (_workers.size() + 1) << " nodes total (coordinator + "
                       << _workers.size() << " workers)\n";
@@ -94,7 +94,6 @@ void Coordinator::_distributeWork()
     _imageWidth  = core.sceneWidth();
     _imageHeight = core.sceneHeight();
 
-    // read scene file content to send to workers
     std::ifstream file(_sceneFile);
     if (!file.is_open())
         throw std::runtime_error("Coordinator: cannot read scene file " + _sceneFile);
@@ -128,7 +127,7 @@ void Coordinator::_distributeWork()
 
 void Coordinator::_monitorAndCollect(Image& image)
 {
-    static constexpr int HEARTBEAT_TIMEOUT_MS = 30000; // 30s timeout per heartbeat window
+    static constexpr int HEARTBEAT_TIMEOUT_MS = 12000;
 
     int workerCount = static_cast<int>(_workers.size());
     if (workerCount == 0)
@@ -145,7 +144,6 @@ void Coordinator::_monitorAndCollect(Image& image)
         int ready = ::poll(pfds.data(), workerCount, HEARTBEAT_TIMEOUT_MS);
 
         if (ready == 0) {
-            // timeout — check missed heartbeats
             for (int i = 0; i < workerCount; ++i) {
                 if (_workers[i].done)
                     continue;
@@ -155,7 +153,7 @@ void Coordinator::_monitorAndCollect(Image& image)
                               << ") presumed dead — reassigning chunk\n";
                     _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
                     _workers[i].done = true;
-                    pfds[i].fd = -1; // stop polling this socket
+                    pfds[i].fd = -1;
                     doneCount++;
                 }
             }
@@ -198,21 +196,15 @@ void Coordinator::_monitorAndCollect(Image& image)
                 }
                 _workers[i].pixelsReceived += static_cast<int>(chunk.size());
 
-                int rowsReceived = _workers[i].pixelsReceived / _imageWidth;
-                if (rowsReceived > 0 && rowsReceived % 1000 == 0)
-                    std::cout << "Worker " << (i + 1) << " — rows received: "
-                              << rowsReceived << "/"
-                              << (_workers[i].lastRow - _workers[i].firstRow) << "\n";
-
-            } else if (msg.type == MessageType::DONE) {
                 int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
-                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") — done, " << _workers[i].pixelsReceived
-                          << "/" << totalChunkPixels << " pixels received\n";
-                _workers[i].socket->send(Message::makeAck());
-                _workers[i].done = true;
-                pfds[i].fd = -1;
-                doneCount++;
+                if (_workers[i].pixelsReceived >= totalChunkPixels) {
+                    _workers[i].socket->send(Message::makeAck());
+                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                              << ") — done, all pixels received\n";
+                    _workers[i].done = true;
+                    pfds[i].fd = -1;
+                    doneCount++;
+                }
 
             } else if (msg.type == MessageType::ABORT) {
                 std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
