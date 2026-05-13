@@ -65,8 +65,20 @@ private:
     return Vec3(left.x() + right.x(), left.y() + right.y(), left.z() + right.z());
 }
 
+[[nodiscard]] inline constexpr Vec3 operator+(const Vec3& vec, double scalar) noexcept {
+    return Vec3(vec.x() + scalar, vec.y() + scalar, vec.z() + scalar);
+}
+
+[[nodiscard]] inline constexpr Vec3 operator+(double scalar, const Vec3& vec) noexcept {
+    return vec + scalar;
+}
+
 [[nodiscard]] inline constexpr Vec3 operator-(const Vec3& left, const Vec3& right) noexcept {
     return Vec3(left.x() - right.x(), left.y() - right.y(), left.z() - right.z());
+}
+
+[[nodiscard]] inline constexpr Vec3 operator-(const Vec3& vec, double scalar) noexcept {
+    return Vec3(vec.x() - scalar, vec.y() - scalar, vec.z() - scalar);
 }
 
 [[nodiscard]] inline constexpr Vec3 operator*(double scalar, const Vec3& vec) noexcept {
@@ -109,6 +121,18 @@ private:
     double len = length(vec);
     assert(len > 0.0 && "Cannot normalize zero vector");
     return vec / len;
+}
+
+[[nodiscard]] inline constexpr Vec3 abs(const Vec3& vec) noexcept {
+    return Vec3(std::abs(vec.x()), std::abs(vec.y()), std::abs(vec.z()));
+}
+
+[[nodiscard]] inline constexpr Vec3 max(const Vec3& vec, double scalar) noexcept {
+    return Vec3(std::max(vec.x(), scalar), std::max(vec.y(), scalar), std::max(vec.z(), scalar));
+}
+
+[[nodiscard]] inline constexpr double max_component(const Vec3& vec) noexcept {
+    return std::max(vec.x(), std::max(vec.y(), vec.z()));
 }
 
 inline std::ostream& operator<<(std::ostream& os, const Vec3& vec) {
