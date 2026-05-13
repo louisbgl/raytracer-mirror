@@ -1,6 +1,7 @@
 #include "UIApp.hpp"
 #include "core/Core.hpp"
 #include "core/PluginManager.hpp"
+#include <cstdint>
 #include <stdexcept>
 #include <thread>
 
@@ -17,6 +18,7 @@ UIApp::UIApp()
 }
 
 UIApp::~UIApp() {
+    cancelPreview();
     joinRenderThread();
 }
 
@@ -51,7 +53,13 @@ void UIApp::handleEvents() {
 void UIApp::update() {
     switch (_state) {
         case UIState::Browser:
-            if (_browser.wantsLaunch()) {
+            if (_browser.selectionChanged()) {
+                cancelPreview();
+                if (_browser.hasSelection())
+                    spawnPreviewThread();
+                _browser.clearSignals();
+            } else if (_browser.wantsLaunch()) {
+                cancelPreview();
                 toRendering(_browser.selected());
                 _browser.clearSignals();
             }
@@ -92,7 +100,7 @@ void UIApp::draw() {
     }
 
     switch (_state) {
-        case UIState::Browser:   _browser.draw(_window);        break;
+        case UIState::Browser:   _browser.draw(_window, &_previewPixelBuffer); break;
         case UIState::Rendering: _panel.drawRendering(_window); break;
         case UIState::Done:      _panel.drawDone(_window);      break;
     }
@@ -123,6 +131,8 @@ void UIApp::toRendering(const std::string& scenePath) {
 }
 
 void UIApp::toBrowser() {
+    cancelPreview();
+    _previewPixelBuffer.init(0, 0);
     _state = UIState::Browser;
     _browser.refresh();
 }
@@ -153,6 +163,32 @@ void UIApp::spawnRenderThread() {
 void UIApp::joinRenderThread() {
     if (_renderThread.joinable())
         _renderThread.join();
+}
+
+void UIApp::spawnPreviewThread() {
+    std::string path = _browser.selected();
+    _previewThread = std::thread([this, path]() {
+        Core core(path);
+        core.setCancelFlag(&_previewCancelFlag);
+        core.setPreviewMode();
+        core.setDimensionsCallback([this](int w, int h) {
+            _previewPixelBuffer.init(w, h);
+            _previewPixelBuffer.totalRows.store(h);
+        });
+        core.setRowCallback([this](int y, const uint8_t* rgba, int w) {
+            _previewPixelBuffer.setRow(y, reinterpret_cast<const sf::Uint8*>(rgba), w * 4);
+            _previewPixelBuffer.rowsComplete.fetch_add(1, std::memory_order_relaxed);
+        });
+        core.simulate();
+    });
+}
+
+void UIApp::cancelPreview() {
+    _previewCancelFlag.store(true);
+    if (_previewThread.joinable())
+        _previewThread.join();
+    _previewPixelBuffer.init(0, 0);
+    _previewCancelFlag.store(false);
 }
 
 void UIApp::checkSceneFileWatch() {

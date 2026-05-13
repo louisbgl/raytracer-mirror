@@ -56,22 +56,22 @@ void ToastManager::update(float delta)
 void ToastManager::draw(sf::RenderWindow& win)
 {
     sf::Vector2u winSize = win.getSize();
-    float footerHeight = std::max(80.0F, static_cast<float>(winSize.y) * 0.13F);
-    float launchHeight = std::max(42.0F, footerHeight * 0.5F);
-    float currentY = static_cast<float>(winSize.y) - footerHeight + (footerHeight - launchHeight) / 2.0F - (_padding * 0.5F);
+    float currentY = _padding;
 
     for (int i = static_cast<int>(_toasts.size()) - 1; i >= 0; --i) {
         const auto& toast = _toasts[i];
         sf::Text text(toast.config.msg, _font, 16);
         sf::FloatRect textBounds = text.getLocalBounds();
 
-        float boxWidth = textBounds.width + 40.0F;
+        float boxWidth  = textBounds.width + 40.0F;
         float boxHeight = _toastHeight;
 
         sf::RectangleShape bg({boxWidth, boxHeight});
         bg.setOrigin(boxWidth / 2.0F, boxHeight / 2.0F);
-        sf::Vector2f centerPos(static_cast<float>(winSize.x) / 2.0F,
-                               currentY - (boxHeight / 2.0F));
+        sf::Vector2f centerPos(
+            static_cast<float>(winSize.x) - _padding - boxWidth / 2.0F,
+            currentY + boxHeight / 2.0F
+        );
         bg.setPosition(centerPos);
 
         sf::Color bgColor = toast.config.bgColour;
@@ -89,6 +89,6 @@ void ToastManager::draw(sf::RenderWindow& win)
         win.draw(bg);
         win.draw(text);
 
-        currentY -= (boxHeight + _padding);
+        currentY += boxHeight + _padding;
     }
 }
