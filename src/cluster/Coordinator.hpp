@@ -6,8 +6,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <queue>
 
 static constexpr int COORDINATOR_PORT = 6767;
+static constexpr int CHUNK_SIZE       = 10;
 
 struct WorkerInfo {
     std::unique_ptr<TcpSocket> socket;
@@ -16,6 +18,7 @@ struct WorkerInfo {
     int lastRow;
     int missedHeartbeats;
     int pixelsReceived;
+    int totalRowsRendered;
     bool done;
 };
 
@@ -27,13 +30,14 @@ public:
 
 private:
     std::string _sceneFile;
+    std::string _sceneContent;
     std::vector<WorkerInfo> _workers;
+    std::queue<std::pair<int, int>> _pendingChunks;
     int _imageWidth  = 0;
     int _imageHeight = 0;
 
     void _waitForWorkers();
     void _distributeWork();
     void _monitorAndCollect(Image& image);
-    void _renderLocalChunk(Image& image, int firstRow, int lastRow);
-    void _reassignChunk(Image& image, int firstRow, int lastRow);
+    void _assignNextChunk(int workerIdx);
 };

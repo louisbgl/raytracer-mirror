@@ -21,20 +21,11 @@ void Coordinator::run()
 
     Image image(_imageWidth, _imageHeight);
 
-    int totalNodes  = static_cast<int>(_workers.size()) + 1;
-    int rowsPerNode = _imageHeight / totalNodes;
-    int coordFirst  = rowsPerNode * static_cast<int>(_workers.size());
-
-    std::thread localThread([&]() {
-        _renderLocalChunk(image, coordFirst, _imageHeight);
-    });
-
     try {
         _monitorAndCollect(image);
     } catch (const std::exception& e) {
         std::cerr << "Monitor error: " << e.what() << "\n";
     }
-    localThread.join();
 
     std::cout << "Assembling final image...\n";
     image.writeFile("output.ppm");
@@ -69,10 +60,9 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, false});
+            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, 0, false});
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
-                      << " — " << (_workers.size() + 1) << " nodes total (coordinator + "
-                      << _workers.size() << " workers)\n";
+                      << " — " << _workers.size() << " worker(s) total\n";
         }
 
         if (pfds[1].revents & POLLIN) {
@@ -82,8 +72,7 @@ void Coordinator::_waitForWorkers()
         }
     }
 
-    std::cout << "Starting render with " << (_workers.size() + 1) << " nodes ("
-              << _workers.size() << " workers + coordinator)\n";
+    std::cout << "Starting render with " << _workers.size() << " worker(s)\n";
 }
 
 void Coordinator::_distributeWork()
@@ -99,30 +88,47 @@ void Coordinator::_distributeWork()
         throw std::runtime_error("Coordinator: cannot read scene file " + _sceneFile);
     std::ostringstream ss;
     ss << file.rdbuf();
-    std::string sceneContent = ss.str();
+    _sceneContent = ss.str();
 
-    int totalNodes = static_cast<int>(_workers.size()) + 1;
-    int rowsPerNode = _imageHeight / totalNodes;
-
-    std::cout << "Dividing " << _imageHeight << " rows across " << totalNodes << " nodes...\n";
-
-    for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
-        int first = i * rowsPerNode;
-        int last  = (i + 1) * rowsPerNode;
-
-        _workers[i].firstRow = first;
-        _workers[i].lastRow  = last;
-
-        AssignPayload payload{sceneContent, first, last, _imageWidth, _imageHeight};
-        _workers[i].socket->send(Message::makeAssign(payload));
-
-        std::cout << "  > Assigned rows " << first << "-" << last
-                  << " to worker " << (i + 1) << " (" << _workers[i].ip << ")\n";
+    // Build queue of CHUNK_SIZE-row chunks
+    for (int row = 0; row < _imageHeight; row += CHUNK_SIZE) {
+        int last = std::min(row + CHUNK_SIZE, _imageHeight);
+        _pendingChunks.push({row, last});
     }
 
-    int coordFirst = rowsPerNode * static_cast<int>(_workers.size());
-    int coordLast  = _imageHeight;
-    std::cout << "  > Rendering rows " << coordFirst << "-" << coordLast << " locally\n";
+    int totalChunks = static_cast<int>(_pendingChunks.size());
+    std::cout << "Image: " << _imageWidth << "x" << _imageHeight
+              << " — " << totalChunks << " chunks of " << CHUNK_SIZE << " rows\n";
+    std::cout << "Assigning first chunks to " << _workers.size() << " worker(s)...\n";
+
+    for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
+        if (_pendingChunks.empty())
+            break;
+        _assignNextChunk(i);
+    }
+}
+
+void Coordinator::_assignNextChunk(int i)
+{
+    auto [first, last] = _pendingChunks.front();
+    _pendingChunks.pop();
+
+    _workers[i].firstRow       = first;
+    _workers[i].lastRow        = last;
+    _workers[i].pixelsReceived = 0;
+
+    if (_workers[i].totalRowsRendered == 0) {
+        // First assignment — send full scene content
+        AssignPayload payload{_sceneContent, first, last, _imageWidth, _imageHeight};
+        _workers[i].socket->send(Message::makeAssign(payload));
+    } else {
+        // Subsequent assignment — send only coords
+        ChunkPayload payload{first, last};
+        _workers[i].socket->send(Message::makeChunk(payload));
+    }
+
+    std::cout << "  > Worker " << (i + 1) << " (" << _workers[i].ip
+              << ") assigned rows " << first << "-" << last << "\n";
 }
 
 void Coordinator::_monitorAndCollect(Image& image)
@@ -140,6 +146,11 @@ void Coordinator::_monitorAndCollect(Image& image)
     }
 
     int doneCount = 0;
+    int chunksCompleted = 0;
+    int totalChunks = static_cast<int>(
+        (_imageHeight + CHUNK_SIZE - 1) / CHUNK_SIZE
+    );
+
     while (doneCount < workerCount) {
         int ready = ::poll(pfds.data(), workerCount, HEARTBEAT_TIMEOUT_MS);
 
@@ -150,8 +161,9 @@ void Coordinator::_monitorAndCollect(Image& image)
                 _workers[i].missedHeartbeats++;
                 if (_workers[i].missedHeartbeats >= 2) {
                     std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                              << ") presumed dead — reassigning chunk\n";
-                    _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                              << ") timed out — re-queuing rows "
+                              << _workers[i].firstRow << "-" << _workers[i].lastRow << "\n";
+                    _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
                     _workers[i].done = true;
                     pfds[i].fd = -1;
                     doneCount++;
@@ -170,7 +182,7 @@ void Coordinator::_monitorAndCollect(Image& image)
             } catch (const std::exception& e) {
                 std::cerr << "Worker " << (i + 1) << " (" << _workers[i].ip
                           << ") connection lost: " << e.what() << "\n";
-                _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
                 _workers[i].done = true;
                 pfds[i].fd = -1;
                 doneCount++;
@@ -181,7 +193,7 @@ void Coordinator::_monitorAndCollect(Image& image)
                 int percent = msg.parseHeartbeat();
                 _workers[i].missedHeartbeats = 0;
                 std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") — " << percent << "% done\n";
+                          << ") — chunk " << percent << "% done\n";
 
             } else if (msg.type == MessageType::PIXELS) {
                 _workers[i].missedHeartbeats = 0;
@@ -198,58 +210,42 @@ void Coordinator::_monitorAndCollect(Image& image)
 
                 int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
                 if (_workers[i].pixelsReceived >= totalChunkPixels) {
-                    _workers[i].socket->send(Message::makeAck());
+                    int rows = _workers[i].lastRow - _workers[i].firstRow;
+                    _workers[i].totalRowsRendered += rows;
+                    chunksCompleted++;
+
                     std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                              << ") — done, all pixels received\n";
-                    _workers[i].done = true;
-                    pfds[i].fd = -1;
-                    doneCount++;
+                              << ") — chunk done ["
+                              << chunksCompleted << "/" << totalChunks << "]\n";
+
+                    if (!_pendingChunks.empty()) {
+                        _assignNextChunk(i);
+                    } else {
+                        _workers[i].socket->send(Message::makeFinish());
+                        _workers[i].done = true;
+                        pfds[i].fd = -1;
+                        doneCount++;
+                        std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
+                                  << ") finished — total rows rendered: "
+                                  << _workers[i].totalRowsRendered << "\n";
+                    }
                 }
 
             } else if (msg.type == MessageType::ABORT) {
                 std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") reported error — reassigning chunk\n";
-                _reassignChunk(image, _workers[i].firstRow, _workers[i].lastRow);
+                          << ") reported error — re-queuing chunk\n";
+                _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
                 _workers[i].done = true;
                 pfds[i].fd = -1;
                 doneCount++;
             }
         }
     }
-}
 
-void Coordinator::_renderLocalChunk(Image& image, int firstRow, int lastRow)
-{
-    std::atomic<int> progress{0};
-    std::atomic<bool> done{false};
-    int totalRows = lastRow - firstRow;
-
-    std::thread progressThread([&]() {
-        while (!done.load()) {
-            std::this_thread::sleep_for(std::chrono::seconds(5));
-            if (done.load())
-                break;
-            int percent = totalRows > 0 ? (progress.load() * 100 / totalRows) : 0;
-            std::cout << "Local — " << percent << "% done\n";
-        }
-    });
-
-    Core core(_sceneFile);
-    core.setProgressTarget(&progress, nullptr);
-    Image slice = core.renderSlice(firstRow, lastRow);
-    done = true;
-    progressThread.join();
-
-    for (int y = firstRow; y < lastRow; ++y) {
-        for (int x = 0; x < _imageWidth; ++x) {
-            image.setPixel(x, y, slice.getPixel(x, y - firstRow));
-        }
+    // Print final summary
+    std::cout << "\n=== Render complete ===\n";
+    for (int i = 0; i < workerCount; ++i) {
+        std::cout << "  Worker " << (i + 1) << " (" << _workers[i].ip
+                  << "): " << _workers[i].totalRowsRendered << " rows\n";
     }
-    std::cout << "Local — 100% done\n";
-}
-
-void Coordinator::_reassignChunk(Image& image, int firstRow, int lastRow)
-{
-    std::cout << "Rendering reassigned chunk (rows " << firstRow << "-" << lastRow << ") locally\n";
-    _renderLocalChunk(image, firstRow, lastRow);
 }
