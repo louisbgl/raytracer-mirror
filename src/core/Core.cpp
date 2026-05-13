@@ -240,7 +240,7 @@ Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
         double lightDistance = light->get_light_data(record.point, lightDir, lightColor);
 
         Ray shadowRay(record.point + record.normal * 1e-4, lightDir);
-        HitRecord shadowRecord;
+        HitRecord shadowRecord(Vec3(0, 0, 0), Vec3(0, 0, 0), 0.0, true, nullptr);
 
         double t = _t_min;
         Vec3 transmittance(1, 1, 1);
@@ -251,6 +251,11 @@ Vec3 Core::_computeLighting(const Ray& ray, const HitRecord& record) const {
             _stats.shadowRaysCast++;
             if (!_scene.world().get_closest_hit(shadowRay, t, lightDistance, shadowRecord))
                 break;
+
+            if (!shadowRecord.front_face) {
+                t = shadowRecord.t + epsilon;
+                continue;
+            }
 
             transmittance *= shadowRecord.material->shadowTransmittance();
 
