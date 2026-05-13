@@ -42,14 +42,15 @@ bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     HitRecord localRecord;
     if (!hitLocal(localRay, localRecord)) return false;
 
-    // 4. Transform hit record back to world space
-    record = localToWorld(localRecord, ray);
+    // 4. Transform hit record back to world space (use temp until validated)
+    HitRecord candidate = localToWorld(localRecord, ray);
 
     // Recompute t in world space to keep ordering consistent after scaling.
-    record.t = dot(record.point - ray.origin(), ray.direction());
+    candidate.t = dot(candidate.point - ray.origin(), ray.direction());
 
-    // 5. Validate t range in world space
-    if (record.t < t_min || record.t > t_max) return false;
+    // 5. Validate t range in world space — write to record only on success
+    if (candidate.t < t_min || candidate.t > t_max) return false;
+    record = candidate;
     return true;
 }
 
