@@ -59,7 +59,6 @@ private:
 
     bool  _loadScene();
     Image _render();
-    void  _renderRows(Image& image, int firstRow, int lastRow, int rowOffset = 0);
     void  _writeOutput(Image& image);
 
     Vec3 _computePixelColor(int x, int y, int width, int height) const;

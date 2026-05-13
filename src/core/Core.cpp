@@ -77,35 +77,35 @@ bool Core::_loadScene() {
     return true;
 }
 
-void Core::_renderRows(Image& image, int firstRow, int lastRow, int rowOffset)
+Image Core::_render()
 {
     const RendererConfig rc = _scene.rendererConfig();
-    int w = _scene.camera().getWidth();
     int h = _scene.camera().getHeight();
-    int rowCount = lastRow - firstRow;
+    int w = _scene.camera().getWidth();
+    Image image(w, h);
 
     int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
-    if (_progressTotal) _progressTotal->store(rowCount);
+    if (_progressTotal) _progressTotal->store(h);
 
-    int thread_rows = rowCount / total_threads;
+    int thread_rows = h / total_threads;
 
     std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
 
     std::vector<std::thread> threads;
     std::unique_ptr<ProgressBar> progbar = nullptr;
     if (_logging)
-        progbar = std::make_unique<ProgressBar>(rowCount);
+        progbar = std::make_unique<ProgressBar>(h);
 
     for (int t = 0; t < total_threads; ++t) {
-        int first = firstRow + t * thread_rows;
-        int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
+        int first_row = t * thread_rows;
+        int last_row  = (t == total_threads - 1) ? h : (t + 1) * thread_rows;
 
-        threads.emplace_back([this, &image, &computePixel, first, last, w, rowOffset, progbar = progbar.get()]() {
-            for (int y = first; y < last; ++y) {
+        threads.emplace_back([this, &image, &computePixel, first_row, last_row, w, progbar = progbar.get()]() {
+            for (int y = first_row; y < last_row; ++y) {
                 if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
                     return;
                 for (int x = 0; x < w; ++x)
-                    image.setPixel(x, y - rowOffset, computePixel(x, y));
+                    image.setPixel(x, y, computePixel(x, y));
                 if (_progressRows)
                     _progressRows->fetch_add(1, std::memory_order_relaxed);
                 if (progbar)
@@ -121,14 +121,7 @@ void Core::_renderRows(Image& image, int firstRow, int lastRow, int rowOffset)
         progbar->finish();
         std::cout << "  Log: " << _logger->path() << std::endl;
     }
-}
 
-Image Core::_render()
-{
-    int h = _scene.camera().getHeight();
-    int w = _scene.camera().getWidth();
-    Image image(w, h);
-    _renderRows(image, 0, h);
     return image;
 }
 
@@ -137,10 +130,39 @@ Image Core::renderSlice(int firstRow, int lastRow)
     if (!_loadScene())
         throw std::runtime_error("renderSlice: failed to load scene");
 
+    const RendererConfig rc = _scene.rendererConfig();
     int w = _scene.camera().getWidth();
-    // Allocate only the rows we need — pixels stored at y=0..(lastRow-firstRow-1)
-    Image slice(w, lastRow - firstRow);
-    _renderRows(slice, firstRow, lastRow, firstRow);
+    int h = _scene.camera().getHeight();
+    int rowCount = lastRow - firstRow;
+    Image slice(w, rowCount);
+
+    int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
+    if (_progressTotal) _progressTotal->store(rowCount);
+
+    int thread_rows = rowCount / total_threads;
+
+    std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
+
+    std::vector<std::thread> threads;
+    for (int t = 0; t < total_threads; ++t) {
+        int first = firstRow + t * thread_rows;
+        int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
+
+        threads.emplace_back([this, &slice, &computePixel, first, last, firstRow, w]() {
+            for (int y = first; y < last; ++y) {
+                if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
+                    return;
+                for (int x = 0; x < w; ++x)
+                    slice.setPixel(x, y - firstRow, computePixel(x, y));
+                if (_progressRows)
+                    _progressRows->fetch_add(1, std::memory_order_relaxed);
+            }
+        });
+    }
+
+    for (auto& thrd : threads)
+        thrd.join();
+
     return slice;
 }
 
