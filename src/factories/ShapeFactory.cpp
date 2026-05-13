@@ -19,6 +19,7 @@ std::unordered_map<std::string, ShapeFactory::ShapeCreator> ShapeFactory::creato
     {"box", _createBox},
     {"torus", _createTorus},
     {"tanglecube", _createTanglecube},
+    {"menger_sponge", _createMengerSponge},
 
     // Infinite shapes
     {"plane", _createPlane},
@@ -299,6 +300,30 @@ std::shared_ptr<IShape> ShapeFactory::_createTanglecube(const libconfig::Setting
         rotation.toCStruct(),
         position.toCStruct(),
         scale,
+        &material
+    ));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createMengerSponge(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    Vec3 rotation = _getRotation(config);
+    Vec3 scale    = _getScale(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    int iterations = static_cast<int>(ConfigUtils::getNumber(config["iterations"]));
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("menger_sponge");
+
+    auto createFunc = reinterpret_cast<IShape* (*)(
+        Vec3C,
+        Vec3C,
+        Vec3C,
+        int,
+        std::shared_ptr<IMaterial>*
+    )>(rawCreateFunc);
+
+    return std::shared_ptr<IShape>(createFunc(
+        rotation.toCStruct(),
+        position.toCStruct(),
+        scale.toCStruct(),
+        iterations,
         &material
     ));
 }

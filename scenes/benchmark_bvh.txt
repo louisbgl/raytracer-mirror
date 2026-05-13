@@ -1,0 +1,71 @@
+renderer:
+{
+    antialiasing = {
+        enabled = false;
+        samples = 4;
+        method = "ssaa";
+    };
+
+    lighting = {
+        ambientColor = { r = 25; g = 25; b = 38; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+    };
+
+    background = {
+        color = { r = 20; g = 20; b = 30; };
+    };
+
+    multithreading = {
+        enabled = true;
+        threads = 0;
+    };
+
+
+    output = "benchmark_bvh.png";
+
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 90.0; z = -35.0; };
+    look_at = { x = 0.0; y = 0.0; z = -35.0; };
+    up = { x = 0.0; y = 0.0; z = -1.0; };
+    fieldOfView = 65.0;
+};
+
+lights:
+{
+    point = (
+        { position = { x =   0.0; y = 50.0; z = -35.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 800.0; },
+        { position = { x = -40.0; y = 30.0; z =   0.0; }; color = { r = 200; g = 220; b = 255; }; intensity = 300.0; },
+        { position = { x =  40.0; y = 30.0; z = -70.0; }; color = { r = 255; g = 220; b = 180; }; intensity = 300.0; }
+    );
+
+    directional = (
+        { direction = { x = -0.3; y = -1.0; z = -0.4; }; color = { r = 255; g = 250; b = 245; }; intensity = 0.4; }
+    );
+};
+
+scenes: (
+    // Row 1 (z = 0)
+    { path = "scenes/gallery_no_lights.txt"; position = { x = -30.0; y = 0.0; z =   0.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =   0.0; y = 0.0; z =   0.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =  30.0; y = 0.0; z =   0.0; }; },
+
+    // Row 2 (z = -22)
+    { path = "scenes/gallery_no_lights.txt"; position = { x = -30.0; y = 0.0; z = -22.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =   0.0; y = 0.0; z = -22.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =  30.0; y = 0.0; z = -22.0; }; },
+
+    // Row 3 (z = -44)
+    { path = "scenes/gallery_no_lights.txt"; position = { x = -30.0; y = 0.0; z = -44.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =   0.0; y = 0.0; z = -44.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =  30.0; y = 0.0; z = -44.0; }; },
+
+    // Row 4 (z = -66)
+    { path = "scenes/gallery_no_lights.txt"; position = { x = -30.0; y = 0.0; z = -66.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =   0.0; y = 0.0; z = -66.0; }; },
+    { path = "scenes/gallery_no_lights.txt"; position = { x =  30.0; y = 0.0; z = -66.0; }; }
+);

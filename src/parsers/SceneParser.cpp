@@ -38,6 +38,7 @@ Scene SceneParser::parse(const std::string& filename) {
     std::set<std::string> loadingStack;
     _parseSubscenes(config, materialMap, world, lights, Matrix4x4::identity(), loadingStack, 0);
 
+    world.build();
     scene.set_world(world);
     for (auto& light : lights) {
         scene.add_light(light);

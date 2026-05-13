@@ -1,0 +1,68 @@
+renderer:
+{
+    output = "output.ppm";
+
+    antialiasing = {
+        enabled = false;
+        method = "ssaa";
+        samples = 4;
+        threshold = 0.1;
+    };
+
+    lighting = {
+        ambientColor = { r = 255; g = 255; b = 255; };
+        ambientMultiplier = 0.3;
+        diffuseMultiplier = 0.7;
+
+        ambientOcclusion = {
+            enabled = false;
+            samples = 16;
+            radius = 5.0;
+        };
+    };
+
+    background = {
+        color = { r = 135; g = 206; b = 235; };
+    };
+
+    toneMapping = {
+        enabled = true;
+        strength = 0.8;
+    };
+};
+
+camera:
+{
+    resolution = { width = 1000; height = 1000; };
+    position = { x = 0.0; y = 1.0; z = -4.0; };
+    look_at = { x = 0.0; y = 0.0; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 60.0;
+};
+
+materials:
+{
+    phong = (
+        { name = "green"; color = { r = 80; g = 200; b = 100; }; shininess = 16.0; }
+    );
+};
+
+shapes:
+{
+    spheres = (
+        { position = { x = -0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "green"; },
+        { position = { x = 0.3; y = 0.0; z = 0.0; }; radius = 0.5; material = "green"; },
+        { position = { x = 0.0; y = 1.5; z = 0.0; }; radius = 0.3; material = "green"; }
+    );
+
+    limited_cylinders = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 0.3; height = 1.5; material = "green"; }
+    );
+};
+
+lights:
+{
+    point = (
+        { position = { x = 0.0; y = 2.0; z = -4.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 30.0; }
+    );
+};

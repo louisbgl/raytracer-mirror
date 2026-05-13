@@ -13,7 +13,6 @@ public:
 private:
     double _majorRadius;
     double _minorRadius;
-    std::shared_ptr<IMaterial> _material;
 
     Vec3 computeNormal(const Vec3& point) const;
 };

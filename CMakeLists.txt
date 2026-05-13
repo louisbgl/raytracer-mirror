@@ -159,7 +159,9 @@ if (WITH_UI)
         src/ui/SceneBrowser.cpp
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
+        src/ui/ToastManager.cpp
         src/watcher/FileWatcher.cpp
+        src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )
     target_link_libraries(raytracer PRIVATE sfml-graphics sfml-window sfml-system)
     target_compile_definitions(raytracer PRIVATE WITH_UI)
@@ -189,6 +191,7 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/tests)
             src/parsers/ObjParser.cpp
             src/plugins/Shapes/MeshTriangle.cpp
             src/watcher/FileWatcher.cpp
+            src/watcher/InotifyWrapper/InotifyEventReader.cpp
         )
 
         target_include_directories(run_tests PRIVATE
@@ -248,6 +251,10 @@ function(add_ashape_plugin PLUGIN_NAME SOURCE_FILE)
     add_raytracer_plugin(${PLUGIN_NAME} shapes ${SOURCE_FILE} ${ARGN} src/core/AShape.cpp src/Math/Matrix4x4.cpp)
 endfunction()
 
+function(add_araymarchedshape_plugin PLUGIN_NAME SOURCE_FILE)
+    add_ashape_plugin(${PLUGIN_NAME} ${SOURCE_FILE} src/core/ARayMarchedShape.cpp src/core/ARayMarchedShape.hpp)
+endfunction()
+
 # Disable deprecated K&R style warnings for Graphics Gems code
 set_source_files_properties(src/external/Roots3And4.c PROPERTIES
     COMPILE_FLAGS "-Wno-deprecated-non-prototype -Wno-old-style-definition"
@@ -273,6 +280,7 @@ add_ashape_plugin(mesh
     src/parsers/ObjParser.cpp
     src/plugins/Shapes/MeshTriangle.cpp
 )
+add_araymarchedshape_plugin(menger_sponge     src/plugins/Shapes/MengerSponge.cpp)
 
 # Infinite shapes (inherit directly from IShape - no AShape needed)
 add_raytracer_plugin(cylinder  shapes src/plugins/Shapes/Cylinder.cpp)
@@ -305,6 +313,7 @@ add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
     DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
     DEPENDS cone limited_cone hourglass limited_hourglass 
+    DEPENDS menger_sponge
     COMMENT "Building all shape plugins..."
 )
 

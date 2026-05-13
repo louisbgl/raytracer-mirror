@@ -1,0 +1,92 @@
+camera:
+{
+    resolution = { width = 1200; height = 1200; };
+    position = { x = 0; y = -50; z = -80; };
+    look_at = { x = 0; y = 0; z = 0; };
+    up = { x = 0; y = -1; z = 0; };
+    fieldOfView = 60.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = false;
+        method = "ssaa";
+        samples = 4;
+    };
+
+    lighting = {
+        ambientColor = { r = 30; g = 30; b = 30; };
+        ambientMultiplier = 0.2;
+        diffuseMultiplier = 0.8;
+    };
+
+    background = {
+        color = { r = 40; g = 40; b = 50; };
+    };
+
+    output = "output.png";
+};
+
+materials:
+{
+    coloreddiffuse = (
+        { name = "white_floor"; color = { r = 200; g = 200; b = 200; }; }
+    );
+
+    phong = (
+        { name = "red"; color = { r = 255; g = 50; b = 50; }; shininess = 32.0; },
+        { name = "orange"; color = { r = 255; g = 150; b = 50; }; shininess = 32.0; },
+        { name = "yellow"; color = { r = 255; g = 255; b = 50; }; shininess = 32.0; },
+        { name = "green"; color = { r = 50; g = 255; b = 50; }; shininess = 32.0; },
+        { name = "cyan"; color = { r = 50; g = 200; b = 255; }; shininess = 32.0; },
+        { name = "blue"; color = { r = 50; g = 100; b = 255; }; shininess = 32.0; },
+        { name = "purple"; color = { r = 200; g = 50; b = 255; }; shininess = 32.0; },
+        { name = "magenta"; color = { r = 255; g = 50; b = 200; }; shininess = 32.0; },
+        { name = "white"; color = { r = 255; g = 255; b = 255; }; shininess = 32.0; }
+    );
+};
+
+shapes:
+{
+    planes = (
+        {
+            position = { x = 0; y = 15; z = 0; };
+            normal = { x = 0; y = -1; z = 0; };
+            material = "white_floor";
+        }
+    );
+
+    boxes = (
+        // Row 1 (back)
+        { position = { x = -20; y = 0; z = 20; }; width = 8; height = 8; depth = 8; material = "red"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 0; y = 0; z = 20; }; width = 8; height = 8; depth = 8; material = "orange"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 20; y = 0; z = 20; }; width = 8; height = 8; depth = 8; material = "yellow"; rotation = { x = 0; y = 0; z = 0; }; },
+
+        // Row 2 (middle)
+        { position = { x = -20; y = 0; z = 0; }; width = 8; height = 8; depth = 8; material = "green"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 0; y = 0; z = 0; }; width = 8; height = 8; depth = 8; material = "cyan"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 20; y = 0; z = 0; }; width = 8; height = 8; depth = 8; material = "blue"; rotation = { x = 0; y = 0; z = 0; }; },
+
+        // Row 3 (front)
+        { position = { x = -20; y = 0; z = -20; }; width = 8; height = 8; depth = 8; material = "purple"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 0; y = 0; z = -20; }; width = 8; height = 8; depth = 8; material = "magenta"; rotation = { x = 0; y = 0; z = 0; }; },
+        { position = { x = 20; y = 0; z = -20; }; width = 8; height = 8; depth = 8; material = "white"; rotation = { x = 0; y = 0; z = 0; }; }
+    );
+};
+
+lights:
+{
+    point = (
+        {
+            position = { x = 0; y = -40; z = -30; };
+            color = { r = 255; g = 255; b = 255; };
+            intensity = 2000;
+        },
+        {
+            position = { x = 30; y = -20; z = 0; };
+            color = { r = 255; g = 255; b = 255; };
+            intensity = 800;
+        }
+    );
+};

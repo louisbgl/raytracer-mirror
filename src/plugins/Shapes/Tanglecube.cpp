@@ -6,7 +6,7 @@
 #include <algorithm>
 
 Tanglecube::Tanglecube(Vec3 rotation, Vec3 translation, double scale, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, Vec3(1, 1, 1)), _scale(scale), _material(material) {}
+    : AShape(rotation, translation, Vec3(1, 1, 1), material), _scale(scale) {}
 
 double Tanglecube::evaluate(double x, double y, double z) const {
     double x_scaled = x / _scale;

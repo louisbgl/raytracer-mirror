@@ -1,0 +1,18 @@
+[scene]     file: scenes/benchmark_bvh.txt
+[scene]     resolution: 1000 x 1000  (1,000,000 pixels)
+[scene]     shapes: 1188   lights: 4   materials: 9
+[camera]    position: (0.00, 90.00, -35.00)
+[camera]    look_at:  (0.00, 0.00, -35.00)   fov: 65.00°
+[renderer]  output: benchmark_bvh.png
+[renderer]  multithreading: enabled (16 threads)
+[renderer]  antialiasing: disabled
+[renderer]  ambient occlusion: disabled
+[renderer]  tone mapping: enabled (ACES luminance, strength: 0.80)
+[renderer]  ambient: Vec3(25, 25, 38)  multiplier: 0.30
+[renderer]  diffuse multiplier: 0.70
+[renderer]  background: Vec3(20, 20, 30)
+[timing]    parse: 354.69ms   render: 126.23ms   write: 42.38ms   total: 523.30ms
+[perf]      time/pixel: 0.13µs   pixels/sec: 7,922,023
+[stats]     shadow rays: 1,302,467   fully occluded: 236,627 (18%)
+[stats]     scatter bounces: 43,988
+[warnings]  none
