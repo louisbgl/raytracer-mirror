@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
+#include <algorithm>
 #include <poll.h>
 #include <unistd.h>
 #include <stdexcept>
@@ -60,7 +62,7 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, 0, false});
+            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, 0, {}, false});
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
                       << " — " << _workers.size() << " worker(s) total\n";
         }
@@ -118,11 +120,10 @@ void Coordinator::_assignNextChunk(int i)
     _workers[i].pixelsReceived = 0;
 
     if (_workers[i].totalRowsRendered == 0) {
-        // First assignment — send full scene content
+        _workers[i].startTime = std::chrono::steady_clock::now();
         AssignPayload payload{_sceneContent, first, last, _imageWidth, _imageHeight};
         _workers[i].socket->send(Message::makeAssign(payload));
     } else {
-        // Subsequent assignment — send only coords
         ChunkPayload payload{first, last};
         _workers[i].socket->send(Message::makeChunk(payload));
     }
@@ -150,6 +151,17 @@ void Coordinator::_monitorAndCollect(Image& image)
     int totalChunks = static_cast<int>(
         (_imageHeight + CHUNK_SIZE - 1) / CHUNK_SIZE
     );
+
+    // Background leaderboard thread — prints every 10s
+    std::atomic<bool> renderDone{false};
+    std::thread leaderboardThread([&]() {
+        while (!renderDone.load()) {
+            std::this_thread::sleep_for(std::chrono::seconds(10));
+            if (renderDone.load())
+                break;
+            _printLeaderboard();
+        }
+    });
 
     while (doneCount < workerCount) {
         int ready = ::poll(pfds.data(), workerCount, HEARTBEAT_TIMEOUT_MS);
@@ -211,7 +223,10 @@ void Coordinator::_monitorAndCollect(Image& image)
                 int totalChunkPixels = _imageWidth * (_workers[i].lastRow - _workers[i].firstRow);
                 if (_workers[i].pixelsReceived >= totalChunkPixels) {
                     int rows = _workers[i].lastRow - _workers[i].firstRow;
-                    _workers[i].totalRowsRendered += rows;
+                    {
+                        std::lock_guard<std::mutex> lock(_statsMutex);
+                        _workers[i].totalRowsRendered += rows;
+                    }
                     chunksCompleted++;
 
                     std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
@@ -242,10 +257,51 @@ void Coordinator::_monitorAndCollect(Image& image)
         }
     }
 
-    // Print final summary
-    std::cout << "\n=== Render complete ===\n";
-    for (int i = 0; i < workerCount; ++i) {
-        std::cout << "  Worker " << (i + 1) << " (" << _workers[i].ip
-                  << "): " << _workers[i].totalRowsRendered << " rows\n";
+    renderDone = true;
+    leaderboardThread.join();
+
+    std::cout << "\n";
+    _printLeaderboard();
+}
+
+void Coordinator::_printLeaderboard() const
+{
+    using namespace std::chrono;
+    auto now = steady_clock::now();
+
+    std::lock_guard<std::mutex> lock(_statsMutex);
+
+    // Build sorted entries
+    struct Entry {
+        int rank;
+        std::string ip;
+        int rows;
+        double rowsPerSec;
+    };
+    std::vector<Entry> entries;
+    for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
+        double elapsed = duration<double>(now - _workers[i].startTime).count();
+        double rps = (elapsed > 0 && _workers[i].totalRowsRendered > 0)
+                     ? _workers[i].totalRowsRendered / elapsed
+                     : 0.0;
+        entries.push_back({i + 1, _workers[i].ip, _workers[i].totalRowsRendered, rps});
     }
+    std::sort(entries.begin(), entries.end(), [](const Entry& a, const Entry& b) {
+        return a.rowsPerSec > b.rowsPerSec;
+    });
+
+    std::cout << "┌─────────────────────────────────────────────────┐\n";
+    std::cout << "│              LEADERBOARD                        │\n";
+    std::cout << "├──────┬──────────────────┬──────────┬────────────┤\n";
+    std::cout << "│ Rank │ Worker IP        │   Rows   │  Rows/sec  │\n";
+    std::cout << "├──────┼──────────────────┼──────────┼────────────┤\n";
+    for (int r = 0; r < static_cast<int>(entries.size()); ++r) {
+        const auto& e = entries[r];
+        std::cout << "│  " << std::setw(3) << (r + 1)
+                  << " │ " << std::setw(16) << std::left << e.ip
+                  << " │ " << std::setw(8) << std::right << e.rows
+                  << " │ " << std::setw(10) << std::fixed << std::setprecision(1) << e.rowsPerSec
+                  << " │\n";
+    }
+    std::cout << "└──────┴──────────────────┴──────────┴────────────┘\n";
 }
