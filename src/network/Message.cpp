@@ -74,14 +74,22 @@ Message Message::makePixels(const std::vector<Vec3>& pixels)
     return {MessageType::PIXELS, payload};
 }
 
-Message Message::makeAck()
-{
-    return {MessageType::ACK, {}};
-}
-
 Message Message::makeAbort()
 {
     return {MessageType::ABORT, {}};
+}
+
+Message Message::makeChunk(const ChunkPayload& data)
+{
+    std::vector<uint8_t> payload;
+    writeInt(payload, data.firstRow);
+    writeInt(payload, data.lastRow);
+    return {MessageType::CHUNK, payload};
+}
+
+Message Message::makeFinish()
+{
+    return {MessageType::FINISH, {}};
 }
 
 // wire format: [type: 1 byte][length: 4 bytes][payload: N bytes]
@@ -146,4 +154,14 @@ std::vector<Vec3> Message::parsePixels() const
         pixels[i] = Vec3(x, y, z);
     }
     return pixels;
+}
+
+ChunkPayload Message::parseChunk() const
+{
+    if (payload.size() < 8)
+        throw std::runtime_error("parseChunk: payload too short");
+    ChunkPayload data;
+    data.firstRow = readInt(payload.data() + 0);
+    data.lastRow  = readInt(payload.data() + 4);
+    return data;
 }

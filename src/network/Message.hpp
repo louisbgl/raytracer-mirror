@@ -7,11 +7,12 @@
 
 enum class MessageType : uint8_t {
     READY     = 0x01,
-    ASSIGN    = 0x02,
+    ASSIGN    = 0x02,  // first assignment: includes scene content + coords
     HEARTBEAT = 0x03,
     PIXELS    = 0x04,
-    ACK       = 0x05,
-    ABORT     = 0x06
+    ABORT     = 0x06,
+    CHUNK     = 0x07,  // subsequent assignments: just firstRow/lastRow
+    FINISH    = 0x08,  // no more work
 };
 
 struct AssignPayload {
@@ -22,6 +23,11 @@ struct AssignPayload {
     int height;
 };
 
+struct ChunkPayload {
+    int firstRow;
+    int lastRow;
+};
+
 struct Message {
     MessageType type;
     std::vector<uint8_t> payload;
@@ -30,8 +36,9 @@ struct Message {
     static Message makeAssign(const AssignPayload& data);
     static Message makeHeartbeat(int progressPercent);
     static Message makePixels(const std::vector<Vec3>& pixels);
-    static Message makeAck();
     static Message makeAbort();
+    static Message makeChunk(const ChunkPayload& data);
+    static Message makeFinish();
 
     std::vector<uint8_t> serialize() const;
     static Message deserialize(const std::vector<uint8_t>& data);
@@ -39,4 +46,5 @@ struct Message {
     AssignPayload parseAssign() const;
     int parseHeartbeat() const;
     std::vector<Vec3> parsePixels() const;
+    ChunkPayload parseChunk() const;
 };
