@@ -3,7 +3,7 @@
 #include <cmath>
 
 Rectangle::Rectangle(Vec3 rotation, Vec3 translation, Vec3 scale, double width, double height, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale), _width(width), _height(height), _material(material) {}
+    : AShape(rotation, translation, scale, material), _width(width), _height(height) {}
 
 bool Rectangle::hitLocal(const Ray& ray, HitRecord& record) const {
     // Rectangle in XY plane at z=0, centered at origin

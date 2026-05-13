@@ -2,12 +2,11 @@
 #include "../PluginMetadata.hpp"
 
 Triangle::Triangle(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale),
+    : AShape(rotation, translation, scale, material),
       _v0(v0),
       _edge1(v1 - v0),
       _edge2(v2 - v0),
-      _normal(normalize(cross(_edge1, _edge2))),
-      _material(material)
+      _normal(normalize(cross(_edge1, _edge2)))
 {
 }
 

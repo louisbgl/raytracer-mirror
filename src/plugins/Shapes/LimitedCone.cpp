@@ -6,7 +6,7 @@
 #include <limits>
 
 LimitedCone::LimitedCone(Vec3 rotation, Vec3 translation, Vec3 scale, double radius, double height, std::shared_ptr<IMaterial> material)
-    : AShape(rotation, translation, scale), _radius(radius), _height(height), _material(material) {}
+    : AShape(rotation, translation, scale, material), _radius(radius), _height(height) {}
 
 bool LimitedCone::hitLocal(const Ray& ray, HitRecord& record) const {
     double closest_t = std::numeric_limits<double>::infinity();

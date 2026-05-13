@@ -63,6 +63,18 @@ public:
      */
     float getFov() const { return _fov; }
 
+    /**
+     *  @brief Sets the width of the camera resolution.
+     *  @param width The new width in pixels.
+     */
+    void setWidth(int width) { _width = width; }
+
+    /**
+     *  @brief Sets the height of the camera resolution.
+     *  @param height The new height in pixels.
+     */
+    void setHeight(int height) { _height = height; }
+
 private:
     int _height;
     int _width;

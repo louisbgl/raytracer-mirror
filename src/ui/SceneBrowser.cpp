@@ -26,15 +26,20 @@ SceneBrowser::Layout SceneBrowser::computeLayout(const sf::RenderWindow& window)
     float wh = static_cast<float>(window.getSize().y);
 
     Layout lo;
-    lo.margin   = std::max(48.f, ww * 0.05f);
-    lo.headerH  = std::max(64.f, wh * 0.1f);
-    lo.footerH  = std::max(80.f, wh * 0.13f);
-    lo.itemH    = std::clamp(wh * 0.055f, 38.f, 58.f);
-    lo.listLeft = lo.margin;
-    lo.listTop  = lo.headerH;
-    lo.listW    = ww - 2.f * lo.margin;
-    lo.listH    = wh - lo.headerH - lo.footerH;
-    lo.footerY  = lo.listTop + lo.listH;
+    lo.margin  = std::max(48.f, ww * 0.05f);
+    lo.headerH = std::max(64.f, wh * 0.1f);
+    lo.footerH = std::max(80.f, wh * 0.13f);
+    lo.itemH   = std::clamp(wh * 0.055f, 38.f, 58.f);
+    lo.listTop = lo.headerH;
+    lo.listH   = wh - lo.headerH - lo.footerH;
+    lo.footerY = lo.listTop + lo.listH;
+
+    float contentW  = ww - 2.f * lo.margin;
+    lo.listLeft    = lo.margin;
+    lo.listW       = contentW * 0.38f;
+    lo.dividerX    = lo.listLeft + lo.listW;
+    lo.previewLeft = lo.dividerX + 1.f;
+    lo.previewW    = ww - lo.margin - lo.previewLeft;
 
     lo.launchW    = std::max(148.f, ww * 0.11f);
     lo.launchH    = std::max(42.f, lo.footerH * 0.5f);
@@ -76,9 +81,13 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
             float y = lo.listTop + static_cast<float>(i) * lo.itemH - _scroll;
             if (y + lo.itemH < lo.listTop || y > lo.listTop + lo.listH) continue;
             if (my < lo.footerY && sf::FloatRect{lo.listLeft, y, lo.listW, lo.itemH}.contains(mx, my)) {
-                _selectedIdx = static_cast<int>(i);
-                _selected    = _scenes[_selectedIdx];
-                hitItem      = true;
+                int newIdx = static_cast<int>(i);
+                if (newIdx != _selectedIdx) {
+                    _selectedIdx = newIdx;
+                    _selected    = _scenes[_selectedIdx];
+                    _sigSelectionChanged = true;
+                }
+                hitItem = true;
                 break;
             }
         }
@@ -87,10 +96,11 @@ void SceneBrowser::handleEvent(const sf::Event& event, const sf::RenderWindow& w
     }
 }
 
-void SceneBrowser::draw(sf::RenderWindow& window) {
+void SceneBrowser::draw(sf::RenderWindow& window, const PixelBuffer* previewBuf) {
     const auto lo = computeLayout(window);
     drawHeader(window, lo);
     drawList(window, lo);
+    drawPreviewPane(window, lo, previewBuf);
     drawFooter(window, lo);
 }
 
@@ -193,6 +203,99 @@ void SceneBrowser::drawItem(sf::RenderWindow& window, const std::string& path,
     text.setOrigin(tb.left, tb.top + tb.height / 2.f);
     text.setPosition(lo.listLeft + (sel ? 20.f : 14.f), y + lo.itemH / 2.f);
     window.draw(text);
+}
+
+void SceneBrowser::drawPreviewPane(sf::RenderWindow& window, const Layout& lo, const PixelBuffer* previewBuf) {
+    // vertical divider
+    sf::RectangleShape divider({1.f, lo.listH});
+    divider.setPosition(lo.dividerX, lo.listTop);
+    divider.setFillColor(COL_BORDER);
+    window.draw(divider);
+
+    // pane background
+    sf::RectangleShape bg({lo.previewW, lo.listH});
+    bg.setPosition(lo.previewLeft, lo.listTop);
+    bg.setFillColor({18, 18, 28});
+    window.draw(bg);
+
+    float cx = lo.previewLeft + lo.previewW / 2.f;
+    float cy = lo.listTop + lo.listH / 2.f;
+
+    if (!hasSelection()) {
+        unsigned sz = static_cast<unsigned>(std::clamp(lo.listH * 0.045f, 14.f, 20.f));
+        sf::Text hint("Select a scene to preview", _font, sz);
+        hint.setFillColor(COL_SUBTEXT);
+        sf::FloatRect hb = hint.getLocalBounds();
+        hint.setOrigin(hb.left + hb.width / 2.f, hb.top + hb.height / 2.f);
+        hint.setPosition(cx, cy);
+        window.draw(hint);
+        return;
+    }
+
+    // scene name header
+    float namePad = std::max(16.f, lo.listH * 0.04f);
+    unsigned nameSz = static_cast<unsigned>(std::clamp(lo.listH * 0.05f, 15.f, 22.f));
+    std::string label = std::filesystem::path(_selected).stem().string();
+    sf::Text name(label, _font, nameSz);
+    name.setFillColor(COL_ACCENT);
+    name.setStyle(sf::Text::Bold);
+    sf::FloatRect nb = name.getLocalBounds();
+    name.setOrigin(nb.left + nb.width / 2.f, nb.top);
+    name.setPosition(cx, lo.listTop + namePad);
+    window.draw(name);
+
+    // image frame bounds
+    float frameMargin = std::max(24.f, lo.previewW * 0.08f);
+    float frameTop    = lo.listTop + namePad + nameSz + namePad;
+    float frameBot    = lo.listTop + lo.listH - frameMargin;
+    float frameW      = lo.previewW - 2.f * frameMargin;
+    float frameH      = frameBot - frameTop;
+    if (frameH <= 20.f) return;
+
+    float frameX = lo.previewLeft + frameMargin;
+
+    // try to upload + draw preview pixels
+    bool hasPixels = false;
+    if (previewBuf && previewBuf->totalRows.load() > 0) {
+        std::lock_guard<std::mutex> lock(const_cast<std::mutex&>(previewBuf->mutex));
+        int pw = previewBuf->width;
+        int ph = previewBuf->height;
+        if (pw > 0 && ph > 0 && static_cast<int>(previewBuf->rgba.size()) == pw * ph * 4) {
+            if (_previewTex.getSize().x != static_cast<unsigned>(pw) ||
+                _previewTex.getSize().y != static_cast<unsigned>(ph))
+                _previewTex.create(pw, ph);
+            _previewTex.update(previewBuf->rgba.data());
+
+            float scaleX = frameW / static_cast<float>(pw);
+            float scaleY = frameH / static_cast<float>(ph);
+            float scale  = std::min(scaleX, scaleY);
+            float imgW   = pw * scale;
+            float imgH   = ph * scale;
+
+            sf::Sprite sprite(_previewTex);
+            sprite.setScale(scale, scale);
+            sprite.setPosition(frameX + (frameW - imgW) / 2.f, frameTop + (frameH - imgH) / 2.f);
+            window.draw(sprite);
+            hasPixels = true;
+        }
+    }
+
+    if (!hasPixels) {
+        sf::RectangleShape frame({frameW, frameH});
+        frame.setPosition(frameX, frameTop);
+        frame.setFillColor({26, 28, 40});
+        frame.setOutlineThickness(1.f);
+        frame.setOutlineColor(COL_BORDER);
+        window.draw(frame);
+
+        unsigned hintSz = static_cast<unsigned>(std::clamp(frameH * 0.07f, 12.f, 16.f));
+        sf::Text ph("rendering preview...", _font, hintSz);
+        ph.setFillColor({60, 60, 80});
+        sf::FloatRect pb = ph.getLocalBounds();
+        ph.setOrigin(pb.left + pb.width / 2.f, pb.top + pb.height / 2.f);
+        ph.setPosition(frameX + frameW / 2.f, frameTop + frameH / 2.f);
+        window.draw(ph);
+    }
 }
 
 void SceneBrowser::drawFooter(sf::RenderWindow& window, const Layout& lo) {

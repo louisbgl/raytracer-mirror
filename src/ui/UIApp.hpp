@@ -28,8 +28,8 @@ public:
 
     int run();
 
-    static constexpr unsigned int WIN_W = 800;
-    static constexpr unsigned int WIN_H = 600;
+    static constexpr unsigned int WIN_W = 1000;
+    static constexpr unsigned int WIN_H = 750;
 
 private:
     void handleEvents();
@@ -46,6 +46,8 @@ private:
 
     void spawnRenderThread();
     void joinRenderThread();
+    void spawnPreviewThread();
+    void cancelPreview();
 
     sf::RenderWindow _window;
     sf::Font         _font;
@@ -64,7 +66,11 @@ private:
     std::atomic<bool> _renderSucceeded{false};
     std::string              _renderErrorMessage;
     std::mutex               _renderErrorMutex;
-    
+
+    PixelBuffer       _previewPixelBuffer;
+    std::thread       _previewThread;
+    std::atomic<bool> _previewCancelFlag{false};
+
     // File watching for auto-reload
     std::unique_ptr<FileWatcher> _fileWatcher;
     std::chrono::steady_clock::time_point _lastWatchCheck;

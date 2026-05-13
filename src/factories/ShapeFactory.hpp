@@ -38,7 +38,7 @@ private:
     static Vec3 _getRotation(const libconfig::Setting& config);
     static Vec3 _getScale(const libconfig::Setting& config);
 
-    // Bounded shapes (AShape - support rotation)
+    // Bounded shapes (AShape - support rotation and scale)
     static std::shared_ptr<IShape> _createSphere           (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createLimitedCylinder  (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createLimitedCone      (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
@@ -47,6 +47,7 @@ private:
     static std::shared_ptr<IShape> _createBox              (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createTorus            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createTanglecube       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createMengerSponge     (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 
     // Infinite shapes (IShape - shape-specific orientation)
     static std::shared_ptr<IShape> _createPlane            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);

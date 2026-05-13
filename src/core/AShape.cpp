@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale) {
+AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_ptr<IMaterial> material) : _material(material) {
     _transform =
         Matrix4x4::translate(translation) * Matrix4x4::rotate(rotation) * Matrix4x4::scale(scale);
     _inverseTransform = _transform.inverse();
@@ -11,7 +11,7 @@ AShape::AShape(Vec3 rotation, Vec3 translation, Vec3 scale) {
     _aabbNeedsUpdate = true;
 }
 
-AShape::AShape(const Matrix4x4& transform) {
+AShape::AShape(const Matrix4x4& transform, std::shared_ptr<IMaterial> material) : _material(material) {
     _transform = transform;
     _inverseTransform = _transform.inverse();
     _normalTransform = _inverseTransform.transposed();
@@ -42,14 +42,15 @@ bool AShape::hit(const Ray& ray, double t_min, double t_max, HitRecord& record) 
     HitRecord localRecord;
     if (!hitLocal(localRay, localRecord)) return false;
 
-    // 4. Transform hit record back to world space
-    record = localToWorld(localRecord, ray);
+    // 4. Transform hit record back to world space (use temp until validated)
+    HitRecord candidate = localToWorld(localRecord, ray);
 
     // Recompute t in world space to keep ordering consistent after scaling.
-    record.t = dot(record.point - ray.origin(), ray.direction());
+    candidate.t = dot(candidate.point - ray.origin(), ray.direction());
 
-    // 5. Validate t range in world space
-    if (record.t < t_min || record.t > t_max) return false;
+    // 5. Validate t range in world space — write to record only on success
+    if (candidate.t < t_min || candidate.t > t_max) return false;
+    record = candidate;
     return true;
 }
 
@@ -77,7 +78,7 @@ HitRecord AShape::localToWorld(const HitRecord& local, const Ray& worldRay) cons
     Vec3 worldNormal = _normalTransform.transformDirection(local.normal);
 
     worldNormal = normalize(worldNormal);
-    HitRecord world(worldPoint, worldNormal, local.t, local.front_face, local.material);
+    HitRecord world(worldPoint, worldNormal, local.t, local.front_face, _material);
 
     world.u = local.u;
     world.v = local.v;

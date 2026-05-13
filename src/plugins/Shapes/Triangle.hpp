@@ -15,6 +15,5 @@ private:
     Vec3 _edge1;
     Vec3 _edge2;
     Vec3 _normal;
-    std::shared_ptr<IMaterial> _material;
     double _epsilon = 1e-8;
 };
