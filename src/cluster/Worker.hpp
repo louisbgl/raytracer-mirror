@@ -13,6 +13,5 @@ private:
     std::string _host;
     int _port;
     std::atomic<int> _progress{0};
-
-    void _sendHeartbeats(int totalRows);
+    std::atomic<int> _totalRowsRendered{0};
 };

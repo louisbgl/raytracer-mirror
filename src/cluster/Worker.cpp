@@ -46,7 +46,17 @@ void Worker::run()
     int firstRow = first.firstRow;
     int lastRow  = first.lastRow;
     int width    = first.width;
-    int totalRowsRendered = 0;
+
+    // Background thread: log total rows rendered every 10 seconds
+    std::atomic<bool> workerDone{false};
+    std::thread logThread([&]() {
+        while (!workerDone.load()) {
+            std::this_thread::sleep_for(std::chrono::seconds(10));
+            if (workerDone.load())
+                break;
+            std::cout << "[progress] Total rows rendered: " << _totalRowsRendered.load() << "\n";
+        }
+    });
 
     // Main render loop — process chunks until FINISH
     while (true) {
@@ -110,8 +120,8 @@ void Worker::run()
             }
         }
 
-        totalRowsRendered += chunkRows;
-        std::cout << "Chunk done — total rows rendered: " << totalRowsRendered << "\n";
+        _totalRowsRendered += chunkRows;
+        std::cout << "Chunk done — total rows rendered so far: " << _totalRowsRendered.load() << "\n";
 
         // Wait for next chunk or finish
         Message response = sock.receive();
@@ -132,5 +142,8 @@ void Worker::run()
         break;
     }
 
+    workerDone = true;
+    logThread.join();
     ::unlink(tempPath.c_str());
+    std::cout << "[done] Total rows rendered: " << _totalRowsRendered.load() << "\n";
 }
