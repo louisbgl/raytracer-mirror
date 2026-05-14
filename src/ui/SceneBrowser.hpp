@@ -37,16 +37,24 @@ private:
     };
 
     Layout computeLayout(const sf::RenderWindow& window) const;
-
     void scan();
     void clampScroll(const Layout& lo);
 
+    // Event handlers
+    void handleScroll(const sf::Event& event, const Layout& lo);
+    void handleMouseMove(const sf::Event& event, const Layout& lo);
+    void handleMouseClick(const sf::Event& event, const Layout& lo);
+
+    // Draw helpers
     void drawHeader(sf::RenderWindow& window, const Layout& lo);
     void drawList(sf::RenderWindow& window, const Layout& lo);
-    void drawItem(sf::RenderWindow& window, const std::string& path,
-                  int idx, float y, const Layout& lo);
+    void drawItem(sf::RenderWindow& window, const std::string& path, int idx, float y, const Layout& lo);
     void drawPreviewPane(sf::RenderWindow& window, const Layout& lo, const PixelBuffer* previewBuf);
+    void drawPreviewBackground(sf::RenderWindow& window, const Layout& lo);
+    void drawPreviewContent(sf::RenderWindow& window, const Layout& lo, const PixelBuffer* previewBuf);
     void drawFooter(sf::RenderWindow& window, const Layout& lo);
+    void drawFooterSelectionInfo(sf::RenderWindow& window, const Layout& lo);
+    void drawLaunchButton(sf::RenderWindow& window, const Layout& lo);
 
     sf::Font& _font;
     std::vector<std::string> _scenes;
