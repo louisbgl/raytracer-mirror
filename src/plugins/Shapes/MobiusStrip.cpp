@@ -12,17 +12,27 @@ double MobiusStrip::distanceEstimator(const Vec3& point) const {
     double r = std::sqrt(point.x() * point.x() + point.z() * point.z());
     double y = point.y();
 
-    double twist_angle = angle * _twists / 2.0;
+    // Twist angle (half-twists)
+    double twist_angle = angle * _twists * 0.5;
     double cos_t = std::cos(twist_angle);
     double sin_t = std::sin(twist_angle);
-    double u = (r - _radius) * cos_t + y * sin_t;
-    double v = -(r - _radius) * sin_t + y * cos_t;
 
+    // Rotate (r - radius, y) to get strip-local coords
+    double u = (r - _radius) * cos_t - y * sin_t;
+    double v = (r - _radius) * sin_t + y * cos_t;
+
+    // Distance to strip bounds
     double dist_width = std::abs(u) - _width * 0.5;
     double dist_thickness = std::abs(v) - _thickness * 0.5;
 
+    // Box SDF in (u,v) space
     Vec3 q(std::max(dist_width, 0.0), std::max(dist_thickness, 0.0), 0.0);
-    return length(q) + std::min(std::max(dist_width, dist_thickness), 0.0);
+    double dist = length(q) + std::min(std::max(dist_width, dist_thickness), 0.0);
+
+    // Scale by Lipschitz bound (compensate for twist stretching)
+    // Higher twists = more stretching = need conservative bound
+    double lipschitz = 1.0 + std::abs(_twists) * 0.5 / _radius;
+    return dist / lipschitz;
 }
 
 AABB MobiusStrip::computeLocalAABB() const {
