@@ -41,7 +41,7 @@ materials:
 shapes:
 {
     mobius_strips = (
-        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 3.0; width = 1.5; thickness = 0.15; twists = 1; material = "strip"; }
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 3.0; width = 1.5; thickness = 0.15; twists = 1; material = "strip"; rotation = { x = 30; y = 0; z = 0; }; }
     );
 };
 
