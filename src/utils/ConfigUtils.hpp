@@ -11,6 +11,13 @@ public:
         }
         return static_cast<double>(setting);
     }
+    
+    static double getNumber(const libconfig::Setting& setting, const char* key, double fallback) {
+        if (setting.exists(key)) {
+            return getNumber(setting[key]);
+        }
+        return fallback;
+    }
 
     static Vec3 parseVec3(const libconfig::Setting& setting, const char* xKey = "x", const char* yKey = "y", const char* zKey = "z") {
         if (setting.exists(xKey) && setting.exists(yKey) && setting.exists(zKey)) {
