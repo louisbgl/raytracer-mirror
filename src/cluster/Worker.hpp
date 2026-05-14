@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ClusterLogger.hpp"
 #include <atomic>
 #include <string>
 
@@ -12,6 +13,6 @@ public:
 private:
     std::string _host;
     int _port;
-    std::atomic<int> _progress{0};
     std::atomic<int> _totalRowsRendered{0};
+    ClusterLogger _log{"worker"};
 };

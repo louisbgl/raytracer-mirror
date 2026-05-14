@@ -18,11 +18,13 @@ void Worker::run()
     std::cout << "Connecting to coordinator at " << _host << ":" << _port << "...\n";
     TcpClient client(_host, _port);
     TcpSocket& sock = client.socket();
-    std::cout << "Connected, waiting for first chunk...\n";
+
+    // Only create the log file after a successful connection
+    std::cout << "Connected. Log: " << _log.path() << "\n";
+    _log.info("worker", "Connected to " + _host + ":" + std::to_string(_port));
 
     sock.send(Message::makeReady());
 
-    // Receive first assignment (includes scene content)
     Message msg = sock.receive();
     if (msg.type == MessageType::ABORT) {
         std::cout << "Coordinator rejected connection. Exiting.\n";
@@ -33,7 +35,6 @@ void Worker::run()
 
     AssignPayload first = msg.parseAssign();
 
-    // Write scene to temp file once — reused for all chunks
     std::string tempPath = "/tmp/raytracer_worker_" + std::to_string(::getpid()) + ".txt";
     {
         std::ofstream tmpFile(tempPath);
@@ -41,62 +42,44 @@ void Worker::run()
             throw std::runtime_error("Worker: cannot create temp scene file");
         tmpFile << first.sceneContent;
     }
-    std::cout << "Scene written to " << tempPath << "\n";
 
     int firstRow = first.firstRow;
     int lastRow  = first.lastRow;
     int width    = first.width;
 
-    // Background thread: log total rows rendered every 10 seconds
     std::atomic<bool> workerDone{false};
     std::thread logThread([&]() {
+        auto last = std::chrono::steady_clock::now();
         while (!workerDone.load()) {
-            std::this_thread::sleep_for(std::chrono::seconds(10));
-            if (workerDone.load())
-                break;
-            std::cout << "[progress] Total rows rendered: " << _totalRowsRendered.load() << "\n";
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            auto now = std::chrono::steady_clock::now();
+            if (std::chrono::duration_cast<std::chrono::seconds>(now - last).count() >= 5) {
+                _log.info("worker", "Rows rendered: " + std::to_string(_totalRowsRendered.load()));
+                last = now;
+            }
         }
     });
 
-    // Main render loop — process chunks until FINISH
     while (true) {
-        std::cout << "Rendering rows " << firstRow << "-" << lastRow << "...\n";
-
-        std::atomic<bool> done{false};
-        std::atomic<bool> renderError{false};
+        _log.info("worker", "Rendering rows " + std::to_string(firstRow) + "-" + std::to_string(lastRow));
+        bool renderError = false;
         std::unique_ptr<Image> result;
 
-        std::thread renderThread([&]() {
-            try {
-                Core core(tempPath);
-                core.setProgressTarget(&_progress, nullptr);
-                result = std::make_unique<Image>(core.renderSlice(firstRow, lastRow));
-            } catch (const std::exception& e) {
-                std::cerr << "Worker: render error: " << e.what() << "\n";
-                renderError = true;
-            }
-            done = true;
-        });
-
-        int totalRows = lastRow - firstRow;
-        while (!done.load()) {
-            std::this_thread::sleep_for(std::chrono::seconds(5));
-            if (done.load())
-                break;
-            int percent = totalRows > 0 ? (_progress.load() * 100 / totalRows) : 0;
-            sock.send(Message::makeHeartbeat(percent));
+        try {
+            Core core(tempPath);
+            result = std::make_unique<Image>(core.renderSlice(firstRow, lastRow));
+        } catch (const std::exception& e) {
+            _log.error("worker", std::string("Render error: ") + e.what());
+            renderError = true;
         }
-
-        renderThread.join();
 
         if (renderError) {
             sock.send(Message::makeAbort());
             break;
         }
 
-        // Send pixels in 1000px chunks
         static constexpr int MAX_PIXELS_PER_MSG = 1000;
-        int chunkRows  = lastRow - firstRow;
+        int chunkRows   = lastRow - firstRow;
         int totalPixels = chunkRows * width;
         int pixelsSent  = 0;
 
@@ -121,29 +104,22 @@ void Worker::run()
         }
 
         _totalRowsRendered += chunkRows;
-        std::cout << "Chunk done — total rows rendered so far: " << _totalRowsRendered.load() << "\n";
 
-        // Wait for next chunk or finish
         Message response = sock.receive();
-
-        if (response.type == MessageType::FINISH) {
-            std::cout << "All work done. Disconnecting.\n";
+        if (response.type == MessageType::FINISH)
             break;
-        }
         if (response.type == MessageType::CHUNK) {
             ChunkPayload next = response.parseChunk();
             firstRow = next.firstRow;
             lastRow  = next.lastRow;
-            _progress.store(0);
             continue;
         }
-
-        std::cerr << "Worker: unexpected message after chunk, stopping.\n";
         break;
     }
 
     workerDone = true;
     logThread.join();
     ::unlink(tempPath.c_str());
-    std::cout << "[done] Total rows rendered: " << _totalRowsRendered.load() << "\n";
+    _log.info("worker", "Done — total rows rendered: " + std::to_string(_totalRowsRendered.load()));
+    std::cout << "Done. Total rows rendered: " << _totalRowsRendered.load() << "\n";
 }
