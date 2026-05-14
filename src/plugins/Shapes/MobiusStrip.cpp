@@ -18,11 +18,11 @@ double MobiusStrip::distanceEstimator(const Vec3& point) const {
     double u = (r - _radius) * cos_t + y * sin_t;
     double v = -(r - _radius) * sin_t + y * cos_t;
 
-    // double dist_radial = std::abs(r - _radius) - _width; // unused for now
     double dist_width = std::abs(u) - _width * 0.5;
     double dist_thickness = std::abs(v) - _thickness * 0.5;
 
-    return std::max(dist_width, dist_thickness);
+    Vec3 q(std::max(dist_width, 0.0), std::max(dist_thickness, 0.0), 0.0);
+    return length(q) + std::min(std::max(dist_width, dist_thickness), 0.0);
 }
 
 AABB MobiusStrip::computeLocalAABB() const {
