@@ -139,6 +139,7 @@ add_executable(raytracer
     src/network/TcpClient.cpp
     src/cluster/Coordinator.cpp
     src/cluster/Worker.cpp
+    src/cluster/ClusterLogger.cpp
 )
 
 target_include_directories(raytracer PRIVATE
