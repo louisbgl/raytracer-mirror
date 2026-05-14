@@ -275,6 +275,7 @@ add_ashape_plugin(mesh
     src/plugins/Shapes/MeshTriangle.cpp
 )
 add_araymarchedshape_plugin(menger_sponge     src/plugins/Shapes/MengerSponge.cpp)
+add_araymarchedshape_plugin(mobius_strip      src/plugins/Shapes/MobiusStrip.cpp)
 
 # Infinite shapes (inherit directly from IShape - no AShape needed)
 add_raytracer_plugin(cylinder  shapes src/plugins/Shapes/Cylinder.cpp)
@@ -306,8 +307,8 @@ file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/plugins/lights)
 add_custom_target(shapes
     DEPENDS sphere cylinder rectangle box limited_cylinder plane tanglecube
     DEPENDS sphere cylinder limited_cylinder rectangle box plane torus
-    DEPENDS cone limited_cone hourglass limited_hourglass 
-    DEPENDS menger_sponge
+    DEPENDS cone limited_cone hourglass limited_hourglass
+    DEPENDS menger_sponge mobius_strip
     COMMENT "Building all shape plugins..."
 )
 
