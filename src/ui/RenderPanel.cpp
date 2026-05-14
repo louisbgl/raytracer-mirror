@@ -1,19 +1,29 @@
 #include "RenderPanel.hpp"
+#include "SFMLHelpers.hpp"
 #include <iomanip>
 #include <sstream>
 
 namespace {
-    const sf::Color COL_HEADER  = {16, 16, 24};
-    const sf::Color COL_ACCENT  = {78, 158, 238};
-    const sf::Color COL_DONE    = {68, 210, 110};
-    const sf::Color COL_TEXT    = sf::Color::White;
-    const sf::Color COL_SUBTEXT = {170, 170, 185};
-    const sf::Color COL_BAR_BG  = {46, 46, 62};
-    const sf::Color COL_BAR_FG  = {58, 138, 218};
-    const sf::Color COL_CANCEL  = {198, 58, 58};
-    const sf::Color COL_BACK    = {38, 158, 78};
-    const sf::Color COL_BORDER  = {52, 52, 70};
+    const sf::Color COL_HEADER     = {16, 16, 24};
+    const sf::Color COL_ACCENT     = {78, 158, 238};
+    const sf::Color COL_DONE       = {68, 210, 110};
+    const sf::Color COL_TEXT       = sf::Color::White;
+    const sf::Color COL_SUBTEXT    = {170, 170, 185};
+    const sf::Color COL_BAR_BG     = {46, 46, 62};
+    const sf::Color COL_BAR_FG     = {58, 138, 218};
+    const sf::Color COL_CANCEL     = {198, 58, 58};
+    const sf::Color COL_BACK       = {38, 158, 78};
+    const sf::Color COL_BORDER     = {52, 52, 70};
+    const sf::Color COL_TOGGLE_ON  = {58, 138, 218};
+    const sf::Color COL_TOGGLE_OFF = {60, 60, 80};
+    const sf::Color COL_OVERLAY    = {0, 0, 0, 160};
+
+    constexpr float CONTROLS_H   = 130.f;
+    constexpr float HEADER_RATIO = 0.1f;
+    constexpr float MIN_HEADER_H = 64.f;
 }
+
+// --- public ------------------------------------------------------------------
 
 RenderPanel::RenderPanel(sf::Font& font) : _font(font) {}
 
@@ -22,13 +32,63 @@ void RenderPanel::setScene(const std::string& path) { _scenePath = path; }
 void RenderPanel::update(const PixelBuffer& buf) {
     _rows  = buf.rowsComplete.load();
     _total = buf.totalRows.load();
+
+    std::lock_guard<std::mutex> lock(buf.mutex);
+    int w = buf.width, h = buf.height;
+    if (w <= 0 || h <= 0 || static_cast<int>(buf.rgba.size()) != w * h * 4)
+        return;
+
+    if (_renderTex.getSize().x != static_cast<unsigned>(w) || _renderTex.getSize().y != static_cast<unsigned>(h)) {
+        _renderTex.create(w, h);
+        _renderSprite.setTexture(_renderTex, true);
+    }
+    _renderTex.update(reinterpret_cast<const sf::Uint8*>(buf.rgba.data()));
+    _hasTexture = true;
 }
 
 void RenderPanel::handleEvent(const sf::Event& event, const sf::RenderWindow& window) {
     if (event.type != sf::Event::MouseButtonPressed) return;
     if (wasClicked(event, window, _cancelRect)) _sigCancel = true;
     if (wasClicked(event, window, _backRect))   _sigBack   = true;
+    if (wasClicked(event, window, _liveRect))   _liveMode  = !_liveMode;
 }
+
+void RenderPanel::drawRendering(sf::RenderWindow& window) {
+    float ww        = static_cast<float>(window.getSize().x);
+    float wh        = static_cast<float>(window.getSize().y);
+    float cx        = ww / 2.f;
+    float headerH   = std::max(MIN_HEADER_H, wh * HEADER_RATIO);
+    float controlsH = CONTROLS_H;
+    float stripY    = wh - controlsH;
+    float imgAreaY  = headerH;
+    float imgAreaH  = wh - headerH - controlsH;
+
+    drawHeader(window, ww, headerH);
+    drawRenderingTitle(window, ww, cx, headerH);
+    drawLiveArea(window, ww, cx, imgAreaY, imgAreaH);
+    drawProgressStrip(window, stripY, ww, controlsH);
+    drawCancelButton(window, ww, stripY, controlsH);
+    drawLiveToggle(window, ww, stripY, controlsH);
+    drawReloadIndicator(window, ww, wh);
+}
+
+void RenderPanel::drawDone(sf::RenderWindow& window) {
+    float ww        = static_cast<float>(window.getSize().x);
+    float wh        = static_cast<float>(window.getSize().y);
+    float cx        = ww / 2.f;
+    float headerH   = std::max(MIN_HEADER_H, wh * HEADER_RATIO);
+    float controlsH = CONTROLS_H;
+    float stripY    = wh - controlsH;
+    float imgAreaY  = headerH;
+    float imgAreaH  = wh - headerH - controlsH;
+
+    drawHeader(window, ww, headerH);
+    drawDoneTitle(window, cx, headerH);
+    drawImageFitted(window, 0.f, imgAreaY, ww, imgAreaH);
+    drawDoneStrip(window, ww, cx, stripY, controlsH);
+}
+
+// --- helpers -----------------------------------------------------------------
 
 void RenderPanel::drawHeader(sf::RenderWindow& window, float ww, float headerH) {
     sf::RectangleShape hdr({ww, headerH});
@@ -40,126 +100,22 @@ void RenderPanel::drawHeader(sf::RenderWindow& window, float ww, float headerH) 
     window.draw(sep);
 }
 
-void RenderPanel::drawRendering(sf::RenderWindow& window) {
-    float ww = static_cast<float>(window.getSize().x);
-    float wh = static_cast<float>(window.getSize().y);
-    float cx = ww / 2.f;
+void RenderPanel::drawImageFitted(sf::RenderWindow& window, float x, float y, float w, float h) {
+    if (!_hasTexture) return;
+    sf::Vector2u ts = _renderTex.getSize();
+    if (ts.x == 0 || ts.y == 0) return;
 
-    float headerH = std::max(64.f, wh * 0.1f);
-    drawHeader(window, ww, headerH);
+    float scaleX = w / static_cast<float>(ts.x);
+    float scaleY = h / static_cast<float>(ts.y);
+    float scale  = std::min(scaleX, scaleY);
+    float drawW  = ts.x * scale;
+    float drawH  = ts.y * scale;
+    float imgX   = x + (w - drawW) / 2.f;
+    float imgY   = y + (h - drawH) / 2.f;
 
-    unsigned titleSz = static_cast<unsigned>(std::clamp(headerH * 0.38f, 18.f, 32.f));
-    sf::Text title("RENDERING", _font, titleSz);
-    title.setStyle(sf::Text::Bold);
-    title.setFillColor(COL_ACCENT);
-    sf::FloatRect tb = title.getLocalBounds();
-    title.setOrigin(tb.left + tb.width / 2.f, tb.top + tb.height / 2.f);
-    title.setPosition(cx, headerH / 2.f);
-    window.draw(title);
-
-    // path (right side)
-    unsigned pathSz = static_cast<unsigned>(std::clamp(headerH * 0.24f, 12.f, 18.f));
-    sf::Text sceneTxt(_scenePath, _font, pathSz);
-    sceneTxt.setFillColor(COL_SUBTEXT);
-    sf::FloatRect sb = sceneTxt.getLocalBounds();
-    sceneTxt.setOrigin(sb.left + sb.width, sb.top + sb.height / 2.f);
-    sceneTxt.setPosition(ww - std::max(48.f, ww * 0.05f), headerH / 2.f);
-    window.draw(sceneTxt);
-
-    // progress bar
-    float contentY  = headerH + (wh - headerH) * 0.3f;
-    float barW      = std::min(ww * 0.65f, 900.f);
-    float barH      = std::clamp(wh * 0.022f, 16.f, 26.f);
-    float barX      = cx - barW / 2.f;
-
-    sf::RectangleShape barBg({barW, barH});
-    barBg.setPosition(barX, contentY);
-    barBg.setFillColor(COL_BAR_BG);
-    barBg.setOutlineThickness(1.f);
-    barBg.setOutlineColor(COL_BORDER);
-    window.draw(barBg);
-
-    float pct = (_total > 0) ? static_cast<float>(_rows) / static_cast<float>(_total) : 0.f;
-    pct = std::clamp(pct, 0.f, 1.f);
-    if (pct > 0.f) {
-        sf::RectangleShape barFill({barW * pct, barH});
-        barFill.setPosition(barX, contentY);
-        barFill.setFillColor(COL_BAR_FG);
-        window.draw(barFill);
-    }
-
-    // percentage
-    unsigned pctSz = static_cast<unsigned>(std::clamp(wh * 0.038f, 22.f, 42.f));
-    std::ostringstream oss;
-    oss << std::fixed << std::setprecision(1) << (pct * 100.f) << "%";
-    sf::Text pctTxt(oss.str(), _font, pctSz);
-    pctTxt.setStyle(sf::Text::Bold);
-    pctTxt.setFillColor(COL_TEXT);
-    sf::FloatRect pb = pctTxt.getLocalBounds();
-    pctTxt.setOrigin(pb.left + pb.width / 2.f, pb.top);
-    pctTxt.setPosition(cx, contentY + barH + std::max(12.f, wh * 0.015f));
-    window.draw(pctTxt);
-
-    // row count
-    unsigned rowSz = static_cast<unsigned>(std::clamp(wh * 0.02f, 13.f, 18.f));
-    sf::Text rowTxt(std::to_string(_rows) + " / " + std::to_string(_total) + " rows", _font, rowSz);
-    rowTxt.setFillColor(COL_SUBTEXT);
-    sf::FloatRect rb = rowTxt.getLocalBounds();
-    rowTxt.setOrigin(rb.left + rb.width / 2.f, rb.top);
-    rowTxt.setPosition(cx, contentY + barH + pctSz + std::max(18.f, wh * 0.022f));
-    window.draw(rowTxt);
-
-    // cancel button
-    float btnW = std::max(130.f, ww * 0.1f);
-    float btnH = std::max(42.f, wh * 0.057f);
-    _cancelRect = {cx - btnW / 2.f, wh * 0.74f, btnW, btnH};
-    drawButton(window, _cancelRect, "Cancel", COL_CANCEL);
-    
-    // reload indicator
-    drawReloadIndicator(window, ww, wh);
-}
-
-void RenderPanel::drawDone(sf::RenderWindow& window) {
-    float ww = static_cast<float>(window.getSize().x);
-    float wh = static_cast<float>(window.getSize().y);
-    float cx = ww / 2.f;
-    float cy = wh / 2.f;
-
-    // header
-    float headerH = std::max(64.f, wh * 0.1f);
-    drawHeader(window, ww, headerH);
-
-    unsigned titleSz = static_cast<unsigned>(std::clamp(headerH * 0.38f, 18.f, 32.f));
-    sf::Text hdrTxt("RENDER COMPLETE", _font, titleSz);
-    hdrTxt.setStyle(sf::Text::Bold);
-    hdrTxt.setFillColor(COL_DONE);
-    sf::FloatRect ht = hdrTxt.getLocalBounds();
-    hdrTxt.setOrigin(ht.left + ht.width / 2.f, ht.top + ht.height / 2.f);
-    hdrTxt.setPosition(cx, headerH / 2.f);
-    window.draw(hdrTxt);
-
-    // Center message
-    unsigned msgSz = static_cast<unsigned>(std::clamp(wh * 0.036f, 20.f, 36.f));
-    sf::Text msg("Render finished successfully.", _font, msgSz);
-    msg.setFillColor(COL_TEXT);
-    sf::FloatRect mb = msg.getLocalBounds();
-    msg.setOrigin(mb.left + mb.width / 2.f, mb.top + mb.height / 2.f);
-    msg.setPosition(cx, cy - wh * 0.06f);
-    window.draw(msg);
-
-    unsigned pathSz = static_cast<unsigned>(std::clamp(wh * 0.02f, 13.f, 18.f));
-    sf::Text pathTxt(_scenePath, _font, pathSz);
-    pathTxt.setFillColor(COL_SUBTEXT);
-    sf::FloatRect pb = pathTxt.getLocalBounds();
-    pathTxt.setOrigin(pb.left + pb.width / 2.f, pb.top);
-    pathTxt.setPosition(cx, cy - wh * 0.06f + msgSz + std::max(10.f, wh * 0.012f));
-    window.draw(pathTxt);
-
-    // Back button
-    float btnW = std::max(160.f, ww * 0.13f);
-    float btnH = std::max(42.f, wh * 0.057f);
-    _backRect = {cx - btnW / 2.f, wh * 0.74f, btnW, btnH};
-    drawButton(window, _backRect, "Back to Browser", COL_BACK);
+    _renderSprite.setScale(scale, scale);
+    _renderSprite.setPosition(imgX, imgY);
+    window.draw(_renderSprite);
 }
 
 void RenderPanel::drawButton(sf::RenderWindow& window, sf::FloatRect rect,
@@ -169,12 +125,10 @@ void RenderPanel::drawButton(sf::RenderWindow& window, sf::FloatRect rect,
     shape.setFillColor(bg);
     window.draw(shape);
 
-    unsigned sz = static_cast<unsigned>(std::clamp(rect.height * 0.42f, 14.f, 20.f));
+    unsigned sz = static_cast<unsigned>(std::clamp(rect.height * 0.42f, 13.f, 20.f));
     sf::Text text(label, _font, sz);
     text.setFillColor(COL_TEXT);
-    sf::FloatRect tb = text.getLocalBounds();
-    text.setOrigin(tb.left + tb.width / 2.f, tb.top + tb.height / 2.f);
-    text.setPosition(rect.left + rect.width / 2.f, rect.top + rect.height / 2.f);
+    sfh::centerXY(text, rect.left + rect.width / 2.f, rect.top + rect.height / 2.f);
     window.draw(text);
 }
 
@@ -185,22 +139,125 @@ bool RenderPanel::wasClicked(const sf::Event& event, const sf::RenderWindow& win
     return rect.contains(pos);
 }
 
+void RenderPanel::drawRenderingTitle(sf::RenderWindow& window, float ww, float cx, float headerH) {
+    unsigned titleSz = static_cast<unsigned>(std::clamp(headerH * 0.38f, 18.f, 32.f));
+    sf::Text title("RENDERING", _font, titleSz);
+    title.setStyle(sf::Text::Bold);
+    title.setFillColor(COL_ACCENT);
+    sfh::centerXY(title, cx, headerH / 2.f);
+    window.draw(title);
+
+    unsigned pathSz = static_cast<unsigned>(std::clamp(headerH * 0.24f, 12.f, 18.f));
+    sf::Text sceneTxt(_scenePath, _font, pathSz);
+    sceneTxt.setFillColor(COL_SUBTEXT);
+    sfh::alignRight(sceneTxt, ww - std::max(48.f, ww * 0.05f), headerH / 2.f);
+    window.draw(sceneTxt);
+}
+
+void RenderPanel::drawLiveArea(sf::RenderWindow& window, float ww, float cx, float imgY, float imgH) {
+    if (_liveMode && _hasTexture) {
+        drawImageFitted(window, 0.f, imgY, ww, imgH);
+    } else if (!_liveMode) {
+        unsigned sz = static_cast<unsigned>(std::clamp(imgH * 0.05f, 18.f, 36.f));
+        sf::Text waitTxt("Render in progress. Live mode is off", _font, sz);
+        waitTxt.setFillColor(COL_SUBTEXT);
+        sfh::centerXY(waitTxt, cx, imgY + imgH / 2.f);
+        window.draw(waitTxt);
+    }
+}
+
+void RenderPanel::drawProgressStrip(sf::RenderWindow& window, float stripY, float ww, float stripH) {
+    float cx = ww / 2.f;
+
+    sf::RectangleShape bg({ww, stripH});
+    bg.setPosition(0.f, stripY);
+    bg.setFillColor(COL_OVERLAY);
+    window.draw(bg);
+
+    float barW = std::min(ww * 0.55f, 700.f);
+    float barH = std::clamp(stripH * 0.18f, 12.f, 22.f);
+    float barX = cx - barW / 2.f;
+    float barY = stripY + stripH * 0.18f;
+
+    sf::RectangleShape barBg({barW, barH});
+    barBg.setPosition(barX, barY);
+    barBg.setFillColor(COL_BAR_BG);
+    barBg.setOutlineThickness(1.f);
+    barBg.setOutlineColor(COL_BORDER);
+    window.draw(barBg);
+
+    float pct = (_total > 0) ? std::clamp(static_cast<float>(_rows) / static_cast<float>(_total), 0.f, 1.f) : 0.f;
+    if (pct > 0.f) {
+        sf::RectangleShape fill({barW * pct, barH});
+        fill.setPosition(barX, barY);
+        fill.setFillColor(COL_BAR_FG);
+        window.draw(fill);
+    }
+
+    std::ostringstream oss;
+    oss << std::fixed << std::setprecision(1) << (pct * 100.f) << "%  ("
+        << _rows << " / " << _total << " rows)";
+    unsigned textSz = static_cast<unsigned>(std::clamp(stripH * 0.16f, 12.f, 17.f));
+    sf::Text info(oss.str(), _font, textSz);
+    info.setFillColor(COL_SUBTEXT);
+    sfh::centerXTop(info, cx, barY + barH + 6.f);
+    window.draw(info);
+}
+
+void RenderPanel::drawCancelButton(sf::RenderWindow& window, float ww, float stripY, float controlsH) {
+    float btnW = std::max(110.f, ww * 0.09f);
+    float btnH = std::max(36.f, controlsH * 0.42f);
+    _cancelRect = {ww - btnW - std::max(24.f, ww * 0.03f), stripY + controlsH * 0.52f, btnW, btnH};
+    drawButton(window, _cancelRect, "Cancel", COL_CANCEL);
+}
+
+void RenderPanel::drawLiveToggle(sf::RenderWindow& window, float ww, float stripY, float controlsH) {
+    float btnW = std::max(110.f, ww * 0.09f);
+    float btnH = std::max(36.f, controlsH * 0.42f);
+    _liveRect = {std::max(24.f, ww * 0.03f), stripY + controlsH * 0.52f, btnW, btnH};
+    drawButton(window, _liveRect, _liveMode ? "Live ON" : "Live OFF",
+               _liveMode ? COL_TOGGLE_ON : COL_TOGGLE_OFF);
+}
+
+void RenderPanel::drawDoneTitle(sf::RenderWindow& window, float cx, float headerH) {
+    unsigned titleSz = static_cast<unsigned>(std::clamp(headerH * 0.38f, 18.f, 32.f));
+    sf::Text title("RENDER COMPLETE", _font, titleSz);
+    title.setStyle(sf::Text::Bold);
+    title.setFillColor(COL_DONE);
+    sfh::centerXY(title, cx, headerH / 2.f);
+    window.draw(title);
+}
+
+void RenderPanel::drawDoneStrip(sf::RenderWindow& window, float ww, float cx, float stripY, float controlsH) {
+    sf::RectangleShape bg({ww, controlsH});
+    bg.setPosition(0.f, stripY);
+    bg.setFillColor(COL_OVERLAY);
+    window.draw(bg);
+
+    unsigned pathSz = static_cast<unsigned>(std::clamp(controlsH * 0.16f, 12.f, 17.f));
+    sf::Text pathTxt(_scenePath, _font, pathSz);
+    pathTxt.setFillColor(COL_SUBTEXT);
+    sfh::centerXTop(pathTxt, cx, stripY + controlsH * 0.14f);
+    window.draw(pathTxt);
+
+    float btnW = std::max(160.f, ww * 0.13f);
+    float btnH = std::max(38.f, controlsH * 0.42f);
+    _backRect = {cx - btnW / 2.f, stripY + controlsH * 0.52f, btnW, btnH};
+    drawButton(window, _backRect, "Back to Browser", COL_BACK);
+}
+
 void RenderPanel::drawReloadIndicator(sf::RenderWindow& window, float ww, float wh) {
     if (!_showReloadIndicator) return;
-    
-    // Draw a pulsing indicator at the top-right corner
+
     float indicatorSize = std::clamp(wh * 0.025f, 12.f, 20.f);
     sf::CircleShape indicator(indicatorSize);
     indicator.setFillColor(sf::Color::Yellow);
     indicator.setPosition(ww - indicatorSize * 3.f, indicatorSize);
     window.draw(indicator);
-    
-    // Label next to indicator
+
     unsigned labelSz = static_cast<unsigned>(std::clamp(wh * 0.018f, 11.f, 16.f));
     sf::Text label("RELOADING", _font, labelSz);
     label.setFillColor(sf::Color::Yellow);
-    sf::FloatRect lb = label.getLocalBounds();
-    label.setOrigin(lb.left + lb.width, lb.top + lb.height / 2.f);
-    label.setPosition(ww - indicatorSize * 5.5f, indicatorSize * 2.f);
+    sfh::alignRight(label, ww - indicatorSize * 5.5f, indicatorSize * 2.f);
     window.draw(label);
 }

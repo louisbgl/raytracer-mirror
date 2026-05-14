@@ -22,11 +22,10 @@ void PixelBuffer::reset() {
     done.store(false);
 }
 
-void PixelBuffer::setRow(int y, const sf::Uint8* rowRgba, int rowBytes) {
+void PixelBuffer::setRow(int y, const uint8_t* rowRgba, int rowBytes) {
     std::lock_guard<std::mutex> lock(mutex);
     if (y < 0 || y >= height || rowBytes < width * 4) {
         return;
     }
     std::copy(rowRgba, rowRgba + width * 4, rgba.begin() + y * width * 4);
-    rowsComplete.fetch_add(1);
 }
