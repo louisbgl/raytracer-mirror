@@ -18,20 +18,52 @@ Coordinator::Coordinator(const std::string& sceneFile)
 
 void Coordinator::run()
 {
+    std::cout << "Log: " << _log.path() << "\n";
+    _log.info("coordinator", "Coordinator started on port " + std::to_string(COORDINATOR_PORT));
+
     _waitForWorkers();
     _distributeWork();
 
     Image image(_imageWidth, _imageHeight);
 
+    _renderStart = std::chrono::steady_clock::now();
+
+    std::thread localThread([&]() { _renderLocalChunks(image); });
+
+    std::atomic<bool> renderDone{false};
+    std::thread dashThread([&]() {
+        while (!renderDone.load()) {
+            _drawDashboard();
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
+    });
+
     try {
         _monitorAndCollect(image);
     } catch (const std::exception& e) {
-        std::cerr << "Monitor error: " << e.what() << "\n";
+        _log.error("coordinator", std::string("Monitor error: ") + e.what());
     }
 
-    std::cout << "Assembling final image...\n";
+    localThread.join();
+    renderDone = true;
+    dashThread.join();
+    _drawDashboard();
+    auto elapsed = std::chrono::duration<double>(std::chrono::steady_clock::now() - _renderStart).count();
+    int mins = static_cast<int>(elapsed) / 60;
+    double secs = elapsed - mins * 60;
+
+    std::cout << "Render time: ";
+    if (mins > 0)
+        std::cout << mins << "m ";
+    std::cout << std::fixed << std::setprecision(2) << secs << "s\n";
+
+    std::ostringstream timeStr;
+    if (mins > 0) timeStr << mins << "m ";
+    timeStr << std::fixed << std::setprecision(2) << secs << "s";
+    _log.info("coordinator", "Render time: " + timeStr.str());
+
     image.writeFile("output.ppm");
-    std::cout << "Image saved to output.ppm\n";
+    _log.info("coordinator", "Image saved to output.ppm");
 }
 
 void Coordinator::_waitForWorkers()
@@ -62,9 +94,13 @@ void Coordinator::_waitForWorkers()
                 continue;
             }
 
-            _workers.push_back({std::move(socket), ip, 0, 0, 0, 0, 0, {}, false});
+            WorkerInfo w;
+            w.socket = std::move(socket);
+            w.ip     = ip;
+            _workers.push_back(std::move(w));
             std::cout << "> Worker " << _workers.size() << " connected (" << ip << ")"
                       << " — " << _workers.size() << " worker(s) total\n";
+            _log.info(ip, "Worker connected (" + std::to_string(_workers.size()) + " total)");
         }
 
         if (pfds[1].revents & POLLIN) {
@@ -75,6 +111,7 @@ void Coordinator::_waitForWorkers()
     }
 
     std::cout << "Starting render with " << _workers.size() << " worker(s)\n";
+    _log.info("coordinator", "Starting render with " + std::to_string(_workers.size()) + " worker(s)");
 }
 
 void Coordinator::_distributeWork()
@@ -98,20 +135,26 @@ void Coordinator::_distributeWork()
         _pendingChunks.push({row, last});
     }
 
-    int totalChunks = static_cast<int>(_pendingChunks.size());
+    _totalChunks = static_cast<int>(_pendingChunks.size());
     std::cout << "Image: " << _imageWidth << "x" << _imageHeight
-              << " — " << totalChunks << " chunks of " << CHUNK_SIZE << " rows\n";
+              << " — " << _totalChunks << " chunks of " << CHUNK_SIZE << " rows\n";
     std::cout << "Assigning first chunks to " << _workers.size() << " worker(s)...\n";
 
     for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
-        if (_pendingChunks.empty())
-            break;
-        _assignNextChunk(i);
+        if (!_pendingChunks.empty()) {
+            _assignNextChunk(i);
+        } else {
+            // No chunks left — send FINISH immediately so this worker doesn't hang
+            _workers[i].socket->send(Message::makeFinish());
+            _workers[i].done = true;
+            _log.info(_workers[i].ip, "No chunks available, sent FINISH immediately");
+        }
     }
 }
 
 void Coordinator::_assignNextChunk(int i)
 {
+    std::lock_guard<std::mutex> lock(_chunksMutex);
     auto [first, last] = _pendingChunks.front();
     _pendingChunks.pop();
 
@@ -128,8 +171,6 @@ void Coordinator::_assignNextChunk(int i)
         _workers[i].socket->send(Message::makeChunk(payload));
     }
 
-    std::cout << "  > Worker " << (i + 1) << " (" << _workers[i].ip
-              << ") assigned rows " << first << "-" << last << "\n";
 }
 
 void Coordinator::_monitorAndCollect(Image& image)
@@ -141,27 +182,16 @@ void Coordinator::_monitorAndCollect(Image& image)
         return;
 
     std::vector<struct pollfd> pfds(workerCount);
-    for (int i = 0; i < workerCount; ++i) {
-        pfds[i].fd     = _workers[i].socket->fd();
-        pfds[i].events = POLLIN;
-    }
-
     int doneCount = 0;
-    int chunksCompleted = 0;
-    int totalChunks = static_cast<int>(
-        (_imageHeight + CHUNK_SIZE - 1) / CHUNK_SIZE
-    );
-
-    // Background leaderboard thread — prints every 10s
-    std::atomic<bool> renderDone{false};
-    std::thread leaderboardThread([&]() {
-        while (!renderDone.load()) {
-            std::this_thread::sleep_for(std::chrono::seconds(10));
-            if (renderDone.load())
-                break;
-            _printLeaderboard();
+    for (int i = 0; i < workerCount; ++i) {
+        if (_workers[i].done) {
+            pfds[i].fd = -1;
+            doneCount++;
+        } else {
+            pfds[i].fd     = _workers[i].socket->fd();
+            pfds[i].events = POLLIN;
         }
-    });
+    }
 
     while (doneCount < workerCount) {
         int ready = ::poll(pfds.data(), workerCount, HEARTBEAT_TIMEOUT_MS);
@@ -172,10 +202,9 @@ void Coordinator::_monitorAndCollect(Image& image)
                     continue;
                 _workers[i].missedHeartbeats++;
                 if (_workers[i].missedHeartbeats >= 2) {
-                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                              << ") timed out — re-queuing rows "
-                              << _workers[i].firstRow << "-" << _workers[i].lastRow << "\n";
-                    _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
+                    _log.warn(_workers[i].ip, "Timed out — re-queuing rows "
+                        + std::to_string(_workers[i].firstRow) + "-" + std::to_string(_workers[i].lastRow));
+                    { std::lock_guard<std::mutex> lock(_chunksMutex); _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow}); }
                     _workers[i].done = true;
                     pfds[i].fd = -1;
                     doneCount++;
@@ -192,9 +221,10 @@ void Coordinator::_monitorAndCollect(Image& image)
             try {
                 msg = _workers[i].socket->receive();
             } catch (const std::exception& e) {
-                std::cerr << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") connection lost: " << e.what() << "\n";
-                _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
+                _log.error(_workers[i].ip, std::string("Connection lost: ") + e.what()
+                    + " — re-queuing rows " + std::to_string(_workers[i].firstRow)
+                    + "-" + std::to_string(_workers[i].lastRow));
+                { std::lock_guard<std::mutex> lock(_chunksMutex); _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow}); }
                 _workers[i].done = true;
                 pfds[i].fd = -1;
                 doneCount++;
@@ -202,10 +232,7 @@ void Coordinator::_monitorAndCollect(Image& image)
             }
 
             if (msg.type == MessageType::HEARTBEAT) {
-                int percent = msg.parseHeartbeat();
                 _workers[i].missedHeartbeats = 0;
-                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") — chunk " << percent << "% done\n";
 
             } else if (msg.type == MessageType::PIXELS) {
                 _workers[i].missedHeartbeats = 0;
@@ -227,29 +254,30 @@ void Coordinator::_monitorAndCollect(Image& image)
                         std::lock_guard<std::mutex> lock(_statsMutex);
                         _workers[i].totalRowsRendered += rows;
                     }
-                    chunksCompleted++;
+                    _chunksCompleted++;
 
-                    std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                              << ") — chunk done ["
-                              << chunksCompleted << "/" << totalChunks << "]\n";
-
-                    if (!_pendingChunks.empty()) {
+                    bool hasMore;
+                    {
+                        std::lock_guard<std::mutex> lock(_chunksMutex);
+                        hasMore = !_pendingChunks.empty();
+                    }
+                    if (hasMore) {
                         _assignNextChunk(i);
                     } else {
                         _workers[i].socket->send(Message::makeFinish());
                         _workers[i].done = true;
                         pfds[i].fd = -1;
                         doneCount++;
-                        std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                                  << ") finished — total rows rendered: "
-                                  << _workers[i].totalRowsRendered << "\n";
+                        _log.info(_workers[i].ip, "All work done — total rows: "
+                            + std::to_string(_workers[i].totalRowsRendered));
                     }
                 }
 
             } else if (msg.type == MessageType::ABORT) {
-                std::cout << "Worker " << (i + 1) << " (" << _workers[i].ip
-                          << ") reported error — re-queuing chunk\n";
-                _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow});
+                _log.error(_workers[i].ip, "Render error — re-queuing rows "
+                    + std::to_string(_workers[i].firstRow) + "-"
+                    + std::to_string(_workers[i].lastRow));
+                { std::lock_guard<std::mutex> lock(_chunksMutex); _pendingChunks.push({_workers[i].firstRow, _workers[i].lastRow}); }
                 _workers[i].done = true;
                 pfds[i].fd = -1;
                 doneCount++;
@@ -257,51 +285,113 @@ void Coordinator::_monitorAndCollect(Image& image)
         }
     }
 
-    renderDone = true;
-    leaderboardThread.join();
-
-    std::cout << "\n";
-    _printLeaderboard();
+    _log.info("coordinator", "=== Render complete — " + std::to_string(_workers.size()) + " worker(s) ===");
 }
 
-void Coordinator::_printLeaderboard() const
+void Coordinator::_renderLocalChunks(Image& image)
+{
+    while (true) {
+        int first = 0, last = 0;
+        {
+            std::lock_guard<std::mutex> lock(_chunksMutex);
+            if (_pendingChunks.empty())
+                break;
+            auto [f, l] = _pendingChunks.front();
+            _pendingChunks.pop();
+            first = f;
+            last  = l;
+        }
+
+        try {
+            Core core(_sceneFile);
+            Image slice = core.renderSlice(first, last);
+            for (int y = first; y < last; ++y)
+                for (int x = 0; x < _imageWidth; ++x)
+                    image.setPixel(x, y, slice.getPixel(x, y - first));
+        } catch (const std::exception& e) {
+            _log.error("local", std::string("Render error: ") + e.what());
+            std::lock_guard<std::mutex> lock(_chunksMutex);
+            _pendingChunks.push({first, last});
+            continue;
+        }
+
+        {
+            std::lock_guard<std::mutex> lock(_statsMutex);
+            _coordinatorRowsRendered += (last - first);
+        }
+        _chunksCompleted++;
+    }
+}
+
+void Coordinator::_drawDashboard() const
 {
     using namespace std::chrono;
-    auto now = steady_clock::now();
+    auto now     = steady_clock::now();
+    double elapsed = duration<double>(now - _renderStart).count();
+    int mins   = static_cast<int>(elapsed) / 60;
+    double secs = elapsed - mins * 60;
 
-    std::lock_guard<std::mutex> lock(_statsMutex);
+    int completed = _chunksCompleted.load();
+    int total     = _totalChunks;
+    double pct    = total > 0 ? (double)completed / total : 0.0;
 
-    // Build sorted entries
-    struct Entry {
-        int rank;
-        std::string ip;
-        int rows;
-        double rowsPerSec;
-    };
+    // Build progress bar (30 chars wide)
+    static constexpr int BAR_WIDTH = 30;
+    int filled = static_cast<int>(pct * BAR_WIDTH);
+    std::string bar;
+    bar.reserve(BAR_WIDTH * 3); // UTF-8: each block char is 3 bytes
+    for (int i = 0; i < BAR_WIDTH; ++i)
+        bar += (i < filled) ? "█" : "░";
+
+    // Build sorted leaderboard entries
+    struct Entry { std::string ip; int rows; double rps; };
     std::vector<Entry> entries;
-    for (int i = 0; i < static_cast<int>(_workers.size()); ++i) {
-        double elapsed = duration<double>(now - _workers[i].startTime).count();
-        double rps = (elapsed > 0 && _workers[i].totalRowsRendered > 0)
-                     ? _workers[i].totalRowsRendered / elapsed
-                     : 0.0;
-        entries.push_back({i + 1, _workers[i].ip, _workers[i].totalRowsRendered, rps});
+    {
+        std::lock_guard<std::mutex> lock(_statsMutex);
+        for (const auto& w : _workers) {
+            double e = duration<double>(now - w.startTime).count();
+            double rps = (e > 0 && w.totalRowsRendered > 0) ? w.totalRowsRendered / e : 0.0;
+            entries.push_back({w.ip, w.totalRowsRendered, rps});
+        }
     }
     std::sort(entries.begin(), entries.end(), [](const Entry& a, const Entry& b) {
-        return a.rowsPerSec > b.rowsPerSec;
+        return a.rps > b.rps;
     });
 
-    std::cout << "┌─────────────────────────────────────────────────┐\n";
-    std::cout << "│              LEADERBOARD                        │\n";
-    std::cout << "├──────┬──────────────────┬──────────┬────────────┤\n";
-    std::cout << "│ Rank │ Worker IP        │   Rows   │  Rows/sec  │\n";
-    std::cout << "├──────┼──────────────────┼──────────┼────────────┤\n";
+    // Clear screen and redraw from top
+    std::cout << "\033[2J\033[H";
+    std::cout << "┌──────────────────────────────────────────────────────┐\n";
+    std::cout << "│           RAYTRACER CLUSTER RENDER                   │\n";
+    std::cout << "├──────────────────────────────────────────────────────┤\n";
+    std::cout << "│  [" << bar << "] "
+              << std::setw(3) << static_cast<int>(pct * 100) << "%"
+              << "  (" << completed << "/" << total << " chunks)"
+              << std::string(3, ' ') << "│\n";
+    std::cout << "├──────┬──────────────────┬──────────┬─────────────────┤\n";
+    std::cout << "│ Rank │ Worker IP        │   Rows   │    Rows/sec     │\n";
+    std::cout << "├──────┼──────────────────┼──────────┼─────────────────┤\n";
+    // Add coordinator as a regular entry
+    {
+        double localElapsed = duration<double>(now - _renderStart).count();
+        double localRps = (localElapsed > 0 && _coordinatorRowsRendered.load() > 0)
+                          ? _coordinatorRowsRendered.load() / localElapsed : 0.0;
+        entries.push_back({"local", _coordinatorRowsRendered.load(), localRps});
+        std::sort(entries.begin(), entries.end(), [](const Entry& a, const Entry& b) {
+            return a.rps > b.rps;
+        });
+    }
     for (int r = 0; r < static_cast<int>(entries.size()); ++r) {
         const auto& e = entries[r];
         std::cout << "│  " << std::setw(3) << (r + 1)
-                  << " │ " << std::setw(16) << std::left << e.ip
-                  << " │ " << std::setw(8) << std::right << e.rows
-                  << " │ " << std::setw(10) << std::fixed << std::setprecision(1) << e.rowsPerSec
-                  << " │\n";
+                  << " │ " << std::setw(16) << std::left  << e.ip
+                  << " │ " << std::setw(8)  << std::right << e.rows
+                  << " │ " << std::setw(13) << std::fixed << std::setprecision(1) << e.rps
+                  << "   │\n";
     }
-    std::cout << "└──────┴──────────────────┴──────────┴────────────┘\n";
+    std::cout << "└──────┴──────────────────┴──────────┴─────────────────┘\n";
+    std::cout << "  Elapsed: ";
+    if (mins > 0) std::cout << mins << "m ";
+    std::cout << std::fixed << std::setprecision(1) << secs << "s"
+              << "    Log: " << _log.path() << "\n";
+    std::cout.flush();
 }
