@@ -9,23 +9,28 @@ JuliaSet3D::JuliaSet3D(Vec3 rotation, Vec3 translation, Vec3 scale, std::shared_
 double JuliaSet3D::distanceEstimator(const Vec3& point) const {
     Vec3 z = point;
     double dr = 1.0;
-    
+    double r = 0.0;
+
     for (int i = 0; i < _iterations; ++i) {
-        double r = length(z);
+        r = length(z);
         if (r > _bailout) break;
 
-        // To spherical coords
-        double theta = std::acos(std::clamp(z.z() / r, -1.0, 1.0));
+        // Detect interior points (trapped in attractor)
+        if (r < 0.0001) return 0.0;
+
+        // To spherical coords (add epsilon for numerical stability)
+        double r_safe = r + 1e-10;
+        double theta = std::acos(std::clamp(z.z() / r_safe, -1.0, 1.0));
         double phi = std::atan2(z.y(), z.x());
 
         // Derivative : dr = r^(power-1) * power * dr + 1
-        dr = std::pow(r, _power - 1.0) * _power * dr + 1.0;
-        
+        dr = std::pow(r_safe, _power - 1.0) * _power * dr + 1.0;
+
         // z = z^power + c in quaternion space
-        double zr = std::pow(r, _power);
+        double zr = std::pow(r_safe, _power);
         theta *= _power;
         phi *= _power;
-        
+
         // Back to cartesian coordinates
         double sinTheta = std::sin(theta);
         z = Vec3(
@@ -36,8 +41,11 @@ double JuliaSet3D::distanceEstimator(const Vec3& point) const {
     }
 
     // Distance estimate: 0.5 * log(r) * r / dr
-    double r = length(z);
-    return 0.5 * std::log(r) * r / dr;
+    dr = std::max(dr, 0.1);
+    double dist = 0.5 * std::log(r) * r / dr;
+
+    // Conservative multiplier for safety (lower = safer, slower)
+    return std::max(dist * 0.9, 0.00001);
 }
 
 AABB JuliaSet3D::computeLocalAABB() const {
