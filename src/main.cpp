@@ -5,12 +5,11 @@
 #include "utils/clap/ClapExceptions.hpp"
 #include "cluster/Coordinator.hpp"
 #include "cluster/Worker.hpp"
+#include <string>
 
 #ifdef WITH_UI
 #include "ui/UIApp.hpp"
 #endif
-
-#include <string>
 
 enum class RunMode { ShowUsage, LaunchUI, RunCLI, RunCoordinator, RunWorker, Error };
 
