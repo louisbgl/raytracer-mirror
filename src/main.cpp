@@ -99,9 +99,13 @@ static int runWorker(const Args& args) {
         std::cerr << "Error: --worker expects ip:port format\n";
         return 84;
     }
-    std::string host = addr.substr(0, colon);
-    int port = std::stoi(addr.substr(colon + 1));
     try {
+        std::string host = addr.substr(0, colon);
+        int port = std::stoi(addr.substr(colon + 1));
+        if (port <= 0 || port > 65535) {
+            std::cerr << "Error: port must be between 1 and 65535\n";
+            return 84;
+        }
         Worker worker(host, port);
         worker.run();
         return 0;

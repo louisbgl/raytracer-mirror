@@ -1,6 +1,7 @@
 #include "Core.hpp"
 #include "RenderSampler.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <memory>
