@@ -342,14 +342,19 @@ void Coordinator::_drawDashboard() const
         bar += (i < filled) ? "█" : "░";
 
     // Build sorted leaderboard entries
-    struct Entry { std::string ip; int rows; double rps; };
+    struct Entry {
+        std::string ip;
+        int rows;
+        double rps;
+        Entry(std::string ip_, int rows_, double rps_) : ip(std::move(ip_)), rows(rows_), rps(rps_) {}
+    };
     std::vector<Entry> entries;
     {
         std::lock_guard<std::mutex> lock(_statsMutex);
         for (const auto& w : _workers) {
             double e = duration<double>(now - w.startTime).count();
             double rps = (e > 0 && w.totalRowsRendered > 0) ? w.totalRowsRendered / e : 0.0;
-            entries.push_back({w.ip, w.totalRowsRendered, rps});
+            entries.push_back(Entry{w.ip, w.totalRowsRendered, rps});
         }
     }
     std::sort(entries.begin(), entries.end(), [](const Entry& a, const Entry& b) {
@@ -373,7 +378,7 @@ void Coordinator::_drawDashboard() const
         double localElapsed = duration<double>(now - _renderStart).count();
         double localRps = (localElapsed > 0 && _coordinatorRowsRendered.load() > 0)
                           ? _coordinatorRowsRendered.load() / localElapsed : 0.0;
-        entries.push_back({"local", _coordinatorRowsRendered.load(), localRps});
+        entries.push_back(Entry{"local", _coordinatorRowsRendered.load(), localRps});
         std::sort(entries.begin(), entries.end(), [](const Entry& a, const Entry& b) {
             return a.rps > b.rps;
         });
