@@ -79,9 +79,7 @@ void Worker::run()
         }
 
         static constexpr int MAX_PIXELS_PER_MSG = 1000;
-        int chunkRows   = lastRow - firstRow;
-        int totalPixels = chunkRows * width;
-        int pixelsSent  = 0;
+        int chunkRows = lastRow - firstRow;
 
         for (int y = firstRow; y < lastRow; ++y) {
             int xStart = 0;
@@ -92,14 +90,7 @@ void Worker::run()
                 for (int x = xStart; x < xEnd; ++x)
                     pixels.push_back(result->getPixel(x, y - firstRow));
                 sock.send(Message::makePixels(pixels));
-                pixelsSent += xEnd - xStart;
                 xStart = xEnd;
-            }
-
-            int rowsSent = y - firstRow + 1;
-            if (rowsSent % 5 == 0) {
-                int percent = totalPixels > 0 ? (pixelsSent * 100 / totalPixels) : 100;
-                sock.send(Message::makeHeartbeat(percent));
             }
         }
 

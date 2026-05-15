@@ -35,6 +35,7 @@ public:
 private:
     std::string _sceneFile;
     std::string _sceneContent;
+    std::string _outputFile;
     std::vector<WorkerInfo> _workers;
     std::queue<std::pair<int, int>> _pendingChunks;
     mutable std::mutex _statsMutex;

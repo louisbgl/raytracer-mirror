@@ -62,8 +62,8 @@ void Coordinator::run()
     timeStr << std::fixed << std::setprecision(2) << secs << "s";
     _log.info("coordinator", "Render time: " + timeStr.str());
 
-    image.writeFile("output.ppm");
-    _log.info("coordinator", "Image saved to output.ppm");
+    image.writeFile(_outputFile);
+    _log.info("coordinator", "Image saved to " + _outputFile);
 }
 
 void Coordinator::_waitForWorkers()
@@ -121,6 +121,7 @@ void Coordinator::_distributeWork()
         throw std::runtime_error("Coordinator: failed to load scene");
     _imageWidth  = core.sceneWidth();
     _imageHeight = core.sceneHeight();
+    _outputFile  = core.outputFile();
 
     std::ifstream file(_sceneFile);
     if (!file.is_open())
@@ -231,10 +232,7 @@ void Coordinator::_monitorAndCollect(Image& image)
                 continue;
             }
 
-            if (msg.type == MessageType::HEARTBEAT) {
-                _workers[i].missedHeartbeats = 0;
-
-            } else if (msg.type == MessageType::PIXELS) {
+            if (msg.type == MessageType::PIXELS) {
                 _workers[i].missedHeartbeats = 0;
                 std::vector<Vec3> chunk = msg.parsePixels();
 

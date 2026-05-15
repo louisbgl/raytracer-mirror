@@ -55,13 +55,6 @@ Message Message::makeAssign(const AssignPayload& data)
     return {MessageType::ASSIGN, payload};
 }
 
-Message Message::makeHeartbeat(int progressPercent)
-{
-    std::vector<uint8_t> payload;
-    writeInt(payload, progressPercent);
-    return {MessageType::HEARTBEAT, payload};
-}
-
 Message Message::makePixels(const std::vector<Vec3>& pixels)
 {
     std::vector<uint8_t> payload;
@@ -130,13 +123,6 @@ AssignPayload Message::parseAssign() const
         throw std::runtime_error("parseAssign: scene content truncated");
     data.sceneContent.assign(payload.begin() + 20, payload.begin() + 20 + contentLen);
     return data;
-}
-
-int Message::parseHeartbeat() const
-{
-    if (payload.size() < 4)
-        throw std::runtime_error("parseHeartbeat: payload too short");
-    return readInt(payload.data());
 }
 
 std::vector<Vec3> Message::parsePixels() const

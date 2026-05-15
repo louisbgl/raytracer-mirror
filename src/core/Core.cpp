@@ -50,8 +50,9 @@ bool Core::simulate() {
 
 bool Core::loadScene() { return _loadScene(); }
 
-int Core::sceneWidth()  const { return _scene.camera().getWidth(); }
-int Core::sceneHeight() const { return _scene.camera().getHeight(); }
+int         Core::sceneWidth()  const { return _scene.camera().getWidth(); }
+int         Core::sceneHeight() const { return _scene.camera().getHeight(); }
+std::string Core::outputFile()  const { return _scene.rendererConfig().outputFile; }
 
 bool Core::_loadScene() {
     try {

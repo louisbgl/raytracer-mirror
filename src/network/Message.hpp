@@ -8,7 +8,6 @@
 enum class MessageType : uint8_t {
     READY     = 0x01,
     ASSIGN    = 0x02,  // first assignment: includes scene content + coords
-    HEARTBEAT = 0x03,
     PIXELS    = 0x04,
     ABORT     = 0x06,
     CHUNK     = 0x07,  // subsequent assignments: just firstRow/lastRow
@@ -34,7 +33,6 @@ struct Message {
 
     static Message makeReady();
     static Message makeAssign(const AssignPayload& data);
-    static Message makeHeartbeat(int progressPercent);
     static Message makePixels(const std::vector<Vec3>& pixels);
     static Message makeAbort();
     static Message makeChunk(const ChunkPayload& data);
@@ -44,7 +42,6 @@ struct Message {
     static Message deserialize(const std::vector<uint8_t>& data);
 
     AssignPayload parseAssign() const;
-    int parseHeartbeat() const;
     std::vector<Vec3> parsePixels() const;
     ChunkPayload parseChunk() const;
 };
