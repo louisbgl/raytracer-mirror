@@ -405,10 +405,12 @@ void Coordinator::_drawDashboard() const
     std::cout << "┌──────────────────────────────────────────────────────┐\n";
     std::cout << "│           RAYTRACER CLUSTER RENDER                   │\n";
     std::cout << "├──────────────────────────────────────────────────────┤\n";
+    // inner box = 54 chars: "  [" (3) + bar (30) + "] " (2) + "XXX%" (4) = 39 fixed
+    std::string counter = "  (" + std::to_string(completed) + "/" + std::to_string(total) + ")";
+    int padding = std::max(0, 54 - 39 - static_cast<int>(counter.size()));
     std::cout << "│  [" << bar << "] "
               << std::setw(3) << static_cast<int>(pct * 100) << "%"
-              << "  (" << completed << "/" << total << " chunks)"
-              << std::string(3, ' ') << "│\n";
+              << counter << std::string(padding, ' ') << "│\n";
     std::cout << "├──────┬──────────────────┬──────────┬─────────────────┤\n";
     std::cout << "│ Rank │ Worker IP        │   Rows   │    Rows/sec     │\n";
     std::cout << "├──────┼──────────────────┼──────────┼─────────────────┤\n";
