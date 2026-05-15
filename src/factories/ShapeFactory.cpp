@@ -375,7 +375,7 @@ std::shared_ptr<IShape> ShapeFactory::_createJuliaSet3D(const libconfig::Setting
     Vec3 position = ConfigUtils::parsePosition(config);
     Vec3 c = config.exists("c") ? ConfigUtils::parseVec3(config["c"]) : Vec3(-0.8, 0.156, 0.0);
     double power = ConfigUtils::getNumber(config, "power", 8.0);
-    int iterations = static_cast<int>(ConfigUtils::getNumber(config, "iterations", 15));
+    int iterations = static_cast<int>(ConfigUtils::getNumber(config, "iterations", 20));
     double bailout = ConfigUtils::getNumber(config, "bailout", 4.0);
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("julia_set_3d");
 
