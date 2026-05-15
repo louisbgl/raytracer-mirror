@@ -1,10 +1,10 @@
 camera:
 {
-    resolution = { width = 2000; height = 2000; };
+    resolution = { width = 1000; height = 1000; };
     position = { x = 3.5; y = 2.5; z = 3.5; };
     look_at = { x = 0.0; y = 0.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
-    fieldOfView = 60.0;
+    fieldOfView = 40.0;
 };
 
 renderer:
