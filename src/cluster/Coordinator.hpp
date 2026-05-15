@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../network/Message.hpp"
 #include "../network/TcpServer.hpp"
 #include "../network/TcpSocket.hpp"
 #include "../core/Image.hpp"
@@ -20,7 +21,7 @@ struct WorkerInfo {
     std::string ip;
     int firstRow           = 0;
     int lastRow            = 0;
-    int missedHeartbeats   = 0;
+    int missedTimeouts     = 0;
     int pixelsReceived     = 0;
     int totalRowsRendered  = 0;
     std::chrono::steady_clock::time_point startTime{};
@@ -53,6 +54,9 @@ private:
     void _distributeWork();
     void _monitorAndCollect(Image& image);
     void _assignNextChunk(int workerIdx);
+    void _handleTimeout(std::vector<struct pollfd>& pfds, int& doneCount);
+    void _handlePixels(int workerIdx, const Message& msg, Image& image,
+                       std::vector<struct pollfd>& pfds, int& doneCount);
     void _renderLocalChunks(Image& image);
     void _drawDashboard() const;
 };
