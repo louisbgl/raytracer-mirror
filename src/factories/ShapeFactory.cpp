@@ -20,6 +20,7 @@ std::unordered_map<std::string, ShapeFactory::ShapeCreator> ShapeFactory::creato
     {"torus", _createTorus},
     {"tanglecube", _createTanglecube},
     {"menger_sponge", _createMengerSponge},
+    {"mobius_strip", _createMobiusStrip},
 
     // Infinite shapes
     {"plane", _createPlane},
@@ -33,6 +34,12 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
     if (it != creators.end()) {
         return it->second(config, material);
     }
+    std::cout << "Error: Unknown shape type '" << type << std::endl;
+    std::cout << "Available shapes: ";
+    for (const auto& pair : creators) {
+        std::cout << pair.first << " ";
+    }
+    std::cout << std::endl;
     return nullptr;
 }
 
@@ -324,6 +331,39 @@ std::shared_ptr<IShape> ShapeFactory::_createMengerSponge(const libconfig::Setti
         position.toCStruct(),
         scale.toCStruct(),
         iterations,
+        &material
+    ));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createMobiusStrip(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    Vec3 rotation = _getRotation(config);
+    Vec3 scale    = _getScale(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    double radius = ConfigUtils::getNumber(config, "radius", 5.0);
+    double width = ConfigUtils::getNumber(config, "width", 2.0);
+    double thickness = ConfigUtils::getNumber(config, "thickness", 0.2);
+    int twists = static_cast<int>(ConfigUtils::getNumber(config, "twists", 1));
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("mobius_strip");
+
+    auto createFunc = reinterpret_cast<IShape* (*)(
+        Vec3C,
+        Vec3C,
+        Vec3C,
+        double,
+        double,
+        double,
+        int,
+        std::shared_ptr<IMaterial>*
+    )>(rawCreateFunc);
+
+    return std::shared_ptr<IShape>(createFunc(
+        rotation.toCStruct(),
+        position.toCStruct(),
+        scale.toCStruct(),
+        radius,
+        width,
+        thickness,
+        twists,
         &material
     ));
 }
