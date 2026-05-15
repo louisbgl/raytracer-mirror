@@ -4,7 +4,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-TcpServer::TcpServer(int port) : _fd(-1), _port(port)
+TcpServer::TcpServer(int port) : _fd(-1)
 {
     _fd = ::socket(AF_INET, SOCK_STREAM, 0);
     if (_fd < 0)
@@ -26,11 +26,6 @@ TcpServer::TcpServer(int port) : _fd(-1), _port(port)
 }
 
 TcpServer::~TcpServer()
-{
-    close();
-}
-
-void TcpServer::close()
 {
     if (_fd >= 0) {
         ::close(_fd);

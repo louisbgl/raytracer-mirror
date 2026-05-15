@@ -13,9 +13,7 @@ public:
 
     void send(const Message& message) const;
     Message receive() const;
-    void close();
 
-    bool isOpen() const { return _fd >= 0; }
     int fd() const { return _fd; }
     std::string peerAddress() const;
 

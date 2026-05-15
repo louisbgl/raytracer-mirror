@@ -14,11 +14,6 @@ TcpSocket::TcpSocket(int fd) : _fd(fd)
 
 TcpSocket::~TcpSocket()
 {
-    close();
-}
-
-void TcpSocket::close()
-{
     if (_fd >= 0) {
         ::close(_fd);
         _fd = -1;

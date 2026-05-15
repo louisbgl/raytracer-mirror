@@ -13,12 +13,8 @@ public:
 
     std::unique_ptr<TcpSocket> accept() const;
 
-    void close();
-    bool isOpen() const { return _fd >= 0; }
-    int port() const { return _port; }
     int fd() const { return _fd; }
 
 private:
     int _fd;
-    int _port;
 };
