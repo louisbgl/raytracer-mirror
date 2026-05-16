@@ -11,14 +11,16 @@
 #include "PixelBuffer.hpp"
 #include "RenderPanel.hpp"
 #include "SceneBrowser.hpp"
+#include "FreeRoamController.hpp"
 #include "watcher/FileWatcher.hpp"
 #include "ToastManager.hpp"
+#include "DataTypes/Camera.hpp"
 
 enum class UIState {
     Browser,
     Rendering,
     Done,
-    // FreeRoam
+    FreeRoam,
 };
 
 class UIApp {
@@ -33,13 +35,14 @@ public:
 
 private:
     void handleEvents();
-    void update();
+    void update(float deltaTime);
     void draw();
 
     void toRendering(const std::string& scenePath);
     void toBrowser();
     void toDone();
-    
+    void toFreeRoam(const std::string& scenePath);
+
     /// Check if scene file has changed and trigger reload if needed
     void checkSceneFileWatch();
     void pushToast(const std::string& message, ToastType type = ToastType::Info);
@@ -48,6 +51,7 @@ private:
     void joinRenderThread();
     void spawnPreviewThread();
     void cancelPreview();
+    void spawnFreeRoamRenderThread();
 
     sf::RenderWindow _window;
     sf::Font         _font;
@@ -56,6 +60,7 @@ private:
     SceneBrowser _browser;
     RenderPanel  _panel;
     ToastManager _toastManager;
+    std::unique_ptr<FreeRoamController> _freeRoamController;
 
     std::string       _scenePath;
     PixelBuffer       _pixelBuffer;
@@ -70,6 +75,16 @@ private:
     PixelBuffer       _previewPixelBuffer;
     std::thread       _previewThread;
     std::atomic<bool> _previewCancelFlag{false};
+    Camera            _previewCamera;
+
+    // FreeRoam mode
+    PixelBuffer       _freeRoamPixelBuffer;      // Display buffer
+    PixelBuffer       _freeRoamBackBuffer;       // Render target
+    std::mutex        _freeRoamSwapMutex;
+    std::thread       _freeRoamThread;
+    std::atomic<bool> _freeRoamCancelFlag{false};
+    std::atomic<bool> _freeRoamRenderActive{false};
+    Camera            _freeRoamCamera;
 
     // File watching for auto-reload
     std::unique_ptr<FileWatcher> _fileWatcher;

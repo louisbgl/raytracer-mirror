@@ -29,7 +29,7 @@ int UIApp::run() {
         _lastFrameTime = now;
 
         handleEvents();
-        update();
+        update(delta.count());
         _toastManager.update(delta.count());
         draw();
     }
@@ -46,11 +46,15 @@ void UIApp::handleEvents() {
             case UIState::Browser:   _browser.handleEvent(event, _window); break;
             case UIState::Rendering: _panel.handleEvent(event, _window);   break;
             case UIState::Done:      _panel.handleEvent(event, _window);   break;
+            case UIState::FreeRoam:
+                if (_freeRoamController)
+                    _freeRoamController->handleEvent(event, _window);
+                break;
         }
     }
 }
 
-void UIApp::update() {
+void UIApp::update(float deltaTime) {
     switch (_state) {
         case UIState::Browser:
             if (_browser.selectionChanged()) {
@@ -61,6 +65,10 @@ void UIApp::update() {
             } else if (_browser.wantsLaunch()) {
                 cancelPreview();
                 toRendering(_browser.selected());
+                _browser.clearSignals();
+            } else if (_browser.wantsFreeRoam()) {
+                cancelPreview();
+                toFreeRoam(_browser.selected());
                 _browser.clearSignals();
             }
             break;
@@ -89,6 +97,29 @@ void UIApp::update() {
                 toBrowser();
             }
             break;
+
+        case UIState::FreeRoam:
+            if (!_freeRoamController) break;
+
+            _freeRoamController->update(deltaTime);
+
+            // Trigger new render only if camera moved AND no render active
+            if (_freeRoamController->hasMoved()) {
+                _freeRoamController->clearDirtyFlag();
+                if (!_freeRoamRenderActive.load()) {
+                    spawnFreeRoamRenderThread();
+                }
+            }
+
+            if (_freeRoamController->wantsExit()) {
+                _freeRoamCancelFlag.store(true);
+                if (_freeRoamThread.joinable())
+                    _freeRoamThread.join();
+                _freeRoamController->disableMouseCapture(_window);
+                _freeRoamController.reset();
+                toBrowser();
+            }
+            break;
     }
 }
 
@@ -104,6 +135,68 @@ void UIApp::draw() {
         case UIState::Browser:   _browser.draw(_window, &_previewPixelBuffer); break;
         case UIState::Rendering: _panel.drawRendering(_window); break;
         case UIState::Done:      _panel.drawDone(_window);      break;
+        case UIState::FreeRoam:
+            // Draw live FreeRoam preview
+            if (_freeRoamPixelBuffer.width > 0 && _freeRoamPixelBuffer.height > 0) {
+                sf::Texture tex;
+                sf::Image img;
+                img.create(_freeRoamPixelBuffer.width, _freeRoamPixelBuffer.height);
+
+                {
+                    std::lock_guard<std::mutex> swapLock(_freeRoamSwapMutex);
+                    std::lock_guard<std::mutex> bufLock(_freeRoamPixelBuffer.mutex);
+                    for (int y = 0; y < _freeRoamPixelBuffer.height; ++y) {
+                        for (int x = 0; x < _freeRoamPixelBuffer.width; ++x) {
+                            int idx = (y * _freeRoamPixelBuffer.width + x) * 4;
+                            img.setPixel(x, y, sf::Color(
+                                _freeRoamPixelBuffer.rgba[idx + 0],
+                                _freeRoamPixelBuffer.rgba[idx + 1],
+                                _freeRoamPixelBuffer.rgba[idx + 2],
+                                _freeRoamPixelBuffer.rgba[idx + 3]
+                            ));
+                        }
+                    }
+                }
+
+                tex.loadFromImage(img);
+                sf::Sprite sprite(tex);
+                // Fit to window
+                float ww = static_cast<float>(_window.getSize().x);
+                float wh = static_cast<float>(_window.getSize().y);
+                float imgW = static_cast<float>(tex.getSize().x);
+                float imgH = static_cast<float>(tex.getSize().y);
+                float scale = std::min(ww / imgW, wh / imgH);
+                sprite.setScale(scale, scale);
+                sprite.setPosition((ww - imgW * scale) / 2.f, (wh - imgH * scale) / 2.f);
+                _window.draw(sprite);
+            }
+
+            // Draw FPS counter
+            {
+                static auto lastFpsUpdate = std::chrono::steady_clock::now();
+                static int frameCount = 0;
+                static float currentFps = 0.0f;
+
+                frameCount++;
+                auto now = std::chrono::steady_clock::now();
+                float elapsed = std::chrono::duration<float>(now - lastFpsUpdate).count();
+                if (elapsed >= 0.5f) {
+                    currentFps = frameCount / elapsed;
+                    frameCount = 0;
+                    lastFpsUpdate = now;
+                }
+
+                sf::Text fpsText;
+                fpsText.setFont(_font);
+                fpsText.setCharacterSize(20);
+                fpsText.setFillColor(sf::Color::White);
+                fpsText.setOutlineColor(sf::Color::Black);
+                fpsText.setOutlineThickness(2.f);
+                fpsText.setString("FPS: " + std::to_string(static_cast<int>(currentFps + 0.5f)));
+                fpsText.setPosition(10.f, 10.f);
+                _window.draw(fpsText);
+            }
+            break;
     }
 
     _toastManager.draw(_window);
@@ -140,6 +233,22 @@ void UIApp::toBrowser() {
 
 void UIApp::toDone() {
     _state = UIState::Done;
+}
+
+void UIApp::toFreeRoam(const std::string& scenePath) {
+    _scenePath = scenePath;
+    _freeRoamCancelFlag.store(false);
+
+    // Use preview camera (already loaded, has scene position/orientation)
+    _freeRoamCamera = _previewCamera;
+
+    _freeRoamController = std::make_unique<FreeRoamController>(_freeRoamCamera);
+    _freeRoamController->enableMouseCapture(_window);
+
+    pushToast("ZQSD to move, mouse to look, ESC to exit", ToastType::Info);
+
+    _state = UIState::FreeRoam;
+    spawnFreeRoamRenderThread();
 }
 
 void UIApp::pushToast(const std::string& message, ToastType type) {
@@ -187,7 +296,11 @@ void UIApp::spawnPreviewThread() {
             _previewPixelBuffer.setRow(y, rgba, w * 4);
             _previewPixelBuffer.rowsComplete.fetch_add(1, std::memory_order_relaxed);
         });
-        core.simulate();
+        bool success = core.loadScene();
+        if (success) {
+            _previewCamera = core.getCamera();
+            core.simulate();
+        }
     });
 }
 
@@ -197,6 +310,46 @@ void UIApp::cancelPreview() {
         _previewThread.join();
     _previewPixelBuffer.init(0, 0);
     _previewCancelFlag.store(false);
+}
+
+void UIApp::spawnFreeRoamRenderThread() {
+    // Cancel and join previous render
+    _freeRoamCancelFlag.store(true);
+    if (_freeRoamThread.joinable())
+        _freeRoamThread.join();
+    _freeRoamCancelFlag.store(false);
+
+    _freeRoamRenderActive.store(true);
+
+    std::string path = _scenePath;
+    Camera cam = _freeRoamController->getCamera();
+
+    _freeRoamThread = std::thread([this, path, cam]() {
+        try {
+            Core core(path);
+            core.setCancelFlag(&_freeRoamCancelFlag);
+            core.setPreviewMode(0.75f, 10);
+            core.setCameraOverride(cam);
+            core.setDimensionsCallback([this](int w, int h) {
+                _freeRoamBackBuffer.init(w, h);
+                _freeRoamBackBuffer.totalRows.store(h);
+            });
+            core.setRowCallback([this](int y, const uint8_t* rgba, int w) {
+                _freeRoamBackBuffer.setRow(y, rgba, w * 4);
+                _freeRoamBackBuffer.rowsComplete.fetch_add(1, std::memory_order_relaxed);
+            });
+            core.simulate();
+
+            // Swap buffers when render complete
+            {
+                std::lock_guard<std::mutex> lock(_freeRoamSwapMutex);
+                _freeRoamPixelBuffer.swapBuffers(_freeRoamBackBuffer);
+            }
+        } catch (...) {
+            // Ensure flag cleared even on error
+        }
+        _freeRoamRenderActive.store(false);
+    });
 }
 
 void UIApp::checkSceneFileWatch() {
