@@ -48,6 +48,8 @@ private:
     static std::shared_ptr<IShape> _createTorus            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createTanglecube       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
     static std::shared_ptr<IShape> _createMengerSponge     (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createMobiusStrip      (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
+    static std::shared_ptr<IShape> _createJuliaSet3D       (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);
 
     // Infinite shapes (IShape - shape-specific orientation)
     static std::shared_ptr<IShape> _createPlane            (const libconfig::Setting& config, std::shared_ptr<IMaterial> material);

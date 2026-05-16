@@ -20,6 +20,8 @@ std::unordered_map<std::string, ShapeFactory::ShapeCreator> ShapeFactory::creato
     {"torus", _createTorus},
     {"tanglecube", _createTanglecube},
     {"menger_sponge", _createMengerSponge},
+    {"mobius_strip", _createMobiusStrip},
+    {"julia_set_3d", _createJuliaSet3D},
 
     // Infinite shapes
     {"plane", _createPlane},
@@ -33,6 +35,12 @@ std::shared_ptr<IShape> ShapeFactory::create(const std::string& type, const libc
     if (it != creators.end()) {
         return it->second(config, material);
     }
+    std::cout << "Error: Unknown shape type '" << type << std::endl;
+    std::cout << "Available shapes: ";
+    for (const auto& pair : creators) {
+        std::cout << pair.first << " ";
+    }
+    std::cout << std::endl;
     return nullptr;
 }
 
@@ -324,6 +332,72 @@ std::shared_ptr<IShape> ShapeFactory::_createMengerSponge(const libconfig::Setti
         position.toCStruct(),
         scale.toCStruct(),
         iterations,
+        &material
+    ));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createMobiusStrip(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    Vec3 rotation = _getRotation(config);
+    Vec3 scale    = _getScale(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    double radius = ConfigUtils::getNumber(config, "radius", 5.0);
+    double width = ConfigUtils::getNumber(config, "width", 2.0);
+    double thickness = ConfigUtils::getNumber(config, "thickness", 0.2);
+    int twists = static_cast<int>(ConfigUtils::getNumber(config, "twists", 1));
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("mobius_strip");
+
+    auto createFunc = reinterpret_cast<IShape* (*)(
+        Vec3C,
+        Vec3C,
+        Vec3C,
+        double,
+        double,
+        double,
+        int,
+        std::shared_ptr<IMaterial>*
+    )>(rawCreateFunc);
+
+    return std::shared_ptr<IShape>(createFunc(
+        rotation.toCStruct(),
+        position.toCStruct(),
+        scale.toCStruct(),
+        radius,
+        width,
+        thickness,
+        twists,
+        &material
+    ));
+}
+
+std::shared_ptr<IShape> ShapeFactory::_createJuliaSet3D(const libconfig::Setting& config, std::shared_ptr<IMaterial> material) {
+    Vec3 rotation = _getRotation(config);
+    Vec3 scale    = _getScale(config);
+    Vec3 position = ConfigUtils::parsePosition(config);
+    Vec3 c = config.exists("c") ? ConfigUtils::parseVec3(config["c"]) : Vec3(-0.8, 0.156, 0.0);
+    double power = ConfigUtils::getNumber(config, "power", 8.0);
+    int iterations = static_cast<int>(ConfigUtils::getNumber(config, "iterations", 20));
+    double bailout = ConfigUtils::getNumber(config, "bailout", 4.0);
+    auto rawCreateFunc = PluginManager::instance().getCreateFunction("julia_set_3d");
+
+    auto createFunc = reinterpret_cast<IShape* (*)(
+        Vec3C,
+        Vec3C,
+        Vec3C,
+        Vec3C,
+        double,
+        int,
+        double,
+        std::shared_ptr<IMaterial>*
+    )>(rawCreateFunc);
+
+    return std::shared_ptr<IShape>(createFunc(
+        rotation.toCStruct(),
+        position.toCStruct(),
+        scale.toCStruct(),
+        c.toCStruct(),
+        power,
+        iterations,
+        bailout,
         &material
     ));
 }

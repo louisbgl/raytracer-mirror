@@ -305,7 +305,7 @@ Vec3 Core::_adaptiveSubdivide(int x, int y, double offX, double offY, double siz
     }
 
     return (
-        _adaptiveSubdivide(x, y, offX,        offY,        half, width, height, threshold, depth + 1) +
+        _adaptiveSubdivide(x, y, offX,         offY,        half, width, height, threshold, depth + 1) +
         _adaptiveSubdivide(x, y, offX + half,  offY,        half, width, height, threshold, depth + 1) +
         _adaptiveSubdivide(x, y, offX,         offY + half, half, width, height, threshold, depth + 1) +
         _adaptiveSubdivide(x, y, offX + half,  offY + half, half, width, height, threshold, depth + 1)

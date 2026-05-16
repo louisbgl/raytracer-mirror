@@ -83,6 +83,7 @@ void UIApp::update() {
             break;
 
         case UIState::Done:
+            _panel.update(_pixelBuffer);
             if (_panel.wantsBack()) {
                 _panel.clearSignals();
                 toBrowser();
@@ -154,7 +155,14 @@ void UIApp::spawnRenderThread() {
         Core core(_scenePath);
         core.setCancelFlag(&_cancelFlag);
         core.setThreadOverride(std::max(1, static_cast<int>(std::thread::hardware_concurrency()) - 1));
-        core.setProgressTarget(&_pixelBuffer.rowsComplete, &_pixelBuffer.totalRows);
+        core.setDimensionsCallback([this](int w, int h) {
+            _pixelBuffer.init(w, h);
+            _pixelBuffer.totalRows.store(h);
+        });
+        core.setRowCallback([this](int y, const uint8_t* rgba, int w) {
+            _pixelBuffer.setRow(y, rgba, w * 4);
+            _pixelBuffer.rowsComplete.fetch_add(1, std::memory_order_relaxed);
+        });
         core.simulate();
         _doneFlag.store(true);
     });
@@ -176,7 +184,7 @@ void UIApp::spawnPreviewThread() {
             _previewPixelBuffer.totalRows.store(h);
         });
         core.setRowCallback([this](int y, const uint8_t* rgba, int w) {
-            _previewPixelBuffer.setRow(y, reinterpret_cast<const sf::Uint8*>(rgba), w * 4);
+            _previewPixelBuffer.setRow(y, rgba, w * 4);
             _previewPixelBuffer.rowsComplete.fetch_add(1, std::memory_order_relaxed);
         });
         core.simulate();

@@ -75,7 +75,7 @@ std::shared_ptr<IMaterial> MaterialFactory::_createReflective(const libconfig::S
 
 std::shared_ptr<IMaterial> MaterialFactory::_createPhong(const libconfig::Setting& config) {
     Vec3 color = ConfigUtils::parseColor(config);
-    double shininess = config.exists("shininess") ? (double)config["shininess"] : 32.0;
+    double shininess = config.exists("shininess") ? static_cast<double>(config["shininess"]) : 32.0;
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("phong");
 
     auto createFunc = reinterpret_cast<IMaterial* (*)(
@@ -89,7 +89,7 @@ std::shared_ptr<IMaterial> MaterialFactory::_createPhong(const libconfig::Settin
 }
 
 std::shared_ptr<IMaterial> MaterialFactory::_createChessboard(const libconfig::Setting& config) {
-    double scale = config.exists("scale") ? (double)config["scale"] : 1.0;
+    double scale = config.exists("scale") ? static_cast<double>(config["scale"]) : 1.0;
     Vec3 color1 = ConfigUtils::parseColor(config, "color1");
     Vec3 color2 = ConfigUtils::parseColor(config, "color2");
     auto rawCreateFunc = PluginManager::instance().getCreateFunction("chessboard");
