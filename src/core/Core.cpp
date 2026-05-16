@@ -36,7 +36,7 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
-    if (!cancelled && !_previewMode)
+    if (!cancelled && !_previewMode && !_freeRoamMode)
         _writeOutput(image);
 
     auto t3 = Clock::now();
@@ -70,7 +70,20 @@ bool Core::_loadScene() {
         _scene.setCamera(*_cameraOverride);
     }
 
-    if (_previewMode) {
+    if (_freeRoamMode) {
+        auto& cam = _scene.camera();
+        cam.setWidth(_freeRoamWidth);
+        cam.setHeight(_freeRoamHeight);
+        _maxRayBounces = _freeRoamMaxBounces;
+
+        RendererConfig cfg = _scene.rendererConfig();
+        cfg.aaEnabled = _freeRoamAA;
+        cfg.aoEnabled = _freeRoamAO;
+        cfg.toneMappingEnabled = _freeRoamToneMapping;
+        cfg.multithreadingEnabled = true;
+        cfg.threadCount = 0;
+        _scene.setRendererConfig(cfg);
+    } else if (_previewMode) {
         static constexpr int PREVIEW_MAX_DIM = 480;
         auto& cam = _scene.camera();
         int pw = std::max(1, static_cast<int>(cam.getWidth()  * _previewResScale));
@@ -412,6 +425,16 @@ void Core::setPreviewMode(float resScale, int maxBounces) {
     _previewMode = true;
     _previewResScale = resScale;
     _previewMaxBounces = maxBounces;
+}
+
+void Core::setFreeRoamConfig(int width, int height, int maxBounces, bool aaEnabled, bool aoEnabled, bool toneMappingEnabled) {
+    _freeRoamMode = true;
+    _freeRoamWidth = width;
+    _freeRoamHeight = height;
+    _freeRoamMaxBounces = maxBounces;
+    _freeRoamAA = aaEnabled;
+    _freeRoamAO = aoEnabled;
+    _freeRoamToneMapping = toneMappingEnabled;
 }
 
 void Core::setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb) {
