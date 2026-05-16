@@ -1,17 +1,9 @@
 var searchData=
 [
-  ['wantsback_0',['wantsBack',['../classRenderPanel.html#ad6990db6f8be81508bf89920a0aabb32',1,'RenderPanel']]],
-  ['wantscancel_1',['wantsCancel',['../classRenderPanel.html#a165dca4cafdf4622b1bc584224315434',1,'RenderPanel']]],
-  ['wantslaunch_2',['wantsLaunch',['../classSceneBrowser.html#a218a2a8c889d5d7e7a9d9edced4997ce',1,'SceneBrowser']]],
-  ['warn_3',['warn',['../classLogger.html#a24b519e0f53e73937f93edd2da37ea76',1,'Logger']]],
-  ['warning_4',['Warning',['../ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'ToastManager.hpp']]],
-  ['watchfileevents_5',['watchFileEvents',['../classFileWatcher.html#aaf8e9cb408c5040cdec63773ddd686cf',1,'FileWatcher']]],
-  ['wd_6',['wd',['../classInotifyEvent.html#a196dee4555542d821f8e17103f1d24b4',1,'InotifyEvent::wd()'],['../classInotifyWatch.html#adfac447a4a4ea42bdc440665a5aada69',1,'InotifyWatch::wd()']]],
-  ['what_7',['what',['../classclap_1_1ClapException.html#aad448178fd7b6d2770189c53f4b86fd6',1,'clap::ClapException']]],
-  ['width_8',['width',['../structPixelBuffer.html#a11764e5814688eee587fe639e292266e',1,'PixelBuffer::width'],['../classImage.html#ae533bfa2a8ddf6719e227c68bfcaa42e',1,'Image::width()']]],
-  ['win_5fh_9',['WIN_H',['../classUIApp.html#a939bc22e9c8382e5d0351ade3683ca8c',1,'UIApp']]],
-  ['win_5fw_10',['WIN_W',['../classUIApp.html#ad6fc6593674415567309ed16cb40f525',1,'UIApp']]],
-  ['world_11',['world',['../classWorld.html',1,'World'],['../classWorld.html#a1fc6067fe31da6405bece93c9dbb61ac',1,'World::World()=default'],['../classWorld.html#a626968f1cc28615f2ef570644855e16e',1,'World::World(std::vector&lt; std::shared_ptr&lt; IShape &gt; &gt; objects)'],['../classScene.html#a6f63649b97d2de845d8ed3ca46fa3ff8',1,'Scene::world() const'],['../classScene.html#afe699281c0f4454c65ba3e1d8ff33195',1,'Scene::world()']]],
-  ['world_2ehpp_12',['World.hpp',['../World_8hpp.html',1,'']]],
-  ['writefile_13',['writeFile',['../classImage.html#aec719c93f965a7a60ad2ddff92ce0200',1,'Image']]]
+  ['v_0',['v',['../classHitRecord.html#ae3d8102ff4d8edb190dbf57d7acffdab',1,'HitRecord::v'],['../structUV.html#a4497249ea776b75c4154e37ded5f4dc0',1,'UV::v']]],
+  ['val_5ftype_1',['val_type',['../structInotifyEventReader_1_1Iterator.html#a665e08ff827df9fe5f870c05260b1648',1,'InotifyEventReader::Iterator']]],
+  ['value_2',['value',['../structclap_1_1TypeName.html#afb05b90eeae8fc3c1d9af6339d577eef',1,'clap::TypeName::value'],['../structclap_1_1TypeName_3_01int_01_4.html#a0dac96688fc082841e1dd3c27fda3881',1,'clap::TypeName&lt; int &gt;::value'],['../structclap_1_1TypeName_3_01float_01_4.html#a57b036913e59cf311b94e77c679ccf4b',1,'clap::TypeName&lt; float &gt;::value'],['../structclap_1_1TypeName_3_01double_01_4.html#a46809fb6ee1602d0ba6bf68ee005c17e',1,'clap::TypeName&lt; double &gt;::value'],['../structclap_1_1TypeName_3_01bool_01_4.html#a924d4bddcca808ad582da758323c3e0d',1,'clap::TypeName&lt; bool &gt;::value'],['../structclap_1_1TypeName_3_01std_1_1string_01_4.html#a54b9d4199a1bd1695077ee8b29cd1c3c',1,'clap::TypeName&lt; std::string &gt;::value']]],
+  ['vec3_3',['vec3',['../classVec3.html',1,'Vec3'],['../classVec3.html#abbb966e5e5877b8ad39de761cf2b42ce',1,'Vec3::Vec3() noexcept'],['../classVec3.html#a9fd3f44c643820155d19d2581e13e7c9',1,'Vec3::Vec3(double x, double y, double z) noexcept'],['../classVec3.html#ab3c0083bdc38045673e09f2803a95051',1,'Vec3::Vec3(const Vec3C &amp;c) noexcept']]],
+  ['vec3_2ehpp_4',['Vec3.hpp',['../Vec3_8hpp.html',1,'']]],
+  ['vec3c_5',['Vec3C',['../structVec3C.html',1,'']]]
 ];

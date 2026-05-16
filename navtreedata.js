@@ -25,10 +25,27 @@
 var NAVTREE =
 [
   [ "Raytracer", "index.html", [
+    [ "Getting Started", "index.html#autotoc_md2", [
+      [ "Clone", "index.html#autotoc_md3", null ],
+      [ "Build", "index.html#autotoc_md4", null ],
+      [ "Render a scene", "index.html#autotoc_md5", null ]
+    ] ],
+    [ "Gallery", "index.html#autotoc_md7", null ],
+    [ "Features", "index.html#autotoc_md9", [
+      [ "Shapes", "index.html#autotoc_md10", null ],
+      [ "Materials", "index.html#autotoc_md11", null ],
+      [ "Lighting", "index.html#autotoc_md12", null ],
+      [ "Rendering", "index.html#autotoc_md13", null ],
+      [ "Scene System", "index.html#autotoc_md14", null ],
+      [ "Live Preview", "index.html#autotoc_md15", null ],
+      [ "Plugin System", "index.html#autotoc_md16", null ]
+    ] ],
+    [ "Scene Config Reference", "index.html#autotoc_md18", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
     ] ],
@@ -61,10 +78,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AABB_8hpp.html",
-"Tanglecube_8cpp.html",
-"classMatrix4x4.html#a76a41615d1de48989018a70017b8dda5",
-"classclap_1_1IArgument.html#aefa9739d5e5691da9ee742702ce49010",
-"structPluginMetadata.html#a7e29722e2aae671ce8ad115cc2fb145e"
+"SFMLHelpers_8hpp_source.html",
+"classLimitedCylinder.html#aa010c2cbfbd07b5a8843800b637fd0b0",
+"classclap_1_1IArgument.html",
+"stb__image__write_8h.html#a4f63ec842984e5db3edf2da89f16038e"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -107,15 +107,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a352e5ccecbaea06be91b08d1489d6832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2817c04a5dde3f5103fd67dff298dfdc" id="r_a2817c04a5dde3f5103fd67dff298dfdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#a2817c04a5dde3f5103fd67dff298dfdc">reset</a> ()</td></tr>
 <tr class="separator:a2817c04a5dde3f5103fd67dff298dfdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e1609c78fcf96a7111c2d696aa9a20c" id="r_a8e1609c78fcf96a7111c2d696aa9a20c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#a8e1609c78fcf96a7111c2d696aa9a20c">setRow</a> (int y, const sf::Uint8 *rowRgba, int rowBytes)</td></tr>
-<tr class="separator:a8e1609c78fcf96a7111c2d696aa9a20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c580cf182dacc99828de4caa2bb75b" id="r_ae9c580cf182dacc99828de4caa2bb75b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#ae9c580cf182dacc99828de4caa2bb75b">setRow</a> (int y, const uint8_t *rowRgba, int rowBytes)</td></tr>
+<tr class="separator:ae9c580cf182dacc99828de4caa2bb75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8215d0c9723e19e05e03aa842bd6cf10" id="r_a8215d0c9723e19e05e03aa842bd6cf10"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#a8215d0c9723e19e05e03aa842bd6cf10">mutex</a></td></tr>
 <tr class="separator:a8215d0c9723e19e05e03aa842bd6cf10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3cf6d087eebab3e3297455b0bdaf1be" id="r_ae3cf6d087eebab3e3297455b0bdaf1be"><td class="memItemLeft" align="right" valign="top">std::vector&lt; sf::Uint8 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#ae3cf6d087eebab3e3297455b0bdaf1be">rgba</a></td></tr>
-<tr class="separator:ae3cf6d087eebab3e3297455b0bdaf1be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0c3e6cbbc9767d339acbe6753ca7c1c" id="r_ae0c3e6cbbc9767d339acbe6753ca7c1c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#ae0c3e6cbbc9767d339acbe6753ca7c1c">rgba</a></td></tr>
+<tr class="separator:ae0c3e6cbbc9767d339acbe6753ca7c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11764e5814688eee587fe639e292266e" id="r_a11764e5814688eee587fe639e292266e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#a11764e5814688eee587fe639e292266e">width</a> = 0</td></tr>
 <tr class="separator:a11764e5814688eee587fe639e292266e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd9307aede7aa417f0e0d2a0158a9e86" id="r_abd9307aede7aa417f0e0d2a0158a9e86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structPixelBuffer.html#abd9307aede7aa417f0e0d2a0158a9e86">height</a> = 0</td></tr>
@@ -175,8 +175,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8e1609c78fcf96a7111c2d696aa9a20c" name="a8e1609c78fcf96a7111c2d696aa9a20c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e1609c78fcf96a7111c2d696aa9a20c">&#9670;&#160;</a></span>setRow()</h2>
+<a id="ae9c580cf182dacc99828de4caa2bb75b" name="ae9c580cf182dacc99828de4caa2bb75b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9c580cf182dacc99828de4caa2bb75b">&#9670;&#160;</a></span>setRow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +190,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const sf::Uint8 *&#160;</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
           <td class="paramname"><em>rowRgba</em>, </td>
         </tr>
         <tr>
@@ -257,23 +257,31 @@ Public Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::mutex PixelBuffer::mutex</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae3cf6d087eebab3e3297455b0bdaf1be" name="ae3cf6d087eebab3e3297455b0bdaf1be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3cf6d087eebab3e3297455b0bdaf1be">&#9670;&#160;</a></span>rgba</h2>
+<a id="ae0c3e6cbbc9767d339acbe6753ca7c1c" name="ae0c3e6cbbc9767d339acbe6753ca7c1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0c3e6cbbc9767d339acbe6753ca7c1c">&#9670;&#160;</a></span>rgba</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;sf::Uint8&gt; PixelBuffer::rgba</td>
+          <td class="memname">std::vector&lt;uint8_t&gt; PixelBuffer::rgba</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -139,40 +139,48 @@ $(document).ready(function(){initNavTree('SceneBrowser_8hpp_source.html',''); in
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    Layout computeLayout(<span class="keyword">const</span> sf::RenderWindow&amp; window) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> scan();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> clampScroll(<span class="keyword">const</span> Layout&amp; lo);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">void</span> drawHeader(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> drawList(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> drawItem(sf::RenderWindow&amp; window, <span class="keyword">const</span> std::string&amp; path,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                  <span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> y, <span class="keyword">const</span> Layout&amp; lo);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> drawPreviewPane(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo, <span class="keyword">const</span> <a class="code hl_struct" href="structPixelBuffer.html">PixelBuffer</a>* previewBuf);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> drawFooter(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    sf::Font&amp; _font;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::vector&lt;std::string&gt; _scenes;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    std::string _selected;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">int</span> _hoveredIdx = -1;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">int</span> _selectedIdx = -1;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">float</span> _scroll = 0.f;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    sf::FloatRect _launchRect = {};</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">bool</span> _sigLaunch = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">bool</span> _sigSelectionChanged = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    sf::Texture _previewTex;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> scan();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> clampScroll(<span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Event handlers</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">void</span> handleScroll(<span class="keyword">const</span> sf::Event&amp; event, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> handleMouseMove(<span class="keyword">const</span> sf::Event&amp; event, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> handleMouseClick(<span class="keyword">const</span> sf::Event&amp; event, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// Draw helpers</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> drawHeader(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> drawList(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> drawItem(sf::RenderWindow&amp; window, <span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> y, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> drawPreviewPane(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo, <span class="keyword">const</span> <a class="code hl_struct" href="structPixelBuffer.html">PixelBuffer</a>* previewBuf);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> drawPreviewBackground(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> drawPreviewContent(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo, <span class="keyword">const</span> <a class="code hl_struct" href="structPixelBuffer.html">PixelBuffer</a>* previewBuf);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> drawFooter(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> drawFooterSelectionInfo(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> drawLaunchButton(sf::RenderWindow&amp; window, <span class="keyword">const</span> Layout&amp; lo);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    sf::Font&amp; _font;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    std::vector&lt;std::string&gt; _scenes;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::string _selected;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">int</span> _hoveredIdx = -1;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">int</span> _selectedIdx = -1;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">float</span> _scroll = 0.f;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    sf::FloatRect _launchRect = {};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">bool</span> _sigLaunch = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">bool</span> _sigSelectionChanged = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    sf::Texture _previewTex;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
 </div>
 <div class="ttc" id="aPixelBuffer_8hpp_html"><div class="ttname"><a href="PixelBuffer_8hpp.html">PixelBuffer.hpp</a></div></div>
 <div class="ttc" id="aclassSceneBrowser_html"><div class="ttname"><a href="classSceneBrowser.html">SceneBrowser</a></div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:9</div></div>
-<div class="ttc" id="aclassSceneBrowser_html_a195035666ff50fdedd2ebf6b29529bbb"><div class="ttname"><a href="classSceneBrowser.html#a195035666ff50fdedd2ebf6b29529bbb">SceneBrowser::handleEvent</a></div><div class="ttdeci">void handleEvent(const sf::Event &amp;event, const sf::RenderWindow &amp;window)</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:52</div></div>
+<div class="ttc" id="aclassSceneBrowser_html_a195035666ff50fdedd2ebf6b29529bbb"><div class="ttname"><a href="classSceneBrowser.html#a195035666ff50fdedd2ebf6b29529bbb">SceneBrowser::handleEvent</a></div><div class="ttdeci">void handleEvent(const sf::Event &amp;event, const sf::RenderWindow &amp;window)</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:27</div></div>
 <div class="ttc" id="aclassSceneBrowser_html_a218a2a8c889d5d7e7a9d9edced4997ce"><div class="ttname"><a href="classSceneBrowser.html#a218a2a8c889d5d7e7a9d9edced4997ce">SceneBrowser::wantsLaunch</a></div><div class="ttdeci">bool wantsLaunch() const</div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:21</div></div>
 <div class="ttc" id="aclassSceneBrowser_html_a40c867668f028abf02a26d43b778dac3"><div class="ttname"><a href="classSceneBrowser.html#a40c867668f028abf02a26d43b778dac3">SceneBrowser::selectionChanged</a></div><div class="ttdeci">bool selectionChanged() const</div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:22</div></div>
-<div class="ttc" id="aclassSceneBrowser_html_a4b193b99cd9d2c17f7b87d1684fa6d56"><div class="ttname"><a href="classSceneBrowser.html#a4b193b99cd9d2c17f7b87d1684fa6d56">SceneBrowser::clearSelection</a></div><div class="ttdeci">void clearSelection()</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:361</div></div>
-<div class="ttc" id="aclassSceneBrowser_html_a78f5a823d59896739991d8245bea390c"><div class="ttname"><a href="classSceneBrowser.html#a78f5a823d59896739991d8245bea390c">SceneBrowser::draw</a></div><div class="ttdeci">void draw(sf::RenderWindow &amp;window, const PixelBuffer *previewBuf=nullptr)</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:99</div></div>
+<div class="ttc" id="aclassSceneBrowser_html_a4b193b99cd9d2c17f7b87d1684fa6d56"><div class="ttname"><a href="classSceneBrowser.html#a4b193b99cd9d2c17f7b87d1684fa6d56">SceneBrowser::clearSelection</a></div><div class="ttdeci">void clearSelection()</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:42</div></div>
+<div class="ttc" id="aclassSceneBrowser_html_a78f5a823d59896739991d8245bea390c"><div class="ttname"><a href="classSceneBrowser.html#a78f5a823d59896739991d8245bea390c">SceneBrowser::draw</a></div><div class="ttdeci">void draw(sf::RenderWindow &amp;window, const PixelBuffer *previewBuf=nullptr)</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:34</div></div>
 <div class="ttc" id="aclassSceneBrowser_html_ab5fa939cf4a34de673b5f222fd90bd5e"><div class="ttname"><a href="classSceneBrowser.html#ab5fa939cf4a34de673b5f222fd90bd5e">SceneBrowser::clearSignals</a></div><div class="ttdeci">void clearSignals()</div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:23</div></div>
 <div class="ttc" id="aclassSceneBrowser_html_aca739232f955cf83981f214c3836237b"><div class="ttname"><a href="classSceneBrowser.html#aca739232f955cf83981f214c3836237b">SceneBrowser::hasSelection</a></div><div class="ttdeci">bool hasSelection() const</div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:17</div></div>
 <div class="ttc" id="aclassSceneBrowser_html_aceb1e5503c3c789f11b9c87b622c9e4e"><div class="ttname"><a href="classSceneBrowser.html#aceb1e5503c3c789f11b9c87b622c9e4e">SceneBrowser::selected</a></div><div class="ttdeci">const std::string &amp; selected() const</div><div class="ttdef"><b>Definition</b> SceneBrowser.hpp:16</div></div>
-<div class="ttc" id="aclassSceneBrowser_html_ae9189d5018c75a41595a0b5cb6610c5a"><div class="ttname"><a href="classSceneBrowser.html#ae9189d5018c75a41595a0b5cb6610c5a">SceneBrowser::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:366</div></div>
+<div class="ttc" id="aclassSceneBrowser_html_ae9189d5018c75a41595a0b5cb6610c5a"><div class="ttname"><a href="classSceneBrowser.html#ae9189d5018c75a41595a0b5cb6610c5a">SceneBrowser::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdef"><b>Definition</b> SceneBrowser.cpp:47</div></div>
 <div class="ttc" id="astructPixelBuffer_html"><div class="ttname"><a href="structPixelBuffer.html">PixelBuffer</a></div><div class="ttdef"><b>Definition</b> PixelBuffer.hpp:9</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['materialfactory_0',['MaterialFactory',['../classMaterialFactory.html',1,'']]],
-  ['matrix4x4_1',['Matrix4x4',['../classMatrix4x4.html',1,'']]],
-  ['mengersponge_2',['MengerSponge',['../classMengerSponge.html',1,'']]],
-  ['mesh_3',['Mesh',['../classMesh.html',1,'']]],
-  ['meshtriangle_4',['MeshTriangle',['../classMeshTriangle.html',1,'']]],
-  ['missingrequiredargument_5',['MissingRequiredArgument',['../classclap_1_1MissingRequiredArgument.html',1,'clap']]],
-  ['missingvalue_6',['MissingValue',['../classclap_1_1MissingValue.html',1,'clap']]]
+  ['lambertian_0',['Lambertian',['../classLambertian.html',1,'']]],
+  ['lightfactory_1',['LightFactory',['../classLightFactory.html',1,'']]],
+  ['limitedcone_2',['LimitedCone',['../classLimitedCone.html',1,'']]],
+  ['limitedcylinder_3',['LimitedCylinder',['../classLimitedCylinder.html',1,'']]],
+  ['limitedhourglass_4',['LimitedHourglass',['../classLimitedHourglass.html',1,'']]],
+  ['logger_5',['Logger',['../classLogger.html',1,'']]]
 ];

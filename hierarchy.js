@@ -53,7 +53,9 @@ var hierarchy =
       [ "IBoundable", "classIBoundable.html", [
         [ "AShape", "classAShape.html", [
           [ "ARayMarchedShape", "classARayMarchedShape.html", [
-            [ "MengerSponge", "classMengerSponge.html", null ]
+            [ "JuliaSet3D", "classJuliaSet3D.html", null ],
+            [ "MengerSponge", "classMengerSponge.html", null ],
+            [ "MobiusStrip", "classMobiusStrip.html", null ]
           ] ],
           [ "Box", "classBox.html", null ],
           [ "LimitedCone", "classLimitedCone.html", null ],

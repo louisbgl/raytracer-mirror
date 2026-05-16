@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Raytracer: Main Page</title>
+<title>Raytracer: Raytracer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,10 +90,171 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Raytracer Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Raytracer </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a> A CPU raytracer written in C++20 with a plugin-based architecture. Supports physically-based materials, fractal shapes, scene composition, antialiasing, ambient occlusion, and live preview.</p>
+<hr  />
+<p><img src="https://img.shields.io/badge/C%2B%2B-20-blue" alt="C++" class="inline"/> <img src="https://img.shields.io/github/last-commit/louisbgl/raytracer-mirror" alt="Last commit" class="inline"/> <img src="https://img.shields.io/github/contributors/louisbgl/raytracer-mirror" alt="Contributors" class="inline"/> <img src="https://img.shields.io/github/languages/code-size/louisbgl/raytracer-mirror" alt="Code size" class="inline"/> <img src="https://img.shields.io/github/languages/top/louisbgl/raytracer-mirror" alt="Top language" class="inline"/> <img src="https://github.com/louisbgl/raytracer-mirror/actions/workflows/ci.yml/badge.svg" alt="CI" style="pointer-events: none;" class="inline"/> <img src="https://github.com/louisbgl/raytracer-mirror/actions/workflows/lint.yml/badge.svg" alt="Lint" style="pointer-events: none;" class="inline"/></p>
+<p><a href="https://github.com/louisbgl/raytracer-mirror/graphs/contributors"><img src="https://contrib.rocks/image?repo=louisbgl/raytracer-mirror" alt="Contributors" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Getting Started</h1>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Clone</h2>
+<div class="fragment"><div class="line">git clone git@github.com:louisbgl/raytracer-mirror.git raytracer</div>
+<div class="line">cd raytracer</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md4"></a>
+Build</h2>
+<p><b>Linux (with live preview):</b> </p><div class="fragment"><div class="line">cmake -B build -DCMAKE_BUILD_TYPE=Release -DWITH_UI=ON</div>
+<div class="line">cmake --build build -j</div>
+</div><!-- fragment --><p><b>macOS (SFML not supported, disable UI):</b> </p><div class="fragment"><div class="line">cmake -B build -DCMAKE_BUILD_TYPE=Release -DWITH_UI=OFF</div>
+<div class="line">cmake --build build -j</div>
+</div><!-- fragment --><p>This builds the <code>raytracer</code> binary and all plugins into <code>plugins/</code>.</p>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Render a scene</h2>
+<div class="fragment"><div class="line">./raytracer scenes/example.txt</div>
+<div class="line">./raytracer scenes/example.txt --log    # with render stats</div>
+</div><!-- fragment --><p>Output format is determined by the <code>output</code> field in your scene config (<code>.png</code>, <code>.jpg</code>, or <code>.ppm</code>). We use STB <a class="el" href="classImage.html">Image</a> for loading/saving images, so any format it supports should work.</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md7"></a>
+Gallery</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone"></th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><img src="docs/img/louis.png" alt="louis" class="inline"/>   </td><td class="markdownTableBodyNone"><img src="docs/img/lucas.png" alt="lucas" class="inline"/>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><img src="docs/img/fred.png" alt="fred" class="inline"/>   </td><td class="markdownTableBodyNone"><img src="docs/img/gustave.png" alt="gustave" class="inline"/>   </td></tr>
+</table>
+<p><img src="docs/img/spinning_shapes.gif" alt="spinning_shapes" class="inline"/></p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md9"></a>
+Features</h1>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Shapes</h2>
+<p>17 primitives and implicit surfaces, all loaded as plugins at runtime:</p>
+<ul>
+<li>Basic: <a class="el" href="classSphere.html">Sphere</a>, <a class="el" href="classBox.html">Box</a>, <a class="el" href="classPlane.html">Plane</a>, <a class="el" href="classRectangle.html">Rectangle</a>, <a class="el" href="classCylinder.html" title="Represents an infinite cylinder shape in the ray tracer.">Cylinder</a>, <a class="el" href="classCone.html">Cone</a>, <a class="el" href="classHourglass.html">Hourglass</a></li>
+<li>Limited variants: <a class="el" href="classLimitedCylinder.html" title="Represents a finite cylinder shape in the ray tracer.">LimitedCylinder</a>, <a class="el" href="classLimitedCone.html">LimitedCone</a>, <a class="el" href="classLimitedHourglass.html">LimitedHourglass</a> (capped with radius/height bounds)</li>
+<li>Complex: <a class="el" href="classTorus.html">Torus</a>, <a class="el" href="classTanglecube.html">Tanglecube</a>, <a class="el" href="classTriangle.html">Triangle</a>, Mobius Strip</li>
+<li>Fractals: Julia Set 3D (distance-estimated), Menger Sponge</li>
+<li><a class="el" href="classMesh.html">Mesh</a>: OBJ file loading via <a class="el" href="classTriangle.html">Triangle</a> soup</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Materials</h2>
+<ul>
+<li><b><a class="el" href="classLambertian.html">Lambertian</a></b> - matte diffuse</li>
+<li><b>Colored Diffuse</b> - per-face color control</li>
+<li><b><a class="el" href="classPhong.html">Phong</a></b> - specular highlights with configurable shininess</li>
+<li><b><a class="el" href="classReflective.html" title="Reflective material implementing perfect mirror reflection.">Reflective</a></b> - mirror reflections with reflectivity factor</li>
+<li><b><a class="el" href="classRefractive.html" title="Refractive material implementing light bending and transparency.">Refractive</a></b> - glass/water with opacity and refractive index</li>
+<li><b><a class="el" href="classChessboard.html">Chessboard</a></b> - procedural checkerboard pattern</li>
+<li><b>Perlin Noise</b> - procedural noise texture</li>
+<li><b><a class="el" href="classImage.html">Image</a> Texture</b> - PNG, JPG, or PPM mapped onto shapes</li>
+<li><b>Normal Mapped</b> - bump detail via normal map images</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Lighting</h2>
+<ul>
+<li>Point lights (position, color, intensity)</li>
+<li>Directional lights (direction, color, intensity)</li>
+<li>Colored shadows</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Rendering</h2>
+<ul>
+<li><b>Antialiasing:</b> SSAA (jittered grid) and Adaptive SSAA (variance-driven subdivision)</li>
+<li><b>Ambient Occlusion:</b> hemisphere sampling, configurable samples and radius</li>
+<li><b>Tone Mapping:</b> ACES filmic curve with adjustable strength</li>
+<li><b>Background:</b> solid color or HDR/image backdrop</li>
+<li><b>Multithreading:</b> configurable thread count</li>
+<li><b><a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> culling:</b> automatic bounding box acceleration for all bounded shapes</li>
+<li><b>Recursive scattering:</b> reflections and refractions with configurable depth</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Scene System</h2>
+<p>Scenes are text configs (libconfig++ format). Materials are defined once and referenced by name. Scenes can embed other scene files with their own position, rotation, and scale — recursively, with cycle detection.</p>
+<div class="fragment"><div class="line">camera:</div>
+<div class="line">{</div>
+<div class="line">    resolution = { width = 1920; height = 1080; };</div>
+<div class="line">    position = { x = 0.0; y = 0.0; z = 5.0; };</div>
+<div class="line">    look_at = { x = 0.0; y = 0.0; z = 0.0; };</div>
+<div class="line">    up = { x = 0.0; y = 1.0; z = 0.0; };</div>
+<div class="line">    fieldOfView = 90.0;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">renderer:</div>
+<div class="line">{</div>
+<div class="line">    antialiasing = {</div>
+<div class="line">        enabled = true;</div>
+<div class="line">        method = &quot;adaptive&quot;;</div>
+<div class="line">        threshold = 0.1;</div>
+<div class="line">    };</div>
+<div class="line">    lighting = {</div>
+<div class="line">        ambientColor = { r = 200; g = 200; b = 200; };</div>
+<div class="line">        ambientMultiplier = 0.3;</div>
+<div class="line">        diffuseMultiplier = 0.8;</div>
+<div class="line">        ambientOcclusion = {</div>
+<div class="line">            enabled = true;</div>
+<div class="line">            samples = 16;</div>
+<div class="line">            radius = 4.0;</div>
+<div class="line">        };</div>
+<div class="line">    };</div>
+<div class="line">    toneMapping = {</div>
+<div class="line">        enabled = true;</div>
+<div class="line">        strength = 0.8;</div>
+<div class="line">    };</div>
+<div class="line">    background = { color = { r = 20; g = 20; b = 30; }; };</div>
+<div class="line">    output = &quot;output.png&quot;;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">materials:</div>
+<div class="line">{</div>
+<div class="line">    lambertian = (</div>
+<div class="line">        { name = &quot;ground&quot;; color = { r = 180; g = 180; b = 180; }; }</div>
+<div class="line">    );</div>
+<div class="line"> </div>
+<div class="line">    reflective = (</div>
+<div class="line">        { name = &quot;mirror&quot;; reflectivity = 0.95; color = { r = 255; g = 255; b = 255; }; }</div>
+<div class="line">    );</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">shapes:</div>
+<div class="line">{</div>
+<div class="line">    spheres = (</div>
+<div class="line">        { position = { x = 0.0; y = 0.0; z = 0.0; }; radius = 1.0; material = &quot;mirror&quot;; }</div>
+<div class="line">    );</div>
+<div class="line">    planes = (</div>
+<div class="line">        { position = { x = 0.0; y = -1.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = &quot;ground&quot;; }</div>
+<div class="line">    );</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">lights:</div>
+<div class="line">{</div>
+<div class="line">    point = (</div>
+<div class="line">        { position = { x = 5.0; y = 10.0; z = -5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1000.0; }</div>
+<div class="line">    );</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">// embed another scene file with transform applied</div>
+<div class="line">scenes = (</div>
+<div class="line">    { path = &quot;scenes/other.txt&quot;; position = { x = 5.0; y = 0.0; z = 0.0; }; rotation = { x = 0.0; y = 45.0; z = 0.0; }; }</div>
+<div class="line">);</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
+Live Preview</h2>
+<p>With <code>-DWITH_UI=ON</code> (Linux), an SFML window shows the render as it progresses in real time.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Plugin System</h2>
+<p>Every shape, material, and light is a dynamically loaded <code>.so</code>. Adding a new primitive means implementing one interface and dropping it in <code>plugins/</code>. No recompilation of core required.</p>
+<hr  />
+<h1><a class="anchor" id="autotoc_md18"></a>
+Scene Config Reference</h1>
+<p>Full parameter list available via:</p>
+<div class="fragment"><div class="line">./raytracer --help</div>
+</div><!-- fragment --><p>Find all scene config options using:</p>
+<div class="fragment"><div class="line">./raytracer --usage</div>
+</div><!-- fragment --> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

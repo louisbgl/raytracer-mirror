@@ -1,17 +1,17 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['mask_1',['mask',['../classInotifyEvent.html#aae4c6c717d229bb70a44ac10bfdb6af2',1,'InotifyEvent']]],
-  ['matches_2',['matches',['../classclap_1_1IArgument.html#a9289107b106c5e719635d411d5376ef8',1,'clap::IArgument']]],
-  ['materialcount_3',['materialCount',['../classScene.html#a7bf5e912d5716ee0571d245e7a5af29a',1,'Scene']]],
-  ['matrix4x4_4',['Matrix4x4',['../classMatrix4x4.html#a714a467ba7f85f88ebe3897b5e3580be',1,'Matrix4x4']]],
-  ['max_5',['max',['../Vec3_8hpp.html#a068f20aed9c9663095acb0294a915887',1,'max():&#160;Vec3.hpp'],['../classAABB.html#a259336628a35a719359b7f450d12d2a2',1,'AABB::max()']]],
-  ['max_5fcomponent_6',['max_component',['../Vec3_8hpp.html#a35c8201286ab82ac748d109a9dcd1e9b',1,'Vec3.hpp']]],
-  ['mengersponge_7',['MengerSponge',['../classMengerSponge.html#adcf199e77e0d5850a66f4cb8fc797cca',1,'MengerSponge']]],
-  ['mesh_8',['Mesh',['../classMesh.html#a64caa19d595fd9fe88b01d342025afca',1,'Mesh']]],
-  ['meshtriangle_9',['MeshTriangle',['../classMeshTriangle.html#ab3029ef830ec1a353fb5b94d551f9212',1,'MeshTriangle']]],
-  ['metadata_10',['metadata',['../Cone_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Cone.cpp'],['../Cylinder_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Cylinder.cpp'],['../Hourglass_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Hourglass.cpp'],['../LimitedCone_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedCone.cpp'],['../LimitedCylinder_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedCylinder.cpp'],['../LimitedHourglass_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;LimitedHourglass.cpp'],['../MengerSponge_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;MengerSponge.cpp'],['../Mesh_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Mesh.cpp'],['../Plane_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Plane.cpp'],['../Rectangle_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Rectangle.cpp'],['../Sphere_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Sphere.cpp'],['../Triangle_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Triangle.cpp'],['../Tanglecube_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Tanglecube.cpp'],['../Torus_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Torus.cpp'],['../Box_8cpp.html#a73c8cf2edd391dfa3a366e99ff4cb3c1',1,'metadata():&#160;Box.cpp'],['../Refractive_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Refractive.cpp'],['../Reflective_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Reflective.cpp'],['../Phong_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Phong.cpp'],['../PerlinNoise_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;PerlinNoise.cpp'],['../NormalMapped_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;NormalMapped.cpp'],['../Lambertian_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Lambertian.cpp'],['../ImageTexture_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;ImageTexture.cpp'],['../ColoredDiffuse_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;ColoredDiffuse.cpp'],['../Chessboard_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;Chessboard.cpp'],['../PointLight_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;PointLight.cpp'],['../DirectionalLight_8cpp.html#ad904d62202d0d6477860ba913faadeed',1,'metadata():&#160;DirectionalLight.cpp']]],
-  ['min_11',['min',['../classAABB.html#a7f48f1d50f3adb2c1beb8d13d8e35902',1,'AABB']]],
-  ['missingrequiredargument_12',['MissingRequiredArgument',['../classclap_1_1MissingRequiredArgument.html#a5826d110ff01b5a64ce17a3ebcdf9a4f',1,'clap::MissingRequiredArgument']]],
-  ['missingvalue_13',['MissingValue',['../classclap_1_1MissingValue.html#a07a79d7d818dd0d5d5db8e1dd9b29770',1,'clap::MissingValue']]]
+  ['lambertian_0',['Lambertian',['../classLambertian.html#a26fc031be93f36d55827d7b12a852bd2',1,'Lambertian']]],
+  ['len_1',['len',['../classInotifyEvent.html#ab7d2a843e8f75be3cf04503546b5a09b',1,'InotifyEvent']]],
+  ['length_2',['length',['../Vec3_8hpp.html#af86e2bd521e6cc1b45e5a2cdcd062849',1,'Vec3.hpp']]],
+  ['length_5fsquared_3',['length_squared',['../Vec3_8hpp.html#a1a5ca11880816140186da0d60af0ec00',1,'Vec3.hpp']]],
+  ['lerp_4',['lerp',['../PerlinNoise_8cpp.html#a148131cca7fe9cdc7e153e13a1711c4a',1,'PerlinNoise.cpp']]],
+  ['lights_5',['lights',['../classScene.html#ad0d49881e9fcdd49c17ff9050311cf2c',1,'Scene']]],
+  ['limitedcone_6',['LimitedCone',['../classLimitedCone.html#a514717da21488b545ef049e36a8cc1ad',1,'LimitedCone']]],
+  ['limitedcylinder_7',['LimitedCylinder',['../classLimitedCylinder.html#a5cae366bb6d407021b0e9c04d31f3490',1,'LimitedCylinder']]],
+  ['limitedhourglass_8',['LimitedHourglass',['../classLimitedHourglass.html#a68ece9162a5bbb396d02c4d00eef9a44',1,'LimitedHourglass']]],
+  ['load_9',['load',['../classPluginLoader.html#a31b2abcb056bba54cc040554102781c8',1,'PluginLoader']]],
+  ['logger_10',['Logger',['../classLogger.html#abc41bfb031d896170c7675fa96a6b30c',1,'Logger']]],
+  ['logscene_11',['logScene',['../classLogger.html#a36e3d5569ae4ca4c8a0128f9ea1907ba',1,'Logger']]],
+  ['logstats_12',['logStats',['../classLogger.html#a644805e8b4b5119fef0718a413e59773',1,'Logger']]],
+  ['logtiming_13',['logTiming',['../classLogger.html#aa90cc94e74d1855da1bca33a9f6a28ab',1,'Logger']]]
 ];

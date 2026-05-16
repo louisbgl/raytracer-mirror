@@ -7,7 +7,7 @@ var searchData=
   ['getfov_4',['getFov',['../classCamera.html#a1e6f2044fa0777281cce45d573e2eed4',1,'Camera']]],
   ['getheight_5',['getHeight',['../classCamera.html#a577faefd32dd6e66ee35311419ea9741',1,'Camera']]],
   ['getlookat_6',['getLookAt',['../classCamera.html#a28bc509b13325d90d21a32fe686784d5',1,'Camera']]],
-  ['getnumber_7',['getNumber',['../classConfigUtils.html#abc44477aaf252a6bb09b5296c4a856f5',1,'ConfigUtils']]],
+  ['getnumber_7',['getnumber',['../classConfigUtils.html#abc44477aaf252a6bb09b5296c4a856f5',1,'ConfigUtils::getNumber(const libconfig::Setting &amp;setting)'],['../classConfigUtils.html#a1d7df314f2531a02b29fcfd51b27c68a',1,'ConfigUtils::getNumber(const libconfig::Setting &amp;setting, const char *key, double fallback)']]],
   ['getpixel_8',['getPixel',['../classImage.html#a4e42747a00227551466626bf22e56fd5',1,'Image']]],
   ['getpluginsbycategory_9',['getPluginsByCategory',['../classPluginManager.html#a1984f3b9481dd56b4b8b1e081625a6ea',1,'PluginManager']]],
   ['getposition_10',['getPosition',['../classCamera.html#a79d8e301befc88644679d1c841d185d3',1,'Camera']]],

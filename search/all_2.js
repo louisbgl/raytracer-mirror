@@ -8,7 +8,7 @@ var searchData=
   ['box_2ecpp_5',['Box.cpp',['../Box_8cpp.html',1,'']]],
   ['box_2ehpp_6',['Box.hpp',['../Box_8hpp.html',1,'']]],
   ['browser_7',['Browser',['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344aef15fd2f45e6bb5ce57587895ba64f93',1,'UIApp.hpp']]],
-  ['build_8',['build',['../classWorld.html#a748e24c7951e21562bec33be4ea311b5',1,'World']]],
-  ['bvhnode_9',['bvhnode',['../classBVHNode.html',1,'BVHNode'],['../classBVHNode.html#adfbdf9feb28b9d0371a75f089934f161',1,'BVHNode::BVHNode()']]],
+  ['build_8',['build',['../index.html#autotoc_md4',1,'Build'],['../classWorld.html#a748e24c7951e21562bec33be4ea311b5',1,'World::build()']]],
+  ['bvhnode_9',['bvhnode',['../classBVHNode.html#adfbdf9feb28b9d0371a75f089934f161',1,'BVHNode::BVHNode()'],['../classBVHNode.html',1,'BVHNode']]],
   ['bvhnode_2ehpp_10',['BVHNode.hpp',['../BVHNode_8hpp.html',1,'']]]
 ];

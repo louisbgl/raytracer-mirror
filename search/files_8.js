@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['main_2ecpp_0',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['materialfactory_2ecpp_1',['MaterialFactory.cpp',['../MaterialFactory_8cpp.html',1,'']]],
-  ['materialfactory_2ehpp_2',['MaterialFactory.hpp',['../MaterialFactory_8hpp.html',1,'']]],
-  ['matrix4x4_2ecpp_3',['Matrix4x4.cpp',['../Matrix4x4_8cpp.html',1,'']]],
-  ['matrix4x4_2ehpp_4',['Matrix4x4.hpp',['../Matrix4x4_8hpp.html',1,'']]],
-  ['mengersponge_2ecpp_5',['MengerSponge.cpp',['../MengerSponge_8cpp.html',1,'']]],
-  ['mengersponge_2ehpp_6',['MengerSponge.hpp',['../MengerSponge_8hpp.html',1,'']]],
-  ['mesh_2ecpp_7',['Mesh.cpp',['../Mesh_8cpp.html',1,'']]],
-  ['mesh_2ehpp_8',['Mesh.hpp',['../Mesh_8hpp.html',1,'']]],
-  ['meshtriangle_2ecpp_9',['MeshTriangle.cpp',['../MeshTriangle_8cpp.html',1,'']]],
-  ['meshtriangle_2ehpp_10',['MeshTriangle.hpp',['../MeshTriangle_8hpp.html',1,'']]]
+  ['lambertian_2ecpp_0',['Lambertian.cpp',['../Lambertian_8cpp.html',1,'']]],
+  ['lambertian_2ehpp_1',['Lambertian.hpp',['../Lambertian_8hpp.html',1,'']]],
+  ['lightfactory_2ecpp_2',['LightFactory.cpp',['../LightFactory_8cpp.html',1,'']]],
+  ['lightfactory_2ehpp_3',['LightFactory.hpp',['../LightFactory_8hpp.html',1,'']]],
+  ['limitedcone_2ecpp_4',['LimitedCone.cpp',['../LimitedCone_8cpp.html',1,'']]],
+  ['limitedcone_2ehpp_5',['LimitedCone.hpp',['../LimitedCone_8hpp.html',1,'']]],
+  ['limitedcylinder_2ecpp_6',['LimitedCylinder.cpp',['../LimitedCylinder_8cpp.html',1,'']]],
+  ['limitedcylinder_2ehpp_7',['LimitedCylinder.hpp',['../LimitedCylinder_8hpp.html',1,'']]],
+  ['limitedhourglass_2ecpp_8',['LimitedHourglass.cpp',['../LimitedHourglass_8cpp.html',1,'']]],
+  ['limitedhourglass_2ehpp_9',['LimitedHourglass.hpp',['../LimitedHourglass_8hpp.html',1,'']]],
+  ['logger_2ecpp_10',['Logger.cpp',['../Logger_8cpp.html',1,'']]],
+  ['logger_2ehpp_11',['Logger.hpp',['../Logger_8hpp.html',1,'']]]
 ];
