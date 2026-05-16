@@ -4,6 +4,16 @@ A CPU raytracer written in C++20 with a plugin-based architecture. Supports phys
 
 ---
 
+![C++](https://img.shields.io/badge/C%2B%2B-20-blue)
+![Last commit](https://img.shields.io/github/last-commit/louisbgl/raytracer-mirror)
+![Contributors](https://img.shields.io/github/contributors/louisbgl/raytracer-mirror)
+![Code size](https://img.shields.io/github/languages/code-size/louisbgl/raytracer-mirror)
+![Top language](https://img.shields.io/github/languages/top/louisbgl/raytracer-mirror)
+![CI](https://github.com/louisbgl/raytracer-mirror/actions/workflows/ci.yml/badge.svg)
+![Lint](https://github.com/louisbgl/raytracer-mirror/actions/workflows/lint.yml/badge.svg)
+
+[![Contributors](https://contrib.rocks/image?repo=louisbgl/raytracer-mirror)](https://github.com/louisbgl/raytracer-mirror/graphs/contributors)
+
 ## Getting Started
 
 ### Clone
@@ -187,14 +197,3 @@ Find all scene config options using:
 ```bash
 ./raytracer --usage
 ```
-
-![C++](https://img.shields.io/badge/C%2B%2B-20-blue)
-![Last commit](https://img.shields.io/github/last-commit/louisbgl/raytracer-mirror)
-![Contributors](https://img.shields.io/github/contributors/louisbgl/raytracer-mirror)
-![Code size](https://img.shields.io/github/languages/code-size/louisbgl/raytracer-mirror)
-![Top language](https://img.shields.io/github/languages/top/louisbgl/raytracer-mirror)
-![CI](https://github.com/louisbgl/raytracer-mirror/actions/workflows/ci.yml/badge.svg)
-![Lint](https://github.com/louisbgl/raytracer-mirror/actions/workflows/lint.yml/badge.svg)
-
-[![Contributors](https://contrib.rocks/image?repo=louisbgl/raytracer-mirror)](https://github.com/louisbgl/raytracer-mirror/graphs/contributors)
-
