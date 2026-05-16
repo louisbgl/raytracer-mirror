@@ -1,6 +1,7 @@
 #include "Core.hpp"
 #include "RenderSampler.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <memory>
@@ -47,6 +48,12 @@ bool Core::simulate() {
 
     return true;
 }
+
+bool Core::loadScene() { return _loadScene(); }
+
+int         Core::sceneWidth()  const { return _scene.camera().getWidth(); }
+int         Core::sceneHeight() const { return _scene.camera().getHeight(); }
+std::string Core::outputFile()  const { return _scene.rendererConfig().outputFile; }
 
 bool Core::_loadScene() {
     try {
@@ -99,7 +106,6 @@ bool Core::_loadScene() {
 Image Core::_render()
 {
     const RendererConfig rc = _scene.rendererConfig();
-
     int h = _scene.camera().getHeight();
     int w = _scene.camera().getWidth();
     Image image(w, h);
@@ -155,6 +161,47 @@ Image Core::_render()
     }
 
     return image;
+}
+
+Image Core::renderSlice(int firstRow, int lastRow)
+{
+    if (!_loadScene())
+        throw std::runtime_error("renderSlice: failed to load scene");
+
+    const RendererConfig rc = _scene.rendererConfig();
+    int w = _scene.camera().getWidth();
+    int h = _scene.camera().getHeight();
+    int rowCount = lastRow - firstRow;
+    Image slice(w, rowCount);
+
+    int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
+    if (_progressTotal) _progressTotal->store(rowCount);
+
+    int thread_rows = rowCount / total_threads;
+
+    std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
+
+    std::vector<std::thread> threads;
+    for (int t = 0; t < total_threads; ++t) {
+        int first = firstRow + t * thread_rows;
+        int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
+
+        threads.emplace_back([this, &slice, &computePixel, first, last, firstRow, w]() {
+            for (int y = first; y < last; ++y) {
+                if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
+                    return;
+                for (int x = 0; x < w; ++x)
+                    slice.setPixel(x, y - firstRow, computePixel(x, y));
+                if (_progressRows)
+                    _progressRows->fetch_add(1, std::memory_order_relaxed);
+            }
+        });
+    }
+
+    for (auto& thrd : threads)
+        thrd.join();
+
+    return slice;
 }
 
 void Core::_writeOutput(Image& image) {

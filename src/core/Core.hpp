@@ -26,6 +26,12 @@ public:
      * @note The output image is saved as "output.ppm".
      */
     bool simulate();
+    bool loadScene();
+    Image renderSlice(int firstRow, int lastRow);
+
+    int         sceneWidth()  const;
+    int         sceneHeight() const;
+    std::string outputFile()  const;
 
     // UI mode hooks — set before simulate(), no-op in CLI mode
     void setCancelFlag(std::atomic<bool>* flag)  { _cancelFlag = flag; }
