@@ -44,10 +44,10 @@ Output format is determined by the `output` field in your scene config (`.png`, 
 
 | | |
 |---|---|
-| ![placeholder](docs/img/louis.png) | ![placeholder](docs/img/lucas.png) |
-| ![placeholder](docs/img/fred.png) | ![placeholder](docs/img/gustave.png) |
+| ![louis](docs/img/louis.png) | ![lucas](docs/img/lucas.png) |
+| ![fred](docs/img/fred.png) | ![gustave](docs/img/gustave.png) |
 
-![placeholder](docs/img/spinning_shapes.gif)
+![spinning_shapes](docs/img/spinning_shapes.gif)
 
 ---
 
