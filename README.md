@@ -188,22 +188,13 @@ Find all scene config options using:
 ./raytracer --usage
 ```
 
----
-
-## Stats (as of May 2026)
-
-- ~9.3k lines of C++20
-- 17 shape plugins, 9 material plugins, 2 light plugins
-- 643 commits
-
----
-
 ![C++](https://img.shields.io/badge/C%2B%2B-20-blue)
 ![Last commit](https://img.shields.io/github/last-commit/louisbgl/raytracer-mirror)
 ![Contributors](https://img.shields.io/github/contributors/louisbgl/raytracer-mirror)
+![Code size](https://img.shields.io/github/languages/code-size/louisbgl/raytracer-mirror)
+![Top language](https://img.shields.io/github/languages/top/louisbgl/raytracer-mirror)
+![CI](https://github.com/louisbgl/raytracer-mirror/actions/workflows/ci.yml/badge.svg)
+![Lint](https://github.com/louisbgl/raytracer-mirror/actions/workflows/lint.yml/badge.svg)
 
 [![Contributors](https://contrib.rocks/image?repo=louisbgl/raytracer-mirror)](https://github.com/louisbgl/raytracer-mirror/graphs/contributors)
 
-[![repobeats](https://repobeats.axiom.co/api/embed/84860b9b2e03560bfb3151a4a9c5eefdd5930b17.svg)](https://github.com/louisbgl/raytracer-mirror)
-
-[![Star History Chart](https://api.star-history.com/svg?repos=louisbgl/raytracer-mirror&type=Date)](https://star-history.com/#louisbgl/raytracer-mirror)
