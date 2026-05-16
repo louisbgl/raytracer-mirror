@@ -19,4 +19,5 @@ tests/results/
 *.jpeg
 !textures/**
 !showcase/**
+!docs/img/**
 scripts
