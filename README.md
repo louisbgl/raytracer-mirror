@@ -198,20 +198,12 @@ Find all scene config options using:
 
 ---
 
-```md
 ![C++](https://img.shields.io/badge/C%2B%2B-20-blue)
 ![Last commit](https://img.shields.io/github/last-commit/louisbgl/raytracer-mirror)
 ![Contributors](https://img.shields.io/github/contributors/louisbgl/raytracer-mirror)
-```
 
-```md
 [![Contributors](https://contrib.rocks/image?repo=louisbgl/raytracer-mirror)](https://github.com/louisbgl/raytracer-mirror/graphs/contributors)
-```
 
-```md
 [![repobeats](https://repobeats.axiom.co/api/embed/84860b9b2e03560bfb3151a4a9c5eefdd5930b17.svg)](https://github.com/louisbgl/raytracer-mirror)
-```
 
-```md
 [![Star History Chart](https://api.star-history.com/svg?repos=louisbgl/raytracer-mirror&type=Date)](https://star-history.com/#louisbgl/raytracer-mirror)
-```
