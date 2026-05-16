@@ -98,7 +98,7 @@ Output format is determined by the `output` field in your scene config (`.png`, 
 - **Tone Mapping:** ACES filmic curve with adjustable strength
 - **Background:** solid color or HDR/image backdrop
 - **Multithreading:** configurable thread count
-- **AABB culling:** automatic bounding box acceleration for all bounded shapes
+- **BVH + AABB culling:** bounding volume hierarchy on all bounded shapes and meshes
 - **Recursive scattering:** reflections and refractions with configurable depth
 
 ### Scene System
