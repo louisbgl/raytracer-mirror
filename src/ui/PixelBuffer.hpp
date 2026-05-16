@@ -19,4 +19,5 @@ struct PixelBuffer {
     void init(int w, int h);
     void reset();
     void setRow(int y, const uint8_t* rowRgba, int rowBytes); // thread safe write
+    void swapBuffers(PixelBuffer& other); // swap all members (mutexes stay in place)
 };

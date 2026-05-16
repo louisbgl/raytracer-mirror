@@ -29,3 +29,17 @@ void PixelBuffer::setRow(int y, const uint8_t* rowRgba, int rowBytes) {
     }
     std::copy(rowRgba, rowRgba + width * 4, rgba.begin() + y * width * 4);
 }
+
+void PixelBuffer::swapBuffers(PixelBuffer& other) {
+    std::swap(rgba, other.rgba);
+    std::swap(width, other.width);
+    std::swap(height, other.height);
+
+    int tempRows = rowsComplete.load();
+    rowsComplete.store(other.rowsComplete.load());
+    other.rowsComplete.store(tempRows);
+
+    int tempTotal = totalRows.load();
+    totalRows.store(other.totalRows.load());
+    other.totalRows.store(tempTotal);
+}
