@@ -103,6 +103,7 @@ void UIApp::update(float deltaTime) {
 
             _freeRoamController->update(deltaTime);
 
+
             // Trigger new render only if camera moved AND no render active
             if (_freeRoamController->hasMoved()) {
                 _freeRoamController->clearDirtyFlag();
@@ -171,28 +172,15 @@ void UIApp::draw() {
                 _window.draw(sprite);
             }
 
-            // Draw FPS counter
+            // Draw render FPS counter
             {
-                static auto lastFpsUpdate = std::chrono::steady_clock::now();
-                static int frameCount = 0;
-                static float currentFps = 0.0f;
-
-                frameCount++;
-                auto now = std::chrono::steady_clock::now();
-                float elapsed = std::chrono::duration<float>(now - lastFpsUpdate).count();
-                if (elapsed >= 0.5f) {
-                    currentFps = frameCount / elapsed;
-                    frameCount = 0;
-                    lastFpsUpdate = now;
-                }
-
                 sf::Text fpsText;
                 fpsText.setFont(_font);
                 fpsText.setCharacterSize(20);
                 fpsText.setFillColor(sf::Color::White);
                 fpsText.setOutlineColor(sf::Color::Black);
                 fpsText.setOutlineThickness(2.f);
-                fpsText.setString("FPS: " + std::to_string(static_cast<int>(currentFps + 0.5f)));
+                fpsText.setString("FPS: " + std::to_string(static_cast<int>(_freeRoamRenderFps + 0.5f)));
                 fpsText.setPosition(10.f, 10.f);
                 _window.draw(fpsText);
             }
@@ -328,7 +316,7 @@ void UIApp::spawnFreeRoamRenderThread() {
         try {
             Core core(path);
             core.setCancelFlag(&_freeRoamCancelFlag);
-            core.setPreviewMode(0.75f, 10);
+            core.setFreeRoamConfig(500, 500, 5, false, false, false);
             core.setCameraOverride(cam);
             core.setDimensionsCallback([this](int w, int h) {
                 _freeRoamBackBuffer.init(w, h);
@@ -342,6 +330,20 @@ void UIApp::spawnFreeRoamRenderThread() {
 
             // Swap buffers when render complete
             {
+                auto now = std::chrono::steady_clock::now();
+                if (_freeRoamLastRenderTime.time_since_epoch().count() > 0) {
+                    float elapsed = std::chrono::duration<float>(now - _freeRoamLastRenderTime).count();
+                    _freeRoamRenderTimes.push_back(elapsed);
+                    if (_freeRoamRenderTimes.size() > 30) {
+                        _freeRoamRenderTimes.erase(_freeRoamRenderTimes.begin());
+                    }
+                    float avg = 0.0f;
+                    for (float t : _freeRoamRenderTimes) avg += t;
+                    avg /= _freeRoamRenderTimes.size();
+                    _freeRoamRenderFps = 1.0f / avg;
+                }
+                _freeRoamLastRenderTime = now;
+
                 std::lock_guard<std::mutex> lock(_freeRoamSwapMutex);
                 _freeRoamPixelBuffer.swapBuffers(_freeRoamBackBuffer);
             }

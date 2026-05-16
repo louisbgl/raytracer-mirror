@@ -85,6 +85,9 @@ private:
     std::atomic<bool> _freeRoamCancelFlag{false};
     std::atomic<bool> _freeRoamRenderActive{false};
     Camera            _freeRoamCamera;
+    float             _freeRoamRenderFps{0.0f};
+    std::chrono::steady_clock::time_point _freeRoamLastRenderTime;
+    std::vector<float> _freeRoamRenderTimes;
 
     // File watching for auto-reload
     std::unique_ptr<FileWatcher> _fileWatcher;
