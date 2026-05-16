@@ -10,6 +10,8 @@ public:
 
     void run();
 
+    static int launch(const std::string& addr);
+
 private:
     std::string _host;
     int _port;
@@ -17,4 +19,3 @@ private:
     ClusterLogger _log{"worker"};
 };
 
-int runWorker(const std::string& addr);

@@ -100,10 +100,10 @@ int main(int argc, char* argv[]) {
             return runCLI(args);
 
         case RunMode::RunCoordinator:
-            return runCoordinator(args.scene);
+            return Coordinator::launch(args.scene);
 
         case RunMode::RunWorker:
-            return runWorker(args.worker);
+            return Worker::launch(args.worker);
 
         case RunMode::Error:
         default:

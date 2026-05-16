@@ -116,7 +116,7 @@ void Worker::run()
     std::cout << "Done. Total rows rendered: " << _totalRowsRendered.load() << "\n";
 }
 
-int runWorker(const std::string& addr) {
+int Worker::launch(const std::string& addr) {
     PluginManager::instance().initialize();
     size_t colon = addr.rfind(':');
     if (colon == std::string::npos) {

@@ -34,6 +34,8 @@ public:
 
     void run();
 
+    static int launch(const std::string& sceneFile);
+
 private:
     std::string _sceneFile;
     std::string _sceneContent;
@@ -60,5 +62,3 @@ private:
     void _renderLocalChunks(Image& image);
     void _drawDashboard() const;
 };
-
-int runCoordinator(const std::string& sceneFile);

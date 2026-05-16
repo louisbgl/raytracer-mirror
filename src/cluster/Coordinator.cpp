@@ -433,7 +433,7 @@ void Coordinator::_drawDashboard() const
     std::cout.flush();
 }
 
-int runCoordinator(const std::string& sceneFile) {
+int Coordinator::launch(const std::string& sceneFile) {
     PluginManager::instance().initialize();
     try {
         Coordinator coordinator(sceneFile);
