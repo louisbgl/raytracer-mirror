@@ -3,6 +3,7 @@
 #include "../network/Message.hpp"
 #include "../core/Core.hpp"
 #include "../core/Image.hpp"
+#include "../core/PluginManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <thread>
@@ -113,4 +114,27 @@ void Worker::run()
     ::unlink(tempPath.c_str());
     _log.info("worker", "Done — total rows rendered: " + std::to_string(_totalRowsRendered.load()));
     std::cout << "Done. Total rows rendered: " << _totalRowsRendered.load() << "\n";
+}
+
+int runWorker(const std::string& addr) {
+    PluginManager::instance().initialize();
+    size_t colon = addr.rfind(':');
+    if (colon == std::string::npos) {
+        std::cerr << "Error: --worker expects ip:port format\n";
+        return 84;
+    }
+    try {
+        std::string host = addr.substr(0, colon);
+        int port = std::stoi(addr.substr(colon + 1));
+        if (port <= 0 || port > 65535) {
+            std::cerr << "Error: port must be between 1 and 65535\n";
+            return 84;
+        }
+        Worker worker(host, port);
+        worker.run();
+        return 0;
+    } catch (const std::exception& e) {
+        std::cerr << "Worker error: " << e.what() << "\n";
+        return 84;
+    }
 }

@@ -16,3 +16,5 @@ private:
     std::atomic<int> _totalRowsRendered{0};
     ClusterLogger _log{"worker"};
 };
+
+int runWorker(const std::string& addr);

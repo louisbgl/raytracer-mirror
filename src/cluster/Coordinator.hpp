@@ -60,3 +60,5 @@ private:
     void _renderLocalChunks(Image& image);
     void _drawDashboard() const;
 };
+
+int runCoordinator(const std::string& sceneFile);

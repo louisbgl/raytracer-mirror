@@ -79,42 +79,6 @@ static int runCLI(const Args& args) {
     return core.simulate() ? 0 : 84;
 }
 
-static int runCoordinator(const Args& args) {
-    PluginManager::instance().initialize();
-    try {
-        Coordinator coordinator(args.scene);
-        coordinator.run();
-        return 0;
-    } catch (const std::exception& e) {
-        std::cerr << "Coordinator error: " << e.what() << "\n";
-        return 84;
-    }
-}
-
-static int runWorker(const Args& args) {
-    PluginManager::instance().initialize();
-    std::string addr = args.worker;
-    size_t colon = addr.rfind(':');
-    if (colon == std::string::npos) {
-        std::cerr << "Error: --worker expects ip:port format\n";
-        return 84;
-    }
-    try {
-        std::string host = addr.substr(0, colon);
-        int port = std::stoi(addr.substr(colon + 1));
-        if (port <= 0 || port > 65535) {
-            std::cerr << "Error: port must be between 1 and 65535\n";
-            return 84;
-        }
-        Worker worker(host, port);
-        worker.run();
-        return 0;
-    } catch (const std::exception& e) {
-        std::cerr << "Worker error: " << e.what() << "\n";
-        return 84;
-    }
-}
-
 int main(int argc, char* argv[]) {
     Args args;
     if (int err = parseArgs(argc, argv, args); err != -1)
@@ -136,10 +100,10 @@ int main(int argc, char* argv[]) {
             return runCLI(args);
 
         case RunMode::RunCoordinator:
-            return runCoordinator(args);
+            return runCoordinator(args.scene);
 
         case RunMode::RunWorker:
-            return runWorker(args);
+            return runWorker(args.worker);
 
         case RunMode::Error:
         default:

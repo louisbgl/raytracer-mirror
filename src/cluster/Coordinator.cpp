@@ -1,6 +1,7 @@
 #include "Coordinator.hpp"
 #include "../network/Message.hpp"
 #include "../core/Core.hpp"
+#include "../core/PluginManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -430,4 +431,16 @@ void Coordinator::_drawDashboard() const
     std::cout << std::fixed << std::setprecision(1) << secs << "s"
               << "    Log: " << _log.path() << "\n";
     std::cout.flush();
+}
+
+int runCoordinator(const std::string& sceneFile) {
+    PluginManager::instance().initialize();
+    try {
+        Coordinator coordinator(sceneFile);
+        coordinator.run();
+        return 0;
+    } catch (const std::exception& e) {
+        std::cerr << "Coordinator error: " << e.what() << "\n";
+        return 84;
+    }
 }
