@@ -196,6 +196,22 @@ Every shape, material, and light is a dynamically loaded `.so`. Adding a new pri
 
 Fun fact, for a more optimised implementation, we would not use dynamic loading at all, as it is slower than static linking. This was mentionned in the subject, so we went with it :)
 
+### Distributed Cluster Rendering
+
+Large renders can be split across multiple machines over TCP. One node runs as coordinator, the rest as workers.
+
+```bash
+# Coordinator (renders + distributes work)
+./raytracer --coordinator scenes/scene.cfg
+
+# Workers (connect to coordinator)
+./raytracer --worker <coordinator-ip>:6767
+```
+
+The coordinator slices the image into 10-row chunks and distributes them dynamically — faster workers pick up more chunks. The coordinator also renders locally, competing fairly with remote workers. If a worker disconnects mid-chunk, its work is automatically re-queued.
+
+A live dashboard shows per-worker progress, rows/sec, and an ETA. Full protocol documentation: [`docs/protocol/protocol.md`](docs/protocol/protocol.md).
+
 ---
 
 ## Scene Config Reference
