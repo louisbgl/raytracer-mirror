@@ -186,6 +186,7 @@ Linux only (`-DWITH_UI=ON`). Built with SFML.
 
 ![mid_rendering](docs/img/mid_rendering.png)
 
+**Free Roam**. Explore the scenes freely through ZQSD + mouse movement controls.
 
 **Hot reload**. Edit your scene file and save. The render restarts automatically.
 
@@ -193,7 +194,7 @@ Linux only (`-DWITH_UI=ON`). Built with SFML.
 
 Every shape, material, and light is a dynamically loaded `.so`. Adding a new primitive means implementing one interface and dropping it in `plugins/`. No recompilation of core required.
 
-Fun fact, for a more optimised implementation, we would not use dynamic loading at all, as it is slower than static linking. this was mentionned in the subject, so we went with it :)
+Fun fact, for a more optimised implementation, we would not use dynamic loading at all, as it is slower than static linking. This was mentionned in the subject, so we went with it :)
 
 ---
 
