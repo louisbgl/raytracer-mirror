@@ -1,6 +1,7 @@
 #include "Core.hpp"
 #include "RenderSampler.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <iostream>
 #include <memory>
@@ -35,7 +36,7 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
-    if (!cancelled && !_previewMode)
+    if (!cancelled && !_previewMode && !_freeRoamMode)
         _writeOutput(image);
 
     auto t3 = Clock::now();
@@ -48,6 +49,13 @@ bool Core::simulate() {
     return true;
 }
 
+bool Core::loadScene() { return _loadScene(); }
+
+int         Core::sceneWidth()  const { return _scene.camera().getWidth(); }
+int         Core::sceneHeight() const { return _scene.camera().getHeight(); }
+std::string Core::outputFile()  const { return _scene.rendererConfig().outputFile; }
+Camera      Core::getCamera()   const { return _scene.camera(); }
+
 bool Core::_loadScene() {
     try {
         SceneParser parser;
@@ -57,7 +65,25 @@ bool Core::_loadScene() {
         return false;
     }
 
-    if (_previewMode) {
+    // Apply camera override if set (for free-roam mode)
+    if (_cameraOverride) {
+        _scene.setCamera(*_cameraOverride);
+    }
+
+    if (_freeRoamMode) {
+        auto& cam = _scene.camera();
+        cam.setWidth(_freeRoamWidth);
+        cam.setHeight(_freeRoamHeight);
+        _maxRayBounces = _freeRoamMaxBounces;
+
+        RendererConfig cfg = _scene.rendererConfig();
+        cfg.aaEnabled = _freeRoamAA;
+        cfg.aoEnabled = _freeRoamAO;
+        cfg.toneMappingEnabled = _freeRoamToneMapping;
+        cfg.multithreadingEnabled = true;
+        cfg.threadCount = 0;
+        _scene.setRendererConfig(cfg);
+    } else if (_previewMode) {
         static constexpr int PREVIEW_MAX_DIM = 480;
         auto& cam = _scene.camera();
         int pw = std::max(1, static_cast<int>(cam.getWidth()  * _previewResScale));
@@ -99,7 +125,6 @@ bool Core::_loadScene() {
 Image Core::_render()
 {
     const RendererConfig rc = _scene.rendererConfig();
-
     int h = _scene.camera().getHeight();
     int w = _scene.camera().getWidth();
     Image image(w, h);
@@ -155,6 +180,47 @@ Image Core::_render()
     }
 
     return image;
+}
+
+Image Core::renderSlice(int firstRow, int lastRow)
+{
+    if (!_loadScene())
+        throw std::runtime_error("renderSlice: failed to load scene");
+
+    const RendererConfig rc = _scene.rendererConfig();
+    int w = _scene.camera().getWidth();
+    int h = _scene.camera().getHeight();
+    int rowCount = lastRow - firstRow;
+    Image slice(w, rowCount);
+
+    int total_threads = _threadOverride > 0 ? _threadOverride : _getTotalThreads(rc);
+    if (_progressTotal) _progressTotal->store(rowCount);
+
+    int thread_rows = rowCount / total_threads;
+
+    std::function<Vec3(int, int)> computePixel = _getComputePixelLambda(rc, w, h);
+
+    std::vector<std::thread> threads;
+    for (int t = 0; t < total_threads; ++t) {
+        int first = firstRow + t * thread_rows;
+        int last  = (t == total_threads - 1) ? lastRow : firstRow + (t + 1) * thread_rows;
+
+        threads.emplace_back([this, &slice, &computePixel, first, last, firstRow, w]() {
+            for (int y = first; y < last; ++y) {
+                if (_cancelFlag && _cancelFlag->load(std::memory_order_relaxed))
+                    return;
+                for (int x = 0; x < w; ++x)
+                    slice.setPixel(x, y - firstRow, computePixel(x, y));
+                if (_progressRows)
+                    _progressRows->fetch_add(1, std::memory_order_relaxed);
+            }
+        });
+    }
+
+    for (auto& thrd : threads)
+        thrd.join();
+
+    return slice;
 }
 
 void Core::_writeOutput(Image& image) {
@@ -340,4 +406,45 @@ std::function<Vec3(int, int)> Core::_getComputePixelLambda(const RendererConfig&
             return toneMap(_computePixelColor(x, y, w, h));
         };
     }
+}
+
+void Core::setCancelFlag(std::atomic<bool>* flag) {
+    _cancelFlag = flag;
+}
+
+void Core::setThreadOverride(int n) {
+    _threadOverride = n;
+}
+
+void Core::setProgressTarget(std::atomic<int>* rows, std::atomic<int>* total) {
+    _progressRows  = rows;
+    _progressTotal = total;
+}
+
+void Core::setPreviewMode(float resScale, int maxBounces) {
+    _previewMode = true;
+    _previewResScale = resScale;
+    _previewMaxBounces = maxBounces;
+}
+
+void Core::setFreeRoamConfig(int width, int height, int maxBounces, bool aaEnabled, bool aoEnabled, bool toneMappingEnabled) {
+    _freeRoamMode = true;
+    _freeRoamWidth = width;
+    _freeRoamHeight = height;
+    _freeRoamMaxBounces = maxBounces;
+    _freeRoamAA = aaEnabled;
+    _freeRoamAO = aoEnabled;
+    _freeRoamToneMapping = toneMappingEnabled;
+}
+
+void Core::setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb) {
+    _rowCallback = std::move(cb);
+}
+
+void Core::setDimensionsCallback(std::function<void(int w, int h)> cb) {
+    _dimensionsCallback = std::move(cb);
+}
+
+void Core::setCameraOverride(const Camera& camera) {
+    _cameraOverride = camera;
 }

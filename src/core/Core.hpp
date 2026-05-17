@@ -2,6 +2,7 @@
 
 #include "../src/DataTypes/Scene.hpp"
 #include "../src/DataTypes/RenderStats.hpp"
+#include "../src/DataTypes/Camera.hpp"
 #include "Image.hpp"
 #include "RenderSampler.hpp"
 #include "core/ProgressBar.hpp"
@@ -10,6 +11,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <optional>
 
 class Logger;
 
@@ -26,26 +28,23 @@ public:
      * @note The output image is saved as "output.ppm".
      */
     bool simulate();
+    bool loadScene();
+    Image renderSlice(int firstRow, int lastRow);
 
-    // UI mode hooks — set before simulate(), no-op in CLI mode
-    void setCancelFlag(std::atomic<bool>* flag)  { _cancelFlag = flag; }
-    void setThreadOverride(int n)                { _threadOverride = n; }
-    void setProgressTarget(std::atomic<int>* rows, std::atomic<int>* total) {
-        _progressRows  = rows;
-        _progressTotal = total;
-    }
+    int         sceneWidth()  const;
+    int         sceneHeight() const;
+    std::string outputFile()  const;
+    Camera      getCamera()   const;
 
-    void setPreviewMode(float resScale = 0.25f, int maxBounces = 3) {
-        _previewMode = true;
-        _previewResScale = resScale;
-        _previewMaxBounces = maxBounces;
-    }
-    void setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb) {
-        _rowCallback = std::move(cb);
-    }
-    void setDimensionsCallback(std::function<void(int w, int h)> cb) {
-        _dimensionsCallback = std::move(cb);
-    }
+    // UI mode hooks — set before loadScene(), no-op in CLI mode
+    void setCancelFlag(std::atomic<bool>* flag);
+    void setThreadOverride(int n);
+    void setProgressTarget(std::atomic<int>* rows, std::atomic<int>* total);
+    void setPreviewMode(float resScale = 0.25f, int maxBounces = 3);
+    void setFreeRoamConfig(int width, int height, int maxBounces, bool aaEnabled, bool aoEnabled, bool toneMappingEnabled);
+    void setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb);
+    void setDimensionsCallback(std::function<void(int w, int h)> cb);
+    void setCameraOverride(const Camera& camera);
 
 private:
     std::string _inputFile;
@@ -69,8 +68,21 @@ private:
     bool _previewMode = false;
     float _previewResScale = 0.25f;
     int _previewMaxBounces = 3;
+
+    // Free-roam mode
+    bool _freeRoamMode = false;
+    int _freeRoamWidth = 800;
+    int _freeRoamHeight = 600;
+    int _freeRoamMaxBounces = 5;
+    bool _freeRoamAA = false;
+    bool _freeRoamAO = false;
+    bool _freeRoamToneMapping = false;
+
     std::function<void(int y, const uint8_t* rgba, int width)> _rowCallback;
     std::function<void(int w, int h)> _dimensionsCallback;
+
+    // Camera override (for free-roam)
+    std::optional<Camera> _cameraOverride;
 
     bool  _loadScene();
     Image _render();

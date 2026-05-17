@@ -133,6 +133,13 @@ add_executable(raytracer
     src/core/AShape.cpp
     src/Math/Matrix4x4.cpp
     src/utils/clap/App.cpp
+    src/network/Message.cpp
+    src/network/TcpSocket.cpp
+    src/network/TcpServer.cpp
+    src/network/TcpClient.cpp
+    src/cluster/Coordinator.cpp
+    src/cluster/Worker.cpp
+    src/cluster/ClusterLogger.cpp
 )
 
 target_include_directories(raytracer PRIVATE
@@ -154,6 +161,7 @@ if (WITH_UI)
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
         src/ui/ToastManager.cpp
+        src/ui/FreeRoamController.cpp
         src/watcher/FileWatcher.cpp
         src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )

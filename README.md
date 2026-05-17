@@ -98,7 +98,7 @@ Output format is determined by the `output` field in your scene config (`.png`, 
 - **Tone Mapping:** ACES filmic curve with adjustable strength
 - **Background:** solid color or HDR/image backdrop
 - **Multithreading:** configurable thread count
-- **AABB culling:** automatic bounding box acceleration for all bounded shapes
+- **BVH + AABB culling:** bounding volume hierarchy on all bounded shapes and meshes
 - **Recursive scattering:** reflections and refractions with configurable depth
 
 ### Scene System
@@ -176,11 +176,24 @@ scenes = (
 
 ### Live Preview
 
-With `-DWITH_UI=ON` (Linux), an SFML window shows the render as it progresses in real time.
+Linux only (`-DWITH_UI=ON`). Built with SFML.
+
+**Scene browser**. Pick a scene file, see a low-res preview render in the sidebar.
+
+![scene_browser](docs/img/scene_browser.png)
+
+**Render view**. Pixels stream in row by row as the render progresses. Cancel anytime.
+
+![mid_rendering](docs/img/mid_rendering.png)
+
+
+**Hot reload**. Edit your scene file and save. The render restarts automatically.
 
 ### Plugin System
 
 Every shape, material, and light is a dynamically loaded `.so`. Adding a new primitive means implementing one interface and dropping it in `plugins/`. No recompilation of core required.
+
+Fun fact, for a more optimised implementation, we would not use dynamic loading at all, as it is slower than static linking. this was mentionned in the subject, so we went with it :)
 
 ---
 

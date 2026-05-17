@@ -66,6 +66,12 @@ public:
     void set_camera(const Camera& camera) { _camera = camera; }
 
     /**
+     * @brief Sets the camera of the scene (alias for consistency).
+     * @param camera The camera to set.
+     */
+    void setCamera(const Camera& camera) { _camera = camera; }
+
+    /**
      * @brief Gets the RendererConfig of the scene.
      * @return A reference to the RendererConfig.
      */

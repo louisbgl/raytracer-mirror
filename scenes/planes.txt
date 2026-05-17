@@ -9,7 +9,7 @@ camera:
 
 materials:
 {
-    lambertian = (
+    coloreddiffuse = (
         { name = "red"; color = { r = 200; g = 50; b = 50; }; },
         { name = "blue"; color = { r = 50; g = 100; b = 255; }; },
         { name = "green"; color = { r = 50; g = 200; b = 80; }; }
@@ -32,6 +32,6 @@ lights:
     diffuse = 0.8;
 
     point = (
-        { position = { x = 2.0; y = 3.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 1.0; }
+        { position = { x = 2.0; y = 3.0; z = 5.0; }; color = { r = 255; g = 255; b = 255; }; intensity = 40.0; }
     );
 };

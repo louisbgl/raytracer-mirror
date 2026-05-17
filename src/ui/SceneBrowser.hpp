@@ -19,8 +19,9 @@ public:
     void               refresh();
 
     bool wantsLaunch() const { return _sigLaunch; }
+    bool wantsFreeRoam() const { return _sigFreeRoam; }
     bool selectionChanged() const { return _sigSelectionChanged; }
-    void clearSignals() { _sigLaunch = false; _sigSelectionChanged = false; }
+    void clearSignals() { _sigLaunch = false; _sigFreeRoam = false; _sigSelectionChanged = false; }
 
 private:
     static constexpr std::string_view SCENES_DIR = "./scenes/";
@@ -33,7 +34,9 @@ private:
         float dividerX;
         float previewLeft, previewW;
         float footerY;
-        float launchW, launchH, launchLeft, launchTop;
+        float btnW, btnH, btnSpacing;
+        float launchLeft, launchTop;
+        float freeRoamLeft, freeRoamTop;
     };
 
     Layout computeLayout(const sf::RenderWindow& window) const;
@@ -55,6 +58,7 @@ private:
     void drawFooter(sf::RenderWindow& window, const Layout& lo);
     void drawFooterSelectionInfo(sf::RenderWindow& window, const Layout& lo);
     void drawLaunchButton(sf::RenderWindow& window, const Layout& lo);
+    void drawFreeRoamButton(sf::RenderWindow& window, const Layout& lo);
 
     sf::Font& _font;
     std::vector<std::string> _scenes;
@@ -63,7 +67,9 @@ private:
     int _selectedIdx = -1;
     float _scroll = 0.f;
     sf::FloatRect _launchRect = {};
+    sf::FloatRect _freeRoamRect = {};
     bool _sigLaunch = false;
+    bool _sigFreeRoam = false;
     bool _sigSelectionChanged = false;
     sf::Texture _previewTex;
 };
