@@ -58,6 +58,12 @@ public:
     Vec3 getLookAt() const { return _look_at; }
 
     /**
+     * @brief Gets the up vector of the camera.
+     * @return The up direction as a Vec3.
+     */
+    Vec3 getUp() const { return _up; }
+
+    /**
      * @brief Gets the field of view of the camera.
      * @return The field of view in degrees.
      */

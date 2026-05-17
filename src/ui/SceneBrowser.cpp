@@ -72,10 +72,14 @@ SceneBrowser::Layout SceneBrowser::computeLayout(const sf::RenderWindow& window)
     lo.previewLeft = lo.dividerX + 1.f;
     lo.previewW    = ww - lo.margin - lo.previewLeft;
 
-    lo.launchW    = std::max(148.f, ww * 0.11f);
-    lo.launchH    = std::max(42.f, lo.footerH * 0.5f);
-    lo.launchLeft = ww - lo.margin - lo.launchW;
-    lo.launchTop  = lo.footerY + (lo.footerH - lo.launchH) / 2.f;
+    lo.btnW       = std::max(128.f, ww * 0.095f);
+    lo.btnH       = std::max(42.f, lo.footerH * 0.5f);
+    lo.btnSpacing = std::max(12.f, ww * 0.01f);
+
+    lo.freeRoamLeft = ww - lo.margin - lo.btnW;
+    lo.freeRoamTop  = lo.footerY + (lo.footerH - lo.btnH) / 2.f;
+    lo.launchLeft   = lo.freeRoamLeft - lo.btnW - lo.btnSpacing;
+    lo.launchTop    = lo.freeRoamTop;
 
     return lo;
 }
@@ -131,6 +135,8 @@ void SceneBrowser::handleMouseClick(const sf::Event& event, const Layout& lo) {
     }
     if (_launchRect.contains(mx, my) && hasSelection())
         _sigLaunch = true;
+    if (_freeRoamRect.contains(mx, my) && hasSelection())
+        _sigFreeRoam = true;
 }
 
 void SceneBrowser::drawHeader(sf::RenderWindow& window, const Layout& lo) {
@@ -319,6 +325,7 @@ void SceneBrowser::drawFooter(sf::RenderWindow& window, const Layout& lo) {
 
     drawFooterSelectionInfo(window, lo);
     drawLaunchButton(window, lo);
+    drawFreeRoamButton(window, lo);
 }
 
 void SceneBrowser::drawFooterSelectionInfo(sf::RenderWindow& window, const Layout& lo) {
@@ -341,9 +348,9 @@ void SceneBrowser::drawFooterSelectionInfo(sf::RenderWindow& window, const Layou
 }
 
 void SceneBrowser::drawLaunchButton(sf::RenderWindow& window, const Layout& lo) {
-    _launchRect = {lo.launchLeft, lo.launchTop, lo.launchW, lo.launchH};
+    _launchRect = {lo.launchLeft, lo.launchTop, lo.btnW, lo.btnH};
 
-    sf::RectangleShape btn({lo.launchW, lo.launchH});
+    sf::RectangleShape btn({lo.btnW, lo.btnH});
     btn.setPosition(lo.launchLeft, lo.launchTop);
     btn.setFillColor(hasSelection() ? COL_BTN_ON : COL_BTN_OFF);
     if (hasSelection()) {
@@ -352,9 +359,28 @@ void SceneBrowser::drawLaunchButton(sf::RenderWindow& window, const Layout& lo) 
     }
     window.draw(btn);
 
-    unsigned btnSz = static_cast<unsigned>(std::clamp(lo.launchH * 0.42f, 14.f, 20.f));
-    sf::Text btnTxt(hasSelection() ? "Launch " : "Launch", _font, btnSz);
+    unsigned btnSz = static_cast<unsigned>(std::clamp(lo.btnH * 0.42f, 14.f, 20.f));
+    sf::Text btnTxt("Launch", _font, btnSz);
     btnTxt.setFillColor(COL_TEXT);
-    sfh::centerXY(btnTxt, lo.launchLeft + lo.launchW / 2.f, lo.launchTop + lo.launchH / 2.f);
+    sfh::centerXY(btnTxt, lo.launchLeft + lo.btnW / 2.f, lo.launchTop + lo.btnH / 2.f);
+    window.draw(btnTxt);
+}
+
+void SceneBrowser::drawFreeRoamButton(sf::RenderWindow& window, const Layout& lo) {
+    _freeRoamRect = {lo.freeRoamLeft, lo.freeRoamTop, lo.btnW, lo.btnH};
+
+    sf::RectangleShape btn({lo.btnW, lo.btnH});
+    btn.setPosition(lo.freeRoamLeft, lo.freeRoamTop);
+    btn.setFillColor(hasSelection() ? COL_ACCENT : COL_BTN_OFF);
+    if (hasSelection()) {
+        btn.setOutlineThickness(1.f);
+        btn.setOutlineColor({118, 198, 255});
+    }
+    window.draw(btn);
+
+    unsigned btnSz = static_cast<unsigned>(std::clamp(lo.btnH * 0.42f, 14.f, 20.f));
+    sf::Text btnTxt("Free Roam", _font, btnSz);
+    btnTxt.setFillColor(COL_TEXT);
+    sfh::centerXY(btnTxt, lo.freeRoamLeft + lo.btnW / 2.f, lo.freeRoamTop + lo.btnH / 2.f);
     window.draw(btnTxt);
 }

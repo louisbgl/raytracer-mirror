@@ -36,7 +36,7 @@ bool Core::simulate() {
 
     auto t2 = Clock::now();
     bool cancelled = _cancelFlag && _cancelFlag->load(std::memory_order_relaxed);
-    if (!cancelled && !_previewMode)
+    if (!cancelled && !_previewMode && !_freeRoamMode)
         _writeOutput(image);
 
     auto t3 = Clock::now();
@@ -54,6 +54,7 @@ bool Core::loadScene() { return _loadScene(); }
 int         Core::sceneWidth()  const { return _scene.camera().getWidth(); }
 int         Core::sceneHeight() const { return _scene.camera().getHeight(); }
 std::string Core::outputFile()  const { return _scene.rendererConfig().outputFile; }
+Camera      Core::getCamera()   const { return _scene.camera(); }
 
 bool Core::_loadScene() {
     try {
@@ -64,7 +65,25 @@ bool Core::_loadScene() {
         return false;
     }
 
-    if (_previewMode) {
+    // Apply camera override if set (for free-roam mode)
+    if (_cameraOverride) {
+        _scene.setCamera(*_cameraOverride);
+    }
+
+    if (_freeRoamMode) {
+        auto& cam = _scene.camera();
+        cam.setWidth(_freeRoamWidth);
+        cam.setHeight(_freeRoamHeight);
+        _maxRayBounces = _freeRoamMaxBounces;
+
+        RendererConfig cfg = _scene.rendererConfig();
+        cfg.aaEnabled = _freeRoamAA;
+        cfg.aoEnabled = _freeRoamAO;
+        cfg.toneMappingEnabled = _freeRoamToneMapping;
+        cfg.multithreadingEnabled = true;
+        cfg.threadCount = 0;
+        _scene.setRendererConfig(cfg);
+    } else if (_previewMode) {
         static constexpr int PREVIEW_MAX_DIM = 480;
         auto& cam = _scene.camera();
         int pw = std::max(1, static_cast<int>(cam.getWidth()  * _previewResScale));
@@ -387,4 +406,45 @@ std::function<Vec3(int, int)> Core::_getComputePixelLambda(const RendererConfig&
             return toneMap(_computePixelColor(x, y, w, h));
         };
     }
+}
+
+void Core::setCancelFlag(std::atomic<bool>* flag) {
+    _cancelFlag = flag;
+}
+
+void Core::setThreadOverride(int n) {
+    _threadOverride = n;
+}
+
+void Core::setProgressTarget(std::atomic<int>* rows, std::atomic<int>* total) {
+    _progressRows  = rows;
+    _progressTotal = total;
+}
+
+void Core::setPreviewMode(float resScale, int maxBounces) {
+    _previewMode = true;
+    _previewResScale = resScale;
+    _previewMaxBounces = maxBounces;
+}
+
+void Core::setFreeRoamConfig(int width, int height, int maxBounces, bool aaEnabled, bool aoEnabled, bool toneMappingEnabled) {
+    _freeRoamMode = true;
+    _freeRoamWidth = width;
+    _freeRoamHeight = height;
+    _freeRoamMaxBounces = maxBounces;
+    _freeRoamAA = aaEnabled;
+    _freeRoamAO = aoEnabled;
+    _freeRoamToneMapping = toneMappingEnabled;
+}
+
+void Core::setRowCallback(std::function<void(int y, const uint8_t* rgba, int width)> cb) {
+    _rowCallback = std::move(cb);
+}
+
+void Core::setDimensionsCallback(std::function<void(int w, int h)> cb) {
+    _dimensionsCallback = std::move(cb);
+}
+
+void Core::setCameraOverride(const Camera& camera) {
+    _cameraOverride = camera;
 }

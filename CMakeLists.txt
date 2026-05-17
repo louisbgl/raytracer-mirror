@@ -161,6 +161,7 @@ if (WITH_UI)
         src/ui/RenderPanel.cpp
         src/ui/PixelBuffer.cpp
         src/ui/ToastManager.cpp
+        src/ui/FreeRoamController.cpp
         src/watcher/FileWatcher.cpp
         src/watcher/InotifyWrapper/InotifyEventReader.cpp
     )
