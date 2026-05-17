@@ -2,9 +2,9 @@
 renderer:
 {
     antialiasing = {
-        enabled = false;
-        samples = 1;
-        method = "ssaa";
+        enabled = true;
+        method = "adaptive";
+        threshold = 0.2;
     };
 
     lighting = {
@@ -18,12 +18,12 @@ renderer:
         image = "textures/space.png";
     };
 
-    output = "output.ppm";
+    output = "docs/img/lucas.png";
 };
 
 camera:
 {
-    resolution = { width = 1000; height = 1000; };
+    resolution = { width = 2000; height = 2000; };
     position = { x = 15.0; y = 15.0; z = 15.0; };
     look_at = { x = 0.0; y = 5.0; z = 0.0; };
     up = { x = 0.0; y = 1.0; z = 0.0; };
