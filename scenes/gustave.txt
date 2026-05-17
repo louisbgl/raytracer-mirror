@@ -1,0 +1,117 @@
+camera:
+{
+    resolution = { width = 2000; height = 2000; };
+    position = { x = 0.0; y = 5.0; z = 18.0; };
+    look_at = { x = 0.0; y = 1.5; z = 0.0; };
+    up = { x = 0.0; y = 1.0; z = 0.0; };
+    fieldOfView = 55.0;
+};
+
+renderer:
+{
+    antialiasing = {
+        enabled = true;
+        method = "ssaa";
+        samples = 4;
+    };
+
+    lighting = {
+        ambientColor = { r = 20; g = 20; b = 40; };
+        ambientMultiplier = 0.4;
+        diffuseMultiplier = 1.0;
+
+        ambientOcclusion = {
+            enabled = true;
+            samples = 16;
+            radius = 5.0;
+        };
+    };
+
+    background = {
+        color = { r = 8; g = 8; b = 18; };
+    };
+
+    toneMapping = {
+        enabled = true;
+        strength = 0.75;
+    };
+
+    output = "gustave.png";
+};
+
+materials:
+{
+    reflective = (
+        { name = "mirror";      reflectivity = 0.95; color = { r = 255; g = 255; b = 255; }; },
+        { name = "gold_mirror"; reflectivity = 0.85; color = { r = 255; g = 200; b = 80;  }; }
+    );
+
+    refractive = (
+        { name = "glass"; opacity = 0.95; refractiveIndex = 1.5; color = { r = 240; g = 248; b = 255; }; }
+    );
+
+    coloreddiffuse = (
+        { name = "red_cat"; color = { r = 210; g = 40; b = 40; }; }
+    );
+
+    phong = (
+        { name = "red";    color = { r = 220; g = 50;  b = 50;  }; shininess = 64.0; },
+        { name = "blue";   color = { r = 50;  g = 100; b = 220; }; shininess = 64.0; },
+        { name = "green";  color = { r = 50;  g = 200; b = 80;  }; shininess = 32.0; },
+        { name = "purple"; color = { r = 160; g = 50;  b = 220; }; shininess = 64.0; },
+        { name = "floor";  color = { r = 40;  g = 40;  b = 55;  }; shininess = 8.0;  }
+    );
+
+    chessboard = (
+        { name = "checker"; color1 = { r = 220; g = 215; b = 200; }; color2 = { r = 30; g = 30; b = 40; }; scale = 1.0; }
+    );
+};
+
+shapes:
+{
+    // Floor
+    planes = (
+        { position = { x = 0.0; y = 0.0; z = 0.0; }; normal = { x = 0.0; y = 1.0; z = 0.0; }; material = "checker"; }
+    );
+
+    spheres = (
+        // Back row
+        { position = { x = -4.5; y = 1.5; z = -3.0; }; radius = 1.5; material = "mirror"; },
+        { position = { x =  0.0; y = 1.5; z = -4.0; }; radius = 1.5; material = "glass";  },
+        { position = { x =  4.5; y = 1.5; z = -3.0; }; radius = 1.5; material = "gold_mirror"; },
+
+        // Front row
+        { position = { x = -3.0; y = 1.0; z =  2.0; }; radius = 1.0; material = "red";    },
+        { position = { x = -1.0; y = 1.0; z =  2.5; }; radius = 1.0; material = "blue";   },
+        { position = { x =  1.0; y = 1.0; z =  2.5; }; radius = 1.0; material = "green";  },
+        { position = { x =  3.0; y = 1.0; z =  2.0; }; radius = 1.0; material = "purple"; }
+    );
+
+    // Red cat in the background
+    meshes = (
+        {
+            path = "textures/obj/lowpolycat/cat.obj";
+            material = "red_cat";
+            position = { x = 5.5; y = -0.3; z = -11.0; };
+            scale = { x = 0.0315; y = 0.0315; z = 0.0315; };
+            rotation = { x = 0.0; y = -130.0; z = 0.0; };
+        }
+    );
+
+    // A torus lying flat on the floor around the glass sphere
+    toruses = (
+        { position = { x = 0.0; y = 0.3; z = -4.0; }; major_radius = 2.8; minor_radius = 0.25; material = "gold_mirror"; }
+    );
+};
+
+lights:
+{
+    // Key light — warm, from upper right
+    point = (
+        { position = { x =  8.0; y = 12.0; z =  6.0; }; color = { r = 255; g = 240; b = 200; }; intensity = 400.0; },
+        // Fill light — cool, from the left
+        { position = { x = -10.0; y = 8.0; z =  4.0; }; color = { r = 100; g = 140; b = 255; }; intensity = 150.0; },
+        // Back light — rim highlight
+        { position = { x =  0.0;  y = 6.0; z = -15.0; }; color = { r = 200; g = 180; b = 255; }; intensity = 200.0; }
+    );
+};
