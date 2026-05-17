@@ -55,7 +55,7 @@ Output format is determined by the `output` field in your scene config (`.png`, 
 | | |
 |---|---|
 | ![louis](docs/img/louis.png) | ![lucas](docs/img/lucas.png) |
-| ![fred](docs/img/fred.png) | ![gustave](docs/img/gustave.png) |
+| ![fred](docs/img/fred.gif) | ![gustave](docs/img/gustave.png) |
 
 ![spinning_shapes](docs/img/spinning_shapes.gif)
 
