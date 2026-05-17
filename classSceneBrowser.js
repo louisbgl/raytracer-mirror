@@ -9,5 +9,6 @@ var classSceneBrowser =
     [ "refresh", "classSceneBrowser.html#ae9189d5018c75a41595a0b5cb6610c5a", null ],
     [ "selected", "classSceneBrowser.html#aceb1e5503c3c789f11b9c87b622c9e4e", null ],
     [ "selectionChanged", "classSceneBrowser.html#a40c867668f028abf02a26d43b778dac3", null ],
+    [ "wantsFreeRoam", "classSceneBrowser.html#a6dd008f14fe7e94398fd7a4d5d72763a", null ],
     [ "wantsLaunch", "classSceneBrowser.html#a218a2a8c889d5d7e7a9d9edced4997ce", null ]
 ];

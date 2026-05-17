@@ -8,6 +8,7 @@ var searchData=
   ['tonemappingenabled_5',['toneMappingEnabled',['../structRendererConfig.html#acc58906b582106b87c1d355084ed937b',1,'RendererConfig']]],
   ['tonemappingstrength_6',['toneMappingStrength',['../structRendererConfig.html#ac294921b7d6d33ef5a5ef8eb932e429c',1,'RendererConfig']]],
   ['totalrows_7',['totalRows',['../structPixelBuffer.html#a72c46cb1b37637a458d552a1d8d34043',1,'PixelBuffer']]],
-  ['two_5fpi_8',['TWO_PI',['../namespaceMath.html#a6d9e27a8aa389f970fdfff58f6131ce6',1,'Math']]],
-  ['type_9',['type',['../structToastConfig.html#a66938f04b8c176654805207c02f5d6b5',1,'ToastConfig']]]
+  ['totalrowsrendered_8',['totalRowsRendered',['../structWorkerInfo.html#aa3661e8325f781a2b2c9e8edfb9acea8',1,'WorkerInfo']]],
+  ['two_5fpi_9',['TWO_PI',['../namespaceMath.html#a6d9e27a8aa389f970fdfff58f6131ce6',1,'Math']]],
+  ['type_10',['type',['../structMessage.html#a6fc78df47d3755e088e7c658db565fc5',1,'Message::type'],['../structToastConfig.html#a66938f04b8c176654805207c02f5d6b5',1,'ToastConfig::type']]]
 ];

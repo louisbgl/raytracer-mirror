@@ -7,6 +7,7 @@ var classCamera =
     [ "getLookAt", "classCamera.html#a28bc509b13325d90d21a32fe686784d5", null ],
     [ "getPosition", "classCamera.html#a79d8e301befc88644679d1c841d185d3", null ],
     [ "getRay", "classCamera.html#a3c8c3f666985ddf4f86925973606f582", null ],
+    [ "getUp", "classCamera.html#a022fcbff11f69b811966862bbb7cd54c", null ],
     [ "getWidth", "classCamera.html#a4403375c8460a9beda32662685372968", null ],
     [ "setHeight", "classCamera.html#ac44b2db3dcf62ef42076741f2a55cd78", null ],
     [ "setWidth", "classCamera.html#aa140e95a1443bd99debb1933590815f5", null ]

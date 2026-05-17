@@ -169,7 +169,7 @@ Rendering</h2>
 <li><b>Tone Mapping:</b> ACES filmic curve with adjustable strength</li>
 <li><b>Background:</b> solid color or HDR/image backdrop</li>
 <li><b>Multithreading:</b> configurable thread count</li>
-<li><b><a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> culling:</b> automatic bounding box acceleration for all bounded shapes</li>
+<li><b>BVH + <a class="el" href="classAABB.html" title="Axis-Aligned Bounding Box for fast ray intersection tests.">AABB</a> culling:</b> bounding volume hierarchy on all bounded shapes and meshes</li>
 <li><b>Recursive scattering:</b> reflections and refractions with configurable depth</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md14"></a>
@@ -243,10 +243,16 @@ Scene System</h2>
 <div class="line">);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md15"></a>
 Live Preview</h2>
-<p>With <code>-DWITH_UI=ON</code> (Linux), an SFML window shows the render as it progresses in real time.</p>
+<p>Linux only (<code>-DWITH_UI=ON</code>). Built with SFML.</p>
+<p><b><a class="el" href="classScene.html">Scene</a> browser</b>. Pick a scene file, see a low-res preview render in the sidebar.</p>
+<p><img src="docs/img/scene_browser.png" alt="scene_browser" class="inline"/></p>
+<p><b>Render view</b>. Pixels stream in row by row as the render progresses. Cancel anytime.</p>
+<p><img src="docs/img/mid_rendering.png" alt="mid_rendering" class="inline"/></p>
+<p><b>Hot reload</b>. Edit your scene file and save. The render restarts automatically.</p>
 <h2><a class="anchor" id="autotoc_md16"></a>
 Plugin System</h2>
 <p>Every shape, material, and light is a dynamically loaded <code>.so</code>. Adding a new primitive means implementing one interface and dropping it in <code>plugins/</code>. No recompilation of core required.</p>
+<p>Fun fact, for a more optimised implementation, we would not use dynamic loading at all, as it is slower than static linking. this was mentionned in the subject, so we went with it :)</p>
 <hr  />
 <h1><a class="anchor" id="autotoc_md18"></a>
 Scene Config Reference</h1>

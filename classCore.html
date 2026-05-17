@@ -109,6 +109,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a3573a4c87c2e5cb7530df125385eca" id="r_a8a3573a4c87c2e5cb7530df125385eca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a8a3573a4c87c2e5cb7530df125385eca">simulate</a> ()</td></tr>
 <tr class="memdesc:a8a3573a4c87c2e5cb7530df125385eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates the ray tracing process and renders the scene. It first load the scene from the input file then it performs ray tracing.  <br /></td></tr>
 <tr class="separator:a8a3573a4c87c2e5cb7530df125385eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef6d0b38b98af2a0445e347eb22298a" id="r_abef6d0b38b98af2a0445e347eb22298a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#abef6d0b38b98af2a0445e347eb22298a">loadScene</a> ()</td></tr>
+<tr class="separator:abef6d0b38b98af2a0445e347eb22298a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae97a8c6ff2fa4270101e6f294068a29" id="r_aae97a8c6ff2fa4270101e6f294068a29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classImage.html">Image</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#aae97a8c6ff2fa4270101e6f294068a29">renderSlice</a> (int firstRow, int lastRow)</td></tr>
+<tr class="separator:aae97a8c6ff2fa4270101e6f294068a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f2deb6b61219d7c129e3bae3321517a" id="r_a7f2deb6b61219d7c129e3bae3321517a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a7f2deb6b61219d7c129e3bae3321517a">sceneWidth</a> () const</td></tr>
+<tr class="separator:a7f2deb6b61219d7c129e3bae3321517a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae650bce4dd512c3ea6744476afb3f8e3" id="r_ae650bce4dd512c3ea6744476afb3f8e3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#ae650bce4dd512c3ea6744476afb3f8e3">sceneHeight</a> () const</td></tr>
+<tr class="separator:ae650bce4dd512c3ea6744476afb3f8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6901cd35d85cf7d9f944b4b513ca82c" id="r_ad6901cd35d85cf7d9f944b4b513ca82c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#ad6901cd35d85cf7d9f944b4b513ca82c">outputFile</a> () const</td></tr>
+<tr class="separator:ad6901cd35d85cf7d9f944b4b513ca82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65bdcf8edef548147c40dbd6eef99be" id="r_aa65bdcf8edef548147c40dbd6eef99be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classCamera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#aa65bdcf8edef548147c40dbd6eef99be">getCamera</a> () const</td></tr>
+<tr class="separator:aa65bdcf8edef548147c40dbd6eef99be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50b2d1225cb6ad8aab8d61cb90f739b0" id="r_a50b2d1225cb6ad8aab8d61cb90f739b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a50b2d1225cb6ad8aab8d61cb90f739b0">setCancelFlag</a> (std::atomic&lt; bool &gt; *flag)</td></tr>
 <tr class="separator:a50b2d1225cb6ad8aab8d61cb90f739b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6b0fc9a0980fdd7e82d6f5f307196d2" id="r_ae6b0fc9a0980fdd7e82d6f5f307196d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#ae6b0fc9a0980fdd7e82d6f5f307196d2">setThreadOverride</a> (int n)</td></tr>
@@ -117,10 +129,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a947f2620a9872fbffb28de91c3377e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a668a41106425b31971f33a3e62af721f" id="r_a668a41106425b31971f33a3e62af721f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a668a41106425b31971f33a3e62af721f">setPreviewMode</a> (float resScale=0.25f, int maxBounces=3)</td></tr>
 <tr class="separator:a668a41106425b31971f33a3e62af721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa863ac4cb515d4c5102aec48cc8b81f9" id="r_aa863ac4cb515d4c5102aec48cc8b81f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#aa863ac4cb515d4c5102aec48cc8b81f9">setFreeRoamConfig</a> (int width, int height, int maxBounces, bool aaEnabled, bool aoEnabled, bool toneMappingEnabled)</td></tr>
+<tr class="separator:aa863ac4cb515d4c5102aec48cc8b81f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba1e54e9920e4c8573672d17ddaed73" id="r_a9ba1e54e9920e4c8573672d17ddaed73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a9ba1e54e9920e4c8573672d17ddaed73">setRowCallback</a> (std::function&lt; void(int y, const uint8_t *rgba, int width)&gt; cb)</td></tr>
 <tr class="separator:a9ba1e54e9920e4c8573672d17ddaed73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2b1ee11e5f944649ae57096d513a7f" id="r_a7a2b1ee11e5f944649ae57096d513a7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a7a2b1ee11e5f944649ae57096d513a7f">setDimensionsCallback</a> (std::function&lt; void(int w, int h)&gt; cb)</td></tr>
 <tr class="separator:a7a2b1ee11e5f944649ae57096d513a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302f1ecd06da96de3073b4ed66f245aa" id="r_a302f1ecd06da96de3073b4ed66f245aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCore.html#a302f1ecd06da96de3073b4ed66f245aa">setCameraOverride</a> (const <a class="el" href="classCamera.html">Camera</a> &amp;camera)</td></tr>
+<tr class="separator:a302f1ecd06da96de3073b4ed66f245aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0982ecf166664b2968032586c827525c" name="a0982ecf166664b2968032586c827525c"></a>
@@ -177,14 +193,142 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa65bdcf8edef548147c40dbd6eef99be" name="aa65bdcf8edef548147c40dbd6eef99be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa65bdcf8edef548147c40dbd6eef99be">&#9670;&#160;</a></span>getCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCamera.html">Camera</a> Core::getCamera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abef6d0b38b98af2a0445e347eb22298a" name="abef6d0b38b98af2a0445e347eb22298a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef6d0b38b98af2a0445e347eb22298a">&#9670;&#160;</a></span>loadScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Core::loadScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6901cd35d85cf7d9f944b4b513ca82c" name="ad6901cd35d85cf7d9f944b4b513ca82c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6901cd35d85cf7d9f944b4b513ca82c">&#9670;&#160;</a></span>outputFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Core::outputFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae97a8c6ff2fa4270101e6f294068a29" name="aae97a8c6ff2fa4270101e6f294068a29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae97a8c6ff2fa4270101e6f294068a29">&#9670;&#160;</a></span>renderSlice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classImage.html">Image</a> Core::renderSlice </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>firstRow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lastRow</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae650bce4dd512c3ea6744476afb3f8e3" name="ae650bce4dd512c3ea6744476afb3f8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae650bce4dd512c3ea6744476afb3f8e3">&#9670;&#160;</a></span>sceneHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Core::sceneHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f2deb6b61219d7c129e3bae3321517a" name="a7f2deb6b61219d7c129e3bae3321517a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f2deb6b61219d7c129e3bae3321517a">&#9670;&#160;</a></span>sceneWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Core::sceneWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a302f1ecd06da96de3073b4ed66f245aa" name="a302f1ecd06da96de3073b4ed66f245aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302f1ecd06da96de3073b4ed66f245aa">&#9670;&#160;</a></span>setCameraOverride()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setCameraOverride </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classCamera.html">Camera</a> &amp;&#160;</td>
+          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a50b2d1225cb6ad8aab8d61cb90f739b0" name="a50b2d1225cb6ad8aab8d61cb90f739b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a50b2d1225cb6ad8aab8d61cb90f739b0">&#9670;&#160;</a></span>setCancelFlag()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setCancelFlag </td>
@@ -194,11 +338,6 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -208,9 +347,6 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setDimensionsCallback </td>
@@ -220,11 +356,58 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa863ac4cb515d4c5102aec48cc8b81f9" name="aa863ac4cb515d4c5102aec48cc8b81f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa863ac4cb515d4c5102aec48cc8b81f9">&#9670;&#160;</a></span>setFreeRoamConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Core::setFreeRoamConfig </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxBounces</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>aaEnabled</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>aoEnabled</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>toneMappingEnabled</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -234,9 +417,6 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setPreviewMode </td>
@@ -256,11 +436,6 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -270,9 +445,6 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setProgressTarget </td>
@@ -292,11 +464,6 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -306,9 +473,6 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setRowCallback </td>
@@ -318,11 +482,6 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -332,9 +491,6 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Core::setThreadOverride </td>
@@ -344,11 +500,6 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

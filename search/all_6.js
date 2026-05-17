@@ -1,14 +1,19 @@
 var searchData=
 [
-  ['fd_0',['fd',['../classInotifyInstance.html#a68ebd9ad8c0265aa07da26ba480f361e',1,'InotifyInstance']]],
+  ['fd_0',['fd',['../classInotifyInstance.html#a68ebd9ad8c0265aa07da26ba480f361e',1,'InotifyInstance::fd()'],['../classTcpSocket.html#a458025acf9da8025126fd6c119eaa556',1,'TcpSocket::fd()'],['../classTcpServer.html#a162307252ad8c7862ad559997e50d5e8',1,'TcpServer::fd()']]],
   ['features_1',['Features',['../index.html#autotoc_md9',1,'']]],
   ['filewatcher_2',['filewatcher',['../classFileWatcher.html',1,'FileWatcher'],['../classFileWatcher.html#a11d5c15aa4b65c1b9cd1aef2bd678dae',1,'FileWatcher::FileWatcher()']]],
   ['filewatcher_2ecpp_3',['FileWatcher.cpp',['../FileWatcher_8cpp.html',1,'']]],
   ['filewatcher_2ehpp_4',['FileWatcher.hpp',['../FileWatcher_8hpp.html',1,'']]],
   ['fillarray_5',['fillArray',['../classPerlinNoise.html#a3afba872c5c16f6febe91ab1e93239a2',1,'PerlinNoise']]],
-  ['finish_6',['finish',['../classProgressBar.html#a95574b4f3920c86814e10536d523f38c',1,'ProgressBar']]],
-  ['flag_7',['flag',['../classclap_1_1Flag.html',1,'clap::Flag'],['../classclap_1_1Flag.html#a2bacd7a53f3ca3ffd97bfc1627f2b53a',1,'clap::Flag::Flag()'],['../classclap_1_1App.html#a9d77f552cb415e19cd5eb9de8ee8e694',1,'clap::App::flag()']]],
-  ['flag_2ehpp_8',['Flag.hpp',['../Flag_8hpp.html',1,'']]],
-  ['fromcstruct_9',['fromCStruct',['../classVec3.html#ad450220fa67e9e7bb5545ea14f3357f7',1,'Vec3']]],
-  ['front_5fface_10',['front_face',['../classHitRecord.html#a95d5e41521e7dd017ec39d583602c745',1,'HitRecord']]]
+  ['finish_6',['finish',['../classProgressBar.html#a95574b4f3920c86814e10536d523f38c',1,'ProgressBar::finish()'],['../Message_8hpp.html#a1bc3ccf4d567ca83c993c3aaa8124904ae73b26e82a742972e6213f965a808795',1,'FINISH:&#160;Message.hpp']]],
+  ['firstrow_7',['firstrow',['../structWorkerInfo.html#a1057a0bc595a7b060947e1f93639071b',1,'WorkerInfo::firstRow'],['../structAssignPayload.html#a202e937219e973add883b247590f5123',1,'AssignPayload::firstRow'],['../structChunkPayload.html#a9de0f757f3e6d16ae297b3126845c2da',1,'ChunkPayload::firstRow']]],
+  ['flag_8',['flag',['../classclap_1_1App.html#a9d77f552cb415e19cd5eb9de8ee8e694',1,'clap::App::flag()'],['../classclap_1_1Flag.html#a2bacd7a53f3ca3ffd97bfc1627f2b53a',1,'clap::Flag::Flag()'],['../classclap_1_1Flag.html',1,'clap::Flag']]],
+  ['flag_2ehpp_9',['Flag.hpp',['../Flag_8hpp.html',1,'']]],
+  ['freeroam_10',['FreeRoam',['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344aedbfa311cff491cfa7122be7a88815b7',1,'UIApp.hpp']]],
+  ['freeroamcontroller_11',['freeroamcontroller',['../classFreeRoamController.html',1,'FreeRoamController'],['../classFreeRoamController.html#a9619f9d1d877fabd6a04d2d6dc1a336a',1,'FreeRoamController::FreeRoamController()']]],
+  ['freeroamcontroller_2ecpp_12',['FreeRoamController.cpp',['../FreeRoamController_8cpp.html',1,'']]],
+  ['freeroamcontroller_2ehpp_13',['FreeRoamController.hpp',['../FreeRoamController_8hpp.html',1,'']]],
+  ['fromcstruct_14',['fromCStruct',['../classVec3.html#ad450220fa67e9e7bb5545ea14f3357f7',1,'Vec3']]],
+  ['front_5fface_15',['front_face',['../classHitRecord.html#a95d5e41521e7dd017ec39d583602c745',1,'HitRecord']]]
 ];

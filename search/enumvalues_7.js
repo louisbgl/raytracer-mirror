@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['warning_0',['Warning',['../ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'ToastManager.hpp']]]
+  ['launchui_0',['LaunchUI',['../main_8cpp.html#a3dfe11cf1a3a8121f6cd7fec4bf5947eaf62119351fbd510811ce6ae7efb736e1',1,'main.cpp']]]
 ];

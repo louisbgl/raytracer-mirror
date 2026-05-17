@@ -3,6 +3,7 @@ var structPixelBuffer =
     [ "init", "structPixelBuffer.html#a352e5ccecbaea06be91b08d1489d6832", null ],
     [ "reset", "structPixelBuffer.html#a2817c04a5dde3f5103fd67dff298dfdc", null ],
     [ "setRow", "structPixelBuffer.html#ae9c580cf182dacc99828de4caa2bb75b", null ],
+    [ "swapBuffers", "structPixelBuffer.html#a5d83ac54a84a005693cdea8ccd8c1cf6", null ],
     [ "cancel", "structPixelBuffer.html#ae8cb93759e47ea12fded6ca140cc0ed4", null ],
     [ "done", "structPixelBuffer.html#a7557a824c9fed1d51dcea48ed0dda956", null ],
     [ "height", "structPixelBuffer.html#abd9307aede7aa417f0e0d2a0158a9e86", null ],

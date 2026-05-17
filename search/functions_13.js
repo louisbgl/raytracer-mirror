@@ -1,13 +1,4 @@
 var searchData=
 [
-  ['wantsback_0',['wantsBack',['../classRenderPanel.html#ad6990db6f8be81508bf89920a0aabb32',1,'RenderPanel']]],
-  ['wantscancel_1',['wantsCancel',['../classRenderPanel.html#a165dca4cafdf4622b1bc584224315434',1,'RenderPanel']]],
-  ['wantslaunch_2',['wantsLaunch',['../classSceneBrowser.html#a218a2a8c889d5d7e7a9d9edced4997ce',1,'SceneBrowser']]],
-  ['warn_3',['warn',['../classLogger.html#a24b519e0f53e73937f93edd2da37ea76',1,'Logger']]],
-  ['watchfileevents_4',['watchFileEvents',['../classFileWatcher.html#aaf8e9cb408c5040cdec63773ddd686cf',1,'FileWatcher']]],
-  ['wd_5',['wd',['../classInotifyEvent.html#a196dee4555542d821f8e17103f1d24b4',1,'InotifyEvent::wd()'],['../classInotifyWatch.html#adfac447a4a4ea42bdc440665a5aada69',1,'InotifyWatch::wd()']]],
-  ['what_6',['what',['../classclap_1_1ClapException.html#aad448178fd7b6d2770189c53f4b86fd6',1,'clap::ClapException']]],
-  ['width_7',['width',['../classImage.html#ae533bfa2a8ddf6719e227c68bfcaa42e',1,'Image']]],
-  ['world_8',['world',['../classScene.html#a6f63649b97d2de845d8ed3ca46fa3ff8',1,'Scene::world() const'],['../classScene.html#afe699281c0f4454c65ba3e1d8ff33195',1,'Scene::world()'],['../classWorld.html#a1fc6067fe31da6405bece93c9dbb61ac',1,'World::World()=default'],['../classWorld.html#a626968f1cc28615f2ef570644855e16e',1,'World::World(std::vector&lt; std::shared_ptr&lt; IShape &gt; &gt; objects)']]],
-  ['writefile_9',['writeFile',['../classImage.html#aec719c93f965a7a60ad2ddff92ce0200',1,'Image']]]
+  ['vec3_0',['vec3',['../classVec3.html#abbb966e5e5877b8ad39de761cf2b42ce',1,'Vec3::Vec3() noexcept'],['../classVec3.html#a9fd3f44c643820155d19d2581e13e7c9',1,'Vec3::Vec3(double x, double y, double z) noexcept'],['../classVec3.html#ab3c0083bdc38045673e09f2803a95051',1,'Vec3::Vec3(const Vec3C &amp;c) noexcept']]]
 ];

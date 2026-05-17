@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['toasttype_0',['ToastType',['../ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978',1,'ToastManager.hpp']]]
+  ['runmode_0',['RunMode',['../main_8cpp.html#a3dfe11cf1a3a8121f6cd7fec4bf5947e',1,'main.cpp']]]
 ];

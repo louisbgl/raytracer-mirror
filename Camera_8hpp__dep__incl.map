@@ -1,11 +1,15 @@
 <map id="src/DataTypes/Camera.hpp" name="src/DataTypes/Camera.hpp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="159,5,355,31"/>
-<area shape="rect" id="Node000002" href="$Scene_8hpp.html" title=" " alt="" coords="165,79,349,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,44,260,79,255,79,255,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="506,5,702,31"/>
+<area shape="rect" id="Node000002" href="$Scene_8hpp.html" title=" " alt="" coords="265,79,449,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="552,37,398,81,397,76,551,32"/>
+<area shape="rect" id="Node000008" href="$FreeRoamController_8hpp.html" title=" " alt="" coords="495,79,713,104"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="607,44,607,79,601,79,601,44"/>
+<area shape="rect" id="Node000010" href="$UIApp_8hpp.html" title=" " alt="" coords="725,152,853,177"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="651,33,690,52,727,77,762,115,785,150,781,153,758,118,724,81,687,56,649,38"/>
 <area shape="rect" id="Node000003" href="$Logger_8hpp.html" title=" " alt="" coords="83,152,231,177"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="232,114,175,154,172,150,229,110"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="313,111,191,154,189,149,311,106"/>
 <area shape="rect" id="Node000006" href="$SceneParser_8hpp.html" title=" " alt="" coords="256,152,459,177"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="286,110,343,150,339,154,283,114"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="360,118,360,152,355,152,355,118"/>
 <area shape="rect" id="Node000004" href="$Core_8cpp.html" title=" " alt="" coords="177,225,311,251"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="183,184,232,223,228,227,180,188"/>
 <area shape="rect" id="Node000005" href="$Logger_8cpp.html" title=" " alt="" coords="5,225,152,251"/>
@@ -13,4 +17,9 @@
 <area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="329,187,264,227,261,223,326,183"/>
 <area shape="rect" id="Node000007" href="$SceneParser_8cpp.html" title=" " alt="" coords="336,225,539,251"/>
 <area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="382,184,426,223,422,227,378,188"/>
+<area shape="rect" id="Node000009" href="$FreeRoamController_8cpp.html" title=" " alt="" coords="483,152,701,177"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="602,118,597,152,591,151,597,117"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="647,106,760,149,758,154,645,111"/>
+<area shape="rect" id="Node000011" href="$UIApp_8cpp.html" title=" " alt="" coords="726,225,853,251"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="792,191,792,225,787,225,787,191"/>
 </map>

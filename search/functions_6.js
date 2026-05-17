@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['handleevent_0',['handleevent',['../classSceneBrowser.html#a195035666ff50fdedd2ebf6b29529bbb',1,'SceneBrowser::handleEvent()'],['../classRenderPanel.html#afb5d35ec1bf6457cb599d44fa247e845',1,'RenderPanel::handleEvent()']]],
-  ['has_5flight_1',['has_light',['../classScene.html#a211d85855212d81bd98d4eacc824c2ef',1,'Scene']]],
-  ['has_5fobject_2',['has_object',['../classWorld.html#a591951377ceef7b8cdc72e50ff6e8e41',1,'World']]],
-  ['hasroots_3',['hasroots',['../structCubicRoots.html#afe779392a46c1ffb1320f1076fd15475',1,'CubicRoots::hasRoots()'],['../structQuadraticRoots.html#a80fb79948ef29f0aefea06763fae8f2a',1,'QuadraticRoots::hasRoots()'],['../structQuarticRoots.html#a7465faee2787e01ed5a50cda95e26798',1,'QuarticRoots::hasRoots()']]],
-  ['hasselection_4',['hasSelection',['../classSceneBrowser.html#aca739232f955cf83981f214c3836237b',1,'SceneBrowser']]],
-  ['height_5',['height',['../classImage.html#a000645ffdca3b8260ddda3932b56b9d4',1,'Image']]],
-  ['helpdisplay_6',['HelpDisplay',['../classHelpDisplay.html#abbc91e84af2337783d14a83dafadf5b9',1,'HelpDisplay']]],
-  ['helprequested_7',['HelpRequested',['../classclap_1_1HelpRequested.html#ab10faefef6a06b3bbaee2c677c5c4c1b',1,'clap::HelpRequested']]],
-  ['hit_8',['hit',['../classHourglass.html#a905a3e860f0b4248b2de824689e253b5',1,'Hourglass::hit()'],['../classPlane.html#a22421ec855feeb8229102efd2a318fc5',1,'Plane::hit()'],['../classMeshTriangle.html#aa58eec20c9acc5e996710517b36f2db7',1,'MeshTriangle::hit()'],['../classCylinder.html#ac0deb86d8a6b091570e296462c399e1d',1,'Cylinder::hit()'],['../classBVHNode.html#a972bfe81eda02fa831f561bd4f7b7b44',1,'BVHNode::hit()'],['../classAABB.html#a358244fa3b071294dd3adbe3b74398d5',1,'AABB::hit()'],['../classIShape.html#ad1dcefec640ab739b0944a20ba5de6d4',1,'IShape::hit()'],['../classAShape.html#afbff68d7a0a5fdc03eca3c610d3d740a',1,'AShape::hit()'],['../classCone.html#a88be79b3ec956669ab28c60de1c751cb',1,'Cone::hit()']]],
-  ['hitlocal_9',['hitlocal',['../classLimitedHourglass.html#a1a0ecce80feb6a7b4c9ef5b4d2685bda',1,'LimitedHourglass::hitLocal()'],['../classTriangle.html#a406e2db3b32e78a80d6e1a241d501e91',1,'Triangle::hitLocal()'],['../classTorus.html#a882023d86f38f0c6d4aea93c5dcc3758',1,'Torus::hitLocal()'],['../classTanglecube.html#ad8d4fbc64bcd7fe2b21397daeca01922',1,'Tanglecube::hitLocal()'],['../classSphere.html#a753cced4b9650753bf1849a23b2c190d',1,'Sphere::hitLocal()'],['../classRectangle.html#aaa8fd8dac6ed4699147d0a47f43dd437',1,'Rectangle::hitLocal()'],['../classMesh.html#abfdd453ea4588ec53e1bf70c13c7a898',1,'Mesh::hitLocal()'],['../classLimitedCylinder.html#a02f33b0a24bc4a86b7037db188b17d79',1,'LimitedCylinder::hitLocal()'],['../classLimitedCone.html#a0e9f3185345984cefd179b98fe579290',1,'LimitedCone::hitLocal()'],['../classBox.html#aae38fbcd8b6c2660403c9645c43cf4d5',1,'Box::hitLocal()'],['../classAShape.html#abcae5bb9f9414ff50b4eed6df9ae8688',1,'AShape::hitLocal()'],['../classARayMarchedShape.html#aa3c2f1cbae85ec52877ac5488044377d',1,'ARayMarchedShape::hitLocal()']]],
-  ['hitrecord_10',['hitrecord',['../classHitRecord.html#acf32f3a919243a802bddc27ad6fdb03f',1,'HitRecord::HitRecord()=default'],['../classHitRecord.html#aad40a1a59645cfde140eb066ffa8d7f7',1,'HitRecord::HitRecord(Vec3 point, Vec3 normal, double t, bool front_face, std::shared_ptr&lt; IMaterial &gt; material)']]],
-  ['hourglass_11',['Hourglass',['../classHourglass.html#aa06e49cb6b27e4d9e692b86ec7ddc281',1,'Hourglass']]]
+  ['get_0',['get',['../classclap_1_1Positional.html#a5282670359a004ff6f0f3de92a35a25b',1,'clap::Positional::get()'],['../classclap_1_1Option.html#a4f98951ee694191ee11f1317330e4bcb',1,'clap::Option::get()']]],
+  ['get_5fclosest_5fhit_1',['get_closest_hit',['../classWorld.html#a422e2ae317862b6e0d4b2721daca82ee',1,'World']]],
+  ['get_5flight_5fdata_2',['get_light_data',['../classILight.html#ae7e0f7fe7bddce119e751abf47099fd5',1,'ILight::get_light_data()'],['../classDirectionalLight.html#af7f43c28e9534c82df185f6dd35f04db',1,'DirectionalLight::get_light_data()'],['../classPointLight.html#afb5dba947446082458d752b276b5a780',1,'PointLight::get_light_data()']]],
+  ['getcamera_3',['getcamera',['../classCore.html#aa65bdcf8edef548147c40dbd6eef99be',1,'Core::getCamera()'],['../classFreeRoamController.html#af5664da42f6e191cb0ad36c0376335b9',1,'FreeRoamController::getCamera()']]],
+  ['getcreatefunction_4',['getCreateFunction',['../classPluginManager.html#a2da3471bc179647a26229da8b6d48b59',1,'PluginManager']]],
+  ['getfov_5',['getFov',['../classCamera.html#a1e6f2044fa0777281cce45d573e2eed4',1,'Camera']]],
+  ['getheight_6',['getHeight',['../classCamera.html#a577faefd32dd6e66ee35311419ea9741',1,'Camera']]],
+  ['getlookat_7',['getLookAt',['../classCamera.html#a28bc509b13325d90d21a32fe686784d5',1,'Camera']]],
+  ['getnumber_8',['getnumber',['../classConfigUtils.html#abc44477aaf252a6bb09b5296c4a856f5',1,'ConfigUtils::getNumber(const libconfig::Setting &amp;setting)'],['../classConfigUtils.html#a1d7df314f2531a02b29fcfd51b27c68a',1,'ConfigUtils::getNumber(const libconfig::Setting &amp;setting, const char *key, double fallback)']]],
+  ['getpixel_9',['getPixel',['../classImage.html#a4e42747a00227551466626bf22e56fd5',1,'Image']]],
+  ['getpluginsbycategory_10',['getPluginsByCategory',['../classPluginManager.html#a1984f3b9481dd56b4b8b1e081625a6ea',1,'PluginManager']]],
+  ['getposition_11',['getPosition',['../classCamera.html#a79d8e301befc88644679d1c841d185d3',1,'Camera']]],
+  ['getray_12',['getRay',['../classCamera.html#a3c8c3f666985ddf4f86925973606f582',1,'Camera']]],
+  ['getsingular_13',['getSingular',['../classPluginManager.html#acfb38b0b66aabe6f7cd0d0f74197aef0',1,'PluginManager']]],
+  ['getsymbol_14',['getSymbol',['../classPluginLoader.html#a7cef554d556aa21be315a4ee76cd9b37',1,'PluginLoader']]],
+  ['getup_15',['getUp',['../classCamera.html#a022fcbff11f69b811966862bbb7cd54c',1,'Camera']]],
+  ['getwatchedpath_16',['getWatchedPath',['../classFileWatcher.html#a75f2d80b261587a9e398573f3cb303cd',1,'FileWatcher']]],
+  ['getwidth_17',['getWidth',['../classCamera.html#a4403375c8460a9beda32662685372968',1,'Camera']]]
 ];

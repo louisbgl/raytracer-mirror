@@ -12,6 +12,7 @@ var classScene =
     [ "rendererConfig", "classScene.html#ac40cae00236b4729aad51c31ae0cd265", null ],
     [ "set_camera", "classScene.html#a87055006cf16c9950b80fe98451cdb50", null ],
     [ "set_world", "classScene.html#ac587ad647a90e9d0b2f6da1a246a353e", null ],
+    [ "setCamera", "classScene.html#a46a90cd1e3344a810325f843160127ca", null ],
     [ "setMaterialCount", "classScene.html#a7f437a08fb95e98b9651206bc91b95d6", null ],
     [ "setRendererConfig", "classScene.html#a66c68d743f0b8b1c2845b90152142794", null ],
     [ "world", "classScene.html#afe699281c0f4454c65ba3e1d8ff33195", null ],

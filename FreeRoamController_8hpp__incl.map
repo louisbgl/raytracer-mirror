@@ -1,0 +1,20 @@
+<map id="src/ui/FreeRoamController.hpp" name="src/ui/FreeRoamController.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="61,5,280,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,152,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,33,106,72,103,68,154,29"/>
+<area shape="rect" id="Node000003" href="$Camera_8hpp.html" title=" " alt="" coords="176,79,349,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,29,239,68,235,72,184,33"/>
+<area shape="rect" id="Node000004" href="$Vec3_8hpp.html" title=" " alt="" coords="222,225,303,251"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="262,105,255,137,253,177,259,211,254,212,248,178,250,137,257,104"/>
+<area shape="rect" id="Node000009" href="$Ray_8hpp.html" title=" " alt="" coords="263,152,337,177"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="271,103,290,139,285,141,266,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="82,299,145,324"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="240,253,151,295,149,290,238,248"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="169,299,249,324"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="256,253,228,289,224,286,252,249"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="274,299,361,324"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="274,249,302,286,298,289,270,253"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="385,299,455,324"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="289,248,383,291,381,295,287,253"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="296,179,277,215,273,212,291,176"/>
+</map>

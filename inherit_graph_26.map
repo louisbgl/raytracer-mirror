@@ -1,3 +1,21 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classInotifyWatch.html" title=" " alt="" coords="5,5,108,31"/>
+<area shape="rect" id="Node000000" href="$classIMaterial.html" title="Interface for materials that define how rays interact with surfaces." alt="" coords="5,203,85,228"/>
+<area shape="rect" id="Node000001" href="$classChessboard.html" title=" " alt="" coords="145,5,244,31"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="51,189,62,156,78,116,101,76,132,40,148,29,151,33,135,44,106,79,83,118,67,157,56,190"/>
+<area shape="rect" id="Node000002" href="$classColoredDiffuse.html" title=" " alt="" coords="135,55,254,80"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="56,189,86,139,107,113,132,89,151,78,154,82,135,93,111,116,91,142,61,192"/>
+<area shape="rect" id="Node000003" href="$classImageTexture.html" title=" " alt="" coords="139,104,250,129"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="67,191,97,164,132,138,154,127,157,132,135,143,100,168,71,194"/>
+<area shape="rect" id="Node000004" href="$classLambertian.html" title=" " alt="" coords="147,153,243,179"/>
+<area shape="poly" id="edge9_Node000000_Node000004" title=" " alt="" coords="96,196,154,176,156,181,98,201"/>
+<area shape="rect" id="Node000005" href="$classNormalMapped.html" title=" " alt="" coords="133,203,256,228"/>
+<area shape="poly" id="edge10_Node000000_Node000005" title=" " alt="" coords="99,213,133,213,133,218,99,218"/>
+<area shape="rect" id="Node000006" href="$classPerlinNoise.html" title=" " alt="" coords="147,252,243,277"/>
+<area shape="poly" id="edge11_Node000000_Node000006" title=" " alt="" coords="98,230,156,249,154,254,96,235"/>
+<area shape="rect" id="Node000007" href="$classPhong.html" title=" " alt="" coords="163,301,226,327"/>
+<area shape="poly" id="edge12_Node000000_Node000007" title=" " alt="" coords="71,236,100,261,135,286,164,301,162,306,132,291,97,266,67,240"/>
+<area shape="rect" id="Node000008" href="$classReflective.html" title="Reflective material implementing perfect mirror reflection." alt="" coords="151,351,238,376"/>
+<area shape="poly" id="edge13_Node000000_Node000008" title=" " alt="" coords="61,239,91,288,111,313,135,336,155,348,153,353,132,340,108,317,87,291,57,242"/>
+<area shape="rect" id="Node000009" href="$classRefractive.html" title="Refractive material implementing light bending and transparency." alt="" coords="150,400,239,425"/>
+<area shape="poly" id="edge14_Node000000_Node000009" title=" " alt="" coords="56,240,84,312,106,351,135,385,154,398,151,402,132,389,102,354,79,314,51,242"/>
 </map>

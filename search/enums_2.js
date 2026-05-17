@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uistate_0',['UIState',['../UIApp_8hpp.html#a46982b6b3247b002a74dde6ca26b2344',1,'UIApp.hpp']]]
+  ['toasttype_0',['ToastType',['../ToastManager_8hpp.html#a11ee8d7e18cf458ad5b45a396a356978',1,'ToastManager.hpp']]]
 ];
